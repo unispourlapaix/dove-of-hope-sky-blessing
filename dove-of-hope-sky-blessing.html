@@ -1,0 +1,2045 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<title>Dove of Hope : Sky Blessing</title>
+<script src="bible-verses.js"></script>
+<script src="translations.js"></script>
+<style>
+* {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+body{margin:0;padding:0;background:linear-gradient(135deg,#fff 0%,#f8f9fa 50%,#e9ecef 100%);font-family:Arial,sans-serif;overflow:hidden;touch-action:none;position:fixed;width:100%;height:100%}
+#gameContainer{position:relative;width:100vw;height:100vh;max-width:480px;margin:0 auto;background:linear-gradient(180deg,#87ceeb 0%,#b8d8f8 100%);display:flex;align-items:center;justify-content:center}
+#gameCanvas{display:block;cursor:none;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);max-width:100%;max-height:100%;z-index:10}
+.landscape{position:absolute;bottom:0;left:0;right:0;height:100vh;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Cpolygon points='0,300 80,240 160,300' fill='%23f8f9fa' opacity='0.5'/%3E%3Cpolygon points='120,300 200,240 280,300' fill='%23ffffff' opacity='0.8'/%3E%3Cpolygon points='240,300 320,240 400,300' fill='%23f8f9fa' opacity='0.5'/%3E%3Cpolygon points='60,300 140,260 220,300' fill='%23ecf0f1' opacity='0.4'/%3E%3Cpolygon points='180,300 260,260 340,300' fill='%23ecf0f1' opacity='0.4'/%3E%3C/svg%3E") no-repeat bottom center/cover;pointer-events:none;z-index:1}
+#ui{position:absolute;top:10px;left:10px;right:10px;color:#2c3e50;font-weight:bold;z-index:100;text-shadow:0 1px 2px rgba(255,255,255,0.8);font-size:14px;display:flex;justify-content:space-between;flex-wrap:wrap}
+#ui > div{margin:2px 5px;background:rgba(255,255,255,0.7);padding:3px 8px;border-radius:10px;box-shadow:0 2px 4px rgba(0,0,0,0.1)}
+#message{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#34495e;font-size:18px;font-weight:bold;text-align:center;opacity:0;transition:opacity 0.5s;text-shadow:0 2px 4px rgba(255,255,255,0.9);z-index:200;max-width:90%;padding:15px}
+#startButton{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);width:80px;height:100px;background:linear-gradient(180deg,transparent 0%,transparent 60%,#34495e 60%,#2c3e50 100%);border:none;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;cursor:pointer;transition:all 0.3s;overflow:hidden;z-index:300}
+#startButton::before{content:'💡';position:absolute;top:50%;left:50%;transform:translate(-50%,-75%);font-size:35px;animation:bulbGlow 2s infinite}
+#startButton::after{content:'O/I';position:absolute;bottom:12px;left:50%;transform:translateX(-50%);color:white;font-size:12px;font-weight:bold;text-shadow:0 1px 2px rgba(0,0,0,0.5)}
+#startButton:hover,#startButton:active{transform:translateX(-50%) translateY(-5px);box-shadow:0 10px 25px rgba(52,152,219,0.4)}
+.sun{position:absolute;top:15%;right:50px;transform:translateY(-50%);width:60px;height:60px;border-radius:50%;transition:all 0.4s ease;z-index:5}
+.sun::before{content:'';position:absolute;top:-10px;left:-10px;right:-10px;bottom:-10px;border-radius:50%;border:3px solid;opacity:0.5;animation:rays 4s infinite linear}
+.sun::after{content:'';position:absolute;top:-5px;left:-5px;right:-5px;bottom:-5px;border-radius:50%;border:2px dashed;opacity:0.3;animation:rays 6s infinite linear reverse}
+.sun.happy{background:radial-gradient(circle,#fff9c4 0%,#ffeb3b 40%,#ffc107 70%,#ff9800 100%);box-shadow:0 0 40px rgba(255,193,7,0.8),0 0 20px rgba(255,235,59,0.6);animation:glow 2s infinite}
+.sun.happy::before{border-color:#ffc107;opacity:0.7}
+.sun.happy::after{border-color:#ffeb3b}
+.sun.sad{background:radial-gradient(circle,#ecf0f1 0%,#bdc3c7 60%,#95a5a6 100%);box-shadow:0 0 15px rgba(149,165,166,0.5)}
+.sun.sad::before{border-color:#95a5a6;opacity:0.3;animation:none}
+.sun.sad::after{display:none}
+.sun.neutral{background:radial-gradient(circle,#fdeaa7 0%,#f39c12 60%,#e67e22 100%);box-shadow:0 0 25px rgba(243,156,18,0.6)}
+.sun.neutral::before{border-color:#f39c12;opacity:0.5;animation:rays 6s infinite linear}
+.motivation{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#2c3e50;font-size:14px;text-align:center;font-weight:500;text-shadow:0 1px 2px rgba(255,255,255,0.8);opacity:1;transition:opacity 0.5s;max-width:90%;padding:10px;background:rgba(255,255,255,0.8);border-radius:10px}
+@keyframes bulbGlow{0%,100%{opacity:0.8;transform:translate(-50%,-60%) scale(1)}50%{opacity:1;transform:translate(-50%,-60%) scale(1.1)}}
+@keyframes fadeOut{0%,75%{opacity:1}100%{opacity:0}}
+@keyframes rays{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+@keyframes glow{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+
+@media (min-width: 600px) {
+  #gameContainer{max-width:480px;box-shadow:0 0 20px rgba(0,0,0,0.2)}
+}
+
+@media (max-width: 480px) {
+  #gameContainer{max-width:100vw}
+}
+</style>
+</head>
+<body>
+<div id="gameContainer">
+<canvas id="gameCanvas"></canvas>
+<div class="landscape"></div>
+<div class="sun neutral" id="sun"></div>
+<div id="ui">
+<div>Score: <span id="score">0</span></div>
+<div>Nuages: <span id="clouds">0</span></div>
+<div>Niveau: <span id="level">1</span></div>
+<div>Vie: <span id="lives">3</span> ❤️</div>
+<div onclick="showStats()" style="cursor:pointer;background:rgba(52,152,219,0.8);">💎 Trésors</div>
+</div>
+<div id="message"></div>
+<button id="startButton"></button>
+<div class="motivation">"La vie est souvent un long combat, il faut du courage et de la force pour tenir bon aux mauvais jours. Vaillant héros, lève-toi, et avec l'amour de Dieu transforme les nuages gris en bien."</div>
+</div>
+
+<script>
+// ============================================
+// 🌍 SYSTEM DE TRADUCTION MULTILINGUE
+// ============================================
+// SYSTÈME DE TRADUCTION (utilise translations.js)
+// ============================================
+
+// Langue actuelle (par défaut: français)
+let currentLang = 'fr';
+
+// Fonction pour changer de langue
+function setLanguage(langCode) {
+  if (languageExists(langCode)) {
+    currentLang = langCode;
+    localStorage.setItem('doveGameLang', langCode);
+    updateUILanguage();
+  }
+}
+
+// Fonction pour obtenir une traduction
+function t(key, params = {}) {
+  let value = getTranslation(currentLang, key);
+  
+  if (!value) return key;
+  
+  // Remplacer les paramètres {param}
+  if (typeof value === 'string') {
+    Object.keys(params).forEach(param => {
+      value = value.replace(new RegExp(`\\{${param}\\}`, 'g'), params[param]);
+    });
+  }
+  
+  return value;
+}
+
+// Fonction pour mettre à jour la langue de l'interface
+function updateUILanguage() {
+  // Mettre à jour les textes de l'UI si nécessaire
+  if (state === 'start' || state === 'gameOver') {
+    // Recharger l'écran
+  }
+}
+
+// Charger la langue sauvegardée
+const savedLang = localStorage.getItem('doveGameLang');
+if (savedLang && languageExists(savedLang)) {
+  currentLang = savedLang;
+}
+
+// ============================================
+// 💾 SYSTÈME DE SAUVEGARDE LOCALE
+// ============================================
+
+const SAVE_KEY = 'doveGameSave';
+
+// Structure des données de sauvegarde
+// Structure des données de sauvegarde
+let gameData = {
+  // Progression
+  highestLevelReached: 1,
+  highScore: 0,
+  totalCloudsDestroyed: 0,
+  totalGamesPlayed: 0,
+  totalPlayTime: 0, // en secondes
+  
+  // Statistiques
+  stats: {
+    totalShots: 0,
+    totalHits: 0,
+    totalMisses: 0,
+    totalPowerUpsCollected: 0,
+    totalLivesLost: 0,
+    longestSurvival: 0,
+    perfectLevels: 0,
+    deathsByClouds: 0,
+    deathsByRain: 0
+  },
+  
+  // Achievements (pour usage futur)
+  achievements: [],
+  
+  // Niveaux bonus
+  bonusLevels: {
+    completed: [false, false, false, false], // 4 niveaux bonus
+    bestScores: [0, 0, 0, 0],
+    totalItemsCollected: 0
+  },
+  
+  // Dernière session
+  lastPlayed: null,
+  lastScore: 0,
+  lastLevel: 1
+};
+
+// Charger les données sauvegardées
+function loadGameData() {
+  try {
+    const savedData = localStorage.getItem(SAVE_KEY);
+    if (savedData) {
+      const parsed = JSON.parse(savedData);
+      // Fusionner avec la structure par défaut pour compatibilité
+      gameData = { ...gameData, ...parsed };
+      console.log('💾 Données chargées:', gameData);
+      return true;
+    }
+  } catch (error) {
+    console.error('❌ Erreur lors du chargement:', error);
+  }
+  return false;
+}
+
+// Sauvegarder les données
+function saveGameData() {
+  try {
+    gameData.lastPlayed = new Date().toISOString();
+    localStorage.setItem(SAVE_KEY, JSON.stringify(gameData));
+    console.log('💾 Données sauvegardées');
+    return true;
+  } catch (error) {
+    console.error('❌ Erreur lors de la sauvegarde:', error);
+    return false;
+  }
+}
+
+// Mettre à jour les statistiques en temps réel
+function updateStats(statName, value = 1) {
+  if (gameData.stats.hasOwnProperty(statName)) {
+    gameData.stats[statName] += value;
+  }
+}
+
+// Sauvegarder la progression du niveau
+function saveProgress(level, score, clouds) {
+  // Mise à jour du meilleur niveau atteint
+  if (level > gameData.highestLevelReached) {
+    gameData.highestLevelReached = level;
+  }
+  
+  // Mise à jour du meilleur score
+  if (score > gameData.highScore) {
+    gameData.highScore = score;
+  }
+  
+  // Mise à jour des nuages détruits
+  gameData.totalCloudsDestroyed += clouds;
+  
+  // Dernière session
+  gameData.lastScore = score;
+  gameData.lastLevel = level;
+  
+  // Sauvegarder
+  saveGameData();
+}
+
+// Sauvegarder à la fin de la partie
+function saveGameEnd(finalScore, finalLevel, finalClouds, survivalTime) {
+  gameData.totalGamesPlayed++;
+  gameData.totalPlayTime += Math.floor(survivalTime / 1000);
+  
+  if (survivalTime > gameData.stats.longestSurvival) {
+    gameData.stats.longestSurvival = survivalTime;
+  }
+  
+  saveProgress(finalLevel, finalScore, finalClouds);
+}
+
+// Réinitialiser toutes les données (pour debug ou reset complet)
+function resetGameData() {
+  if (confirm('⚠️ Voulez-vous vraiment réinitialiser toutes vos données ?')) {
+    localStorage.removeItem(SAVE_KEY);
+    gameData = {
+      highestLevelReached: 1,
+      highScore: 0,
+      totalCloudsDestroyed: 0,
+      totalGamesPlayed: 0,
+      totalPlayTime: 0,
+      stats: {
+        totalShots: 0,
+        totalHits: 0,
+        totalMisses: 0,
+        totalPowerUpsCollected: 0,
+        totalLivesLost: 0,
+        longestSurvival: 0,
+        perfectLevels: 0,
+        deathsByClouds: 0,
+        deathsByRain: 0
+      },
+      achievements: [],
+      bonusLevels: {
+        completed: [false, false, false, false],
+        bestScores: [0, 0, 0, 0],
+        totalItemsCollected: 0
+      },
+      lastPlayed: null,
+      lastScore: 0,
+      lastLevel: 1
+    };
+    console.log('🔄 Données réinitialisées');
+    return true;
+  }
+  return false;
+}
+
+// Exporter les données (pour backup)
+function exportGameData() {
+  // Créer un canvas pour l'image
+  const canvas = document.createElement('canvas');
+  canvas.width = 1080;
+  canvas.height = 1080;
+  const ctx = canvas.getContext('2d');
+  
+  // Fond dégradé bleu ciel
+  const gradient = ctx.createLinearGradient(0, 0, 0, 1080);
+  gradient.addColorStop(0, '#87ceeb');
+  gradient.addColorStop(0.5, '#b8d8f8');
+  gradient.addColorStop(1, '#e3f2fd');
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, 1080, 1080);
+  
+  // Dessiner le soleil
+  ctx.shadowBlur = 30;
+  ctx.shadowColor = '#ffd700';
+  ctx.fillStyle = '#ffd700';
+  ctx.beginPath();
+  ctx.arc(900, 200, 70, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.shadowBlur = 0;
+  
+  // Rayons du soleil
+  ctx.strokeStyle = 'rgba(255, 215, 0, 0.3)';
+  ctx.lineWidth = 3;
+  for (let i = 0; i < 12; i++) {
+    const angle = (i * 30) * Math.PI / 180;
+    ctx.beginPath();
+    ctx.moveTo(900 + Math.cos(angle) * 80, 200 + Math.sin(angle) * 80);
+    ctx.lineTo(900 + Math.cos(angle) * 120, 200 + Math.sin(angle) * 120);
+    ctx.stroke();
+  }
+  
+  // Petits nuages blancs
+  const drawCloud = (x, y, size) => {
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+    ctx.beginPath();
+    ctx.arc(x, y, size, 0, Math.PI * 2);
+    ctx.arc(x + size * 0.8, y - size * 0.3, size * 0.8, 0, Math.PI * 2);
+    ctx.arc(x + size * 1.6, y, size * 0.9, 0, Math.PI * 2);
+    ctx.arc(x + size * 2.2, y + size * 0.2, size * 0.7, 0, Math.PI * 2);
+    ctx.fill();
+  };
+  
+  drawCloud(150, 250, 25);
+  drawCloud(800, 320, 30);
+  drawCloud(300, 500, 20);
+  drawCloud(950, 550, 28);
+  drawCloud(100, 600, 22);
+  
+  // Particules bonus flottantes
+  // Étoile
+  const drawStar = (x, y, size) => {
+    ctx.fillStyle = '#f39c12';
+    ctx.shadowBlur = 10;
+    ctx.shadowColor = '#f39c12';
+    ctx.beginPath();
+    for (let i = 0; i < 5; i++) {
+      const angle1 = (i * 72 - 90) * Math.PI / 180;
+      const angle2 = ((i * 72) + 36 - 90) * Math.PI / 180;
+      if (i === 0) ctx.moveTo(x + Math.cos(angle1) * size, y + Math.sin(angle1) * size);
+      else ctx.lineTo(x + Math.cos(angle1) * size, y + Math.sin(angle1) * size);
+      ctx.lineTo(x + Math.cos(angle2) * size * 0.5, y + Math.sin(angle2) * size * 0.5);
+    }
+    ctx.closePath();
+    ctx.fill();
+    ctx.shadowBlur = 0;
+  };
+  
+  // Cœur
+  const drawHeart = (x, y, size) => {
+    ctx.fillStyle = '#e74c3c';
+    ctx.shadowBlur = 10;
+    ctx.shadowColor = '#e74c3c';
+    ctx.beginPath();
+    ctx.moveTo(x, y + size * 0.3);
+    ctx.bezierCurveTo(x, y, x - size * 0.5, y - size * 0.3, x - size * 0.5, y + size * 0.1);
+    ctx.bezierCurveTo(x - size * 0.5, y + size * 0.5, x, y + size * 0.7, x, y + size);
+    ctx.bezierCurveTo(x, y + size * 0.7, x + size * 0.5, y + size * 0.5, x + size * 0.5, y + size * 0.1);
+    ctx.bezierCurveTo(x + size * 0.5, y - size * 0.3, x, y, x, y + size * 0.3);
+    ctx.fill();
+    ctx.shadowBlur = 0;
+  };
+  
+  // Croix
+  const drawCross = (x, y, size) => {
+    ctx.strokeStyle = '#3498db';
+    ctx.lineWidth = size * 0.3;
+    ctx.shadowBlur = 10;
+    ctx.shadowColor = '#3498db';
+    ctx.beginPath();
+    ctx.moveTo(x, y - size);
+    ctx.lineTo(x, y + size);
+    ctx.moveTo(x - size * 0.7, y);
+    ctx.lineTo(x + size * 0.7, y);
+    ctx.stroke();
+    ctx.shadowBlur = 0;
+  };
+  
+  // Arc-en-ciel
+  const drawRainbow = (x, y, size) => {
+    const colors = ['#e74c3c', '#f39c12', '#f1c40f', '#2ecc71', '#3498db', '#9b59b6'];
+    ctx.lineWidth = size * 0.15;
+    for (let i = 0; i < colors.length; i++) {
+      ctx.strokeStyle = colors[i];
+      ctx.beginPath();
+      ctx.arc(x, y + size * 0.8, size - i * (size * 0.15), Math.PI, 0);
+      ctx.stroke();
+    }
+  };
+  
+  // Disposer les particules
+  drawStar(200, 400, 20);
+  drawHeart(850, 450, 25);
+  drawCross(100, 350, 18);
+  drawRainbow(950, 680, 35);
+  drawStar(750, 600, 15);
+  drawHeart(300, 650, 20);
+  
+  // Dessiner les montagnes en bas
+  // Montagne arrière gauche
+  ctx.fillStyle = '#b8c5d0';
+  ctx.beginPath();
+  ctx.moveTo(0, 1080);
+  ctx.lineTo(200, 850);
+  ctx.lineTo(400, 1080);
+  ctx.closePath();
+  ctx.fill();
+  
+  // Montagne arrière droite
+  ctx.fillStyle = '#b8c5d0';
+  ctx.beginPath();
+  ctx.moveTo(680, 1080);
+  ctx.lineTo(880, 850);
+  ctx.lineTo(1080, 1080);
+  ctx.closePath();
+  ctx.fill();
+  
+  // Montagne centrale (la plus haute et plus mince)
+  ctx.fillStyle = '#e8ecf0';
+  ctx.beginPath();
+  ctx.moveTo(420, 1080);
+  ctx.lineTo(540, 800);
+  ctx.lineTo(660, 1080);
+  ctx.closePath();
+  ctx.fill();
+  
+  // Sommet neigeux central (plus petit)
+  ctx.fillStyle = '#ffffff';
+  ctx.beginPath();
+  ctx.moveTo(520, 860);
+  ctx.lineTo(540, 800);
+  ctx.lineTo(560, 860);
+  ctx.closePath();
+  ctx.fill();
+  
+  // Montagne avant gauche
+  ctx.fillStyle = '#d0dae3';
+  ctx.beginPath();
+  ctx.moveTo(0, 1080);
+  ctx.lineTo(150, 900);
+  ctx.lineTo(350, 1080);
+  ctx.closePath();
+  ctx.fill();
+  
+  // Montagne avant droite
+  ctx.fillStyle = '#d0dae3';
+  ctx.beginPath();
+  ctx.moveTo(730, 1080);
+  ctx.lineTo(930, 900);
+  ctx.lineTo(1080, 1080);
+  ctx.closePath();
+  ctx.fill();
+  
+  // Dessiner la colombe (style du jeu)
+  const birdX = 440;
+  const birdY = 300;
+  const scale = 4;
+  
+  // Corps de l'oiseau (sans halo jaune)
+  ctx.shadowBlur = 0;
+  ctx.fillStyle = '#ffffff';
+  ctx.strokeStyle = '#2c3e50';
+  ctx.lineWidth = 3;
+  
+  // Tête
+  ctx.beginPath();
+  ctx.moveTo(birdX + 20*scale, birdY + 8*scale);
+  ctx.lineTo(birdX + 15*scale, birdY + 22*scale);
+  ctx.lineTo(birdX + 25*scale, birdY + 22*scale);
+  ctx.closePath();
+  ctx.fill();
+  ctx.stroke();
+  
+  // Aile gauche
+  ctx.beginPath();
+  ctx.moveTo(birdX + 15*scale, birdY + 12*scale);
+  ctx.lineTo(birdX + 2*scale, birdY + 8*scale);
+  ctx.lineTo(birdX + 18*scale, birdY + 25*scale);
+  ctx.closePath();
+  ctx.fill();
+  ctx.stroke();
+  
+  // Aile droite
+  ctx.beginPath();
+  ctx.moveTo(birdX + 25*scale, birdY + 12*scale);
+  ctx.lineTo(birdX + 38*scale, birdY + 8*scale);
+  ctx.lineTo(birdX + 22*scale, birdY + 25*scale);
+  ctx.closePath();
+  ctx.fill();
+  ctx.stroke();
+  
+  // Queue
+  ctx.beginPath();
+  ctx.moveTo(birdX + 20*scale, birdY + 22*scale);
+  ctx.lineTo(birdX + 18*scale, birdY + 30*scale);
+  ctx.lineTo(birdX + 22*scale, birdY + 30*scale);
+  ctx.closePath();
+  ctx.fill();
+  ctx.stroke();
+  
+  ctx.shadowBlur = 0;
+  
+  // Titre du jeu
+  ctx.fillStyle = '#2c3e50';
+  ctx.font = 'bold 60px Arial';
+  ctx.textAlign = 'center';
+  ctx.fillText('Dove of Hope', 540, 150);
+  ctx.font = '36px Arial';
+  ctx.fillText('Sky Blessing', 540, 200);
+  
+  // Score
+  ctx.fillStyle = '#f39c12';
+  ctx.font = 'bold 80px Arial';
+  ctx.fillText(`Score: ${gameData.highScore.toLocaleString()}`, 540, 540);
+  
+  // Niveau
+  ctx.fillStyle = '#3498db';
+  ctx.font = 'bold 50px Arial';
+  ctx.fillText(`Niveau ${gameData.highestLevelReached}`, 540, 620);
+  
+  // Nuages détruits
+  ctx.fillStyle = '#95a5a6';
+  ctx.font = '40px Arial';
+  ctx.fillText(`${gameData.totalCloudsDestroyed} nuages dissipés`, 540, 680);
+  
+  // Message motivant
+  ctx.fillStyle = '#e74c3c';
+  ctx.font = 'bold italic 45px Arial';
+  ctx.textAlign = 'center';
+  const message = 'Courage, vaillant héros !';
+  ctx.fillText(message, 540, 770);
+  
+  // Phrase inspirante
+  ctx.fillStyle = '#2c3e50';
+  ctx.font = '32px Arial';
+  ctx.fillText('Transforme les nuages gris', 540, 830);
+  ctx.fillText('en lumière divine', 540, 870);
+  
+  // Télécharger l'image
+  canvas.toBlob((blob) => {
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `dove-of-hope-score-${gameData.highScore}.png`;
+    link.click();
+    URL.revokeObjectURL(url);
+    console.log('📤 Image exportée');
+  });
+}
+
+// Importer les données (pour restore)
+function importGameData(fileInput) {
+  const file = fileInput.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const imported = JSON.parse(e.target.result);
+        gameData = { ...gameData, ...imported };
+        saveGameData();
+        console.log('📥 Données importées');
+        alert('✅ Données importées avec succès !');
+      } catch (error) {
+        console.error('❌ Erreur lors de l\'import:', error);
+        alert('❌ Fichier invalide');
+      }
+    };
+    reader.readAsText(file);
+  }
+}
+
+// Charger les données au démarrage
+loadGameData();
+
+// ============================================
+// 🎮 CODE DU JEU
+// ============================================
+const c=document.getElementById('gameCanvas'),ctx=c.getContext('2d'),scoreEl=document.getElementById('score'),cloudsEl=document.getElementById('clouds'),levelEl=document.getElementById('level'),livesEl=document.getElementById('lives'),messageEl=document.getElementById('message'),startBtn=document.getElementById('startButton'),sunEl=document.getElementById('sun');
+
+let state='start',score=0,cloudsCleared=0,level=1,lives=3,lastTime=0,umbrella=false,uTime=0,speed=false,sTime=0,multi=false,mTime=0;
+
+const player={x:c.width/2,y:c.height-120,w:40,h:30,s:5};
+
+let bullets=[],clouds=[],rain=[],particles=[],powerUps=[],hearts=[],touchX=null,touchY=null,shooting=false,lastShot=0,bonusItems=[];
+let isBonusLevel=false,bonusItemsCollected=0,bonusItemsTarget=20,bonusLevelNumber=0;
+
+// Nuages de fond décoratifs
+let backgroundClouds = [];
+
+// Fonction pour adapter le canvas au format portrait mobile
+function resizeCanvas() {
+  const container = document.getElementById('gameContainer');
+  const containerWidth = container.clientWidth;
+  const containerHeight = container.clientHeight;
+  
+  // Format mobile HD portrait optimisé (9:16 ou similaire)
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  
+  if(isMobile || containerWidth < containerHeight) {
+    // Mode portrait mobile : utiliser tout l'écran disponible
+    const targetWidth = Math.min(containerWidth, 480);  // Max 480px de large
+    const targetHeight = containerHeight;
+    
+    c.width = targetWidth;
+    c.height = targetHeight;
+  } else {
+    // Mode desktop : format 9:16
+    c.width = containerWidth;
+    c.height = containerHeight;
+  }
+  
+  player.x = c.width / 2;
+  player.y = c.height - 120;
+  
+  // Recréer les nuages de fond avec les nouvelles dimensions
+  backgroundClouds = [];
+  for(let i = 0; i < 8; i++) {
+    backgroundClouds.push(createBackgroundCloud());
+  }
+}
+
+function createBackgroundCloud() {
+  return {
+    x: Math.random() * c.width,
+    y: Math.random() * c.height * 0.6,
+    size: 15 + Math.random() * 25,
+    speed: 0.05 + Math.random() * 0.15,
+    opacity: 0.3 + Math.random() * 0.3
+  };
+}
+
+resizeCanvas();
+
+
+function drawBackgroundCloud(bgCloud) {
+  ctx.globalAlpha = bgCloud.opacity;
+  ctx.fillStyle = '#ffffff';
+  ctx.beginPath();
+  ctx.arc(bgCloud.x, bgCloud.y, bgCloud.size, 0, Math.PI * 2);
+  ctx.arc(bgCloud.x + bgCloud.size * 0.7, bgCloud.y - bgCloud.size * 0.3, bgCloud.size * 0.8, 0, Math.PI * 2);
+  ctx.arc(bgCloud.x + bgCloud.size * 1.4, bgCloud.y, bgCloud.size * 0.9, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.globalAlpha = 1;
+}
+
+function updateBackgroundClouds() {
+  backgroundClouds.forEach(bgCloud => {
+    bgCloud.x += bgCloud.speed;
+    if(bgCloud.x > c.width + bgCloud.size * 2) {
+      bgCloud.x = -bgCloud.size * 2;
+      bgCloud.y = Math.random() * c.height * 0.6;
+    }
+  });
+}
+
+function cloud(){const shoot=Math.random()>(1-currentLevelConfig.shootingClouds);return{x:Math.random()*(c.width-50),y:-40,w:45,h:30,s:currentLevelConfig.cloudSpeed.min+Math.random()*(currentLevelConfig.cloudSpeed.max-currentLevelConfig.cloudSpeed.min),c:shoot?'#7f8c8d':'#95a5a6',shoot:shoot,lastShot:Date.now(),delay:2000+Math.random()*3000};}
+
+function bonusItem(){
+  const types=[
+    {name:'heart',icon:'❤️',points:500,color:'#e74c3c'},
+    {name:'star',icon:'⭐',points:300,color:'#f1c40f'},
+    {name:'cross',icon:'✝️',points:1000,color:'#ecf0f1'},
+    {name:'coin',icon:'💰',points:-200,color:'#95a5a6'},
+    {name:'rainbow',icon:'🌈',points:1500,color:'#9b59b6'}
+  ];
+  const type=types[Math.floor(Math.random()*types.length)];
+  return{
+    x:Math.random()*(c.width-40),
+    y:-40,
+    w:35,
+    h:35,
+    s:2+Math.random()*1.5,
+    type:type.name,
+    icon:type.icon,
+    points:type.points,
+    color:type.color,
+    rotation:0,
+    rotSpeed:(Math.random()-0.5)*0.1
+  };
+}
+
+function rainDrop(x,y){return{x:x,y:y,w:3,h:8,s:currentLevelConfig.rainSpeed.min+Math.random()*(currentLevelConfig.rainSpeed.max-currentLevelConfig.rainSpeed.min),c:'#3498db'};}
+
+function powerUp(x,y){const types=['umbrella','speed','multishot'],type=types[Math.floor(Math.random()*types.length)],colors={umbrella:'#e74c3c',speed:'#9b59b6',multishot:'#f39c12'};return{x:x,y:y,w:25,h:25,s:2,type:type,c:colors[type]};}
+
+function bullet(x,y,color){return{x:x,y:y,w:4,h:12,s:8,c:color||'#f1c40f'};}
+
+function heart(){return{x:player.x+18+Math.random()*8,y:player.y+10+Math.random()*5,vx:(Math.random()-0.5)*1.5,vy:-2.5-Math.random()*1.2,size:12+Math.random()*6,life:1,decay:0.006,c:'#e74c3c',rot:0,rotS:(Math.random()-0.5)*0.1};}
+
+function particle(x,y){return{x:x,y:y,vx:(Math.random()-0.5)*6,vy:(Math.random()-0.5)*6,life:1,decay:0.02,c:`hsl(${45+Math.random()*30},80%,70%)`};}
+
+function drawBonusItem(item){
+  ctx.save();
+  ctx.translate(item.x+item.w/2,item.y+item.h/2);
+  ctx.rotate(item.rotation);
+  ctx.shadowBlur=15;
+  ctx.shadowColor=item.color;
+  ctx.font='30px Arial';
+  ctx.textAlign='center';
+  ctx.textBaseline='middle';
+  ctx.fillText(item.icon,0,0);
+  ctx.shadowBlur=0;
+  ctx.restore();
+}
+
+function drawPlayer(){
+let glow='#f1c40f',intensity=20;
+let haloColor='rgba(241,196,15,0.2)';
+let haloGlow='#f1c40f';
+
+if(umbrella){
+  glow='#e74c3c';
+  intensity=30;
+  haloColor='rgba(231,76,60,0.2)';
+  haloGlow='#e74c3c';
+}else if(speed){
+  glow='#9b59b6';
+  intensity=25;
+  haloColor='rgba(155,89,182,0.2)';
+  haloGlow='#9b59b6';
+}else if(multi){
+  glow='#f39c12';
+  intensity=23;
+  haloColor='rgba(243,156,18,0.2)';
+  haloGlow='#f39c12';
+}else if(shooting){
+  // Changement de couleur quand on tire
+  glow='#3498db';
+  intensity=25;
+  haloColor='rgba(52,152,219,0.3)';
+  haloGlow='#3498db';
+}
+
+ctx.shadowBlur=30;ctx.shadowColor=haloGlow;ctx.fillStyle=haloColor;ctx.beginPath();ctx.arc(player.x+20,player.y+15,40,0,Math.PI*2);ctx.fill();
+
+ctx.shadowBlur=intensity;ctx.shadowColor=glow;ctx.fillStyle='#ffffff';
+
+ctx.strokeStyle='#2c3e50';ctx.lineWidth=1;
+
+const beat=Math.sin(Date.now()*(speed?0.025:0.015))*2;
+
+ctx.beginPath();ctx.moveTo(player.x+20,player.y+8);ctx.lineTo(player.x+15,player.y+22);ctx.lineTo(player.x+25,player.y+22);ctx.closePath();ctx.fill();ctx.stroke();
+
+ctx.beginPath();ctx.moveTo(player.x+15,player.y+12);ctx.lineTo(player.x+2,player.y+8+beat);ctx.lineTo(player.x+18,player.y+25);ctx.closePath();ctx.fill();ctx.stroke();
+
+ctx.beginPath();ctx.moveTo(player.x+25,player.y+12);ctx.lineTo(player.x+38,player.y+8-beat);ctx.lineTo(player.x+22,player.y+25);ctx.closePath();ctx.fill();ctx.stroke();
+
+ctx.beginPath();ctx.moveTo(player.x+20,player.y+22);ctx.lineTo(player.x+18,player.y+30);ctx.lineTo(player.x+22,player.y+30);ctx.closePath();ctx.fill();ctx.stroke();
+
+ctx.shadowBlur=40;ctx.shadowColor='rgba(241,196,15,0.4)';ctx.fillStyle='rgba(255,255,255,0.1)';ctx.beginPath();ctx.arc(player.x+20,player.y+15,50,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
+
+if(umbrella){ctx.strokeStyle='#e74c3c';ctx.lineWidth=4;ctx.shadowBlur=15;ctx.shadowColor='#e74c3c';ctx.beginPath();ctx.arc(player.x+20,player.y-15,30,0,Math.PI,true);ctx.stroke();ctx.beginPath();ctx.moveTo(player.x+20,player.y-15);ctx.lineTo(player.x+20,player.y+5);ctx.stroke();ctx.shadowBlur=0;}
+}
+
+function drawCloud(cl){ctx.fillStyle=cl.c;ctx.shadowBlur=3;ctx.shadowColor=cl.c;ctx.beginPath();ctx.arc(cl.x+10,cl.y+15,10,0,Math.PI*2);ctx.arc(cl.x+25,cl.y+10,12,0,Math.PI*2);ctx.arc(cl.x+40,cl.y+15,10,0,Math.PI*2);ctx.arc(cl.x+20,cl.y+20,8,0,Math.PI*2);ctx.fill();if(cl.shoot){ctx.fillStyle='#34495e';ctx.beginPath();ctx.arc(cl.x+25,cl.y+12,3,0,Math.PI*2);ctx.fill();}ctx.shadowBlur=0;}
+
+function drawRain(r){ctx.fillStyle=r.c;ctx.shadowBlur=2;ctx.shadowColor=r.c;ctx.beginPath();ctx.ellipse(r.x,r.y,2,4,0,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;}
+
+function drawPowerUp(p){ctx.strokeStyle=p.c;ctx.fillStyle=p.c;ctx.lineWidth=2;if(p.type==='umbrella'){ctx.beginPath();ctx.arc(p.x+12,p.y+8,12,0,Math.PI,true);ctx.stroke();ctx.beginPath();ctx.moveTo(p.x+12,p.y+8);ctx.lineTo(p.x+12,p.y+20);ctx.stroke();}else if(p.type==='speed'){ctx.beginPath();ctx.moveTo(p.x+8,p.y+2);ctx.lineTo(p.x+12,p.y+2);ctx.lineTo(p.x+6,p.y+12);ctx.lineTo(p.x+10,p.y+12);ctx.lineTo(p.x+4,p.y+22);ctx.lineTo(p.x+16,p.y+10);ctx.lineTo(p.x+12,p.y+10);ctx.lineTo(p.x+18,p.y+2);ctx.closePath();ctx.fill();}else{for(let i=0;i<3;i++){const o=i*6;ctx.beginPath();ctx.arc(p.x+6+o,p.y+12,4,0,Math.PI*2);ctx.fill();}}}
+
+function drawBullet(b){ctx.fillStyle=b.c;ctx.shadowBlur=8;ctx.shadowColor=b.c;ctx.fillRect(b.x,b.y,b.w,b.h);ctx.shadowBlur=0;}
+
+function drawHeart(h){ctx.save();ctx.globalAlpha=h.life;ctx.translate(h.x,h.y);ctx.rotate(h.rot);ctx.fillStyle=h.c;ctx.shadowBlur=8;ctx.shadowColor=h.c;const s=h.size;ctx.beginPath();ctx.arc(-s/4,-s/4,s/4,0,Math.PI*2);ctx.arc(s/4,-s/4,s/4,0,Math.PI*2);ctx.moveTo(0,s/4);ctx.lineTo(-s/2,-s/8);ctx.lineTo(s/2,-s/8);ctx.closePath();ctx.fill();ctx.shadowBlur=0;ctx.restore();}
+
+function drawParticle(p){ctx.globalAlpha=p.life;ctx.fillStyle=p.c;ctx.shadowBlur=5;ctx.shadowColor=p.c;ctx.fillRect(p.x,p.y,3,3);ctx.shadowBlur=0;ctx.globalAlpha=1;}
+
+function setSun(mood){sunEl.className=`sun ${mood}`;}
+
+// Fonction de collision avec marge de précision
+function hit(a,b,margin=0){
+  const m = margin || 0;
+  return a.x+m < b.x+b.w-m && 
+         a.x+a.w-m > b.x+m && 
+         a.y+m < b.y+b.h-m && 
+         a.y+a.h-m > b.y+m;
+}
+
+// Fonction de collision précise pour les nuages (avec marge réduite)
+function hitCloud(player,cloud){
+  const margin = 5; // Marge de 5px pour collision plus juste
+  return player.x+margin < cloud.x+cloud.w-margin && 
+         player.x+player.w-margin > cloud.x+margin && 
+         player.y+margin < cloud.y+cloud.h-margin && 
+         player.y+player.h-margin > cloud.y+margin;
+}
+
+function msg(text){messageEl.textContent=text;messageEl.style.opacity='1';const time=Math.max(3000,Math.min(3000+text.length*50,6000));setTimeout(()=>messageEl.style.opacity='0',time);}
+
+let gameStartTime = 0; // Pour mesurer le temps de jeu
+
+function restart(){
+  // Sauvegarder les stats de la partie précédente si elle existait
+  if (gameStartTime > 0) {
+    const survivalTime = Date.now() - gameStartTime;
+    saveGameEnd(score, level, cloudsCleared, survivalTime);
+  }
+  
+  score=0;cloudsCleared=0;level=1;lives=3;bullets=[];clouds=[];rain=[];particles=[];powerUps=[];hearts=[];umbrella=false;speed=false;multi=false;totalScore=0;cloudsInLevel=0;currentLevelIndex=0;bonusItems=[];isBonusLevel=false;bonusItemsCollected=0;bonusLevelNumber=0;
+  gameStartTime = Date.now(); // Nouveau départ
+  startLevel(0);
+  msg(t('messages.restart'));
+}
+
+function startBonusLevel(){
+  // Supprimer tous les anciens menus de bonus qui pourraient traîner
+  const oldMenus = document.querySelectorAll('[data-bonus-menu]');
+  oldMenus.forEach(menu => menu.remove());
+  
+  isBonusLevel=true;
+  bonusItemsCollected=0;
+  bonusItemsTarget=20;
+  clouds=[];
+  rain=[];
+  bullets=[];
+  bonusItems=[];
+  setSun('happy');
+  
+  // Messages philosophiques selon le numéro de bonus
+  const bonusMessages = [
+    "L'amour de l'argent crée bien des maux, mais utilisé avec sagesse et amour il est une grande source de bénédiction.",
+    "Apprends à aimer ce que tu as déjà et ne soupire pas jalousement sur ce qui n'est pas à toi.",
+    "La vraie richesse est dans le cœur, ta force est que tu es unique, plus précieux que l'or et l'argent.",
+    "Libère-toi de l'esclavage matériel, sois vraiment libre, sois un bon gestionnaire sage."
+  ];
+  
+  const message = bonusMessages[bonusLevelNumber - 1] || bonusMessages[0];
+  
+  const bonusDiv=document.createElement('div');
+  bonusDiv.setAttribute('data-bonus-menu', 'start');
+  bonusDiv.style.cssText=`
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:90%;
+    max-width:500px;
+    background:rgba(255,255,255,0.95);
+    backdrop-filter:blur(20px);
+    color:#1a1a2e;
+    padding:30px;
+    border-radius:25px;
+    text-align:center;
+    z-index:450;
+    box-shadow:0 20px 60px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.3) inset;
+    animation:fadeIn 0.5s ease-in;
+    border:2px solid rgba(255,255,255,0.5);
+  `;
+  
+  bonusDiv.innerHTML=`
+    <div style="display:inline-block;padding:8px 20px;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);border-radius:20px;margin-bottom:15px;">
+      <h2 style="font-size:22px;margin:0;color:white;font-weight:800;letter-spacing:1px;">🎁 NIVEAU BONUS ${bonusLevelNumber}</h2>
+    </div>
+    <p style="font-size:12px;font-style:italic;margin-bottom:18px;color:#4a4a68;line-height:1.5;padding:0 10px;">
+      "${message}"
+    </p>
+    <div style="background:linear-gradient(135deg,#f5f7fa 0%,#c3cfe2 100%);padding:15px;border-radius:15px;margin-bottom:15px;font-size:13px;line-height:1.8;color:#2d3436;">
+      <strong style="display:block;margin-bottom:8px;font-size:14px;color:#1a1a2e;">✨ Collecte les bénédictions :</strong>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;text-align:left;">
+        <div>⭐ Étoile <span style="color:#f39c12;font-weight:bold;">+300</span></div>
+        <div>❤️ Cœur <span style="color:#e74c3c;font-weight:bold;">+500</span></div>
+        <div>✝️ Croix <span style="color:#3498db;font-weight:bold;">+1000</span></div>
+        <div>🌈 Arc-en-ciel <span style="color:#9b59b6;font-weight:bold;">+1500</span></div>
+      </div>
+      <div style="margin-top:8px;text-align:center;color:#e74c3c;font-weight:bold;background:rgba(231,76,60,0.1);padding:6px;border-radius:8px;">
+        💰 Pièce = -200 pts (PIÈGE !)
+      </div>
+    </div>
+    <p style="font-size:14px;margin-bottom:20px;font-weight:600;color:#2d3436;background:rgba(52,152,219,0.1);padding:10px;border-radius:10px;">
+      🎯 Objectif : <span style="color:#3498db;font-size:16px;">${bonusItemsTarget}</span> objets
+    </p>
+    <button onclick="this.parentElement.remove();state='playing';" style="
+      padding:14px 40px;
+      background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+      color:white;
+      border:none;
+      border-radius:50px;
+      font-size:16px;
+      font-weight:bold;
+      cursor:pointer;
+      box-shadow:0 8px 20px rgba(102,126,234,0.4);
+      transition:all 0.3s;
+      letter-spacing:1px;
+      text-transform:uppercase;
+    " onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 12px 25px rgba(102,126,234,0.5)'" onmouseout="this.style.transform='';this.style.boxShadow='0 8px 20px rgba(102,126,234,0.4)'">✨ Commencer</button>
+  `;
+  
+  document.getElementById('gameContainer').appendChild(bonusDiv);
+  state='levelComplete';
+}
+
+function endBonusLevel(){
+  // Supprimer tous les menus de bonus
+  const oldMenus = document.querySelectorAll('[data-bonus-menu]');
+  oldMenus.forEach(menu => menu.remove());
+  
+  isBonusLevel=false;
+  bonusItems=[];
+  
+  const bonusScore=bonusItemsCollected*100;
+  
+  // Sauvegarder les stats du bonus
+  if(bonusLevelNumber > 0 && bonusLevelNumber <= 4){
+    gameData.bonusLevels.completed[bonusLevelNumber-1] = true;
+    if(bonusScore > gameData.bonusLevels.bestScores[bonusLevelNumber-1]){
+      gameData.bonusLevels.bestScores[bonusLevelNumber-1] = bonusScore;
+    }
+    gameData.bonusLevels.totalItemsCollected += bonusItemsCollected;
+    saveGameData();
+  }
+  
+  const endDiv=document.createElement('div');
+  endDiv.setAttribute('data-bonus-menu', 'end');
+  endDiv.style.cssText=`
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:90%;
+    max-width:500px;
+    background:rgba(255,255,255,0.95);
+    backdrop-filter:blur(20px);
+    color:#1a1a2e;
+    padding:30px 25px;
+    border-radius:25px;
+    text-align:center;
+    z-index:450;
+    box-shadow:0 20px 60px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.3) inset;
+    border:2px solid rgba(255,255,255,0.5);
+  `;
+  
+  endDiv.innerHTML=`
+    <div style="display:inline-block;padding:10px 25px;background:linear-gradient(135deg,#11998e 0%,#38ef7d 100%);border-radius:20px;margin-bottom:15px;">
+      <h2 style="font-size:20px;margin:0;color:white;font-weight:800;letter-spacing:1px;">🎉 BONUS TERMINÉ</h2>
+    </div>
+    <p style="font-size:48px;margin:15px 0;filter:drop-shadow(0 4px 8px rgba(0,0,0,0.2));">🏆</p>
+    <div style="background:linear-gradient(135deg,#f5f7fa 0%,#c3cfe2 100%);padding:15px;border-radius:15px;margin-bottom:15px;">
+      <p style="font-size:15px;margin:0 0 10px 0;line-height:1.4;color:#2d3436;">
+        <strong style="font-size:16px;">Objets collectés</strong><br>
+        <span style="font-size:28px;color:#3498db;font-weight:800;">${bonusItemsCollected}</span>
+        <span style="font-size:20px;color:#95a5a6;"> / ${bonusItemsTarget}</span>
+      </p>
+    </div>
+    <div style="background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);padding:15px;border-radius:15px;margin-bottom:20px;">
+      <p style="font-size:14px;margin:0 0 5px 0;color:rgba(255,255,255,0.9);letter-spacing:1px;">SCORE BONUS</p>
+      <p style="font-size:32px;margin:0;color:white;font-weight:800;">+${bonusScore}</p>
+    </div>
+    <button onclick="this.parentElement.remove();state='playing';" style="
+      padding:14px 40px;
+      background:linear-gradient(135deg,#11998e 0%,#38ef7d 100%);
+      color:white;
+      border:none;
+      border-radius:50px;
+      font-size:16px;
+      font-weight:bold;
+      cursor:pointer;
+      box-shadow:0 8px 20px rgba(17,153,142,0.4);
+      transition:all 0.3s;
+      letter-spacing:1px;
+      text-transform:uppercase;
+    " onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 12px 25px rgba(17,153,142,0.5)'" onmouseout="this.style.transform='';this.style.boxShadow='0 8px 20px rgba(17,153,142,0.4)'">✨ Continuer</button>
+  `;
+  
+  document.getElementById('gameContainer').appendChild(endDiv);
+  state='levelComplete';
+  
+  score+=bonusScore;
+  saveProgress(level,score,cloudsCleared);
+  
+  // Reprendre le jeu normal après le bonus
+  setTimeout(() => {
+    const continueBtn = endDiv.querySelector('button');
+    if(continueBtn) {
+      continueBtn.onclick = () => {
+        endDiv.remove();
+        completeLevel();
+      };
+    }
+  }, 100);
+}
+
+function update(dt){
+if(state!=='playing')return;
+
+// Mettre à jour les nuages de fond
+updateBackgroundClouds();
+
+if(touchX!==null&&touchY!==null){const currentSpeed=speed?player.s*1.8:player.s;const targetX=Math.max(20,Math.min(c.width-60,touchX-20));const targetY=Math.max(30,Math.min(c.height-50,touchY-80));player.x+=(targetX-player.x)*0.12*currentSpeed;player.y+=(targetY-player.y)*0.12*currentSpeed;}
+
+// Mode bonus : pas de tir
+if(!isBonusLevel&&shooting&&Date.now()-lastShot>(multi?100:200)){
+  const bulletColor='#3498db'; // Bleu quand on tire
+  if(multi){
+    bullets.push(bullet(player.x+10,player.y,bulletColor));
+    bullets.push(bullet(player.x+18,player.y,bulletColor));
+    bullets.push(bullet(player.x+26,player.y,bulletColor));
+  }else{
+    bullets.push(bullet(player.x+18,player.y,bulletColor));
+  }
+  lastShot=Date.now();
+}
+
+if(umbrella&&(uTime-=dt)<=0)umbrella=false;if(speed&&(sTime-=dt)<=0)speed=false;if(multi&&(mTime-=dt)<=0)multi=false;
+
+// Spawn selon le mode
+if(isBonusLevel){
+  // Mode bonus : objets tombent
+  if(Math.random()<0.03)bonusItems.push(bonusItem());
+  
+  // Faire tomber les objets bonus
+  bonusItems.forEach((item,i)=>{
+    item.y+=item.s;
+    item.rotation+=item.rotSpeed;
+    if(item.y>c.height){
+      bonusItems.splice(i,1);
+    }else if(hit(item,player)){
+      bonusItems.splice(i,1);
+      score+=item.points;
+      bonusItemsCollected++;
+      
+      // Particules colorées
+      for(let j=0;j<10;j++){
+        const p=particle(item.x+item.w/2,item.y+item.h/2);
+        p.c=item.color;
+        particles.push(p);
+      }
+      
+      // Message de points
+      msg(`+${item.points} pts ${item.icon}`);
+      
+      // Vérifier si objectif atteint
+      if(bonusItemsCollected>=bonusItemsTarget){
+        setTimeout(()=>endBonusLevel(),500);
+      }
+    }
+  });
+}else{
+  // Mode normal : nuages et power-ups
+  if(Math.random()<currentLevelConfig.cloudSpawnRate)clouds.push(cloud());
+  if(Math.random()<currentLevelConfig.powerUpRate)powerUps.push(powerUp(Math.random()*(c.width-30),-30));
+}
+
+bullets.forEach((b,i)=>{b.y-=b.s;if(b.y<0)bullets.splice(i,1);});
+
+clouds.forEach((cl,i)=>{cl.y+=cl.s;if(cl.shoot&&Date.now()-cl.lastShot>cl.delay){rain.push(rainDrop(cl.x+cl.w/2,cl.y+cl.h));cl.lastShot=Date.now();}if(cl.y>c.height)clouds.splice(i,1);});
+
+rain.forEach((r,i)=>{r.y+=r.s;if(r.y>c.height){rain.splice(i,1);}else if(!umbrella&&hit(r,player)){rain.splice(i,1);lives--;updateStats('totalLivesLost');updateStats('deathsByRain');const rainMsgs=t('rain');msg(rainMsgs[Math.floor(Math.random()*rainMsgs.length)]);if(lives<=0){state='gameOver';setSun('sad');const survivalTime=Date.now()-gameStartTime;saveGameEnd(score,level,cloudsCleared,survivalTime);msg(t('messages.gameOver'));}else{setSun('neutral');setTimeout(()=>{if(state==='playing')setSun('happy');},2000);}}});
+
+powerUps.forEach((p,i)=>{p.y+=p.s;if(p.y>c.height){powerUps.splice(i,1);}else if(hit(p,player)){powerUps.splice(i,1);updateStats('totalPowerUpsCollected');if(p.type==='umbrella'){umbrella=true;uTime=5000;msg(t('powerups.umbrella'));}else if(p.type==='speed'){speed=true;sTime=4000;msg(t('powerups.speed'));}else if(p.type==='multishot'){multi=true;mTime=6000;msg(t('powerups.multishot'));}}});
+
+// Collision balles-nuages (itération inverse pour éviter les problèmes de splice)
+for(let bi = bullets.length - 1; bi >= 0; bi--){
+  const b = bullets[bi];
+  let hit = false;
+  for(let ci = clouds.length - 1; ci >= 0; ci--){
+    const cl = clouds[ci];
+    if(hitCloud(b,cl)){
+      // Effets visuels
+      for(let i=0;i<8;i++)particles.push(particle(cl.x+cl.w/2,cl.y+cl.h/2));
+      
+      // Suppression sécurisée
+      bullets.splice(bi,1);
+      clouds.splice(ci,1);
+      
+      // Score et stats
+      score+=100;
+      totalScore+=100;
+      cloudsCleared++;
+      cloudsInLevel++;
+      updateStats('totalHits');
+      updateStats('totalShots');
+      setSun('happy');
+      
+      // Message aléatoire
+      const gameplayMsgs=t('gameplay');
+      if(Math.random()<0.1)msg(gameplayMsgs[Math.floor(Math.random()*gameplayMsgs.length)]);
+
+      // Sauvegarder la progression tous les 10 nuages
+      if(cloudsCleared % 10 === 0){saveProgress(level,score,cloudsCleared);}
+
+      // Mode infini : afficher verset tous les 50 nuages après 991
+      if(cloudsCleared > 991 && (cloudsCleared - 991) % 50 === 0) {
+        showInfiniteVerse();
+      }
+
+      // Vérifier si le niveau est terminé
+      if(cloudsInLevel>=currentLevelConfig.cloudsToPass){
+        level++;
+        
+        // Déclencher niveau bonus après les niveaux 3, 7, 10 et 13
+        if([3,7,10,13].includes(currentLevelIndex)){
+          bonusLevelNumber++;
+          setTimeout(()=>startBonusLevel(),1000);
+        }else{
+          completeLevel();
+        }
+        
+        for(let i=0;i<5;i++)setTimeout(()=>hearts.push(heart()),i*150);
+      }else if(cloudsCleared%30===0){
+        level++;
+        msg(t('messages.levelUp',{level:level}));
+        for(let i=0;i<3;i++)setTimeout(()=>hearts.push(heart()),i*150);
+      }
+      
+      hit = true;
+      break; // Sortir de la boucle interne après collision
+    }
+  }
+}
+
+hearts.forEach((h,i)=>{h.x+=h.vx;h.y+=h.vy;h.life-=h.decay;h.rot+=h.rotS;h.vy+=0.015;if(h.life<=0)hearts.splice(i,1);});
+
+particles.forEach((p,i)=>{p.x+=p.vx;p.y+=p.vy;p.life-=p.decay;if(p.life<=0)particles.splice(i,1);});
+
+scoreEl.textContent=score;cloudsEl.textContent=cloudsCleared;levelEl.textContent=level;livesEl.textContent=lives;
+}
+
+function render(){
+ctx.clearRect(0,0,c.width,c.height);
+if(state==='playing' || state==='levelComplete'){
+    // Dessiner les nuages de fond décoratifs d'abord
+    backgroundClouds.forEach(drawBackgroundCloud);
+    
+    // Dessine ensuite tout l'arrière-plan du jeu
+    clouds.forEach(drawCloud);
+    rain.forEach(drawRain);
+    powerUps.forEach(drawPowerUp);
+    bullets.forEach(drawBullet);
+    particles.forEach(drawParticle);
+    hearts.forEach(drawHeart);
+    
+    // Dessiner les objets bonus
+    if(isBonusLevel){
+      bonusItems.forEach(drawBonusItem);
+    }
+    
+    // Et la colombe EN DERNIER pour qu'elle soit bien visible devant !
+    drawPlayer();
+    
+    // Afficher la progression
+    if(state==='playing'){
+      ctx.fillStyle='rgba(255,255,255,0.9)';
+      ctx.font='bold 14px Arial';
+      ctx.textAlign='center';
+      
+      if(isBonusLevel){
+        const progress=`🎁 BONUS - ${bonusItemsCollected}/${bonusItemsTarget} objets`;
+        ctx.fillText(progress,c.width/2,c.height-10);
+      }else{
+        const levelInfo = LEVELS_CONFIG[currentLevelIndex];
+        const progress=`${levelInfo.icon} ${levelInfo.title} - ${cloudsInLevel}/${currentLevelConfig.cloudsToPass}`;
+        ctx.fillText(progress,c.width/2,c.height-10);
+      }
+    }
+}
+}
+
+function loop(time){const dt=time-lastTime;lastTime=time;update(dt);render();requestAnimationFrame(loop);}
+
+// Fonction pour obtenir les coordonnées relatives au canvas
+function getCanvasCoords(clientX, clientY) {
+  const rect = c.getBoundingClientRect();
+  const scaleX = c.width / rect.width;
+  const scaleY = c.height / rect.height;
+  return {
+    x: (clientX - rect.left) * scaleX,
+    y: (clientY - rect.top) * scaleY
+  };
+}
+
+c.addEventListener('touchstart',(e)=>{
+  e.preventDefault();
+  if(state==='gameOver'||state==='victory') {
+    restart();
+  } else {
+    const t=e.touches[0];
+    const coords = getCanvasCoords(t.clientX, t.clientY);
+    touchX=coords.x;
+    touchY=coords.y;
+    shooting=true;
+  }
+});
+
+c.addEventListener('touchmove',(e)=>{
+  e.preventDefault();
+  if(e.touches[0]){
+    const coords = getCanvasCoords(e.touches[0].clientX, e.touches[0].clientY);
+    touchX=coords.x;
+    touchY=coords.y;
+  }
+});
+
+c.addEventListener('touchend',(e)=>{
+  e.preventDefault();
+  shooting=false;
+  touchX=null;
+  touchY=null;
+});
+
+c.addEventListener('mousemove',(e)=>{
+  const coords = getCanvasCoords(e.clientX, e.clientY);
+  touchX=coords.x;
+  touchY=coords.y;
+});
+
+c.addEventListener('mousedown',(e)=>{
+  if(state==='gameOver'||state==='victory') {
+    restart();
+  } else {
+    shooting=true;
+  }
+});
+
+c.addEventListener('mouseup',()=>shooting=false);
+
+c.addEventListener('mouseleave',()=>{
+  shooting=false;
+  touchX=null;
+  touchY=null;
+});
+
+startBtn.addEventListener('click',()=>{
+  startBtn.style.display='none';
+  const motivationEl=document.querySelector('.motivation');
+  if(motivationEl){
+    motivationEl.style.opacity='0';
+    setTimeout(()=>motivationEl.remove(),500);
+  }
+  initGame();
+});
+
+addEventListener('resize',resizeCanvas);
+
+// Initialiser la langue au chargement
+updateUILanguage();
+
+// ============================================
+// 💎 AFFICHAGE DES STATISTIQUES
+// ============================================
+
+function showStats() {
+  const statsDiv = document.createElement('div');
+  statsDiv.style.cssText = `
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 500px;
+    max-height: 80vh;
+    background: linear-gradient(135deg, rgba(52,152,219,0.98) 0%, rgba(41,128,185,0.98) 100%);
+    color: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 50px rgba(0,0,0,0.5);
+    z-index: 500;
+    overflow-y: auto;
+  `;
+  
+  const formatTime = (seconds) => {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    return hours > 0 ? `${hours}h ${minutes}m` : `${minutes}m`;
+  };
+  
+  const accuracy = gameData.stats.totalShots > 0 
+    ? ((gameData.stats.totalHits / gameData.stats.totalShots) * 100).toFixed(1)
+    : 0;
+  
+  // Calculer progression des bonus
+  const bonusCompleted = gameData.bonusLevels?.completed?.filter(b => b).length || 0;
+  const bonusTotalScore = gameData.bonusLevels?.bestScores?.reduce((a,b) => a+b, 0) || 0;
+  
+  statsDiv.innerHTML = `
+    <button onclick="this.parentElement.remove()" style="position:absolute;top:10px;right:10px;background:rgba(0,0,0,0.3);color:white;border:none;border-radius:50%;width:35px;height:35px;font-size:20px;cursor:pointer;font-weight:bold;line-height:1;">✕</button>
+    <h2 style="text-align:center;margin-bottom:20px;font-size:24px;">💎 Mes Trésors</h2>
+    
+    <div style="background:rgba(255,255,255,0.1);padding:15px;border-radius:10px;margin-bottom:15px;">
+      <h3 style="margin-top:0;">🎁 Niveaux Bonus</h3>
+      <p style="margin:8px 0;"><strong>Bonus Complétés:</strong> ${bonusCompleted}/4</p>
+      <p style="margin:8px 0;"><strong>Objets Collectés:</strong> ${gameData.bonusLevels?.totalItemsCollected || 0}</p>
+      <p style="margin:8px 0;"><strong>Score Bonus Total:</strong> ${bonusTotalScore.toLocaleString()}</p>
+      <div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap;">
+        ${[1,2,3,4].map(i => `
+          <div style="flex:1;min-width:60px;padding:8px;background:${gameData.bonusLevels?.completed?.[i-1] ? 'rgba(46,204,113,0.3)' : 'rgba(0,0,0,0.2)'};border-radius:8px;text-align:center;">
+            <div style="font-size:20px;">${gameData.bonusLevels?.completed?.[i-1] ? '✅' : '🔒'}</div>
+            <div style="font-size:11px;margin-top:4px;">Bonus ${i}</div>
+            ${gameData.bonusLevels?.bestScores?.[i-1] ? `<div style="font-size:10px;opacity:0.8;">${gameData.bonusLevels.bestScores[i-1]}</div>` : ''}
+          </div>
+        `).join('')}
+      </div>
+    </div>
+    
+    <div style="background:rgba(255,255,255,0.1);padding:15px;border-radius:10px;margin-bottom:15px;">
+      <h3 style="margin-top:0;">🏆 Records</h3>
+      <p style="margin:8px 0;"><strong>Meilleur Score:</strong> ${gameData.highScore.toLocaleString()}</p>
+      <p style="margin:8px 0;"><strong>Niveau Maximum:</strong> ${gameData.highestLevelReached}</p>
+      <p style="margin:8px 0;"><strong>Plus Longue Survie:</strong> ${formatTime(Math.floor(gameData.stats.longestSurvival / 1000))}</p>
+    </div>
+    
+    <div style="background:rgba(255,255,255,0.1);padding:15px;border-radius:10px;margin-bottom:15px;">
+      <h3 style="margin-top:0;">📈 Progression</h3>
+      <p style="margin:8px 0;"><strong>Nuages Détruits:</strong> ${gameData.totalCloudsDestroyed.toLocaleString()}</p>
+      <p style="margin:8px 0;"><strong>Parties Jouées:</strong> ${gameData.totalGamesPlayed}</p>
+      <p style="margin:8px 0;"><strong>Temps de Jeu:</strong> ${formatTime(gameData.totalPlayTime)}</p>
+      <p style="margin:8px 0;"><strong>Niveaux Parfaits:</strong> ${gameData.stats.perfectLevels}</p>
+    </div>
+    
+    <div style="background:rgba(255,255,255,0.1);padding:15px;border-radius:10px;margin-bottom:15px;">
+      <h3 style="margin-top:0;">🎯 Précision</h3>
+      <p style="margin:8px 0;"><strong>Tirs Totaux:</strong> ${gameData.stats.totalShots.toLocaleString()}</p>
+      <p style="margin:8px 0;"><strong>Tirs Réussis:</strong> ${gameData.stats.totalHits.toLocaleString()}</p>
+      <p style="margin:8px 0;"><strong>Précision:</strong> ${accuracy}%</p>
+      <p style="margin:8px 0;"><strong>Power-ups Collectés:</strong> ${gameData.stats.totalPowerUpsCollected}</p>
+    </div>
+    
+    <div style="background:rgba(255,255,255,0.1);padding:15px;border-radius:10px;margin-bottom:20px;">
+      <h3 style="margin-top:0;">💔 Défaites</h3>
+      <p style="margin:8px 0;"><strong>Vies Perdues:</strong> ${gameData.stats.totalLivesLost}</p>
+      <p style="margin:8px 0;"><strong>Morts par Pluie:</strong> ${gameData.stats.deathsByRain}</p>
+      <p style="margin:8px 0;"><strong>Morts par Nuages:</strong> ${gameData.stats.deathsByClouds}</p>
+    </div>
+    
+    ${gameData.lastPlayed ? `
+      <p style="text-align:center;opacity:0.8;font-size:12px;margin-bottom:15px;">
+        Dernière partie: ${new Date(gameData.lastPlayed).toLocaleDateString('fr-FR')}
+      </p>
+    ` : ''}
+    
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+      <button onclick="this.parentElement.parentElement.remove()" style="
+        padding:12px 24px;
+        background:#27ae60;
+        color:white;
+        border:none;
+        border-radius:10px;
+        font-size:16px;
+        font-weight:bold;
+        cursor:pointer;
+      ">✅ Fermer</button>
+      
+      <button onclick="exportGameData()" style="
+        padding:12px 24px;
+        background:#f39c12;
+        color:white;
+        border:none;
+        border-radius:10px;
+        font-size:16px;
+        font-weight:bold;
+        cursor:pointer;
+      ">📤 Exporter</button>
+    </div>
+  `;
+  
+  document.body.appendChild(statsDiv);
+}
+
+// Raccourci clavier pour afficher les stats (Ctrl+S ou Cmd+S)
+document.addEventListener('keydown', (e) => {
+  if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+    e.preventDefault();
+    showStats();
+  }
+});
+
+// ============================================
+// 💎📖 SYSTÈME DE NIVEAUX ET HISTOIRE
+// ============================================
+
+// Définition des chapitres de l'histoire
+const STORY_CHAPTERS = {
+  fr: [
+    {
+      id: 1,
+      title: "L'Éveil de la Colombe",
+      intro: "Dans un monde plongé dans les ténèbres, une petite colombe s'éveille. Sa mission : rallumer la lumière de l'espoir.",
+      outro: "Les premiers nuages se dissipent. L'espoir renaît doucement..."
+    },
+    {
+      id: 2,
+      title: "La Tempête Commence",
+      intro: "Les nuages deviennent plus sombres. La pluie menace. Mais ta foi est plus forte.",
+      outro: "Tu as traversé la tempête ! La lumière perce les nuages."
+    },
+    {
+      id: 3,
+      title: "L'Ascension Divine",
+      intro: "Le ciel s'ouvre. Les défis s'intensifient. Tes ailes se renforcent à chaque bataille.",
+      outro: "Tu t'élèves au-dessus des difficultés ! Le soleil brille de nouveau."
+    },
+    {
+      id: 4,
+      title: "Le Souffle de l'Espoir",
+      intro: "Les ténèbres résistent, mais ton cœur rayonne. Chaque nuage dissipé est une victoire.",
+      outro: "L'espoir se répand comme une douce brise. Continue ton vol !"
+    },
+    {
+      id: 5,
+      title: "La Révélation Finale",
+      intro: "Le dernier voile de nuages se dresse devant toi. C'est l'heure de la victoire finale.",
+      outro: "VICTOIRE ! Le Psaume 99.1 - La vie est une aventure extraordinaire !"
+    }
+  ],
+  en: [
+    {
+      id: 1,
+      title: "The Dove's Awakening",
+      intro: "In a world plunged into darkness, a small dove awakens. Your mission: relight the light of hope.",
+      outro: "The first clouds dissipate. Hope is slowly reborn..."
+    },
+    {
+      id: 2,
+      title: "The Storm Begins",
+      intro: "The clouds grow darker. Rain threatens. But your faith is stronger.",
+      outro: "You weathered the storm! Light pierces through the clouds."
+    },
+    {
+      id: 3,
+      title: "Divine Ascension",
+      intro: "The sky opens. Challenges intensify. Your wings strengthen with each battle.",
+      outro: "You rise above difficulties! The sun shines again."
+    },
+    {
+      id: 4,
+      title: "The Breath of Hope",
+      intro: "Darkness resists, but your heart radiates. Each cloud cleared is a victory.",
+      outro: "Hope spreads like a gentle breeze. Continue your flight!"
+    },
+    {
+      id: 5,
+      title: "The Final Revelation",
+      intro: "The last veil of clouds stands before you. It's time for final victory.",
+      outro: "VICTORY! Psalm 99.1 - Life is an extraordinary adventure!"
+    }
+  ]
+  // Ajouter d'autres langues au besoin
+};
+
+// Configuration des niveaux
+const LEVELS_CONFIG = [
+  // Niveau 1: L'Aube de l'Espoir (0-50 nuages)
+  {
+    id: 1,
+    title: "L'Aube de l'Espoir",
+    icon: "🌅",
+    threshold: 0,
+    cloudsToPass: 50,
+    message: "Tu as fait tes premiers pas dans la lumière ! Tu n'es pas seul dans ce combat.",
+    verse: { text: "De loin, l'Éternel s'est révélé à moi : « Je t'aime d'un amour éternel ; c'est pourquoi je te maintiens ma bonté.", reference: "Jérémie 31:3" },
+    cloudSpeed: { min: 0.5, max: 1.5 },
+    cloudSpawnRate: 0.004,
+    shootingClouds: 0.3,
+    rainSpeed: { min: 4, max: 6 },
+    powerUpRate: 0.001,
+    background: { top: '#87ceeb', bottom: '#b8d8f8' },
+    difficulty: 'easy'
+  },
+  // Niveau 2: Le Souffle Divin (51-100 nuages)
+  {
+    id: 2,
+    title: "Le Souffle Divin",
+    icon: "🌬️",
+    threshold: 51,
+    cloudsToPass: 50,
+    message: "Comme un aigle, Dieu te fortifie ! Il te choisit tel que tu es, dans ton authenticité et ta complétude.",
+    verse: { text: "Mais ceux qui se confient en l'Éternel renouvellent leur force. Ils prennent leur envol comme les aigles.", reference: "Ésaïe 40:31" },
+    cloudSpeed: { min: 0.7, max: 1.8 },
+    cloudSpawnRate: 0.005,
+    shootingClouds: 0.4,
+    rainSpeed: { min: 4.5, max: 6.5 },
+    powerUpRate: 0.0012,
+    background: { top: '#87ceeb', bottom: '#b8d8f8' },
+    difficulty: 'easy'
+  },
+  // Niveau 3: Ailes de Foi (101-150 nuages)
+  {
+    id: 3,
+    title: "Ailes de Foi",
+    icon: "🕊️",
+    threshold: 101,
+    cloudsToPass: 50,
+    message: "Tu n'es pas trop nul, tu n'es pas rejeté. Tu es aimé infiniment !",
+    verse: { text: "Ceux qui espèrent en l'Éternel prennent des ailes comme les aigles", reference: "Ésaïe 40:31" },
+    cloudSpeed: { min: 0.8, max: 2.0 },
+    cloudSpawnRate: 0.006,
+    shootingClouds: 0.5,
+    rainSpeed: { min: 5, max: 7 },
+    powerUpRate: 0.0015,
+    background: { top: '#7db8d8', bottom: '#a8c8e8' },
+    difficulty: 'medium'
+  },
+  // Niveau 4: Pardon et Liberté (151-200 nuages)
+  {
+    id: 4,
+    title: "Pardon et Liberté",
+    icon: "🔓",
+    threshold: 151,
+    cloudsToPass: 50,
+    message: "Tes erreurs ne te définissent pas. L'amour de Dieu efface tout et te rend libre !",
+    verse: { text: "Là où est l'Esprit, là est la liberté", reference: "2 Corinthiens 3:17" },
+    cloudSpeed: { min: 1.0, max: 2.3 },
+    cloudSpawnRate: 0.007,
+    shootingClouds: 0.6,
+    rainSpeed: { min: 5.5, max: 7.5 },
+    powerUpRate: 0.0013,
+    background: { top: '#6a9fc8', bottom: '#98b8d8' },
+    difficulty: 'medium'
+  },
+  // Niveau 5: Choisi et Précieux (201-250 nuages)
+  {
+    id: 5,
+    title: "Choisi et Précieux",
+    icon: "💎",
+    threshold: 201,
+    cloudsToPass: 50,
+    message: "Tu es choisi ! Pas à cause de ta perfection, mais par pure grâce.",
+    verse: { text: "Je t'ai appelé par ton nom, tu es à moi", reference: "Ésaïe 43:1" },
+    cloudSpeed: { min: 1.2, max: 2.5 },
+    cloudSpawnRate: 0.008,
+    shootingClouds: 0.65,
+    rainSpeed: { min: 6, max: 8 },
+    powerUpRate: 0.0014,
+    background: { top: '#5a8fb8', bottom: '#88a8c8' },
+    difficulty: 'medium'
+  },
+  // Niveau 6: Force Intérieure (251-300 nuages)
+  {
+    id: 6,
+    title: "Force Intérieure",
+    icon: "💪",
+    threshold: 251,
+    cloudsToPass: 50,
+    message: "Dans ta faiblesse, Sa force se révèle. Tu peux tout, car Il te fortifie !",
+    verse: { text: "Je peux tout par celui qui me fortifie", reference: "Philippiens 4:13" },
+    cloudSpeed: { min: 1.3, max: 2.7 },
+    cloudSpawnRate: 0.009,
+    shootingClouds: 0.7,
+    rainSpeed: { min: 6.5, max: 8.5 },
+    powerUpRate: 0.0016,
+    background: { top: '#4a7fa8', bottom: '#7898b8' },
+    difficulty: 'hard'
+  },
+  // Niveau 7: Tempête de Grâce (301-350 nuages)
+  {
+    id: 7,
+    title: "Tempête de Grâce",
+    icon: "⛈️",
+    threshold: 301,
+    cloudsToPass: 50,
+    message: "Les défis se multiplient, mais tu danses avec les éléments !",
+    verse: { text: "Après la pluie vient le beau temps", reference: "Job 37:11" },
+    cloudSpeed: { min: 1.4, max: 2.9 },
+    cloudSpawnRate: 0.010,
+    shootingClouds: 0.75,
+    rainSpeed: { min: 7, max: 9 },
+    powerUpRate: 0.0015,
+    background: { top: '#3a6f98', bottom: '#6888a8' },
+    difficulty: 'hard'
+  },
+  // Niveau 8: Amour Inconditionnel (351-400 nuages)
+  {
+    id: 8,
+    title: "Amour Inconditionnel",
+    icon: "❤️",
+    threshold: 351,
+    cloudsToPass: 50,
+    message: "Tu n'as pas besoin d'être parfait pour être aimé. Tu es déjà aimé parfaitement !",
+    verse: { text: "L'amour ne périt jamais", reference: "1 Corinthiens 13:8" },
+    cloudSpeed: { min: 1.5, max: 3.0 },
+    cloudSpawnRate: 0.011,
+    shootingClouds: 0.8,
+    rainSpeed: { min: 7.5, max: 9.5 },
+    powerUpRate: 0.0017,
+    background: { top: '#2a5f88', bottom: '#587898' },
+    difficulty: 'hard'
+  },
+  // Niveau 9: Héros de Lumière (401-450 nuages)
+  {
+    id: 9,
+    title: "Héros de Lumière",
+    icon: "🦸",
+    threshold: 401,
+    cloudsToPass: 50,
+    message: "Tu n'es pas trop pécheur pour Dieu. Tu es Son héros, Son enfant chéri !",
+    verse: { text: "Ta foi t'a sauvé", reference: "Luc 7:50" },
+    cloudSpeed: { min: 1.6, max: 3.2 },
+    cloudSpawnRate: 0.012,
+    shootingClouds: 0.82,
+    rainSpeed: { min: 8, max: 10 },
+    powerUpRate: 0.0018,
+    background: { top: '#1a4f78', bottom: '#486888' },
+    difficulty: 'expert'
+  },
+  // Niveau 10: Nouvelle Créature (451-550 nuages)
+  {
+    id: 10,
+    title: "Nouvelle Créature",
+    icon: "🦋",
+    threshold: 451,
+    cloudsToPass: 100,
+    message: "L'ancien est passé, voici du nouveau ! Tu renais dans la lumière divine.",
+    verse: { text: "Si quelqu'un est en Christ, il est une nouvelle créature", reference: "2 Corinthiens 5:17" },
+    cloudSpeed: { min: 1.7, max: 3.5 },
+    cloudSpawnRate: 0.013,
+    shootingClouds: 0.85,
+    rainSpeed: { min: 8.5, max: 10.5 },
+    powerUpRate: 0.002,
+    background: { top: '#0a3f68', bottom: '#385878' },
+    difficulty: 'expert'
+  },
+  // Niveau 11: Courage du Lion (551-650 nuages)
+  {
+    id: 11,
+    title: "Courage du Lion",
+    icon: "🦁",
+    threshold: 551,
+    cloudsToPass: 100,
+    message: "Lève-toi avec courage ! Tu es digne, tu es capable, tu es victorieux !",
+    verse: { text: "Soyez forts et prenez courage", reference: "Josué 1:9" },
+    cloudSpeed: { min: 1.8, max: 3.7 },
+    cloudSpawnRate: 0.014,
+    shootingClouds: 0.87,
+    rainSpeed: { min: 9, max: 11 },
+    powerUpRate: 0.0019,
+    background: { top: '#052f58', bottom: '#284868' },
+    difficulty: 'expert'
+  },
+  // Niveau 12: Porte de la Sagesse (651-750 nuages)
+  {
+    id: 12,
+    title: "Porte de la Sagesse",
+    icon: "📖",
+    threshold: 651,
+    cloudsToPass: 100,
+    message: "La Bible n'est pas un livre de jugement, mais un trésor d'amour pour toi ! Ouvre-la avec confiance.",
+    verse: { text: "Ta parole est une lampe à mes pieds", reference: "Psaume 119:105" },
+    cloudSpeed: { min: 1.9, max: 3.9 },
+    cloudSpawnRate: 0.015,
+    shootingClouds: 0.88,
+    rainSpeed: { min: 9.5, max: 11.5 },
+    powerUpRate: 0.002,
+    background: { top: '#001f48', bottom: '#183858' },
+    difficulty: 'master'
+  },
+  // Niveau 13: Ciel Nouveau (751-850 nuages)
+  {
+    id: 13,
+    title: "Ciel Nouveau",
+    icon: "🌌",
+    threshold: 751,
+    cloudsToPass: 100,
+    message: "Tu approches du sommet ! Lis la Bible comme un vainqueur, pas comme un condamné. Tu es choisi et aimé !",
+    verse: { text: "Vous êtes une race élue", reference: "1 Pierre 2:9" },
+    cloudSpeed: { min: 2.0, max: 4.0 },
+    cloudSpawnRate: 0.016,
+    shootingClouds: 0.9,
+    rainSpeed: { min: 10, max: 12 },
+    powerUpRate: 0.0021,
+    background: { top: '#000f38', bottom: '#082848' },
+    difficulty: 'master'
+  },
+  // Niveau 14: L'Aventure Éternelle (851-991 nuages)
+  {
+    id: 14,
+    title: "L'Aventure Éternelle",
+    icon: "✨",
+    threshold: 851,
+    cloudsToPass: 140,
+    message: "Dernier défi avant la victoire totale ! La Bible t'attend, elle est écrite pour toi, héros de lumière ! Continue, tu es presque au sommet !",
+    verse: { text: "La vie est une aventure extraordinaire", reference: "Psaume 99:1 (dit Origine)" },
+    cloudSpeed: { min: 2.1, max: 4.2 },
+    cloudSpawnRate: 0.017,
+    shootingClouds: 0.92,
+    rainSpeed: { min: 10.5, max: 12.5 },
+    powerUpRate: 0.0022,
+    background: { top: '#000028', bottom: '#001838' },
+    difficulty: 'master'
+  }
+];
+
+// Variables globales du système de niveaux
+let currentLevelIndex = 0;
+let currentLevelConfig = LEVELS_CONFIG[0];
+let totalScore = 0;
+let cloudsInLevel = 0;
+
+function updateLevelBackground() {
+  const bg = currentLevelConfig.background;
+  document.getElementById('gameContainer').style.background = 
+    `linear-gradient(180deg, ${bg.top} 0%, ${bg.bottom} 100%)`;
+}
+
+function startLevel(levelIndex) {
+  currentLevelIndex = levelIndex;
+  currentLevelConfig = LEVELS_CONFIG[levelIndex];
+  cloudsInLevel = 0;
+  
+  // Mettre à jour l'arrière-plan
+  updateLevelBackground();
+  
+  // Réinitialiser les éléments du jeu
+  bullets = [];
+  clouds = [];
+  rain = [];
+  particles = [];
+  powerUps = [];
+  hearts = [];
+  umbrella = false;
+  speed = false;
+  multi = false;
+  
+  // Mettre à jour le niveau affiché dans l'UI
+  level = currentLevelConfig.id;
+  
+  // Afficher l'écran d'introduction pour le niveau 1 (index 0)
+  if (levelIndex === 0) {
+    state = 'levelComplete';
+    setTimeout(() => {
+      const levelUpDiv = document.createElement('div');
+      levelUpDiv.id = 'levelUpScreen';
+      levelUpDiv.style.cssText = `
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(240,242,245,0.98) 0%, rgba(255,255,255,0.95) 100%);
+        backdrop-filter: blur(20px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 400;
+        padding: 20px;
+        box-sizing: border-box;
+        animation: fadeIn 0.5s ease-in;
+      `;
+      levelUpDiv.innerHTML = `
+        <div style="max-width: 550px; text-align: center; background: rgba(255,255,255,0.8); padding: 40px 30px; border-radius: 30px; box-shadow: 0 20px 60px rgba(0,0,0,0.1), 0 0 0 1px rgba(255,255,255,0.5) inset; border: 2px solid rgba(255,255,255,0.8);">
+          <div style="margin-bottom: 25px;">
+            <div style="font-size: 50px; margin-bottom: 15px;">🕊️</div>
+            <h2 style="color: #667eea; font-size: 26px; margin: 0 0 15px 0; font-weight: 800; letter-spacing: 1px;">
+              ${t('messages.welcome')}
+            </h2>
+          </div>
+          <div style="display: inline-block; padding: 10px 25px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 25px; margin-bottom: 20px; box-shadow: 0 8px 20px rgba(102,126,234,0.3);">
+            <h3 style="color: white; font-size: 20px; margin: 0; font-weight: 800; letter-spacing: 1.5px;">
+              ${currentLevelConfig.icon} NIVEAU ${currentLevelConfig.id}
+            </h3>
+          </div>
+          <div style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); padding: 20px; border-radius: 20px; margin-bottom: 20px;">
+            <h4 style="color: #2c3e50; font-size: 18px; margin: 0 0 15px 0; font-weight: 700;">
+              ${currentLevelConfig.title}
+            </h4>
+            <p style="color: #4a5568; font-size: 14px; line-height: 1.7; margin: 0;">
+              ${currentLevelConfig.message}
+            </p>
+          </div>
+          <div style="background: rgba(102,126,234,0.08); padding: 20px; border-radius: 20px; margin-bottom: 25px; border-left: 4px solid #667eea;">
+            <p style="color: #2c3e50; font-size: 13px; font-style: italic; margin: 0; line-height: 1.7;">
+              « ${currentLevelConfig.verse.text} »
+            </p>
+            <p style="color: #667eea; font-size: 12px; margin: 10px 0 0 0; font-weight: 600;">
+              — ${currentLevelConfig.verse.reference}
+            </p>
+          </div>
+          <button id="continueBtn" style="
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            padding: 16px 50px;
+            border-radius: 50px;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(102,126,234,0.4);
+            transition: all 0.3s;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+          " onmouseover="this.style.transform='translateY(-3px) scale(1.02)'; this.style.boxShadow='0 12px 30px rgba(102,126,234,0.5)';"
+             onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 8px 25px rgba(102,126,234,0.4)';">
+            ▶ Commencer
+          </button>
+        </div>
+      `;
+      document.getElementById('gameContainer').appendChild(levelUpDiv);
+      
+      // Continuer au clic
+      document.getElementById('continueBtn').addEventListener('click', () => {
+        levelUpDiv.remove();
+        state = 'playing';
+        setSun('happy');
+      });
+    }, 500);
+  } else {
+    state = 'playing';
+    setSun('happy');
+  }
+}
+
+function completeLevel() {
+  state = 'levelComplete';
+  const nextLevelIndex = currentLevelIndex + 1;
+  
+  if (nextLevelIndex >= LEVELS_CONFIG.length) {
+    // VICTOIRE FINALE (991 nuages) !
+    state = 'victory';
+    msg(t('messages.victory'));
+    setTimeout(() => {
+      // Afficher un écran de victoire spécial
+      const victoryDiv = document.createElement('div');
+      victoryDiv.id = 'victoryScreen';
+      victoryDiv.style.cssText = `
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(240,242,245,0.98) 0%, rgba(255,255,255,0.95) 100%);
+        backdrop-filter: blur(20px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 500;
+        padding: 20px;
+        box-sizing: border-box;
+        animation: fadeIn 0.5s ease-in;
+      `;
+      victoryDiv.innerHTML = `
+        <div style="max-width: 500px; text-align: center; background: rgba(255,255,255,0.8); padding: 40px 30px; border-radius: 30px; box-shadow: 0 20px 60px rgba(0,0,0,0.1), 0 0 0 1px rgba(255,255,255,0.5) inset; border: 2px solid rgba(255,255,255,0.8);">
+          <div style="display: inline-block; padding: 12px 30px; background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); border-radius: 25px; margin-bottom: 25px; box-shadow: 0 8px 20px rgba(17,153,142,0.3);">
+            <h1 style="color: white; font-size: 32px; margin: 0; font-weight: 800; letter-spacing: 2px;">
+              🏆 VICTOIRE 🏆
+            </h1>
+          </div>
+          <div style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); padding: 20px; border-radius: 20px; margin-bottom: 25px;">
+            <p style="color: #2c3e50; font-size: 14px; line-height: 1.8; margin: 0 0 20px 0; font-weight: 500;">
+              ${t('messages.victory')}
+            </p>
+            <div style="display: flex; justify-content: space-around; gap: 15px;">
+              <div style="flex: 1; background: rgba(255,255,255,0.7); padding: 15px; border-radius: 15px;">
+                <div style="font-size: 28px; color: #667eea; font-weight: bold;">${score}</div>
+                <div style="font-size: 12px; color: #6c757d; margin-top: 5px;">🎯 Score final</div>
+              </div>
+              <div style="flex: 1; background: rgba(255,255,255,0.7); padding: 15px; border-radius: 15px;">
+                <div style="font-size: 28px; color: #667eea; font-weight: bold;">${cloudsCleared}</div>
+                <div style="font-size: 12px; color: #6c757d; margin-top: 5px;">☁️ Nuages</div>
+              </div>
+            </div>
+          </div>
+          <button id="victoryBtn" style="
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            padding: 16px 50px;
+            border-radius: 50px;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(102,126,234,0.4);
+            transition: all 0.3s;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+          " onmouseover="this.style.transform='translateY(-3px) scale(1.02)'; this.style.boxShadow='0 12px 30px rgba(102,126,234,0.5)';"
+             onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 8px 25px rgba(102,126,234,0.4)';">
+            🎮 Mode Infini
+          </button>
+        </div>
+      `;
+      document.getElementById('gameContainer').appendChild(victoryDiv);
+      
+      // Continuer en mode infini au clic
+      document.getElementById('victoryBtn').addEventListener('click', () => {
+        victoryDiv.remove();
+        state = 'playing';
+        msg('Mode Infini activé ! Versets tous les 50 nuages ☁️');
+      });
+    }, 2000);
+  } else {
+    // Passage au niveau suivant
+    const nextConfig = LEVELS_CONFIG[nextLevelIndex];
+    
+    // Afficher le message et le verset du nouveau niveau
+    setTimeout(() => {
+      const levelUpDiv = document.createElement('div');
+      levelUpDiv.id = 'levelUpScreen';
+      levelUpDiv.style.cssText = `
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(240,242,245,0.98) 0%, rgba(255,255,255,0.95) 100%);
+        backdrop-filter: blur(20px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 400;
+        padding: 20px;
+        box-sizing: border-box;
+        animation: fadeIn 0.5s ease-in;
+      `;
+      levelUpDiv.innerHTML = `
+        <div style="max-width: 500px; text-align: center; background: rgba(255,255,255,0.8); padding: 40px 30px; border-radius: 30px; box-shadow: 0 20px 60px rgba(0,0,0,0.1), 0 0 0 1px rgba(255,255,255,0.5) inset; border: 2px solid rgba(255,255,255,0.8);">
+          <div style="display: inline-block; padding: 10px 25px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 25px; margin-bottom: 25px; box-shadow: 0 8px 20px rgba(102,126,234,0.3);">
+            <h2 style="color: white; font-size: 22px; margin: 0; font-weight: 800; letter-spacing: 1.5px;">
+              ${nextConfig.icon} NIVEAU ${nextConfig.id}
+            </h2>
+          </div>
+          <div style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); padding: 20px; border-radius: 20px; margin-bottom: 20px;">
+            <h3 style="color: #2c3e50; font-size: 18px; margin: 0 0 15px 0; font-weight: 700;">
+              ${nextConfig.title}
+            </h3>
+            <p style="color: #4a5568; font-size: 14px; line-height: 1.7; margin: 0;">
+              ${nextConfig.message}
+            </p>
+          </div>
+          <div style="background: rgba(102,126,234,0.08); padding: 20px; border-radius: 20px; margin-bottom: 25px; border-left: 4px solid #667eea;">
+            <p style="color: #2c3e50; font-size: 13px; font-style: italic; margin: 0; line-height: 1.7;">
+              « ${nextConfig.verse.text} »
+            </p>
+            <p style="color: #667eea; font-size: 12px; margin: 10px 0 0 0; font-weight: 600;">
+              — ${nextConfig.verse.reference}
+            </p>
+          </div>
+          <button id="continueBtn" style="
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            padding: 16px 50px;
+            border-radius: 50px;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(102,126,234,0.4);
+            transition: all 0.3s;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+          " onmouseover="this.style.transform='translateY(-3px) scale(1.02)'; this.style.boxShadow='0 12px 30px rgba(102,126,234,0.5)';"
+             onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 8px 25px rgba(102,126,234,0.4)';">
+            ✨ Suivant
+          </button>
+        </div>
+      `;
+      document.getElementById('gameContainer').appendChild(levelUpDiv);
+      
+      // Attendre le clic du joueur
+      document.getElementById('continueBtn').addEventListener('click', () => {
+        levelUpDiv.remove();
+        startLevel(nextLevelIndex);
+      });
+    }, 1000);
+  }
+}
+
+function showInfiniteVerse() {
+  // Liste de versets aléatoires pour le mode infini
+  const infiniteVerses = [
+    { text: "Que votre cœur ne se trouble pas", reference: "Jean 14:1" },
+    { text: "Je suis avec vous tous les jours", reference: "Matthieu 28:20" },
+    { text: "L'Éternel est ma lumière et mon salut", reference: "Psaume 27:1" },
+    { text: "Vous êtes la lumière du monde", reference: "Matthieu 5:14" },
+    { text: "L'amour couvre une multitude de péchés", reference: "1 Pierre 4:8" },
+    { text: "Car Dieu a tant aimé le monde", reference: "Jean 3:16" },
+    { text: "Cherchez premièrement le royaume de Dieu", reference: "Matthieu 6:33" },
+    { text: "Le juste vivra par la foi", reference: "Romains 1:17" },
+    { text: "Tout est possible à celui qui croit", reference: "Marc 9:23" },
+    { text: "Dieu est amour", reference: "1 Jean 4:8" },
+    { text: "Rien ne pourra nous séparer de l'amour de Dieu", reference: "Romains 8:39" },
+    { text: "Réjouissez-vous toujours dans le Seigneur", reference: "Philippiens 4:4" },
+    { text: "Ne crains rien, car je suis avec toi", reference: "Ésaïe 41:10" },
+    { text: "Heureux ceux qui ont le cœur pur", reference: "Matthieu 5:8" }
+  ];
+  
+  const randomVerse = infiniteVerses[Math.floor(Math.random() * infiniteVerses.length)];
+  
+  const verseDiv = document.createElement('div');
+  verseDiv.style.cssText = `
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 500px;
+    background: linear-gradient(135deg, rgba(155,89,182,0.95) 0%, rgba(142,68,173,0.95) 100%);
+    color: white;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    z-index: 450;
+    box-shadow: 0 10px 40px rgba(155,89,182,0.5);
+    animation: fadeIn 0.5s ease-in;
+  `;
+  verseDiv.innerHTML = `
+    <div style="max-width: 450px; margin: 0 auto;">
+      <h2 style="color: #fff; font-size: 28px; margin-bottom: 20px; text-shadow: 0 0 10px rgba(255,255,255,0.5);">
+        ✨ Mode Infini - Milestone ✨
+      </h2>
+      <p style="color: #f1c40f; font-size: 20px; margin-bottom: 25px; font-weight: bold;">
+        ${cloudsCleared} nuages dissipés !
+      </p>
+      <p style="font-size: 18px; line-height: 1.8; margin-bottom: 20px; font-style: italic;">
+        « ${randomVerse.text} »<br>
+        <span style="color: #ecf0f1; margin-top: 10px; display: inline-block;">- ${randomVerse.reference}</span>
+      </p>
+      <button id="verseBtn" style="
+        background: linear-gradient(135deg, #f1c40f 0%, #f39c12 100%);
+        border: none;
+        padding: 12px 40px;
+        border-radius: 25px;
+        color: #2c3e50;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 5px 15px rgba(241,196,15,0.4);
+        transition: all 0.3s;
+        margin-top: 15px;
+      " onmouseover="this.style.transform='translateY(-2px) scale(1.05)'; this.style.boxShadow='0 7px 20px rgba(241,196,15,0.6)';"
+         onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 5px 15px rgba(241,196,15,0.4)';">
+        ✨ Continuer
+      </button>
+    </div>
+  `;
+  document.getElementById('gameContainer').appendChild(verseDiv);
+  
+  // Mettre en pause le jeu
+  const previousState = state;
+  state = 'paused';
+  
+  // Attendre le clic du joueur
+  document.getElementById('verseBtn').addEventListener('click', () => {
+    verseDiv.remove();
+    state = previousState;
+  });
+}
+
+function initGame() {
+  // Démarrer directement le niveau 1 (le menu fusionné s'affichera automatiquement)
+  startLevel(0);
+}
+
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>
+

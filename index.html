@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#87ceeb">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%2387ceeb'/%3E%3Ctext x='50' y='70' text-anchor='middle' font-size='60'%3E🕊️%3C/text%3E%3C/svg%3E">
+<title>Dove of Hope : Sky Blessing</title>
+<style>
+* {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+body{margin:0;padding:0;background:linear-gradient(135deg,#fff 0%,#f8f9fa 50%,#e9ecef 100%);font-family:Arial,sans-serif;overflow:hidden;touch-action:none;position:fixed;width:100%;height:100%}
+#gameContainer{position:relative;width:100vw;height:100vh;max-width:600px;margin:0 auto;background:linear-gradient(180deg,#87ceeb 0%,#b8d8f8 100%)}
+#gameCanvas{display:block;cursor:none;position:absolute;top:0;left:0;width:100%;height:100%}
+.landscape{position:absolute;bottom:0;left:0;right:0;height:100vh;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Cpolygon points='0,300 80,240 160,300' fill='%23f8f9fa' opacity='0.5'/%3E%3Cpolygon points='120,300 200,200 280,300' fill='%23ffffff' opacity='0.8'/%3E%3Cpolygon points='240,300 320,240 400,300' fill='%23f8f9fa' opacity='0.5'/%3E%3Cpolygon points='60,300 140,260 220,300' fill='%23ecf0f1' opacity='0.4'/%3E%3Cpolygon points='180,300 260,260 340,300' fill='%23ecf0f1' opacity='0.4'/%3E%3C/svg%3E") no-repeat bottom center/cover;pointer-events:none;z-index:1}
+#ui{position:absolute;top:10px;left:10px;right:10px;color:#2c3e50;font-weight:bold;z-index:100;text-shadow:0 1px 2px rgba(255,255,255,0.8);font-size:14px;display:flex;justify-content:space-between;flex-wrap:wrap}
+#ui > div{margin:2px 5px;background:rgba(255,255,255,0.7);padding:3px 8px;border-radius:10px;box-shadow:0 2px 4px rgba(0,0,0,0.1)}
+#message{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#34495e;font-size:18px;font-weight:bold;text-align:center;opacity:0;transition:opacity 0.5s;text-shadow:0 2px 4px rgba(255,255,255,0.9);z-index:200;max-width:90%;padding:15px;background:rgba(255,255,255,0.9);border-radius:15px}
+#startButton{position:absolute;bottom:120px;left:50%;transform:translateX(-50%);width:80px;height:100px;background:linear-gradient(180deg,transparent 0%,transparent 60%,#34495e 60%,#2c3e50 100%);border:none;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;cursor:pointer;transition:all 0.3s;overflow:hidden;z-index:300}
+#startButton::before{content:'💡';position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);font-size:35px;animation:bulbGlow 2s infinite}
+#startButton::after{content:'Rallume !';position:absolute;bottom:5px;left:50%;transform:translateX(-50%);color:white;font-size:12px;font-weight:bold;text-shadow:0 1px 2px rgba(0,0,0,0.5)}
+#startButton:hover,#startButton:active{transform:translateX(-50%) translateY(-5px);box-shadow:0 10px 25px rgba(52,152,219,0.4)}
+.sun{position:absolute;top:20px;right:20px;width:50px;height:50px;border-radius:50%;transition:all 0.4s ease;z-index:50}
+.sun::before{content:'';position:absolute;top:-8px;left:-8px;right:-8px;bottom:-8px;border-radius:50%;border:2px solid;opacity:0.6;animation:rays 4s infinite linear}
+.sun.happy{background:radial-gradient(circle,#fff9c4 0%,#f1c40f 60%,#f39c12 100%);box-shadow:0 0 30px rgba(241,196,15,0.8);animation:glow 2s infinite}
+.sun.happy::before{border-color:#f1c40f;opacity:0.8}
+.sun.sad{background:radial-gradient(circle,#ecf0f1 0%,#bdc3c7 60%,#95a5a6 100%);box-shadow:0 0 15px rgba(149,165,166,0.5)}
+.sun.sad::before{border-color:#95a5a6;opacity:0.3;animation:none}
+.sun.neutral{background:radial-gradient(circle,#fdeaa7 0%,#f39c12 60%,#e67e22 100%);box-shadow:0 0 25px rgba(243,156,18,0.6)}
+.sun.neutral::before{border-color:#f39c12;opacity:0.5;animation:rays 6s infinite linear}
+.motivation{position:absolute;bottom:50px;left:50%;transform:translateX(-50%);color:#2c3e50;font-size:14px;text-align:center;font-weight:500;text-shadow:0 1px 2px rgba(255,255,255,0.8);opacity:1;transition:opacity 0.5s;animation:fadeOut 4s forwards;max-width:90%;padding:10px;background:rgba(255,255,255,0.8);border-radius:10px}
+@keyframes bulbGlow{0%,100%{opacity:0.8;transform:translate(-50%,-60%) scale(1)}50%{opacity:1;transform:translate(-50%,-60%) scale(1.1)}}
+@keyframes fadeOut{0%,75%{opacity:1}100%{opacity:0}}
+@keyframes rays{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+@keyframes glow{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+@keyframes fadeIn{0%{opacity:0}100%{opacity:1}}
+
+@media (min-width: 600px) {
+  #gameContainer{max-width:600px;box-shadow:0 0 20px rgba(0,0,0,0.2)}
+}
+</style>
+</head>
+<body>
+<div id="gameContainer">
+<canvas id="gameCanvas"></canvas>
+<div class="landscape"></div>
+<div class="sun neutral" id="sun"></div>
+<div id="ui">
+<div><span id="scoreLabel">Score</span>: <span id="score">0</span></div>
+<div><span id="cloudsLabel">Nuages</span>: <span id="clouds">0</span></div>
+<div><span id="levelLabel">Niveau</span>: <span id="level">1</span></div>
+<div><span id="livesLabel">Vie</span>: <span id="lives">3</span> ❤️</div>
+<div style="cursor: pointer;" onclick="showBadgesCollection()" title="Voir mes blasons">
+  🏆 Blasons: <span id="badgeCount">0</span>/10
+</div>
+</div>
+<div id="message"></div>
+<button id="startButton"></button>
+<div class="motivation">"Il est temps de rallumer la lumière - C'est un beau temps pour réaliser ses rêves !"</div>
+</div>
+
+<!-- 📦 MODULES DU JEU -->
+<script src="js/config.js"></script>
+
+<!-- 🌍 MODULES DE TRADUCTION (14 langues séparées) -->
+<script src="js/translations/fr.js"></script>
+<script src="js/translations/en.js"></script>
+<script src="js/translations/es.js"></script>
+<script src="js/translations/de.js"></script>
+<script src="js/translations/it.js"></script>
+<script src="js/translations/pt.js"></script>
+<script src="js/translations/ru.js"></script>
+<script src="js/translations/ja.js"></script>
+<script src="js/translations/zh.js"></script>
+<script src="js/translations/ar.js"></script>
+<script src="js/translations/ko.js"></script>
+<script src="js/translations/hi.js"></script>
+<script src="js/translations/tr.js"></script>
+<script src="js/translations/nl.js"></script>
+<script src="js/translations-index.js"></script>
+
+<!-- 📖 MODULE DES VERSETS BIBLIQUES -->
+<script src="js/verses.js"></script>
+
+<!-- 🏆 MODULE DE SCORING ET RÉCOMPENSES -->
+<script src="js/scoring.js"></script>
+<script src="js/scoring-ui.js"></script>
+
+<script src="js/story.js"></script>
+
+<!-- 🎮 MODULES DE NIVEAUX (4 modules séparés) -->
+<script src="js/levels/level-definitions.js"></script>
+<script src="js/levels/level-messages.js"></script>
+<script src="js/levels/bible-verses.js"></script>
+<script src="js/levels/progression-system.js"></script>
+<script src="js/levels-index.js"></script>
+
+<!-- 🎮 MOTEUR DU JEU -->
+<script src="js/game.js"></script>
+</body>
+</html>
