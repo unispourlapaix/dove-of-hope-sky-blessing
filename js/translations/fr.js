@@ -10,7 +10,7 @@ const fr = {
   ui: {
     score: 'Score',
     clouds: 'Nuages',
-    level: 'Niveau',
+    level: 'Chapitre',
     lives: 'Vie'
   },
   

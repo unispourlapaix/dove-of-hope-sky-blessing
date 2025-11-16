@@ -10,8 +10,8 @@ const en = {
   ui: {
     score: 'Score',
     clouds: 'Clouds',
-    level: 'Level',
-    lives: 'Life'
+    level: 'Chapter',
+    lives: 'Lives'
   },
   
   buttons: {

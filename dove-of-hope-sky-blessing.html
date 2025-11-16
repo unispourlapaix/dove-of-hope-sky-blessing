@@ -8,6 +8,7 @@
 <title>Dove of Hope : Sky Blessing</title>
 <script src="bible-verses.js"></script>
 <script src="translations.js"></script>
+<script src="js/testimonies.js"></script>
 <style>
 * {
   -webkit-tap-highlight-color: transparent;
@@ -15,17 +16,21 @@
   -webkit-user-select: none;
   user-select: none;
 }
-body{margin:0;padding:0;background:linear-gradient(135deg,#fff 0%,#f8f9fa 50%,#e9ecef 100%);font-family:Arial,sans-serif;overflow:hidden;touch-action:none;position:fixed;width:100%;height:100%}
+body{margin:0;padding:0;background:linear-gradient(135deg,#e8eef2 0%,#d4dce3 50%,#c5d0d8 100%);font-family:Arial,sans-serif;overflow:hidden;touch-action:none;position:fixed;width:100%;height:100%}
 #gameContainer{position:relative;width:100vw;height:100vh;max-width:480px;margin:0 auto;background:linear-gradient(180deg,#87ceeb 0%,#b8d8f8 100%);display:flex;align-items:center;justify-content:center}
 #gameCanvas{display:block;cursor:none;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);max-width:100%;max-height:100%;z-index:10}
 .landscape{position:absolute;bottom:0;left:0;right:0;height:100vh;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Cpolygon points='0,300 80,240 160,300' fill='%23f8f9fa' opacity='0.5'/%3E%3Cpolygon points='120,300 200,240 280,300' fill='%23ffffff' opacity='0.8'/%3E%3Cpolygon points='240,300 320,240 400,300' fill='%23f8f9fa' opacity='0.5'/%3E%3Cpolygon points='60,300 140,260 220,300' fill='%23ecf0f1' opacity='0.4'/%3E%3Cpolygon points='180,300 260,260 340,300' fill='%23ecf0f1' opacity='0.4'/%3E%3C/svg%3E") no-repeat bottom center/cover;pointer-events:none;z-index:1}
-#ui{position:absolute;top:10px;left:10px;right:10px;color:#2c3e50;font-weight:bold;z-index:100;text-shadow:0 1px 2px rgba(255,255,255,0.8);font-size:14px;display:flex;justify-content:space-between;flex-wrap:wrap}
-#ui > div{margin:2px 5px;background:rgba(255,255,255,0.7);padding:3px 8px;border-radius:10px;box-shadow:0 2px 4px rgba(0,0,0,0.1)}
-#message{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#34495e;font-size:18px;font-weight:bold;text-align:center;opacity:0;transition:opacity 0.5s;text-shadow:0 2px 4px rgba(255,255,255,0.9);z-index:200;max-width:90%;padding:15px}
-#startButton{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);width:80px;height:100px;background:linear-gradient(180deg,transparent 0%,transparent 60%,#34495e 60%,#2c3e50 100%);border:none;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;cursor:pointer;transition:all 0.3s;overflow:hidden;z-index:300}
-#startButton::before{content:'💡';position:absolute;top:50%;left:50%;transform:translate(-50%,-75%);font-size:35px;animation:bulbGlow 2s infinite}
-#startButton::after{content:'O/I';position:absolute;bottom:12px;left:50%;transform:translateX(-50%);color:white;font-size:12px;font-weight:bold;text-shadow:0 1px 2px rgba(0,0,0,0.5)}
-#startButton:hover,#startButton:active{transform:translateX(-50%) translateY(-5px);box-shadow:0 10px 25px rgba(52,152,219,0.4)}
+#ui{position:absolute;top:0;left:0;right:0;color:#2c3e50;font-weight:600;z-index:100;font-size:11px;background:linear-gradient(180deg,rgba(255,255,255,0.92) 0%,rgba(255,255,255,0.8) 90%,rgba(255,255,255,0) 100%);backdrop-filter:blur(10px);padding:4px 10px;box-shadow:0 1px 6px rgba(0,0,0,0.08);display:flex;justify-content:space-between;align-items:center;gap:8px}
+#ui > div{display:flex;align-items:center;gap:3px;color:#34495e;white-space:nowrap}
+#ui > div span{font-weight:900;color:#2c3e50;font-size:13px}
+#ui .ui-section{display:flex;align-items:center;gap:8px}
+#message{position:absolute;top:20%;left:50%;transform:translate(-50%,-50%);color:#000000;font-size:18px;font-weight:bold;text-align:center;opacity:0;transition:opacity 0.5s;-webkit-text-stroke:2px white;text-stroke:2px white;paint-order:stroke fill;z-index:200;max-width:90%;padding:15px}
+#startButton{position:absolute;bottom:80px;left:50%;transform:translateX(-50%);width:90px;height:110px;background:linear-gradient(180deg,transparent 0%,transparent 50%,#34495e 50%,#2c3e50 100%);border:3px solid #2c3e50;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;cursor:pointer;transition:all 0.5s;overflow:visible;z-index:300;box-shadow:0 5px 15px rgba(0,0,0,0.3)}
+#startButton.hidden{opacity:0;pointer-events:none;transform:translateX(-50%) scale(0.5)}
+#startButton::before{content:'💡';position:absolute;top:40%;left:50%;transform:translate(-50%,-50%);font-size:42px;animation:bulbGlow 2s infinite;filter:drop-shadow(0 0 10px rgba(255,235,59,0.6))}
+#startButton::after{content:'O/I';position:absolute;bottom:18px;left:50%;transform:translateX(-50%);color:white;font-size:14px;font-weight:bold;text-shadow:0 2px 4px rgba(0,0,0,0.8);letter-spacing:2px}
+#startButton:hover,#startButton:active{transform:translateX(-50%) translateY(-8px) scale(1.05);box-shadow:0 15px 35px rgba(52,152,219,0.5),0 0 20px rgba(255,235,59,0.4)}
+#startButton:hover::before,#startButton:active::before{font-size:48px;filter:drop-shadow(0 0 20px rgba(255,235,59,1))}
 .sun{position:absolute;top:15%;right:50px;transform:translateY(-50%);width:60px;height:60px;border-radius:50%;transition:all 0.4s ease;z-index:5}
 .sun::before{content:'';position:absolute;top:-10px;left:-10px;right:-10px;bottom:-10px;border-radius:50%;border:3px solid;opacity:0.5;animation:rays 4s infinite linear}
 .sun::after{content:'';position:absolute;top:-5px;left:-5px;right:-5px;bottom:-5px;border-radius:50%;border:2px dashed;opacity:0.3;animation:rays 6s infinite linear reverse}
@@ -37,11 +42,18 @@ body{margin:0;padding:0;background:linear-gradient(135deg,#fff 0%,#f8f9fa 50%,#e
 .sun.sad::after{display:none}
 .sun.neutral{background:radial-gradient(circle,#fdeaa7 0%,#f39c12 60%,#e67e22 100%);box-shadow:0 0 25px rgba(243,156,18,0.6)}
 .sun.neutral::before{border-color:#f39c12;opacity:0.5;animation:rays 6s infinite linear}
-.motivation{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#2c3e50;font-size:14px;text-align:center;font-weight:500;text-shadow:0 1px 2px rgba(255,255,255,0.8);opacity:1;transition:opacity 0.5s;max-width:90%;padding:10px;background:rgba(255,255,255,0.8);border-radius:10px}
-@keyframes bulbGlow{0%,100%{opacity:0.8;transform:translate(-50%,-60%) scale(1)}50%{opacity:1;transform:translate(-50%,-60%) scale(1.1)}}
+.motivation{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#2c3e50;font-size:13px;text-align:center;font-weight:600;text-shadow:none;opacity:0.95;transition:all 0.5s;max-width:85%;padding:12px 20px;background:rgba(255,255,255,0.95);border-radius:20px;z-index:250;backdrop-filter:blur(5px);border:2px solid #e0e0e0;box-shadow:0 4px 15px rgba(0,0,0,0.15)}
+.motivation.compact{bottom:220px;top:auto;transform:translateX(-50%);font-size:11px;max-width:80%;padding:8px 15px;opacity:0;pointer-events:none;visibility:hidden}
+@keyframes bulbGlow{0%,100%{opacity:0.7;transform:translate(-50%,-50%) scale(1)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.15);filter:drop-shadow(0 0 15px rgba(255,235,59,0.9))}}
 @keyframes fadeOut{0%,75%{opacity:1}100%{opacity:0}}
 @keyframes rays{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
 @keyframes glow{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+
+.audio-controls{display:flex;gap:3px;z-index:150}
+.audio-btn{width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,0.85);border:1.5px solid #3498db;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:11px;line-height:1;transition:all 0.3s;box-shadow:0 1px 3px rgba(0,0,0,0.1)}
+.audio-btn:hover{transform:scale(1.08);box-shadow:0 2px 6px rgba(52,152,219,0.3)}
+.audio-btn.muted{background:rgba(231,76,60,0.85);border-color:#c0392b}
+.audio-btn.muted:hover{box-shadow:0 2px 6px rgba(231,76,60,0.3)}
 
 @media (min-width: 600px) {
   #gameContainer{max-width:480px;box-shadow:0 0 20px rgba(0,0,0,0.2)}
@@ -51,18 +63,34 @@ body{margin:0;padding:0;background:linear-gradient(135deg,#fff 0%,#f8f9fa 50%,#e
   #gameContainer{max-width:100vw}
 }
 </style>
+
+<!-- Bibliothèque Supabase pour sauvegarde en ligne -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config-dove.js"></script>
+
 </head>
 <body>
 <div id="gameContainer">
 <canvas id="gameCanvas"></canvas>
 <div class="landscape"></div>
 <div class="sun neutral" id="sun"></div>
-<div id="ui">
-<div>Score: <span id="score">0</span></div>
-<div>Nuages: <span id="clouds">0</span></div>
-<div>Niveau: <span id="level">1</span></div>
-<div>Vie: <span id="lives">3</span> ❤️</div>
-<div onclick="showStats()" style="cursor:pointer;background:rgba(52,152,219,0.8);">💎 Trésors</div>
+<button id="menuToggle" onclick="togglePause()" style="position:absolute;top:70px;left:10px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.95);border:2px solid rgba(0,0,0,0.1);font-size:11px;font-weight:bold;cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,0.2);z-index:150;transition:all 0.3s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'" title="Pause">O/I</button>
+<div id="ui" style="display:flex;justify-content:space-between;align-items:center;width:100%;background:rgba(255,255,255,0.95);padding:10px 20px;border-radius:20px;box-shadow:0 4px 15px rgba(0,0,0,0.1);backdrop-filter:blur(10px);box-sizing:border-box;transition:opacity 0.3s, transform 0.3s;">
+<div style="display:flex;gap:15px;align-items:center;">
+<div style="font-weight:700;color:#667eea;font-size:18px;"><span id="score">0</span> <span style="font-size:12px;opacity:0.7;">pts</span></div>
+<div style="color:#3498db;font-weight:600;">☁️ <span id="clouds">0</span></div>
+<div style="color:#9b59b6;font-weight:600;">Niv. <span id="level">1</span></div>
+<div style="color:#e74c3c;font-weight:600;"><span id="lives">3</span> ❤️</div>
+<div style="color:#f39c12;font-weight:600;">⭐ <span id="starStock">0</span></div>
+</div>
+<div style="display:flex;gap:6px;align-items:center;">
+<div id="langFlag" onclick="showLanguageSelector()" style="cursor:pointer;font-size:20px;padding:4px;border-radius:8px;transition:all 0.2s;background:rgba(243,156,18,0.1);" onmouseover="this.style.transform='scale(1.1)';this.style.background='rgba(243,156,18,0.2)'" onmouseout="this.style.transform='scale(1)';this.style.background='rgba(243,156,18,0.1)'" title="Changer de langue">🇫🇷</div>
+<div onclick="showStats()" style="cursor:pointer;font-size:18px;padding:4px;border-radius:8px;transition:all 0.2s;background:rgba(52,152,219,0.1);" onmouseover="this.style.transform='scale(1.1)';this.style.background='rgba(52,152,219,0.2)'" onmouseout="this.style.transform='scale(1)';this.style.background='rgba(52,152,219,0.1)'" title="Mes Trésors">💎</div>
+<div onclick="showSupabaseSave()" style="cursor:pointer;font-size:18px;padding:4px;border-radius:8px;transition:all 0.2s;background:rgba(46,204,113,0.1);" onmouseover="this.style.transform='scale(1.1)';this.style.background='rgba(46,204,113,0.2)'" onmouseout="this.style.transform='scale(1)';this.style.background='rgba(46,204,113,0.1)'" title="Connexion Cloud">☁️</div>
+<div style="width:1px;height:20px;background:rgba(0,0,0,0.1);margin:0 4px;"></div>
+<div class="audio-btn" id="musicBtn" style="cursor:pointer;font-size:18px;padding:4px;border-radius:8px;transition:all 0.2s;background:rgba(155,89,182,0.1);" onmouseover="this.style.transform='scale(1.1)';this.style.background='rgba(155,89,182,0.2)'" onmouseout="this.style.transform='scale(1)';this.style.background='rgba(155,89,182,0.1)'" title="Musique">♫</div>
+<div class="audio-btn" id="sfxBtn" style="cursor:pointer;font-size:18px;padding:4px;border-radius:8px;transition:all 0.2s;background:rgba(155,89,182,0.1);" onmouseover="this.style.transform='scale(1.1)';this.style.background='rgba(155,89,182,0.2)'" onmouseout="this.style.transform='scale(1)';this.style.background='rgba(155,89,182,0.1)'" title="Effets sonores">♪</div>
+</div>
 </div>
 <div id="message"></div>
 <button id="startButton"></button>
@@ -75,6 +103,52 @@ body{margin:0;padding:0;background:linear-gradient(135deg,#fff 0%,#f8f9fa 50%,#e
 // ============================================
 // SYSTÈME DE TRADUCTION (utilise translations.js)
 // ============================================
+
+let menuVisible = true;
+let menuHideTimeout = null;
+let pausedState = null;
+
+function togglePause() {
+  const ui = document.getElementById('ui');
+  const toggleBtn = document.getElementById('menuToggle');
+  
+  if (state === 'playing') {
+    // Mettre en pause
+    pausedState = state;
+    state = 'paused';
+    menuVisible = true;
+    ui.style.opacity = '1';
+    ui.style.transform = 'translateY(0)';
+    ui.style.pointerEvents = 'auto';
+    clearTimeout(menuHideTimeout);
+  } else if (state === 'paused') {
+    // Reprendre le jeu
+    state = pausedState || 'playing';
+    pausedState = null;
+    // Auto-masquer le menu après 3 secondes
+    menuHideTimeout = setTimeout(() => {
+      if (state === 'playing') {
+        ui.style.opacity = '0';
+        ui.style.transform = 'translateY(-20px)';
+        ui.style.pointerEvents = 'none';
+        menuVisible = false;
+      }
+    }, 3000);
+  }
+}
+
+// Masquer le menu automatiquement après le démarrage du jeu
+function autoHideMenuOnStart() {
+  const ui = document.getElementById('ui');
+  if (state === 'playing') {
+    menuHideTimeout = setTimeout(() => {
+      ui.style.opacity = '0';
+      ui.style.transform = 'translateY(-20px)';
+      ui.style.pointerEvents = 'none';
+      menuVisible = false;
+    }, 3000);
+  }
+}
 
 // Langue actuelle (par défaut: français)
 let currentLang = 'fr';
@@ -118,6 +192,183 @@ if (savedLang && languageExists(savedLang)) {
   currentLang = savedLang;
 }
 
+// Fonction pour obtenir le drapeau de la langue actuelle
+function getCurrentLanguageFlag() {
+  const flags = {
+    'fr': '🇫🇷', 'en': '🇬🇧', 'es': '🇪🇸', 'pt': '🇵🇹',
+    'de': '🇩🇪', 'it': '🇮🇹', 'nl': '🇳🇱', 'ru': '🇷🇺',
+    'ar': '🇸🇦', 'zh': '🇨🇳', 'ja': '🇯🇵', 'ko': '🇰🇷',
+    'hi': '🇮🇳', 'tr': '🇹🇷'
+  };
+  return flags[currentLang] || '🌍';
+}
+
+// Mettre à jour le drapeau dans l'UI
+function updateLanguageFlag() {
+  const langFlagEl = document.getElementById('langFlag');
+  if (langFlagEl) {
+    langFlagEl.textContent = getCurrentLanguageFlag();
+  }
+}
+
+function showTestimonies() {
+  const lang = currentLanguage || 'fr';
+  const testimonies = getTestimonies(lang);
+  
+  const testimonyDiv = document.createElement('div');
+  testimonyDiv.style.cssText = `
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 500px;
+    max-height: 85vh;
+    background: linear-gradient(135deg, rgba(231,76,60,0.98) 0%, rgba(241,196,15,0.98) 100%);
+    color: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 50px rgba(0,0,0,0.5);
+    z-index: 500;
+    overflow-y: auto;
+  `;
+  
+  testimonyDiv.innerHTML = `
+    <button onclick="this.parentElement.remove()" style="position:absolute;top:10px;right:10px;background:rgba(0,0,0,0.3);color:white;border:none;border-radius:50%;width:35px;height:35px;font-size:20px;cursor:pointer;font-weight:bold;line-height:1;">✕</button>
+    <h2 style="text-align:center;margin-bottom:20px;font-size:24px;">💬 Témoignages d'Espoir</h2>
+    
+    ${testimonies.map((testimony, index) => `
+      <div style="background:rgba(255,255,255,0.15);padding:20px;border-radius:12px;margin-bottom:20px;border:2px solid rgba(255,255,255,0.2);">
+        <h3 style="margin-top:0;text-align:center;color:#fff;font-size:18px;">✨ ${testimony.title}</h3>
+        <div style="font-size:14px;line-height:1.8;text-align:justify;white-space:pre-line;opacity:0.95;">
+          ${testimony.text}
+        </div>
+        <p style="margin-top:15px;text-align:right;font-style:italic;font-size:13px;opacity:0.8;">— ${testimony.author}</p>
+      </div>
+    `).join('')}
+    
+    <div style="background:linear-gradient(135deg, rgba(231,76,60,0.15), rgba(241,196,15,0.15));padding:18px;border-radius:10px;margin-bottom:20px;border:2px solid rgba(231,76,60,0.3);max-height:300px;overflow-y:auto;">
+      <h3 style="margin-top:0;text-align:center;color:#fff;">💎 Trésor de Vie - Emmanuel</h3>
+      <div style="font-size:13px;line-height:1.7;text-align:justify;opacity:0.95;">
+        <p style="margin:10px 0;">Il fut un temps où la maladie m'a terriblement isolé et de sombres nuages est venue envahir ma vie. J'ai tenté d'abandonner mais avant j'ai crié à Dieu ! <strong>C'est à toi que je donne ma vie et pas aux ombres sournoises.</strong></p>
+        
+        <p style="margin:10px 0;">Comme une prière, mon cri fut entendu et ma vie a changé dès ce jour où j'ai su dans mon cœur que <em>je suis aimé comme je suis</em>. Un long travail de confiance, de courage, de changement s'amorça en moi.</p>
+        
+        <p style="margin:10px 0;">J'ai appris des erreurs, j'ai appris à ne pas regarder en arrière toujours sans jamais oublier. Mais j'ai surtout appris à regarder l'avenir à patience, espérance et joie.</p>
+        
+        <p style="margin:10px 0;">Une joie que j'ai retrouvée dans la louange et une adoration de Dieu sauveur, à celui qui m'a tendu la main quand personne ne pouvait être là pour moi. Il m'a sorti de la vallée de la mort et fait voir ce qui est vraiment important : <strong>la vie simple, ordinaire</strong>.</p>
+        
+        <p style="margin:10px 0;">J'ai vu au-delà de mes désirs matérialistes, j'ai vu qu'il fallait regarder à ce que j'ai et pas à ce que je n'ai pas. Et aimer ce que je suis, comme je veux être. <em>J'ai vu l'espoir en face.</em></p>
+        
+        <p style="margin:10px 0;">J'ai demandé et j'ai reçu des réponses ineffables qui a produit en moi une foi inébranlable. À travers les difficultés j'ai grandi et je ne regrette pas d'avoir persévéré, espéré encore et encore car <strong>chaque colline cachait des trésors de vie</strong>, chaque montagne vaincue par le courage de bouger a porté un meilleur avenir, des souvenirs de vie extraordinaire, des rencontres et lieux merveilleux.</p>
+        
+        <p style="margin:10px 0;text-align:center;font-weight:bold;color:#fff;font-size:14px;padding:10px;background:rgba(255,255,255,0.2);border-radius:8px;">
+          🕊️ C'est pour cela que Jésus te dit : N'abandonne jamais, persévère jusqu'à l'impossible ! 🕊️
+        </p>
+      </div>
+    </div>
+    
+    <div style="text-align:center;margin-top:20px;">
+      <button onclick="this.parentElement.parentElement.remove()" style="
+        padding:12px 24px;
+        background:#27ae60;
+        color:white;
+        border:none;
+        border-radius:10px;
+        font-size:16px;
+        font-weight:bold;
+        cursor:pointer;
+        box-shadow:0 4px 6px rgba(0,0,0,0.2);
+        transition:transform 0.2s;
+      " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+        Fermer
+      </button>
+    </div>
+  `;
+  
+  document.body.appendChild(testimonyDiv);
+  testimonyDiv.id = 'testimonyDisplay';
+}
+
+// Fonction pour afficher le sélecteur de langue
+function showLanguageSelector() {
+  const languages = [
+    { code: 'fr', name: 'Français', flag: '🇫🇷' },
+    { code: 'en', name: 'English', flag: '🇬🇧' },
+    { code: 'es', name: 'Español', flag: '🇪🇸' },
+    { code: 'pt', name: 'Português', flag: '🇵🇹' },
+    { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
+    { code: 'it', name: 'Italiano', flag: '🇮🇹' },
+    { code: 'ru', name: 'Русский', flag: '🇷🇺' },
+    { code: 'zh', name: '中文', flag: '🇨🇳' },
+    { code: 'ar', name: 'العربية', flag: '🇸🇦' },
+    { code: 'hi', name: 'हिन्दी', flag: '🇮🇳' },
+    { code: 'sw', name: 'Kiswahili', flag: '🇰🇪' },
+    { code: 'ko', name: '한국어', flag: '🇰🇷' },
+    { code: 'ja', name: '日本語', flag: '🇯🇵' },
+    { code: 'pl', name: 'Polski', flag: '🇵🇱' }
+  ];
+  
+  const langDiv = document.createElement('div');
+  langDiv.style.cssText = `
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(135deg, rgba(52,152,219,0.95) 0%, rgba(41,128,185,0.95) 100%);
+    padding: 25px;
+    border-radius: 20px;
+    z-index: 1000;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    max-width: 400px;
+    max-height: 80vh;
+    overflow-y: auto;
+  `;
+  
+  langDiv.innerHTML = `
+    <button onclick="this.parentElement.remove()" style="position:absolute;top:10px;right:10px;background:rgba(0,0,0,0.3);color:white;border:none;border-radius:50%;width:35px;height:35px;font-size:20px;cursor:pointer;font-weight:bold;line-height:1;">✕</button>
+    <h2 style="text-align:center;margin-bottom:20px;color:white;font-size:22px;">🌍 Choisir la langue</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+      ${languages.map(lang => `
+        <button onclick="selectLanguage('${lang.code}')" style="
+          background: ${currentLang === lang.code ? 'rgba(46,204,113,0.9)' : 'rgba(255,255,255,0.9)'};
+          border: 3px solid ${currentLang === lang.code ? '#27ae60' : 'transparent'};
+          padding: 12px;
+          border-radius: 12px;
+          cursor: pointer;
+          font-size: 14px;
+          font-weight: bold;
+          color: #2c3e50;
+          transition: all 0.3s;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+        " onmouseover="this.style.transform='scale(1.05)';" onmouseout="this.style.transform='scale(1)';">
+          <span style="font-size:24px;">${lang.flag}</span>
+          <span>${lang.name}</span>
+        </button>
+      `).join('')}
+    </div>
+  `;
+  
+  document.body.appendChild(langDiv);
+}
+
+// Fonction pour sélectionner une langue
+function selectLanguage(langCode) {
+  setLanguage(langCode);
+  // Mettre à jour le drapeau dans l'UI
+  updateLanguageFlag();
+  // Fermer le sélecteur
+  const selector = document.querySelector('div[style*="grid-template-columns"]');
+  if (selector && selector.parentElement) {
+    selector.parentElement.remove();
+  }
+  // Afficher un message de confirmation
+  msg(`🌍 ${t('ui.language')} : ${langCode.toUpperCase()}`);
+}
+
 // ============================================
 // 💾 SYSTÈME DE SAUVEGARDE LOCALE
 // ============================================
@@ -133,6 +384,7 @@ let gameData = {
   totalCloudsDestroyed: 0,
   totalGamesPlayed: 0,
   totalPlayTime: 0, // en secondes
+  starStock: 0, // Stock d'étoiles accumulées
   
   // Statistiques
   stats: {
@@ -163,6 +415,10 @@ let gameData = {
   lastLevel: 1
 };
 
+// Variables globales pour le jeu (déclarées avant loadGameData)
+let starCount = 0; // Compteur d'étoiles accumulées
+let lastStarChangeTime = 0; // Pour faire disparaître le texte rapidement
+
 // Charger les données sauvegardées
 function loadGameData() {
   try {
@@ -171,7 +427,12 @@ function loadGameData() {
       const parsed = JSON.parse(savedData);
       // Fusionner avec la structure par défaut pour compatibilité
       gameData = { ...gameData, ...parsed };
+      // Restaurer le stock d'étoiles
+      if (typeof gameData.starStock !== 'undefined') {
+        starCount = gameData.starStock;
+      }
       console.log('💾 Données chargées:', gameData);
+      console.log('⭐ Stock d\'étoiles restauré:', starCount);
       return true;
     }
   } catch (error) {
@@ -181,11 +442,121 @@ function loadGameData() {
 }
 
 // Sauvegarder les données
+// ========== SYSTÈME DE BASE DE DONNÉES SIMPLIFIÉ ==========
+// Sauvegarde uniquement : score, email, surnom
+const DB_KEY = 'doveGameScores';
+
+// Structure simplifiée pour la base de données
+let playerProfile = {
+  nickname: '',
+  email: '',
+  bestScore: 0,
+  highestLevel: 1,
+  lastPlayed: null
+};
+
+// Charger le profil depuis localStorage
+function loadPlayerProfile() {
+  try {
+    const saved = localStorage.getItem(DB_KEY);
+    if (saved) {
+      playerProfile = JSON.parse(saved);
+      console.log('💾 Profil chargé:', playerProfile);
+      return true;
+    }
+  } catch (error) {
+    console.error('❌ Erreur chargement profil:', error);
+  }
+  return false;
+}
+
+// Sauvegarder le profil dans localStorage
+function savePlayerProfile() {
+  try {
+    playerProfile.lastPlayed = new Date().toISOString();
+    localStorage.setItem(DB_KEY, JSON.stringify(playerProfile));
+    console.log('💾 Profil sauvegardé:', playerProfile);
+    return true;
+  } catch (error) {
+    console.error('❌ Erreur sauvegarde profil:', error);
+    return false;
+  }
+}
+
+// Mettre à jour le score si meilleur
+function updateBestScore(newScore) {
+  if (newScore > playerProfile.bestScore) {
+    playerProfile.bestScore = newScore;
+    savePlayerProfile();
+    return true; // Nouveau record !
+  }
+  return false;
+}
+
+// Mettre à jour le niveau maximum atteint
+function updateHighestLevel(newLevel) {
+  if (newLevel > playerProfile.highestLevel) {
+    playerProfile.highestLevel = newLevel;
+    savePlayerProfile();
+    
+    // Sauvegarde automatique locale
+    localStorage.setItem('doveGameData', JSON.stringify(gameData));
+    
+    // Sauvegarde automatique cloud (si connecté)
+    autoSaveToCloud();
+    
+    console.log('🎯 Nouveau niveau débloqué:', newLevel, '💾 Sauvegarde auto OK');
+    return true; // Nouveau niveau !
+  }
+  return false;
+}
+
+// Demander les informations du joueur au Game Over
+function promptPlayerInfo() {
+  if (!playerProfile.nickname || !playerProfile.email) {
+    const nickname = prompt('🎮 Entre ton surnom pour le classement :') || 'Anonyme';
+    const email = prompt('📧 Entre ton email (optionnel) :') || '';
+    
+    playerProfile.nickname = nickname;
+    playerProfile.email = email;
+    savePlayerProfile();
+  }
+}
+
+// Exporter le profil pour la base de données
+function exportProfileData() {
+  const data = {
+    nickname: playerProfile.nickname,
+    email: playerProfile.email,
+    score: playerProfile.bestScore,
+    level: playerProfile.highestLevel,
+    date: playerProfile.lastPlayed
+  };
+  
+  const jsonData = JSON.stringify(data, null, 2);
+  const blob = new Blob([jsonData], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `dove-score-${playerProfile.nickname}-${Date.now()}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  
+  console.log('📤 Profil exporté:', data);
+  showPopup('\u2705 Score export\u00e9 !\n\nPartage ce fichier pour le classement global.', '\ud83c\udfc6', 'success');
+}
+
+// Charger le profil au démarrage
+loadPlayerProfile();
+
+// ========== ANCIEN SYSTÈME (GARDÉ POUR COMPATIBILITÉ) ==========
 function saveGameData() {
   try {
     gameData.lastPlayed = new Date().toISOString();
+    // Sauvegarder le stock d'étoiles actuel
+    gameData.starStock = starCount;
     localStorage.setItem(SAVE_KEY, JSON.stringify(gameData));
-    console.log('💾 Données sauvegardées');
+    console.log('💾 Données sauvegardées (⭐ étoiles:', starCount + ')');
     return true;
   } catch (error) {
     console.error('❌ Erreur lors de la sauvegarde:', error);
@@ -201,7 +572,7 @@ function updateStats(statName, value = 1) {
 }
 
 // Sauvegarder la progression du niveau
-function saveProgress(level, score, clouds) {
+function saveProgress(level, score, totalClouds) {
   // Mise à jour du meilleur niveau atteint
   if (level > gameData.highestLevelReached) {
     gameData.highestLevelReached = level;
@@ -212,8 +583,15 @@ function saveProgress(level, score, clouds) {
     gameData.highScore = score;
   }
   
-  // Mise à jour des nuages détruits
-  gameData.totalCloudsDestroyed += clouds;
+  // Mise à jour des nuages détruits (seulement le delta depuis la dernière sauvegarde)
+  const cloudsDelta = totalClouds - lastSavedCloudsCount;
+  if (cloudsDelta > 0) {
+    gameData.totalCloudsDestroyed += cloudsDelta;
+    lastSavedCloudsCount = totalClouds;
+  }
+  
+  // Sauvegarder le stock d'étoiles
+  gameData.starStock = starCount;
   
   // Dernière session
   gameData.lastScore = score;
@@ -557,10 +935,10 @@ function importGameData(fileInput) {
         gameData = { ...gameData, ...imported };
         saveGameData();
         console.log('📥 Données importées');
-        alert('✅ Données importées avec succès !');
+        showPopup('✅ Données importées avec succès !', '💾', 'success');
       } catch (error) {
         console.error('❌ Erreur lors de l\'import:', error);
-        alert('❌ Fichier invalide');
+        showPopup('❌ Fichier invalide', '⚠️', 'error');
       }
     };
     reader.readAsText(file);
@@ -571,19 +949,520 @@ function importGameData(fileInput) {
 loadGameData();
 
 // ============================================
-// 🎮 CODE DU JEU
+// � SYSTÈME AUDIO
 // ============================================
-const c=document.getElementById('gameCanvas'),ctx=c.getContext('2d'),scoreEl=document.getElementById('score'),cloudsEl=document.getElementById('clouds'),levelEl=document.getElementById('level'),livesEl=document.getElementById('lives'),messageEl=document.getElementById('message'),startBtn=document.getElementById('startButton'),sunEl=document.getElementById('sun');
+const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+let audioInitialized = false;
+let musicEnabled = true;
+let sfxEnabled = true;
 
-let state='start',score=0,cloudsCleared=0,level=1,lives=3,lastTime=0,umbrella=false,uTime=0,speed=false,sTime=0,multi=false,mTime=0;
+// Fonction pour initialiser l'AudioContext après interaction utilisateur
+function initAudioContext() {
+  if (!audioInitialized) {
+    audioInitialized = true;
+    console.log('✅ AudioContext prêt');
+  }
+}
+
+// Playlist de musiques gospel
+const gospelPlaylist = [
+  'public/gospel/je-te-donne-ma-vie.mp3', // Toujours en premier
+  'public/gospel/reflet-trompeurs.mp3', // Deuxième chanson
+  'public/gospel/chacun-sa-place-sous-le-ciel-de-papa.mp3',
+  'public/gospel/cours-vers-ta-destinee.mp3',
+  'public/gospel/dans-quel-monde-on-vit.mp3',
+  'public/gospel/elle-ma-dit-il-est-vivant.mp3',
+  'public/gospel/esperance.mp3',
+  'public/gospel/il-est-la-la-avec-nous.mp3',
+  'public/gospel/il-y-a-un-espoir-pour-toi-pour-moi.mp3',
+  'public/gospel/il-y-a-une-chose-que-tu-dois-voir.mp3',
+  'public/gospel/je-veux-prier.mp3',
+  'public/gospel/jesus-connait-ta-vie.mp3',
+  'public/gospel/jai-un-secret-en-moi.mp3',
+  'public/gospel/la-paix-renait-toujours.mp3',
+  'public/gospel/la-parole-est-venue.mp3',
+  'public/gospel/le-torrent-de-larnon.mp3',
+  'public/gospel/les-anges-sont-descendus-vers-toi.mp3',
+  'public/gospel/mise-a-jour-de-mon-coeur.mp3',
+  'public/gospel/nabandonne-jamais.mp3',
+  'public/gospel/nabandonne-pas.mp3',
+  'public/gospel/prends-le-chemin.mp3',
+  'public/gospel/priez-pour-resister-au-mal.mp3',
+  'public/gospel/quand-tout-semblait-sombrer.mp3',
+  'public/gospel/que-je-vive.mp3',
+  'public/gospel/tiens-bon-tiens-bon.mp3',
+  'public/gospel/tu-es-appele-a-porte-la-paix.mp3',
+  'public/gospel/tu-mas-tendue-la-main.mp3',
+  'public/gospel/un-sos-sur-les-flots.mp3'
+];
+
+let currentTrackIndex = 0;
+let musicAudio = null;
+let firstPlay = true; // Pour savoir si c'est le premier lancement
+let rainMusicAudio = null; // Audio spécial pour la pluie
+let normalMusicPaused = false; // Pour reprendre la musique normale après la pluie
+const rainMusicPath = 'gospel/un-sos-sur-les-flots.mp3'; // Chanson pour la pluie
+
+// Fonction pour jouer une musique aléatoire
+function playRandomMusic() {
+  if (!musicEnabled || normalMusicPaused) return;
+  
+  // Initialiser l'AudioContext si ce n'est pas déjà fait
+  if (!audioInitialized) {
+    initAudioContext();
+  }
+  
+  // Si c'est le premier lancement, commencer par "Je te donne ma vie"
+  if (firstPlay) {
+    currentTrackIndex = 0; // Index 0 = "Je te donne ma vie"
+    firstPlay = false;
+  } else {
+    // Ensuite, jouer aléatoirement
+    currentTrackIndex = Math.floor(Math.random() * gospelPlaylist.length);
+  }
+  
+  // Créer un nouvel élément audio
+  if (musicAudio) {
+    musicAudio.pause();
+    musicAudio = null;
+  }
+  
+  musicAudio = new Audio(gospelPlaylist[currentTrackIndex]);
+  musicAudio.volume = 0.3; // Volume modéré
+  
+  // Gestion d'erreur améliorée pour fichiers manquants
+  musicAudio.addEventListener('error', (e) => {
+    console.warn('⚠️ Impossible de charger:', gospelPlaylist[currentTrackIndex]);
+    // Passer à la chanson suivante
+    playRandomMusic();
+  });
+  
+  musicAudio.play().catch(err => {
+    console.log('ℹ️ Lecture musique différée (interaction requise)');
+  });
+  
+  // Quand la musique se termine, jouer la suivante
+  musicAudio.addEventListener('ended', () => {
+    playRandomMusic();
+  });
+}
+
+// Fonction pour jouer la musique de pluie
+function playRainMusic() {
+  if (!musicEnabled) return;
+  
+  // Initialiser l'AudioContext si ce n'est pas déjà fait
+  if (!audioInitialized) {
+    initAudioContext();
+  }
+  
+  // Mettre en pause la musique normale
+  if (musicAudio && !musicAudio.paused) {
+    musicAudio.pause();
+    normalMusicPaused = true;
+  }
+  
+  // Si la musique de pluie joue déjà, ne rien faire
+  if (rainMusicAudio && !rainMusicAudio.paused) return;
+  
+  // Créer et jouer la musique de pluie
+  if (rainMusicAudio) {
+    rainMusicAudio.pause();
+    rainMusicAudio = null;
+  }
+  
+  rainMusicAudio = new Audio(rainMusicPath);
+  rainMusicAudio.volume = 0.35; // Un peu plus fort pour la pluie
+  rainMusicAudio.loop = true; // Boucle pendant la pluie
+  rainMusicAudio.play().catch(err => console.log('Erreur lecture musique pluie:', err));
+}
+
+// Fonction pour arrêter la musique de pluie et reprendre la normale
+function stopRainMusic() {
+  if (rainMusicAudio) {
+    rainMusicAudio.pause();
+    rainMusicAudio.currentTime = 0;
+    rainMusicAudio = null;
+  }
+  
+  // Reprendre la musique normale
+  normalMusicPaused = false;
+  if (musicEnabled && musicAudio && musicAudio.paused) {
+    musicAudio.play().catch(err => console.log('Erreur reprise musique:', err));
+  } else if (musicEnabled && !musicAudio) {
+    playRandomMusic();
+  }
+}
+
+// Fonction pour arrêter la musique
+function stopMusic() {
+  if (musicAudio) {
+    musicAudio.pause();
+    musicAudio.currentTime = 0;
+  }
+  if (rainMusicAudio) {
+    rainMusicAudio.pause();
+    rainMusicAudio.currentTime = 0;
+  }
+}
+
+// Boutons de contrôle audio
+const musicBtn = document.getElementById('musicBtn');
+const sfxBtn = document.getElementById('sfxBtn');
+
+musicBtn.addEventListener('click', () => {
+  musicEnabled = !musicEnabled;
+  musicBtn.classList.toggle('muted', !musicEnabled);
+  musicBtn.textContent = musicEnabled ? '♫' : '✕';
+  if (musicEnabled && state === 'playing') {
+    playRandomMusic();
+  } else {
+    stopMusic();
+  }
+});
+
+sfxBtn.addEventListener('click', () => {
+  sfxEnabled = !sfxEnabled;
+  sfxBtn.classList.toggle('muted', !sfxEnabled);
+  sfxBtn.textContent = sfxEnabled ? '♪' : '✕';
+});
+
+// Fonction pour jouer un son simple avec Web Audio API
+function playSound(type) {
+  if (!sfxEnabled) return;
+  
+  const now = audioContext.currentTime;
+  
+  switch(type) {
+    case 'shoot': // Tir - plok plouf doux
+      {
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        
+        // Filtre pour adoucir le son
+        const filter = audioContext.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.value = 800;
+        filter.Q.value = 1;
+        
+        oscillator.connect(filter);
+        filter.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        // Son de goutte : fréquence qui descend rapidement
+        oscillator.type = 'sine';
+        oscillator.frequency.setValueAtTime(600, now);
+        oscillator.frequency.exponentialRampToValueAtTime(200, now + 0.08);
+        
+        // Enveloppe douce et plus faible
+        gainNode.gain.setValueAtTime(0.08, now); // Réduit de 0.15 à 0.08
+        gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.08);
+        
+        oscillator.start(now);
+        oscillator.stop(now + 0.08);
+      }
+      break;
+      
+    case 'hit': // Nuage détruit - souffle de vent plus long
+      {
+        const bufferSize = audioContext.sampleRate * 0.25; // 250ms
+        const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+        const output = buffer.getChannelData(0);
+        
+        // Bruit blanc
+        for (let i = 0; i < bufferSize; i++) {
+          output[i] = Math.random() * 2 - 1;
+        }
+        
+        const noise = audioContext.createBufferSource();
+        noise.buffer = buffer;
+        
+        // Filtre passe-bande pour un son de vent doux
+        const filter = audioContext.createBiquadFilter();
+        filter.type = 'bandpass';
+        filter.frequency.value = 800;
+        filter.Q.value = 1;
+        
+        const gainNode = audioContext.createGain();
+        gainNode.gain.setValueAtTime(0.25, now);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.25);
+        
+        noise.connect(filter);
+        filter.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        noise.start(now);
+        noise.stop(now + 0.25);
+      }
+      break;
+      
+    case 'powerup': // Power-up collecté
+      {
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        oscillator.frequency.setValueAtTime(400, now);
+        oscillator.frequency.setValueAtTime(600, now + 0.05);
+        oscillator.frequency.setValueAtTime(800, now + 0.1);
+        gainNode.gain.setValueAtTime(0.3, now);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.15);
+        oscillator.start(now);
+        oscillator.stop(now + 0.15);
+      }
+      break;
+      
+    case 'damage': // Dégât reçu
+      {
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        oscillator.frequency.setValueAtTime(200, now);
+        oscillator.frequency.exponentialRampToValueAtTime(50, now + 0.3);
+        oscillator.type = 'sawtooth';
+        gainNode.gain.setValueAtTime(0.5, now);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+        oscillator.start(now);
+        oscillator.stop(now + 0.3);
+      }
+      break;
+      
+    case 'levelup': // Passage de niveau
+      {
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        oscillator.frequency.setValueAtTime(400, now);
+        oscillator.frequency.setValueAtTime(500, now + 0.1);
+        oscillator.frequency.setValueAtTime(600, now + 0.2);
+        oscillator.frequency.setValueAtTime(800, now + 0.3);
+        gainNode.gain.setValueAtTime(0.4, now);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
+        oscillator.start(now);
+        oscillator.stop(now + 0.4);
+      }
+      break;
+      
+    case 'shockwave': // Onde de choc
+      {
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        oscillator.frequency.setValueAtTime(100, now);
+        oscillator.frequency.exponentialRampToValueAtTime(1000, now + 0.5);
+        oscillator.type = 'sine';
+        gainNode.gain.setValueAtTime(0.6, now);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.5);
+        oscillator.start(now);
+        oscillator.stop(now + 0.5);
+      }
+      break;
+      
+    case 'rainbow': // Nuage touche bouclier arc-en-ciel - "batsheuu" doux et long
+      {
+        // Créer un buffer de bruit rose (plus doux que blanc)
+        const bufferSize = audioContext.sampleRate * 0.4; // 400ms - long et relaxant
+        const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+        const output = buffer.getChannelData(0);
+        
+        // Générer du bruit rose filtré (plus naturel et doux)
+        let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
+        for (let i = 0; i < bufferSize; i++) {
+          const white = Math.random() * 2 - 1;
+          b0 = 0.99886 * b0 + white * 0.0555179;
+          b1 = 0.99332 * b1 + white * 0.0750759;
+          b2 = 0.96900 * b2 + white * 0.1538520;
+          b3 = 0.86650 * b3 + white * 0.3104856;
+          b4 = 0.55000 * b4 + white * 0.5329522;
+          b5 = -0.7616 * b5 - white * 0.0168980;
+          output[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362) * 0.11;
+          b6 = white * 0.115926;
+        }
+        
+        const noise = audioContext.createBufferSource();
+        noise.buffer = buffer;
+        
+        // Filtre pour un son magique et doux
+        const filter = audioContext.createBiquadFilter();
+        filter.type = 'bandpass';
+        filter.frequency.value = 1200; // Fréquence moyenne douce
+        filter.Q.value = 2; // Résonance pour effet magique
+        
+        const gainNode = audioContext.createGain();
+        gainNode.gain.setValueAtTime(0.2, now);
+        gainNode.gain.linearRampToValueAtTime(0.25, now + 0.1); // Monte légèrement
+        gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.4); // Descend doucement
+        
+        noise.connect(filter);
+        filter.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        noise.start(now);
+        noise.stop(now + 0.4);
+      }
+      break;
+      
+    case 'bonus': // Collecte d'objet bonus - son joyeux
+      {
+        // Créer deux oscillateurs pour un son riche
+        const osc1 = audioContext.createOscillator();
+        const osc2 = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        
+        // Mixer les deux oscillateurs
+        const merger = audioContext.createChannelMerger(2);
+        osc1.connect(merger, 0, 0);
+        osc2.connect(merger, 0, 1);
+        merger.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        // Son brillant qui monte
+        osc1.type = 'sine';
+        osc2.type = 'sine';
+        osc1.frequency.setValueAtTime(523, now); // Do
+        osc2.frequency.setValueAtTime(659, now); // Mi
+        osc1.frequency.setValueAtTime(784, now + 0.08); // Sol
+        osc2.frequency.setValueAtTime(1047, now + 0.08); // Do aigu
+        
+        // Enveloppe joyeuse
+        gainNode.gain.setValueAtTime(0.25, now);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.15);
+        
+        osc1.start(now);
+        osc2.start(now);
+        osc1.stop(now + 0.15);
+        osc2.stop(now + 0.15);
+      }
+      break;
+  }
+}
+
+// ============================================
+// �🎮 CODE DU JEU
+// ============================================
+const c=document.getElementById('gameCanvas'),ctx=c.getContext('2d'),scoreEl=document.getElementById('score'),cloudsEl=document.getElementById('clouds'),levelEl=document.getElementById('level'),livesEl=document.getElementById('lives'),starStockEl=document.getElementById('starStock'),messageEl=document.getElementById('message'),startBtn=document.getElementById('startButton'),sunEl=document.getElementById('sun');
+
+let state='start',score=0,cloudsCleared=0,level=1,lives=3,lastTime=0,umbrella=false,speed=false,multi=false;
+let lastSavedCloudsCount=0;
 
 const player={x:c.width/2,y:c.height-120,w:40,h:30,s:5};
 
 let bullets=[],clouds=[],rain=[],particles=[],powerUps=[],hearts=[],touchX=null,touchY=null,shooting=false,lastShot=0,bonusItems=[];
 let isBonusLevel=false,bonusItemsCollected=0,bonusItemsTarget=20,bonusLevelNumber=0;
+let cloudKillCount=0,fallingPowerUps=[],collectedStar=false,lastClickTime=0,shockwaves=[];
+let umbrellaEndTime=0,speedEndTime=0,multiEndTime=0;
 
 // Nuages de fond décoratifs
 let backgroundClouds = [];
+
+// Gouttes de pluie décoratives pour le niveau 7
+let decorativeRain = [];
+
+// Fonction pour créer une goutte de pluie décorative
+function decorativeRainDrop() {
+  return {
+    x: Math.random() * c.width,
+    y: -Math.random() * c.height,
+    speed: 5 + Math.random() * 3,
+    length: 10 + Math.random() * 10,
+    opacity: 0.3 + Math.random() * 0.4
+  };
+}
+
+// Fonction pour dessiner une goutte de pluie décorative
+function drawDecorativeRain(drop) {
+  ctx.strokeStyle = `rgba(173, 216, 230, ${drop.opacity})`;
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(drop.x, drop.y);
+  ctx.lineTo(drop.x, drop.y + drop.length);
+  ctx.stroke();
+}
+
+// Fonction pour créer un power-up tombant du ciel
+function createFallingPowerUp(type) {
+  return {
+    type: type, // 'heart', 'rainbow', 'star'
+    x: 50 + Math.random() * (c.width - 100),
+    y: -40,
+    w: 30,
+    h: 30,
+    speed: 2,
+    angle: 0
+  };
+}
+
+// Fonction pour dessiner les power-ups
+function drawPowerUp(powerup) {
+  ctx.save();
+  ctx.translate(powerup.x + powerup.w/2, powerup.y + powerup.h/2);
+  ctx.rotate(powerup.angle || 0);
+  
+  // Afficher l'icône correspondante
+  const fontSize = powerup.w || 25; // Adapter la taille à la largeur du power-up
+  ctx.font = `${fontSize}px Arial`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  
+  if(powerup.type === 'heart') {
+    ctx.fillText('💖', 0, 0);
+  } else if(powerup.type === 'rainbow') {
+    ctx.fillText('🌈', 0, 0);
+  } else if(powerup.type === 'star') {
+    ctx.fillText('⭐', 0, 0);
+  } else if(powerup.type === 'umbrella') {
+    ctx.fillText('☂️', 0, 0);
+  } else if(powerup.type === 'speed') {
+    ctx.fillText('⚡', 0, 0);
+  } else if(powerup.type === 'multishot') {
+    ctx.fillText('🔫', 0, 0);
+  }
+  
+  ctx.restore();
+}
+
+// Fonction pour créer une onde de choc
+function createShockwave(x, y) {
+  return {
+    x: x,
+    y: y,
+    radius: 0,
+    maxRadius: Math.max(c.width, c.height),
+    opacity: 1,
+    speed: 15
+  };
+}
+
+// Fonction pour dessiner une onde de choc
+function drawShockwave(wave) {
+  ctx.save();
+  ctx.strokeStyle = `rgba(255, 215, 0, ${wave.opacity})`;
+  ctx.lineWidth = 4;
+  ctx.shadowBlur = 20;
+  ctx.shadowColor = 'rgba(255, 215, 0, 0.8)';
+  ctx.beginPath();
+  ctx.arc(wave.x, wave.y, wave.radius, 0, Math.PI * 2);
+  ctx.stroke();
+  
+  // Deuxième cercle intérieur
+  ctx.strokeStyle = `rgba(255, 255, 255, ${wave.opacity * 0.6})`;
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.arc(wave.x, wave.y, wave.radius * 0.8, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.restore();
+}
 
 // Fonction pour adapter le canvas au format portrait mobile
 function resizeCanvas() {
@@ -651,7 +1530,7 @@ function updateBackgroundClouds() {
   });
 }
 
-function cloud(){const shoot=Math.random()>(1-currentLevelConfig.shootingClouds);return{x:Math.random()*(c.width-50),y:-40,w:45,h:30,s:currentLevelConfig.cloudSpeed.min+Math.random()*(currentLevelConfig.cloudSpeed.max-currentLevelConfig.cloudSpeed.min),c:shoot?'#7f8c8d':'#95a5a6',shoot:shoot,lastShot:Date.now(),delay:2000+Math.random()*3000};}
+function cloud(){const shoot=Math.random()>(1-currentLevelConfig.shootingClouds);return{x:Math.random()*(c.width-55),y:-40,w:52,h:32,s:currentLevelConfig.cloudSpeed.min+Math.random()*(currentLevelConfig.cloudSpeed.max-currentLevelConfig.cloudSpeed.min),c:shoot?'#7f8c8d':'#95a5a6',shoot:shoot,lastShot:Date.now(),delay:2000+Math.random()*3000};}
 
 function bonusItem(){
   const types=[
@@ -681,7 +1560,7 @@ function rainDrop(x,y){return{x:x,y:y,w:3,h:8,s:currentLevelConfig.rainSpeed.min
 
 function powerUp(x,y){const types=['umbrella','speed','multishot'],type=types[Math.floor(Math.random()*types.length)],colors={umbrella:'#e74c3c',speed:'#9b59b6',multishot:'#f39c12'};return{x:x,y:y,w:25,h:25,s:2,type:type,c:colors[type]};}
 
-function bullet(x,y,color){return{x:x,y:y,w:4,h:12,s:8,c:color||'#f1c40f'};}
+function bullet(x,y,color,width){return{x:x,y:y,w:width||4,h:12,s:8,c:color||'#f1c40f'};}
 
 function heart(){return{x:player.x+18+Math.random()*8,y:player.y+10+Math.random()*5,vx:(Math.random()-0.5)*1.5,vy:-2.5-Math.random()*1.2,size:12+Math.random()*6,life:1,decay:0.006,c:'#e74c3c',rot:0,rotS:(Math.random()-0.5)*0.1};}
 
@@ -747,7 +1626,79 @@ ctx.beginPath();ctx.moveTo(player.x+20,player.y+22);ctx.lineTo(player.x+18,playe
 
 ctx.shadowBlur=40;ctx.shadowColor='rgba(241,196,15,0.4)';ctx.fillStyle='rgba(255,255,255,0.1)';ctx.beginPath();ctx.arc(player.x+20,player.y+15,50,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
 
-if(umbrella){ctx.strokeStyle='#e74c3c';ctx.lineWidth=4;ctx.shadowBlur=15;ctx.shadowColor='#e74c3c';ctx.beginPath();ctx.arc(player.x+20,player.y-15,30,0,Math.PI,true);ctx.stroke();ctx.beginPath();ctx.moveTo(player.x+20,player.y-15);ctx.lineTo(player.x+20,player.y+5);ctx.stroke();ctx.shadowBlur=0;}
+if(umbrella){
+  // Dessiner l'arc-en-ciel au-dessus de la colombe
+  ctx.save();
+  ctx.lineWidth = 3;
+  const rainbowColors = ['#ff0000', '#ff7f00', '#ffff00', '#00ff00', '#0000ff', '#4b0082', '#9400d3'];
+  const centerX = player.x + 20;
+  const centerY = player.y - 10;
+  
+  for(let i = 0; i < rainbowColors.length; i++) {
+    ctx.strokeStyle = rainbowColors[i];
+    ctx.shadowBlur = 10;
+    ctx.shadowColor = rainbowColors[i];
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, 25 - i * 3, 0, Math.PI, true);
+    ctx.stroke();
+  }
+  ctx.shadowBlur = 0;
+  ctx.restore();
+  
+  // Parapluie en-dessous de l'arc-en-ciel
+  ctx.strokeStyle='rgba(231,76,60,0.7)';
+  ctx.lineWidth=2;
+  ctx.shadowBlur=8;
+  ctx.shadowColor='#e74c3c';
+  ctx.beginPath();
+  ctx.arc(player.x+20,player.y-5,15,0,Math.PI,true);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(player.x+20,player.y-5);
+  ctx.lineTo(player.x+20,player.y+8);
+  ctx.stroke();
+  ctx.shadowBlur=0;
+}
+
+// Afficher le compteur d'étoiles au-dessus de la colombe
+if(starCount > 0){
+  ctx.save();
+  const starY = player.y - 25 + Math.sin(Date.now() * 0.005) * 3;
+  ctx.shadowBlur = 15;
+  ctx.shadowColor = '#ffd700';
+  ctx.fillStyle = '#ffd700';
+  ctx.strokeStyle = '#ffaa00';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  for(let i = 0; i < 5; i++) {
+    const angle = (i * 4 * Math.PI / 5) - Math.PI / 2;
+    const x = player.x + 20 + Math.cos(angle) * 12;
+    const y = starY + Math.sin(angle) * 12;
+    if(i === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  }
+  ctx.closePath();
+  ctx.fill();
+  ctx.stroke();
+  
+  // Afficher le compteur à côté de l'étoile avec fade rapide
+  const timeSinceChange = Date.now() - lastStarChangeTime;
+  const fadeTime = 1500; // Disparaît après 1.5 secondes
+  if(timeSinceChange < fadeTime) {
+    const opacity = Math.max(0, 1 - (timeSinceChange / fadeTime));
+    ctx.globalAlpha = opacity;
+    ctx.font = 'bold 16px Arial';
+    ctx.fillStyle = '#ffffff';
+    ctx.strokeStyle = '#000000';
+    ctx.lineWidth = 3;
+    ctx.strokeText(`x${starCount}`, player.x + 35, starY + 5);
+    ctx.fillText(`x${starCount}`, player.x + 35, starY + 5);
+    ctx.globalAlpha = 1;
+  }
+  
+  ctx.shadowBlur = 0;
+  ctx.restore();
+}
 }
 
 function drawCloud(cl){ctx.fillStyle=cl.c;ctx.shadowBlur=3;ctx.shadowColor=cl.c;ctx.beginPath();ctx.arc(cl.x+10,cl.y+15,10,0,Math.PI*2);ctx.arc(cl.x+25,cl.y+10,12,0,Math.PI*2);ctx.arc(cl.x+40,cl.y+15,10,0,Math.PI*2);ctx.arc(cl.x+20,cl.y+20,8,0,Math.PI*2);ctx.fill();if(cl.shoot){ctx.fillStyle='#34495e';ctx.beginPath();ctx.arc(cl.x+25,cl.y+12,3,0,Math.PI*2);ctx.fill();}ctx.shadowBlur=0;}
@@ -775,7 +1726,7 @@ function hit(a,b,margin=0){
 
 // Fonction de collision précise pour les nuages (avec marge réduite)
 function hitCloud(player,cloud){
-  const margin = 5; // Marge de 5px pour collision plus juste
+  const margin = 2; // Marge réduite à 2px pour meilleure détection
   return player.x+margin < cloud.x+cloud.w-margin && 
          player.x+player.w-margin > cloud.x+margin && 
          player.y+margin < cloud.y+cloud.h-margin && 
@@ -783,6 +1734,77 @@ function hitCloud(player,cloud){
 }
 
 function msg(text){messageEl.textContent=text;messageEl.style.opacity='1';const time=Math.max(3000,Math.min(3000+text.length*50,6000));setTimeout(()=>messageEl.style.opacity='0',time);}
+
+// Popup élégant dans le canvas (remplace alert)
+function showPopup(message, icon = '✨', type = 'info') {
+  const colors = {
+    success: { bg: 'rgba(46,204,113,0.95)', border: '#27ae60' },
+    error: { bg: 'rgba(231,76,60,0.95)', border: '#c0392b' },
+    info: { bg: 'rgba(52,152,219,0.95)', border: '#2980b9' },
+    warning: { bg: 'rgba(241,196,15,0.95)', border: '#f39c12' }
+  };
+  
+  const color = colors[type] || colors.info;
+  
+  const popup = document.createElement('div');
+  popup.style.cssText = `
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    background: ${color.bg};
+    color: white;
+    padding: 30px 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    z-index: 10000;
+    text-align: center;
+    font-size: 16px;
+    line-height: 1.6;
+    max-width: 400px;
+    border: 3px solid ${color.border};
+    animation: popupEnter 0.3s ease-out forwards;
+  `;
+  
+  popup.innerHTML = `
+    <div style="font-size: 48px; margin-bottom: 15px;">${icon}</div>
+    <div style="white-space: pre-line; font-weight: 500;">${message}</div>
+    <button onclick="this.parentElement.remove()" style="
+      margin-top: 20px;
+      padding: 12px 30px;
+      background: rgba(255,255,255,0.2);
+      border: 2px solid white;
+      border-radius: 10px;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+    " onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.2)'">
+      OK
+    </button>
+  `;
+  
+  // Ajouter l'animation CSS
+  if (!document.getElementById('popupStyle')) {
+    const style = document.createElement('style');
+    style.id = 'popupStyle';
+    style.textContent = `
+      @keyframes popupEnter {
+        from { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+        to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+  
+  document.getElementById('gameContainer').appendChild(popup);
+  
+  // Auto-fermeture après 5 secondes
+  setTimeout(() => {
+    if (popup.parentElement) popup.remove();
+  }, 5000);
+}
 
 let gameStartTime = 0; // Pour mesurer le temps de jeu
 
@@ -793,10 +1815,22 @@ function restart(){
     saveGameEnd(score, level, cloudsCleared, survivalTime);
   }
   
-  score=0;cloudsCleared=0;level=1;lives=3;bullets=[];clouds=[];rain=[];particles=[];powerUps=[];hearts=[];umbrella=false;speed=false;multi=false;totalScore=0;cloudsInLevel=0;currentLevelIndex=0;bonusItems=[];isBonusLevel=false;bonusItemsCollected=0;bonusLevelNumber=0;
+  // NE PAS réinitialiser starCount pour conserver le stock entre les parties
+  score=0;cloudsCleared=0;lives=3;bullets=[];clouds=[];rain=[];particles=[];powerUps=[];hearts=[];umbrella=false;speed=false;multi=false;totalScore=0;cloudsInLevel=0;bonusItems=[];isBonusLevel=false;bonusItemsCollected=0;bonusLevelNumber=0;fallingPowerUps=[];cloudKillCount=0;collectedStar=false;shockwaves=[];umbrellaEndTime=0;speedEndTime=0;multiEndTime=0;lastSavedCloudsCount=0;
   gameStartTime = Date.now(); // Nouveau départ
-  startLevel(0);
+  
+  // Reprendre au niveau sauvegardé
+  const savedLevelIndex = Math.max(0, (gameData.highestLevelReached || 1) - 1);
+  currentLevelIndex = Math.min(savedLevelIndex, LEVELS_CONFIG.length - 1);
+  level = gameData.highestLevelReached || 1;
+  
+  startLevel(currentLevelIndex);
   msg(t('messages.restart'));
+  
+  // Démarrer la musique gospel
+  if (musicEnabled) {
+    playRandomMusic();
+  }
 }
 
 function startBonusLevel(){
@@ -982,22 +2016,81 @@ if(state!=='playing')return;
 // Mettre à jour les nuages de fond
 updateBackgroundClouds();
 
+// Mettre à jour la pluie décorative (niveau 7)
+decorativeRain.forEach((drop, i) => {
+  drop.y += drop.speed;
+  if (drop.y > c.height) {
+    decorativeRain[i] = decorativeRainDrop();
+  }
+});
+
+// Mettre à jour les power-ups qui tombent
+for(let i = fallingPowerUps.length - 1; i >= 0; i--) {
+  const pu = fallingPowerUps[i];
+  pu.y += pu.speed;
+  pu.angle += 0.05;
+  
+  // Vérifier la collision avec le joueur
+  if(hitCloud(player, pu)) {
+    // Activer l'effet du power-up
+    if(pu.type === 'heart') {
+      lives = Math.min(5, lives + 1);
+      playSound('powerup');
+      msg(t('powerups.heart'));
+      fallingPowerUps.splice(i, 1);
+    } else if(pu.type === 'rainbow') {
+      umbrella = true;
+      // Additionner le temps si déjà actif, sinon nouveau timer
+      const remainingUmbrella = umbrella && umbrellaEndTime > Date.now() ? umbrellaEndTime - Date.now() : 0;
+      umbrellaEndTime = Date.now() + remainingUmbrella + 8000;
+      
+      multi = true;
+      const remainingMulti = multi && multiEndTime > Date.now() ? multiEndTime - Date.now() : 0;
+      multiEndTime = Date.now() + remainingMulti + 8000;
+      
+      playSound('powerup');
+      msg(t('powerups.rainbow'));
+      fallingPowerUps.splice(i, 1);
+    } else if(pu.type === 'star') {
+      // Ajouter une étoile au compteur
+      starCount++;
+      lastStarChangeTime = Date.now(); // Marquer le moment du changement
+      playSound('powerup');
+      msg(`⭐ Étoile collectée ! (${starCount} en stock) - Double-clic pour onde de choc !`);
+      fallingPowerUps.splice(i, 1);
+    }
+  } else if(pu.y > c.height) {
+    fallingPowerUps.splice(i, 1);
+  }
+}
+
 if(touchX!==null&&touchY!==null){const currentSpeed=speed?player.s*1.8:player.s;const targetX=Math.max(20,Math.min(c.width-60,touchX-20));const targetY=Math.max(30,Math.min(c.height-50,touchY-80));player.x+=(targetX-player.x)*0.12*currentSpeed;player.y+=(targetY-player.y)*0.12*currentSpeed;}
+
+// Forcer le joueur à rester dans les limites du canvas
+player.x = Math.max(0, Math.min(c.width - player.w, player.x));
+player.y = Math.max(0, Math.min(c.height - player.h, player.y));
 
 // Mode bonus : pas de tir
 if(!isBonusLevel&&shooting&&Date.now()-lastShot>(multi?100:200)){
-  const bulletColor='#3498db'; // Bleu quand on tire
   if(multi){
-    bullets.push(bullet(player.x+10,player.y,bulletColor));
-    bullets.push(bullet(player.x+18,player.y,bulletColor));
-    bullets.push(bullet(player.x+26,player.y,bulletColor));
+    // Triple laser : trois larges faisceaux colorés
+    bullets.push(bullet(player.x+2,player.y,'#e74c3c',12));  // Rouge gauche
+    bullets.push(bullet(player.x+15,player.y,'#3498db',12)); // Bleu centre
+    bullets.push(bullet(player.x+28,player.y,'#f1c40f',12)); // Jaune droite
   }else{
+    const bulletColor='#3498db'; // Bleu quand on tire
     bullets.push(bullet(player.x+18,player.y,bulletColor));
   }
+  playSound('shoot');
   lastShot=Date.now();
 }
 
-if(umbrella&&(uTime-=dt)<=0)umbrella=false;if(speed&&(sTime-=dt)<=0)speed=false;if(multi&&(mTime-=dt)<=0)multi=false;
+// Vérifier l'expiration des power-ups basés sur le temps (uniquement en jeu)
+if(state === 'playing') {
+  if(umbrella && umbrellaEndTime > 0 && Date.now() > umbrellaEndTime) umbrella = false;
+  if(speed && speedEndTime > 0 && Date.now() > speedEndTime) speed = false;
+  if(multi && multiEndTime > 0 && Date.now() > multiEndTime) multi = false;
+}
 
 // Spawn selon le mode
 if(isBonusLevel){
@@ -1014,6 +2107,7 @@ if(isBonusLevel){
       bonusItems.splice(i,1);
       score+=item.points;
       bonusItemsCollected++;
+      playSound('bonus'); // Son joyeux de collecte
       
       // Particules colorées
       for(let j=0;j<10;j++){
@@ -1027,6 +2121,7 @@ if(isBonusLevel){
       
       // Vérifier si objectif atteint
       if(bonusItemsCollected>=bonusItemsTarget){
+        playSound('levelup'); // Son de victoire du niveau bonus
         setTimeout(()=>endBonusLevel(),500);
       }
     }
@@ -1039,11 +2134,68 @@ if(isBonusLevel){
 
 bullets.forEach((b,i)=>{b.y-=b.s;if(b.y<0)bullets.splice(i,1);});
 
-clouds.forEach((cl,i)=>{cl.y+=cl.s;if(cl.shoot&&Date.now()-cl.lastShot>cl.delay){rain.push(rainDrop(cl.x+cl.w/2,cl.y+cl.h));cl.lastShot=Date.now();}if(cl.y>c.height)clouds.splice(i,1);});
+clouds.forEach((cl,i)=>{
+  cl.y+=cl.s;
+  if(cl.shoot&&Date.now()-cl.lastShot>cl.delay){
+    rain.push(rainDrop(cl.x+cl.w/2,cl.y+cl.h));
+    cl.lastShot=Date.now();
+  }
+  
+  // Si le bouclier arc-en-ciel est actif et que le nuage touche la colombe
+  if(umbrella && hitCloud(player, cl)){
+    // Son magique de transformation
+    playSound('rainbow');
+    
+    // Transformer le nuage en petit cœur
+    hearts.push({
+      x: cl.x + cl.w/2,
+      y: cl.y + cl.h/2,
+      vx: (Math.random() - 0.5) * 4,
+      vy: -3 - Math.random() * 2,
+      life: 1,
+      size: 15,
+      c: '#ff69b4',
+      rot: 0,
+      rotSpeed: (Math.random() - 0.5) * 0.2
+    });
+    // Particules arc-en-ciel
+    for(let j=0; j<5; j++){
+      particles.push({
+        x: cl.x + cl.w/2,
+        y: cl.y + cl.h/2,
+        vx: (Math.random() - 0.5) * 3,
+        vy: (Math.random() - 0.5) * 3,
+        life: 1,
+        c: ['#ff0000','#ff7f00','#ffff00','#00ff00','#0000ff','#4b0082','#9400d3'][Math.floor(Math.random()*7)]
+      });
+    }
+    clouds.splice(i,1);
+    score += 50;
+    totalScore += 50;
+  }
+  
+  if(cl.y>c.height)clouds.splice(i,1);
+});
 
-rain.forEach((r,i)=>{r.y+=r.s;if(r.y>c.height){rain.splice(i,1);}else if(!umbrella&&hit(r,player)){rain.splice(i,1);lives--;updateStats('totalLivesLost');updateStats('deathsByRain');const rainMsgs=t('rain');msg(rainMsgs[Math.floor(Math.random()*rainMsgs.length)]);if(lives<=0){state='gameOver';setSun('sad');const survivalTime=Date.now()-gameStartTime;saveGameEnd(score,level,cloudsCleared,survivalTime);msg(t('messages.gameOver'));}else{setSun('neutral');setTimeout(()=>{if(state==='playing')setSun('happy');},2000);}}});
+rain.forEach((r,i)=>{r.y+=r.s;if(r.y>c.height){rain.splice(i,1);}else if(!umbrella&&hit(r,player)){rain.splice(i,1);lives--;playSound('damage');updateStats('totalLivesLost');updateStats('deathsByRain');const rainMsgs=t('rain');msg(rainMsgs[Math.floor(Math.random()*rainMsgs.length)]);if(lives<=0){state='gameOver';setSun('sad');stopMusic();const survivalTime=Date.now()-gameStartTime;saveGameEnd(score,level,cloudsCleared,survivalTime);
+// Nouveau système de base de données simplifié
+promptPlayerInfo();
+const isNewRecord=updateBestScore(totalScore);
+if(isNewRecord){msg('\ud83c\udfc6 NOUVEAU RECORD ! Score: '+totalScore);showPopup('\ud83c\udf89 Nouveau record !\n\nScore: '+totalScore+'\n\nTon score a \u00e9t\u00e9 sauvegard\u00e9.\nClique sur Exporter dans le menu Tr\u00e9sor pour le partager.', '\ud83c\udfc6', 'success');}
+msg(t('messages.gameOver'));}else{setSun('neutral');setTimeout(()=>{if(state==='playing')setSun('happy');},2000);}}});
 
-powerUps.forEach((p,i)=>{p.y+=p.s;if(p.y>c.height){powerUps.splice(i,1);}else if(hit(p,player)){powerUps.splice(i,1);updateStats('totalPowerUpsCollected');if(p.type==='umbrella'){umbrella=true;uTime=5000;msg(t('powerups.umbrella'));}else if(p.type==='speed'){speed=true;sTime=4000;msg(t('powerups.speed'));}else if(p.type==='multishot'){multi=true;mTime=6000;msg(t('powerups.multishot'));}}});
+// Gestion de la musique de pluie
+if (state === 'playing') {
+  if (rain.length > 5) {
+    // S'il y a beaucoup de pluie, jouer la musique de pluie
+    playRainMusic();
+  } else if (rain.length === 0) {
+    // S'il n'y a plus de pluie, arrêter la musique de pluie
+    stopRainMusic();
+  }
+}
+
+powerUps.forEach((p,i)=>{p.y+=p.s;if(p.y>c.height){powerUps.splice(i,1);}else if(hit(p,player)){powerUps.splice(i,1);playSound('powerup');updateStats('totalPowerUpsCollected');if(p.type==='umbrella'){umbrella=true;const remaining=umbrella&&umbrellaEndTime>Date.now()?umbrellaEndTime-Date.now():0;umbrellaEndTime=Date.now()+remaining+5000;msg(t('powerups.umbrella'));}else if(p.type==='speed'){speed=true;const remaining=speed&&speedEndTime>Date.now()?speedEndTime-Date.now():0;speedEndTime=Date.now()+remaining+4000;msg(t('powerups.speed'));}else if(p.type==='multishot'){multi=true;const remaining=multi&&multiEndTime>Date.now()?multiEndTime-Date.now():0;multiEndTime=Date.now()+remaining+6000;msg(t('powerups.multishot'));}}});
 
 // Collision balles-nuages (itération inverse pour éviter les problèmes de splice)
 for(let bi = bullets.length - 1; bi >= 0; bi--){
@@ -1059,14 +2211,37 @@ for(let bi = bullets.length - 1; bi >= 0; bi--){
       bullets.splice(bi,1);
       clouds.splice(ci,1);
       
+      // Son
+      playSound('hit');
+      
       // Score et stats
       score+=100;
       totalScore+=100;
       cloudsCleared++;
       cloudsInLevel++;
+      cloudKillCount++;
       updateStats('totalHits');
       updateStats('totalShots');
       setSun('happy');
+      
+      // Mode infini : incrémenter le compteur
+      if(isInfiniteMode) {
+        infiniteCloudsCleared++;
+        
+        // Afficher verset tous les 50 nuages
+        if(infiniteCloudsCleared % 50 === 0) {
+          state = 'paused';
+          showInfiniteVerse();
+        }
+      }
+      
+      // Faire apparaître un power-up après 10 nuages éliminés
+      if(cloudKillCount >= 10 && fallingPowerUps.length === 0) {
+        const types = ['heart', 'rainbow', 'star'];
+        const randomType = types[Math.floor(Math.random() * types.length)];
+        fallingPowerUps.push(createFallingPowerUp(randomType));
+        cloudKillCount = 0;
+      }
       
       // Message aléatoire
       const gameplayMsgs=t('gameplay');
@@ -1075,14 +2250,10 @@ for(let bi = bullets.length - 1; bi >= 0; bi--){
       // Sauvegarder la progression tous les 10 nuages
       if(cloudsCleared % 10 === 0){saveProgress(level,score,cloudsCleared);}
 
-      // Mode infini : afficher verset tous les 50 nuages après 991
-      if(cloudsCleared > 991 && (cloudsCleared - 991) % 50 === 0) {
-        showInfiniteVerse();
-      }
-
-      // Vérifier si le niveau est terminé
-      if(cloudsInLevel>=currentLevelConfig.cloudsToPass){
+      // Vérifier si le niveau est terminé (sauf en mode infini)
+      if(!isInfiniteMode && cloudsInLevel>=currentLevelConfig.cloudsToPass){
         level++;
+        updateHighestLevel(level); // Sauvegarder la progression
         
         // Déclencher niveau bonus après les niveaux 3, 7, 10 et 13
         if([3,7,10,13].includes(currentLevelIndex)){
@@ -1095,6 +2266,7 @@ for(let bi = bullets.length - 1; bi >= 0; bi--){
         for(let i=0;i<5;i++)setTimeout(()=>hearts.push(heart()),i*150);
       }else if(cloudsCleared%30===0){
         level++;
+        updateHighestLevel(level); // Sauvegarder la progression
         msg(t('messages.levelUp',{level:level}));
         for(let i=0;i<3;i++)setTimeout(()=>hearts.push(heart()),i*150);
       }
@@ -1105,17 +2277,40 @@ for(let bi = bullets.length - 1; bi >= 0; bi--){
   }
 }
 
-hearts.forEach((h,i)=>{h.x+=h.vx;h.y+=h.vy;h.life-=h.decay;h.rot+=h.rotS;h.vy+=0.015;if(h.life<=0)hearts.splice(i,1);});
+hearts.forEach((h,i)=>{
+  h.x+=h.vx;
+  h.y+=h.vy;
+  h.life-=h.decay || 0.01;
+  h.rot+=h.rotSpeed || h.rotS || 0;
+  h.vy+=0.015;
+  if(h.life<=0)hearts.splice(i,1);
+});
 
 particles.forEach((p,i)=>{p.x+=p.vx;p.y+=p.vy;p.life-=p.decay;if(p.life<=0)particles.splice(i,1);});
 
-scoreEl.textContent=score;cloudsEl.textContent=cloudsCleared;levelEl.textContent=level;livesEl.textContent=lives;
+// Mettre à jour les ondes de choc
+shockwaves.forEach((wave,i)=>{
+  wave.radius += wave.speed;
+  wave.opacity = 1 - (wave.radius / wave.maxRadius);
+  if(wave.radius >= wave.maxRadius) shockwaves.splice(i,1);
+});
+
+// Vérifier l'expiration des power-ups
+const now = Date.now();
+if(umbrella && now >= umbrellaEndTime) umbrella = false;
+if(speed && now >= speedEndTime) speed = false;
+if(multi && now >= multiEndTime) multi = false;
+
+scoreEl.textContent=score;cloudsEl.textContent=cloudsCleared;levelEl.textContent=level;livesEl.textContent=lives;starStockEl.textContent=starCount;
 }
 
 function render(){
 ctx.clearRect(0,0,c.width,c.height);
 if(state==='playing' || state==='levelComplete'){
-    // Dessiner les nuages de fond décoratifs d'abord
+    // Dessiner la pluie décorative en arrière-plan (niveau 7)
+    decorativeRain.forEach(drawDecorativeRain);
+    
+    // Dessiner les nuages de fond décoratifs
     backgroundClouds.forEach(drawBackgroundCloud);
     
     // Dessine ensuite tout l'arrière-plan du jeu
@@ -1125,6 +2320,12 @@ if(state==='playing' || state==='levelComplete'){
     bullets.forEach(drawBullet);
     particles.forEach(drawParticle);
     hearts.forEach(drawHeart);
+    
+    // Dessiner les power-ups qui tombent
+    fallingPowerUps.forEach(drawPowerUp);
+    
+    // Dessiner les ondes de choc
+    shockwaves.forEach(drawShockwave);
     
     // Dessiner les objets bonus
     if(isBonusLevel){
@@ -1136,9 +2337,11 @@ if(state==='playing' || state==='levelComplete'){
     
     // Afficher la progression
     if(state==='playing'){
-      ctx.fillStyle='rgba(255,255,255,0.9)';
+      ctx.fillStyle='#2c3e50';
       ctx.font='bold 14px Arial';
       ctx.textAlign='center';
+      ctx.shadowColor='rgba(255,255,255,0.8)';
+      ctx.shadowBlur=3;
       
       if(isBonusLevel){
         const progress=`🎁 BONUS - ${bonusItemsCollected}/${bonusItemsTarget} objets`;
@@ -1148,6 +2351,8 @@ if(state==='playing' || state==='levelComplete'){
         const progress=`${levelInfo.icon} ${levelInfo.title} - ${cloudsInLevel}/${currentLevelConfig.cloudsToPass}`;
         ctx.fillText(progress,c.width/2,c.height-10);
       }
+      
+      ctx.shadowBlur=0;
     }
 }
 }
@@ -1170,11 +2375,38 @@ c.addEventListener('touchstart',(e)=>{
   if(state==='gameOver'||state==='victory') {
     restart();
   } else {
-    const t=e.touches[0];
-    const coords = getCanvasCoords(t.clientX, t.clientY);
-    touchX=coords.x;
-    touchY=coords.y;
-    shooting=true;
+    const now = Date.now();
+    // Détecter le double-clic (moins de 300ms entre deux clics)
+    if(starCount > 0 && now - lastClickTime < 300) {
+      // Consommer une étoile
+      starCount--;
+      lastStarChangeTime = Date.now(); // Marquer le moment du changement
+      
+      // Créer l'onde de choc depuis la colombe
+      shockwaves.push(createShockwave(player.x + player.w/2, player.y + player.h/2));
+      playSound('shockwave');
+      
+      // Activer l'onde de choc
+      const numClouds = clouds.length;
+      for(let j = 0; j < numClouds; j++) {
+        const cl = clouds[j];
+        for(let k = 0; k < 8; k++) particles.push(particle(cl.x + cl.w/2, cl.y + cl.h/2));
+        score += 100;
+        totalScore += 100;
+        cloudsCleared++;
+        cloudsInLevel++;
+      }
+      clouds = [];
+      msg(t('powerups.star') + ` (${starCount} restantes)`);
+      lastClickTime = 0;
+    } else {
+      lastClickTime = now;
+      const t=e.touches[0];
+      const coords = getCanvasCoords(t.clientX, t.clientY);
+      touchX=coords.x;
+      touchY=coords.y;
+      shooting=true;
+    }
   }
 });
 
@@ -1196,15 +2428,47 @@ c.addEventListener('touchend',(e)=>{
 
 c.addEventListener('mousemove',(e)=>{
   const coords = getCanvasCoords(e.clientX, e.clientY);
-  touchX=coords.x;
-  touchY=coords.y;
+  // Limiter la position à l'intérieur du canvas
+  touchX = Math.max(0, Math.min(c.width, coords.x));
+  touchY = Math.max(0, Math.min(c.height, coords.y));
 });
 
 c.addEventListener('mousedown',(e)=>{
   if(state==='gameOver'||state==='victory') {
     restart();
   } else {
-    shooting=true;
+    const now = Date.now();
+    // Détecter le double-clic (moins de 300ms entre deux clics)
+    if(starCount > 0 && now - lastClickTime < 300) {
+      // Consommer une étoile
+      starCount--;
+      lastStarChangeTime = Date.now(); // Marquer le moment du changement
+      
+      // Créer l'onde de choc depuis la colombe
+      shockwaves.push(createShockwave(player.x + player.w/2, player.y + player.h/2));
+      playSound('shockwave');
+      
+      // Activer l'onde de choc
+      const numClouds = clouds.length;
+      for(let j = 0; j < numClouds; j++) {
+        const cl = clouds[j];
+        for(let k = 0; k < 8; k++) particles.push(particle(cl.x + cl.w/2, cl.y + cl.h/2));
+        score += 100;
+        totalScore += 100;
+        cloudsCleared++;
+        cloudsInLevel++;
+      }
+      clouds = [];
+      msg(t('powerups.star') + ` (${starCount} restantes)`);
+      lastClickTime = 0;
+    } else {
+      lastClickTime = now;
+      shooting=true;
+      // S'assurer que la position est dans les limites
+      const coords = getCanvasCoords(e.clientX, e.clientY);
+      touchX = Math.max(0, Math.min(c.width, coords.x));
+      touchY = Math.max(0, Math.min(c.height, coords.y));
+    }
   }
 });
 
@@ -1217,12 +2481,23 @@ c.addEventListener('mouseleave',()=>{
 });
 
 startBtn.addEventListener('click',()=>{
-  startBtn.style.display='none';
+  startBtn.classList.add('hidden');
   const motivationEl=document.querySelector('.motivation');
   if(motivationEl){
-    motivationEl.style.opacity='0';
-    setTimeout(()=>motivationEl.remove(),500);
+    motivationEl.classList.add('compact');
+    // Masquer complètement après 3 secondes
+    setTimeout(()=>{
+      motivationEl.style.opacity='0';
+      setTimeout(()=>motivationEl.remove(),500);
+    },3000);
   }
+  
+  // Démarrer la musique gospel
+  if (musicEnabled) {
+    playRandomMusic();
+  }
+  
+  autoHideMenuOnStart();
   initGame();
 });
 
@@ -1238,13 +2513,13 @@ updateUILanguage();
 function showStats() {
   const statsDiv = document.createElement('div');
   statsDiv.style.cssText = `
-    position: fixed;
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 90%;
-    max-width: 500px;
-    max-height: 80vh;
+    max-width: 420px;
+    max-height: 85vh;
     background: linear-gradient(135deg, rgba(52,152,219,0.98) 0%, rgba(41,128,185,0.98) 100%);
     color: white;
     padding: 30px;
@@ -1271,6 +2546,32 @@ function showStats() {
   statsDiv.innerHTML = `
     <button onclick="this.parentElement.remove()" style="position:absolute;top:10px;right:10px;background:rgba(0,0,0,0.3);color:white;border:none;border-radius:50%;width:35px;height:35px;font-size:20px;cursor:pointer;font-weight:bold;line-height:1;">✕</button>
     <h2 style="text-align:center;margin-bottom:20px;font-size:24px;">💎 Mes Trésors</h2>
+    
+    <div style="background:linear-gradient(135deg, rgba(231,76,60,0.2), rgba(241,196,15,0.2));padding:15px;border-radius:10px;margin-bottom:15px;border:2px solid rgba(231,76,60,0.3);">
+      <h3 style="margin-top:0;text-align:center;">👤 Mon Profil</h3>
+      <p style="margin:8px 0;text-align:center;"><strong>🎮 Surnom:</strong> ${localStorage.getItem('dovePlayerNickname') || playerProfile.nickname || 'Non défini'}</p>
+      <p style="margin:8px 0;text-align:center;"><strong>📧 Email:</strong> ${localStorage.getItem('dovePlayerEmail') || playerProfile.email || 'Non défini'}</p>
+      <p style="margin:8px 0;text-align:center;"><strong>☁️ Cloud:</strong> ${localStorage.getItem('dovePlayerNickname') && localStorage.getItem('dovePlayerEmail') ? '✅ Connecté' : '🔒 Déconnecté'}</p>
+      <p style="margin:8px 0;text-align:center;"><strong>🏆 Meilleur Score:</strong> ${playerProfile.bestScore.toLocaleString()}</p>
+      <p style="margin:8px 0;text-align:center;"><strong>🎯 Niveau Max:</strong> ${playerProfile.highestLevel}</p>
+      ${playerProfile.lastPlayed ? `<p style="margin:8px 0;text-align:center;font-size:12px;opacity:0.8;">Dernière partie: ${new Date(playerProfile.lastPlayed).toLocaleDateString('fr-FR')}</p>` : ''}
+      <div style="text-align:center;margin-top:12px;">
+        <button onclick="this.closest('[id=\\'statsDisplay\\']').remove();showSupabaseSave()" style="
+          padding:10px 20px;
+          background:linear-gradient(135deg, #667eea, #764ba2);
+          color:white;
+          border:none;
+          border-radius:8px;
+          font-size:13px;
+          font-weight:bold;
+          cursor:pointer;
+          box-shadow:0 4px 6px rgba(0,0,0,0.2);
+          transition:transform 0.2s;
+        " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+          ${localStorage.getItem('dovePlayerNickname') && localStorage.getItem('dovePlayerEmail') ? '☁️ Gérer ma connexion' : '☁️ Se connecter au cloud'}
+        </button>
+      </div>
+    </div>
     
     <div style="background:rgba(255,255,255,0.1);padding:15px;border-radius:10px;margin-bottom:15px;">
       <h3 style="margin-top:0;">🎁 Niveaux Bonus</h3>
@@ -1301,6 +2602,7 @@ function showStats() {
       <p style="margin:8px 0;"><strong>Parties Jouées:</strong> ${gameData.totalGamesPlayed}</p>
       <p style="margin:8px 0;"><strong>Temps de Jeu:</strong> ${formatTime(gameData.totalPlayTime)}</p>
       <p style="margin:8px 0;"><strong>Niveaux Parfaits:</strong> ${gameData.stats.perfectLevels}</p>
+      <p style="margin:8px 0;"><strong>⭐ Stock d'Étoiles:</strong> ${gameData.starStock || 0}</p>
     </div>
     
     <div style="background:rgba(255,255,255,0.1);padding:15px;border-radius:10px;margin-bottom:15px;">
@@ -1324,6 +2626,68 @@ function showStats() {
       </p>
     ` : ''}
     
+    <div style="background:linear-gradient(135deg, rgba(52,152,219,0.2), rgba(155,89,182,0.2));padding:15px;border-radius:10px;margin-bottom:20px;border:2px solid rgba(52,152,219,0.3);">
+      <h3 style="margin-top:0;text-align:center;">✨ Créateur</h3>
+      <p style="margin:8px 0;text-align:center;"><strong>🎮 Emmanuel Payet</strong></p>
+      <p style="margin:8px 0;text-align:center;font-size:13px;opacity:0.9;">Développeur & Créateur de jeux inspirés</p>
+      <p style="margin:8px 0;text-align:center;font-size:12px;opacity:0.8;">📱 Audiomack: <strong>emmanuelpayet888</strong></p>
+      <p style="margin:6px 0;text-align:center;font-size:11px;opacity:0.7;">Que ce jeu t'inspire et te fortifie ! 🕊️</p>
+      <div style="text-align:center;margin-top:12px;">
+        <a href="public/emmanuel-artist-module.html" target="_blank" style="
+          display:inline-block;
+          padding:10px 20px;
+          background:linear-gradient(135deg, #3498db, #9b59b6);
+          color:white;
+          text-decoration:none;
+          border-radius:8px;
+          font-size:13px;
+          font-weight:bold;
+          box-shadow:0 4px 6px rgba(0,0,0,0.2);
+          transition:transform 0.2s;
+        " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+          🎨 Découvrir l'artiste
+        </a>
+      </div>
+    </div>
+    
+    <div style="background:linear-gradient(135deg, rgba(231,76,60,0.15), rgba(241,196,15,0.15));padding:18px;border-radius:10px;margin-bottom:20px;border:2px solid rgba(231,76,60,0.3);text-align:center;">
+      <h3 style="margin-top:0;color:#e74c3c;">💬 Témoignages d'Espoir</h3>
+      <p style="margin:10px 0;font-size:13px;opacity:0.9;">Découvre des histoires de courage et de guérison</p>
+      <button onclick="this.closest('[id=\'statsDisplay\']').remove();showTestimonies()" style="
+        padding:12px 24px;
+        background:linear-gradient(135deg, #e74c3c, #f39c12);
+        color:white;
+        border:none;
+        border-radius:10px;
+        font-size:14px;
+        font-weight:bold;
+        cursor:pointer;
+        box-shadow:0 4px 6px rgba(0,0,0,0.2);
+        transition:transform 0.2s;
+      " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+        💎 Lire les témoignages
+      </button>
+    </div>
+    
+    <div style="background:linear-gradient(135deg, rgba(231,76,60,0.15), rgba(241,196,15,0.15));padding:18px;border-radius:10px;margin-bottom:20px;border:2px solid rgba(231,76,60,0.3);text-align:center;">
+      <h3 style="margin-top:0;color:#e74c3c;">💬 Témoignages d'Espoir</h3>
+      <p style="margin:10px 0;font-size:13px;opacity:0.9;">Découvre des histoires de courage et de guérison</p>
+      <button onclick="this.closest('div[id]').remove();showTestimonies()" style="
+        padding:12px 24px;
+        background:linear-gradient(135deg, #e74c3c, #f39c12);
+        color:white;
+        border:none;
+        border-radius:10px;
+        font-size:14px;
+        font-weight:bold;
+        cursor:pointer;
+        box-shadow:0 4px 6px rgba(0,0,0,0.2);
+        transition:transform 0.2s;
+      " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+        💎 Lire les témoignages
+      </button>
+    </div>
+    
     <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
       <button onclick="this.parentElement.parentElement.remove()" style="
         padding:12px 24px;
@@ -1345,11 +2709,256 @@ function showStats() {
         font-size:16px;
         font-weight:bold;
         cursor:pointer;
-      ">📤 Exporter</button>
+      ">📤 Exporter Stats</button>
+      
+      <button onclick="exportProfileData()" style="
+        padding:12px 24px;
+        background:#e74c3c;
+        color:white;
+        border:none;
+        border-radius:10px;
+        font-size:16px;
+        font-weight:bold;
+        cursor:pointer;
+      ">🏆 Exporter Score</button>
     </div>
   `;
   
-  document.body.appendChild(statsDiv);
+  document.getElementById('gameContainer').appendChild(statsDiv);
+}
+
+// ============================================
+// ☁️💾 SYSTÈME DE SAUVEGARDE SIMPLIFIÉ
+// ============================================
+
+// Afficher le statut de connexion et permettre de se connecter
+function showSupabaseSave() {
+  const nickname = localStorage.getItem('dovePlayerNickname');
+  const email = localStorage.getItem('dovePlayerEmail');
+  const isConnected = nickname && email;
+  
+  const statusDiv = document.createElement('div');
+  statusDiv.style.cssText = `
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.85);
+    z-index: 999;
+    overflow-y: auto;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  `;
+  
+  statusDiv.innerHTML = `
+    <div style="
+      max-width: 500px;
+      width: 100%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 30px;
+      border-radius: 20px;
+      color: white;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      position: relative;
+    ">
+      <button onclick="this.parentElement.parentElement.remove()" style="
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: rgba(0,0,0,0.3);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        font-size: 24px;
+        cursor: pointer;
+        font-weight: bold;
+        line-height: 1;
+        transition: all 0.3s;
+      " onmouseover="this.style.background='rgba(231,76,60,0.8)'" onmouseout="this.style.background='rgba(0,0,0,0.3)'">✕</button>
+      
+      <div style="text-align: center; margin-bottom: 25px;">
+        <div style="font-size: 60px; margin-bottom: 15px;">${isConnected ? '✅☁️' : '🔒'}</div>
+        <h2 style="margin: 0; font-size: 28px; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">
+          ${isConnected ? 'Connecté au Cloud' : 'Connexion Cloud'}
+        </h2>
+        <p style="margin: 10px 0 0 0; opacity: 0.9; font-size: 14px;">
+          ${isConnected ? `Connecté en tant que <strong>${nickname}</strong>` : 'Sauvegarde automatique désactivée'}
+        </p>
+      </div>
+      
+      <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 15px; margin-bottom: 20px; backdrop-filter: blur(10px);">
+        <h3 style="margin: 0 0 15px 0; font-size: 18px;">✨ Système de sauvegarde</h3>
+        <ul style="margin: 0; padding-left: 20px; line-height: 1.8; font-size: 14px;">
+          <li>💾 <strong>Locale</strong> : Automatique à chaque niveau</li>
+          <li>☁️ <strong>Cloud</strong> : ${isConnected ? 'Automatique si connecté' : 'Nécessite connexion'}</li>
+          <li>🔄 <strong>Sync</strong> : Temps réel avec Supabase</li>
+        </ul>
+      </div>
+      
+      ${isConnected ? `
+        <div style="background: rgba(46,204,113,0.3); padding: 15px; border-radius: 15px; margin-bottom: 20px; border: 2px solid rgba(46,204,113,0.5); text-align: center;">
+          <div style="font-size: 14px;">
+            <strong>✅ Sauvegarde cloud activée</strong>
+            <p style="margin: 10px 0 0 0; opacity: 0.9; font-size: 13px;">
+              Ta progression est automatiquement sauvegardée en ligne<br>
+              <strong>Email :</strong> ${email}
+            </p>
+          </div>
+        </div>
+        <button onclick="disconnectCloudSave()" style="
+          width: 100%;
+          padding: 15px 20px;
+          background: linear-gradient(135deg, #e74c3c, #c0392b);
+          color: white;
+          border: none;
+          border-radius: 12px;
+          font-size: 16px;
+          font-weight: bold;
+          cursor: pointer;
+          box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+          transition: all 0.3s;
+        " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(0,0,0,0.3)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.2)'">
+          🚪 Se déconnecter
+        </button>
+      ` : `
+        <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 15px; margin-bottom: 20px;">
+          <h3 style="margin: 0 0 15px 0; font-size: 18px;">👤 Connexion Cloud</h3>
+          <div style="margin-bottom: 12px;">
+            <label style="display: block; margin-bottom: 5px; font-size: 14px; opacity: 0.9;">Pseudo</label>
+            <input type="text" id="cloudNickname" placeholder="Ton pseudo" value="${nickname || ''}" style="
+              width: 100%;
+              padding: 12px;
+              border: none;
+              border-radius: 8px;
+              font-size: 16px;
+              box-sizing: border-box;
+              background: rgba(255,255,255,0.9);
+              color: #2c3e50;
+            " />
+          </div>
+          <div>
+            <label style="display: block; margin-bottom: 5px; font-size: 14px; opacity: 0.9;">Email</label>
+            <input type="email" id="cloudEmail" placeholder="ton@email.com" style="
+              width: 100%;
+              padding: 12px;
+              border: none;
+              border-radius: 8px;
+              font-size: 16px;
+              box-sizing: border-box;
+              background: rgba(255,255,255,0.9);
+              color: #2c3e50;
+            " />
+          </div>
+        </div>
+        <button onclick="connectCloudSave()" style="
+          width: 100%;
+          padding: 15px 20px;
+          background: linear-gradient(135deg, #2ecc71, #27ae60);
+          color: white;
+          border: none;
+          border-radius: 12px;
+          font-size: 16px;
+          font-weight: bold;
+          cursor: pointer;
+          box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+          transition: all 0.3s;
+        " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(0,0,0,0.3)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.2)'">
+          ☁️ Se connecter
+        </button>
+      `}
+      
+      <div style="text-align: center; margin-top: 20px; opacity: 0.7; font-size: 12px;">
+        Powered by Supabase 🚀
+      </div>
+    </div>
+  `;
+  
+  document.getElementById('gameContainer').appendChild(statusDiv);
+}
+
+// Connexion au cloud
+async function connectCloudSave() {
+  const nickname = document.getElementById('cloudNickname').value.trim();
+  const email = document.getElementById('cloudEmail').value.trim();
+  
+  if (!nickname || !email) {
+    showPopup('❌ Merci d\'entrer pseudo ET email !', '⚠️', 'warning');
+    return;
+  }
+  
+  // Valider l'email
+  if (!email.includes('@')) {
+    showPopup('❌ Email invalide !', '📧', 'error');
+    return;
+  }
+  
+  try {
+    // Sauvegarder les identifiants
+    localStorage.setItem('dovePlayerNickname', nickname);
+    localStorage.setItem('dovePlayerEmail', email);
+    
+    // Initialiser Supabase
+    if (typeof initSupabaseDove === 'function') {
+      await initSupabaseDove();
+    }
+    
+    // Envoyer la progression actuelle
+    await autoSaveToCloud();
+    
+    showPopup('\u2705 Connect\u00e9 avec succ\u00e8s !\n\nTa progression sera automatiquement sauvegard\u00e9e en ligne.', '\u2601\ufe0f', 'success');
+    
+    // Fermer la modal
+    document.querySelector('[style*="position: fixed"]').remove();
+  } catch (error) {
+    console.error('Erreur connexion cloud:', error);
+    showPopup(`❌ Erreur de connexion:\n${error.message}`, '⚠️', 'error');
+  }
+}
+
+// Déconnexion du cloud
+function disconnectCloudSave() {
+  if (confirm('🔒 Se déconnecter de la sauvegarde cloud ?\n\nLa sauvegarde locale continuera de fonctionner.')) {
+    localStorage.removeItem('dovePlayerNickname');
+    localStorage.removeItem('dovePlayerEmail');
+    showPopup('\u2705 D\u00e9connect\u00e9 avec succ\u00e8s !\n\nSauvegarde cloud d\u00e9sactiv\u00e9e.', '\ud83d\udeaa', 'info');
+    document.querySelector('[style*="position: fixed"]').remove();
+  }
+}
+
+// Sauvegarde automatique vers le cloud (si connecté)
+async function autoSaveToCloud() {
+  const nickname = localStorage.getItem('dovePlayerNickname');
+  const email = localStorage.getItem('dovePlayerEmail');
+  
+  // Vérifier si connecté
+  if (!nickname || !email) {
+    console.log('ℹ️ Sauvegarde cloud désactivée (pas connecté)');
+    return;
+  }
+  
+  try {
+    // Initialiser Supabase si nécessaire
+    if (typeof initSupabaseDove === 'function') {
+      await initSupabaseDove();
+    }
+    
+    // Sauvegarder avec syncDovePlayerData
+    const result = await syncDovePlayerData(nickname, email, gameData);
+    
+    if (result.success) {
+      console.log('✅ Sauvegarde cloud réussie');
+    } else {
+      console.warn('⚠️ Échec sauvegarde cloud:', result.error);
+    }
+  } catch (error) {
+    console.error('❌ Erreur sauvegarde cloud:', error);
+  }
 }
 
 // Raccourci clavier pour afficher les stats (Ctrl+S ou Cmd+S)
@@ -1435,243 +3044,141 @@ const STORY_CHAPTERS = {
 
 // Configuration des niveaux
 const LEVELS_CONFIG = [
-  // Niveau 1: L'Aube de l'Espoir (0-50 nuages)
+  // Niveau 1: CADET - Premiers Vols (0-100 nuages)
   {
     id: 1,
-    title: "L'Aube de l'Espoir",
-    icon: "🌅",
+    title: "CADET - Premiers Vols",
+    icon: "�",
     threshold: 0,
-    cloudsToPass: 50,
-    message: "Tu as fait tes premiers pas dans la lumière ! Tu n'es pas seul dans ce combat.",
+    cloudsToPass: 100,
+    message: "Bienvenue dans l'Académie des Cieux ! Tu commences ton entraînement de pilote. Chaque mission te rapproche de ta destinée.",
     verse: { text: "De loin, l'Éternel s'est révélé à moi : « Je t'aime d'un amour éternel ; c'est pourquoi je te maintiens ma bonté.", reference: "Jérémie 31:3" },
     cloudSpeed: { min: 0.5, max: 1.5 },
     cloudSpawnRate: 0.004,
     shootingClouds: 0.3,
     rainSpeed: { min: 4, max: 6 },
-    powerUpRate: 0.001,
-    background: { top: '#87ceeb', bottom: '#b8d8f8' },
-    difficulty: 'easy'
-  },
-  // Niveau 2: Le Souffle Divin (51-100 nuages)
-  {
-    id: 2,
-    title: "Le Souffle Divin",
-    icon: "🌬️",
-    threshold: 51,
-    cloudsToPass: 50,
-    message: "Comme un aigle, Dieu te fortifie ! Il te choisit tel que tu es, dans ton authenticité et ta complétude.",
-    verse: { text: "Mais ceux qui se confient en l'Éternel renouvellent leur force. Ils prennent leur envol comme les aigles.", reference: "Ésaïe 40:31" },
-    cloudSpeed: { min: 0.7, max: 1.8 },
-    cloudSpawnRate: 0.005,
-    shootingClouds: 0.4,
-    rainSpeed: { min: 4.5, max: 6.5 },
     powerUpRate: 0.0012,
     background: { top: '#87ceeb', bottom: '#b8d8f8' },
     difficulty: 'easy'
   },
-  // Niveau 3: Ailes de Foi (101-150 nuages)
+  // Niveau 2: AVIATEUR - Baptême du Ciel (101-250 nuages)
   {
-    id: 3,
-    title: "Ailes de Foi",
-    icon: "🕊️",
+    id: 2,
+    title: "AVIATEUR - Baptême du Ciel",
+    icon: "✈️",
     threshold: 101,
-    cloudsToPass: 50,
-    message: "Tu n'es pas trop nul, tu n'es pas rejeté. Tu es aimé infiniment !",
-    verse: { text: "Ceux qui espèrent en l'Éternel prennent des ailes comme les aigles", reference: "Ésaïe 40:31" },
+    cloudsToPass: 150,
+    message: "Tes ailes se déploient avec assurance ! Tu maîtrises les bases du vol et découvres la liberté des cieux.",
+    verse: { text: "L'Éternel donne de la force à celui qui est fatigué, et il augmente la vigueur de celui qui tombe en défaillance.", reference: "Ésaïe 40:29" },
     cloudSpeed: { min: 0.8, max: 2.0 },
     cloudSpawnRate: 0.006,
-    shootingClouds: 0.5,
+    shootingClouds: 0.45,
     rainSpeed: { min: 5, max: 7 },
-    powerUpRate: 0.0015,
+    powerUpRate: 0.0014,
     background: { top: '#7db8d8', bottom: '#a8c8e8' },
-    difficulty: 'medium'
+    difficulty: 'easy'
   },
-  // Niveau 4: Pardon et Liberté (151-200 nuages)
+  // Niveau 3: AS DES CIEUX - Virtuose Ailé (251-450 nuages)
   {
-    id: 4,
-    title: "Pardon et Liberté",
-    icon: "🔓",
-    threshold: 151,
-    cloudsToPass: 50,
-    message: "Tes erreurs ne te définissent pas. L'amour de Dieu efface tout et te rend libre !",
-    verse: { text: "Là où est l'Esprit, là est la liberté", reference: "2 Corinthiens 3:17" },
-    cloudSpeed: { min: 1.0, max: 2.3 },
-    cloudSpawnRate: 0.007,
+    id: 3,
+    title: "AS DES CIEUX - Virtuose Ailé",
+    icon: "�️",
+    threshold: 251,
+    cloudsToPass: 200,
+    message: "Tu danses entre les nuages comme un maître ! Tes réflexes s'aiguisent, ta précision devient légendaire.",
+    verse: { text: "Ceux qui espèrent en l'Éternel prennent des ailes comme les aigles", reference: "Ésaïe 40:31" },
+    cloudSpeed: { min: 1.0, max: 2.5 },
+    cloudSpawnRate: 0.008,
     shootingClouds: 0.6,
-    rainSpeed: { min: 5.5, max: 7.5 },
-    powerUpRate: 0.0013,
+    rainSpeed: { min: 6, max: 8 },
+    powerUpRate: 0.0016,
     background: { top: '#6a9fc8', bottom: '#98b8d8' },
     difficulty: 'medium'
   },
-  // Niveau 5: Choisi et Précieux (201-250 nuages)
+  // Niveau 4: COMMANDANT - Tacticien Céleste (451-700 nuages)
   {
-    id: 5,
-    title: "Choisi et Précieux",
-    icon: "💎",
-    threshold: 201,
-    cloudsToPass: 50,
-    message: "Tu es choisi ! Pas à cause de ta perfection, mais par pure grâce.",
-    verse: { text: "Je t'ai appelé par ton nom, tu es à moi", reference: "Ésaïe 43:1" },
-    cloudSpeed: { min: 1.2, max: 2.5 },
-    cloudSpawnRate: 0.008,
-    shootingClouds: 0.65,
-    rainSpeed: { min: 6, max: 8 },
-    powerUpRate: 0.0014,
+    id: 4,
+    title: "COMMANDANT - Tacticien Céleste",
+    icon: "⭐",
+    threshold: 451,
+    cloudsToPass: 250,
+    message: "On te confie des missions stratégiques ! Tu commandes le ciel avec sagesse et courage, guidé par la lumière divine.",
+    verse: { text: "Là où est l'Esprit, là est la liberté", reference: "2 Corinthiens 3:17" },
+    cloudSpeed: { min: 1.3, max: 2.8 },
+    cloudSpawnRate: 0.010,
+    shootingClouds: 0.7,
+    rainSpeed: { min: 7, max: 9 },
+    powerUpRate: 0.0017,
     background: { top: '#5a8fb8', bottom: '#88a8c8' },
     difficulty: 'medium'
   },
-  // Niveau 6: Force Intérieure (251-300 nuages)
+  // Niveau 5: VÉTÉRAN - Forgé par les Tempêtes (701-1000 nuages)
   {
-    id: 6,
-    title: "Force Intérieure",
-    icon: "💪",
-    threshold: 251,
-    cloudsToPass: 50,
-    message: "Dans ta faiblesse, Sa force se révèle. Tu peux tout, car Il te fortifie !",
-    verse: { text: "Je peux tout par celui qui me fortifie", reference: "Philippiens 4:13" },
-    cloudSpeed: { min: 1.3, max: 2.7 },
-    cloudSpawnRate: 0.009,
-    shootingClouds: 0.7,
-    rainSpeed: { min: 6.5, max: 8.5 },
-    powerUpRate: 0.0016,
+    id: 5,
+    title: "VÉTÉRAN - Forgé par les Tempêtes",
+    icon: "🎖️",
+    threshold: 701,
+    cloudsToPass: 300,
+    message: "Tu as traversé mille orages ! Chaque cicatrice raconte une victoire. Tu es une légende vivante des cieux.",
+    verse: { text: "Je t'ai appelé par ton nom, tu es à moi", reference: "Ésaïe 43:1" },
+    cloudSpeed: { min: 1.5, max: 3.2 },
+    cloudSpawnRate: 0.012,
+    shootingClouds: 0.78,
+    rainSpeed: { min: 8, max: 10 },
+    powerUpRate: 0.0018,
     background: { top: '#4a7fa8', bottom: '#7898b8' },
     difficulty: 'hard'
   },
-  // Niveau 7: Tempête de Grâce (301-350 nuages)
+  // Niveau 6: LÉGENDE - Mythe Incarné (1001-1400 nuages)
   {
-    id: 7,
-    title: "Tempête de Grâce",
-    icon: "⛈️",
-    threshold: 301,
-    cloudsToPass: 50,
-    message: "Les défis se multiplient, mais tu danses avec les éléments !",
-    verse: { text: "Après la pluie vient le beau temps", reference: "Job 37:11" },
-    cloudSpeed: { min: 1.4, max: 2.9 },
-    cloudSpawnRate: 0.010,
-    shootingClouds: 0.75,
-    rainSpeed: { min: 7, max: 9 },
-    powerUpRate: 0.0015,
+    id: 6,
+    title: "LÉGENDE - Mythe Incarné",
+    icon: "🏆",
+    threshold: 1001,
+    cloudsToPass: 400,
+    message: "Ton nom résonne dans tous les cieux ! Les cadets rêvent de devenir comme toi. Tu incarnes l'excellence et la grâce.",
+    verse: { text: "Je peux tout par celui qui me fortifie", reference: "Philippiens 4:13" },
+    cloudSpeed: { min: 1.7, max: 3.6 },
+    cloudSpawnRate: 0.014,
+    shootingClouds: 0.85,
+    rainSpeed: { min: 9, max: 11 },
+    powerUpRate: 0.0019,
     background: { top: '#3a6f98', bottom: '#6888a8' },
     difficulty: 'hard'
   },
-  // Niveau 8: Amour Inconditionnel (351-400 nuages)
+  // Niveau 7: MAÎTRE PILOTE - Symphonie Aérienne (1401-1900 nuages)
+  {
+    id: 7,
+    title: "MAÎTRE PILOTE - Symphonie Aérienne",
+    icon: "👑",
+    threshold: 1401,
+    cloudsToPass: 500,
+    message: "Tu ne voles plus, tu composes une symphonie céleste ! Chaque mouvement est perfection, chaque mission un chef-d'œuvre.",
+    verse: { text: "Après la pluie vient le beau temps", reference: "Job 37:11" },
+    cloudSpeed: { min: 1.9, max: 4.0 },
+    cloudSpawnRate: 0.016,
+    shootingClouds: 0.90,
+    rainSpeed: { min: 10, max: 12 },
+    powerUpRate: 0.0020,
+    background: { top: '#2a5f88', bottom: '#587898' },
+    difficulty: 'expert'
+  },
+  // Niveau 8: AILE DU CIEL - Gardien Éternel (1901+ nuages)
   {
     id: 8,
-    title: "Amour Inconditionnel",
-    icon: "❤️",
-    threshold: 351,
-    cloudsToPass: 50,
-    message: "Tu n'as pas besoin d'être parfait pour être aimé. Tu es déjà aimé parfaitement !",
+    title: "AILE DU CIEL - Gardien Éternel",
+    icon: "�️",
+    threshold: 1901,
+    cloudsToPass: 999,
+    message: "Tu as transcendé la mortalité ! Gardien céleste, protecteur des cieux, ton vol est désormais éternel. L'infini t'appartient !",
     verse: { text: "L'amour ne périt jamais", reference: "1 Corinthiens 13:8" },
-    cloudSpeed: { min: 1.5, max: 3.0 },
-    cloudSpawnRate: 0.011,
-    shootingClouds: 0.8,
-    rainSpeed: { min: 7.5, max: 9.5 },
-    powerUpRate: 0.0017,
-    background: { top: '#2a5f88', bottom: '#587898' },
-    difficulty: 'hard'
-  },
-  // Niveau 9: Héros de Lumière (401-450 nuages)
-  {
-    id: 9,
-    title: "Héros de Lumière",
-    icon: "🦸",
-    threshold: 401,
-    cloudsToPass: 50,
-    message: "Tu n'es pas trop pécheur pour Dieu. Tu es Son héros, Son enfant chéri !",
-    verse: { text: "Ta foi t'a sauvé", reference: "Luc 7:50" },
-    cloudSpeed: { min: 1.6, max: 3.2 },
-    cloudSpawnRate: 0.012,
-    shootingClouds: 0.82,
-    rainSpeed: { min: 8, max: 10 },
-    powerUpRate: 0.0018,
-    background: { top: '#1a4f78', bottom: '#486888' },
-    difficulty: 'expert'
-  },
-  // Niveau 10: Nouvelle Créature (451-550 nuages)
-  {
-    id: 10,
-    title: "Nouvelle Créature",
-    icon: "🦋",
-    threshold: 451,
-    cloudsToPass: 100,
-    message: "L'ancien est passé, voici du nouveau ! Tu renais dans la lumière divine.",
-    verse: { text: "Si quelqu'un est en Christ, il est une nouvelle créature", reference: "2 Corinthiens 5:17" },
-    cloudSpeed: { min: 1.7, max: 3.5 },
-    cloudSpawnRate: 0.013,
-    shootingClouds: 0.85,
-    rainSpeed: { min: 8.5, max: 10.5 },
-    powerUpRate: 0.002,
-    background: { top: '#0a3f68', bottom: '#385878' },
-    difficulty: 'expert'
-  },
-  // Niveau 11: Courage du Lion (551-650 nuages)
-  {
-    id: 11,
-    title: "Courage du Lion",
-    icon: "🦁",
-    threshold: 551,
-    cloudsToPass: 100,
-    message: "Lève-toi avec courage ! Tu es digne, tu es capable, tu es victorieux !",
-    verse: { text: "Soyez forts et prenez courage", reference: "Josué 1:9" },
-    cloudSpeed: { min: 1.8, max: 3.7 },
-    cloudSpawnRate: 0.014,
-    shootingClouds: 0.87,
-    rainSpeed: { min: 9, max: 11 },
-    powerUpRate: 0.0019,
-    background: { top: '#052f58', bottom: '#284868' },
-    difficulty: 'expert'
-  },
-  // Niveau 12: Porte de la Sagesse (651-750 nuages)
-  {
-    id: 12,
-    title: "Porte de la Sagesse",
-    icon: "📖",
-    threshold: 651,
-    cloudsToPass: 100,
-    message: "La Bible n'est pas un livre de jugement, mais un trésor d'amour pour toi ! Ouvre-la avec confiance.",
-    verse: { text: "Ta parole est une lampe à mes pieds", reference: "Psaume 119:105" },
-    cloudSpeed: { min: 1.9, max: 3.9 },
-    cloudSpawnRate: 0.015,
-    shootingClouds: 0.88,
-    rainSpeed: { min: 9.5, max: 11.5 },
-    powerUpRate: 0.002,
-    background: { top: '#001f48', bottom: '#183858' },
-    difficulty: 'master'
-  },
-  // Niveau 13: Ciel Nouveau (751-850 nuages)
-  {
-    id: 13,
-    title: "Ciel Nouveau",
-    icon: "🌌",
-    threshold: 751,
-    cloudsToPass: 100,
-    message: "Tu approches du sommet ! Lis la Bible comme un vainqueur, pas comme un condamné. Tu es choisi et aimé !",
-    verse: { text: "Vous êtes une race élue", reference: "1 Pierre 2:9" },
-    cloudSpeed: { min: 2.0, max: 4.0 },
-    cloudSpawnRate: 0.016,
-    shootingClouds: 0.9,
-    rainSpeed: { min: 10, max: 12 },
+    cloudSpeed: { min: 2.0, max: 4.5 },
+    cloudSpawnRate: 0.018,
+    shootingClouds: 0.95,
+    rainSpeed: { min: 11, max: 13 },
     powerUpRate: 0.0021,
-    background: { top: '#000f38', bottom: '#082848' },
-    difficulty: 'master'
-  },
-  // Niveau 14: L'Aventure Éternelle (851-991 nuages)
-  {
-    id: 14,
-    title: "L'Aventure Éternelle",
-    icon: "✨",
-    threshold: 851,
-    cloudsToPass: 140,
-    message: "Dernier défi avant la victoire totale ! La Bible t'attend, elle est écrite pour toi, héros de lumière ! Continue, tu es presque au sommet !",
-    verse: { text: "La vie est une aventure extraordinaire", reference: "Psaume 99:1 (dit Origine)" },
-    cloudSpeed: { min: 2.1, max: 4.2 },
-    cloudSpawnRate: 0.017,
-    shootingClouds: 0.92,
-    rainSpeed: { min: 10.5, max: 12.5 },
-    powerUpRate: 0.0022,
-    background: { top: '#000028', bottom: '#001838' },
-    difficulty: 'master'
+    background: { top: '#1a4f78', bottom: '#486888' },
+    difficulty: 'legendary'
   }
 ];
 
@@ -1680,6 +3187,8 @@ let currentLevelIndex = 0;
 let currentLevelConfig = LEVELS_CONFIG[0];
 let totalScore = 0;
 let cloudsInLevel = 0;
+let isInfiniteMode = false; // Mode infini activé après le niveau 14
+let infiniteCloudsCleared = 0; // Compteur de nuages en mode infini
 
 function updateLevelBackground() {
   const bg = currentLevelConfig.background;
@@ -1689,22 +3198,42 @@ function updateLevelBackground() {
 
 function startLevel(levelIndex) {
   currentLevelIndex = levelIndex;
-  currentLevelConfig = LEVELS_CONFIG[levelIndex];
+  
+  // Mode infini : on reste sur le dernier niveau (14)
+  if (levelIndex >= LEVELS_CONFIG.length) {
+    currentLevelConfig = LEVELS_CONFIG[LEVELS_CONFIG.length - 1];
+    isInfiniteMode = true;
+  } else {
+    currentLevelConfig = LEVELS_CONFIG[levelIndex];
+  }
+  
   cloudsInLevel = 0;
   
   // Mettre à jour l'arrière-plan
   updateLevelBackground();
   
-  // Réinitialiser les éléments du jeu
+  // Réinitialiser les éléments du jeu (mais PAS les power-ups actifs)
   bullets = [];
   clouds = [];
   rain = [];
   particles = [];
   powerUps = [];
   hearts = [];
-  umbrella = false;
-  speed = false;
-  multi = false;
+  fallingPowerUps = [];
+  cloudKillCount = 0;
+  collectedStar = false;
+  shockwaves = [];
+  // umbrella, speed, multi restent actifs pour le niveau suivant
+  
+  // Activer la pluie décorative pour le niveau 7
+  if (currentLevelConfig.id === 7) {
+    decorativeRain = [];
+    for (let i = 0; i < 50; i++) {
+      decorativeRain.push(decorativeRainDrop());
+    }
+  } else {
+    decorativeRain = [];
+  }
   
   // Mettre à jour le niveau affiché dans l'UI
   level = currentLevelConfig.id;
@@ -1740,8 +3269,8 @@ function startLevel(levelIndex) {
               ${t('messages.welcome')}
             </h2>
           </div>
-          <div style="display: inline-block; padding: 10px 25px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 25px; margin-bottom: 20px; box-shadow: 0 8px 20px rgba(102,126,234,0.3);">
-            <h3 style="color: white; font-size: 20px; margin: 0; font-weight: 800; letter-spacing: 1.5px;">
+          <div style="display: inline-block; padding: 10px 25px; background: linear-gradient(135deg, #e0e0e0 0%, #bdbdbd 100%); border-radius: 25px; margin-bottom: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.15);">
+            <h3 style="color: #424242; font-size: 20px; margin: 0; font-weight: 800; letter-spacing: 1.5px; text-shadow: 0 1px 2px rgba(255,255,255,0.5);">
               ${currentLevelConfig.icon} NIVEAU ${currentLevelConfig.id}
             </h3>
           </div>
@@ -1766,7 +3295,7 @@ function startLevel(levelIndex) {
             border: none;
             padding: 16px 50px;
             border-radius: 50px;
-            color: white;
+            color: #ffffff;
             font-size: 17px;
             font-weight: bold;
             cursor: pointer;
@@ -1774,6 +3303,7 @@ function startLevel(levelIndex) {
             transition: all 0.3s;
             letter-spacing: 1px;
             text-transform: uppercase;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
           " onmouseover="this.style.transform='translateY(-3px) scale(1.02)'; this.style.boxShadow='0 12px 30px rgba(102,126,234,0.5)';"
              onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 8px 25px rgba(102,126,234,0.4)';">
             ▶ Commencer
@@ -1786,11 +3316,13 @@ function startLevel(levelIndex) {
       document.getElementById('continueBtn').addEventListener('click', () => {
         levelUpDiv.remove();
         state = 'playing';
+        autoHideMenuOnStart();
         setSun('happy');
       });
     }, 500);
   } else {
     state = 'playing';
+    autoHideMenuOnStart();
     setSun('happy');
   }
 }
@@ -1826,8 +3358,8 @@ function completeLevel() {
       `;
       victoryDiv.innerHTML = `
         <div style="max-width: 500px; text-align: center; background: rgba(255,255,255,0.8); padding: 40px 30px; border-radius: 30px; box-shadow: 0 20px 60px rgba(0,0,0,0.1), 0 0 0 1px rgba(255,255,255,0.5) inset; border: 2px solid rgba(255,255,255,0.8);">
-          <div style="display: inline-block; padding: 12px 30px; background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); border-radius: 25px; margin-bottom: 25px; box-shadow: 0 8px 20px rgba(17,153,142,0.3);">
-            <h1 style="color: white; font-size: 32px; margin: 0; font-weight: 800; letter-spacing: 2px;">
+          <div style="display: inline-block; padding: 12px 30px; background: linear-gradient(135deg, #e0e0e0 0%, #bdbdbd 100%); border-radius: 25px; margin-bottom: 25px; box-shadow: 0 8px 20px rgba(0,0,0,0.15);">
+            <h1 style="color: #424242; font-size: 32px; margin: 0; font-weight: 800; letter-spacing: 2px; text-shadow: 0 1px 2px rgba(255,255,255,0.5);">
               🏆 VICTOIRE 🏆
             </h1>
           </div>
@@ -1870,8 +3402,11 @@ function completeLevel() {
       // Continuer en mode infini au clic
       document.getElementById('victoryBtn').addEventListener('click', () => {
         victoryDiv.remove();
+        isInfiniteMode = true;
+        infiniteCloudsCleared = 0;
+        currentLevelIndex = LEVELS_CONFIG.length; // Chapitre 15+
         state = 'playing';
-        msg('Mode Infini activé ! Versets tous les 50 nuages ☁️');
+        msg('🔄 Mode Infini activé ! Versets tous les 50 nuages ☁️');
       });
     }, 2000);
   } else {
@@ -1901,8 +3436,8 @@ function completeLevel() {
       `;
       levelUpDiv.innerHTML = `
         <div style="max-width: 500px; text-align: center; background: rgba(255,255,255,0.8); padding: 40px 30px; border-radius: 30px; box-shadow: 0 20px 60px rgba(0,0,0,0.1), 0 0 0 1px rgba(255,255,255,0.5) inset; border: 2px solid rgba(255,255,255,0.8);">
-          <div style="display: inline-block; padding: 10px 25px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 25px; margin-bottom: 25px; box-shadow: 0 8px 20px rgba(102,126,234,0.3);">
-            <h2 style="color: white; font-size: 22px; margin: 0; font-weight: 800; letter-spacing: 1.5px;">
+          <div style="display: inline-block; padding: 10px 25px; background: linear-gradient(135deg, #e0e0e0 0%, #bdbdbd 100%); border-radius: 25px; margin-bottom: 25px; box-shadow: 0 8px 20px rgba(0,0,0,0.15);">
+            <h2 style="color: #424242; font-size: 22px; margin: 0; font-weight: 800; letter-spacing: 1.5px; text-shadow: 0 1px 2px rgba(255,255,255,0.5);">
               ${nextConfig.icon} NIVEAU ${nextConfig.id}
             </h2>
           </div>
@@ -1946,6 +3481,7 @@ function completeLevel() {
       // Attendre le clic du joueur
       document.getElementById('continueBtn').addEventListener('click', () => {
         levelUpDiv.remove();
+        playSound('levelup');
         startLevel(nextLevelIndex);
       });
     }, 1000);
@@ -1953,25 +3489,11 @@ function completeLevel() {
 }
 
 function showInfiniteVerse() {
-  // Liste de versets aléatoires pour le mode infini
-  const infiniteVerses = [
-    { text: "Que votre cœur ne se trouble pas", reference: "Jean 14:1" },
-    { text: "Je suis avec vous tous les jours", reference: "Matthieu 28:20" },
-    { text: "L'Éternel est ma lumière et mon salut", reference: "Psaume 27:1" },
-    { text: "Vous êtes la lumière du monde", reference: "Matthieu 5:14" },
-    { text: "L'amour couvre une multitude de péchés", reference: "1 Pierre 4:8" },
-    { text: "Car Dieu a tant aimé le monde", reference: "Jean 3:16" },
-    { text: "Cherchez premièrement le royaume de Dieu", reference: "Matthieu 6:33" },
-    { text: "Le juste vivra par la foi", reference: "Romains 1:17" },
-    { text: "Tout est possible à celui qui croit", reference: "Marc 9:23" },
-    { text: "Dieu est amour", reference: "1 Jean 4:8" },
-    { text: "Rien ne pourra nous séparer de l'amour de Dieu", reference: "Romains 8:39" },
-    { text: "Réjouissez-vous toujours dans le Seigneur", reference: "Philippiens 4:4" },
-    { text: "Ne crains rien, car je suis avec toi", reference: "Ésaïe 41:10" },
-    { text: "Heureux ceux qui ont le cœur pur", reference: "Matthieu 5:8" }
-  ];
+  // Utiliser les versets de bible-verses.js
+  const randomVerse = getRandomVerse();
   
-  const randomVerse = infiniteVerses[Math.floor(Math.random() * infiniteVerses.length)];
+  // Calculer le numéro du chapitre infini
+  const infiniteChapter = Math.floor(infiniteCloudsCleared / 50);
   
   const verseDiv = document.createElement('div');
   verseDiv.style.cssText = `
@@ -1993,14 +3515,14 @@ function showInfiniteVerse() {
   verseDiv.innerHTML = `
     <div style="max-width: 450px; margin: 0 auto;">
       <h2 style="color: #fff; font-size: 28px; margin-bottom: 20px; text-shadow: 0 0 10px rgba(255,255,255,0.5);">
-        ✨ Mode Infini - Milestone ✨
+        🔄 Chapitre ${15 + infiniteChapter} (Mode Infini)
       </h2>
       <p style="color: #f1c40f; font-size: 20px; margin-bottom: 25px; font-weight: bold;">
         ${cloudsCleared} nuages dissipés !
       </p>
       <p style="font-size: 18px; line-height: 1.8; margin-bottom: 20px; font-style: italic;">
         « ${randomVerse.text} »<br>
-        <span style="color: #ecf0f1; margin-top: 10px; display: inline-block;">- ${randomVerse.reference}</span>
+        <span style="color: #ecf0f1; margin-top: 10px; display: inline-block;">— ${randomVerse.reference}</span>
       </p>
       <button id="verseBtn" style="
         background: linear-gradient(135deg, #f1c40f 0%, #f39c12 100%);
@@ -2034,9 +3556,18 @@ function showInfiniteVerse() {
 }
 
 function initGame() {
-  // Démarrer directement le niveau 1 (le menu fusionné s'affichera automatiquement)
-  startLevel(0);
+  // Démarrer au niveau sauvegardé (ou niveau 1 si c'est la première fois)
+  const savedLevelIndex = Math.max(0, (gameData.highestLevelReached || 1) - 1);
+  // Vérifier que l'index est valide
+  const startLevelIndex = Math.min(savedLevelIndex, LEVELS_CONFIG.length - 1);
+  startLevel(startLevelIndex);
+  
+  // Mettre à jour le niveau affiché
+  level = gameData.highestLevelReached || 1;
 }
+
+// Initialiser le drapeau de langue au chargement
+updateLanguageFlag();
 
 requestAnimationFrame(loop);
 </script>

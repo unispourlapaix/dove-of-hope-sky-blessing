@@ -10,7 +10,7 @@ const ko = {
   ui: {
     score: '점수',
     clouds: '구름',
-    level: '레벨',
+    level: '챕터',
     lives: '생명'
   },
   

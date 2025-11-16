@@ -10,7 +10,7 @@ const es = {
   ui: {
     score: 'Puntos',
     clouds: 'Nubes',
-    level: 'Nivel',
+    level: 'Capítulo',
     lives: 'Vida'
   },
   

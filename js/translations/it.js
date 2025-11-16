@@ -10,8 +10,8 @@ const it = {
   ui: {
     score: 'Punteggio',
     clouds: 'Nuvole',
-    level: 'Livello',
-    lives: 'Vita'
+    level: 'Capitolo',
+    lives: 'Vite'
   },
   
   buttons: {

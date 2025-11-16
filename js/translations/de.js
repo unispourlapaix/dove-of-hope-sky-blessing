@@ -8,9 +8,9 @@ const de = {
   flag: '🇩🇪',
   
   ui: {
-    score: 'Punkte',
+    score: 'Punktzahl',
     clouds: 'Wolken',
-    level: 'Level',
+    level: 'Kapitel',
     lives: 'Leben'
   },
   

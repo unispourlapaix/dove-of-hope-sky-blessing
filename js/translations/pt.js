@@ -8,10 +8,10 @@ const pt = {
   flag: '🇵🇹',
   
   ui: {
-    score: 'Pontos',
+    score: 'Pontuação',
     clouds: 'Nuvens',
-    level: 'Nível',
-    lives: 'Vida'
+    level: 'Capítulo',
+    lives: 'Vidas'
   },
   
   buttons: {

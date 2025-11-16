@@ -32,7 +32,12 @@ const TRANSLATIONS = {
       'Rejette la haine et le racisme !',
       'L\'œuvre du mal : guerre, destruction... Vole !',
       'Ne juge pas les autres !',
-      'Sois d\'abord toi-même la meilleure version possible !'
+      'Sois d\'abord toi-même la meilleure version possible !',
+      'Ne t\'isole pas dans les plus mauvais moments !',
+      'N\'abandonne jamais !',
+      'La vie est remplie de surprises impossibles !',
+      'L\'impossible peut devenir possible !',
+      'Courage, persévère !'
     ],
     rain: [
       'Après la pluie y a le beau temps !',
@@ -42,7 +47,10 @@ const TRANSLATIONS = {
     powerups: {
       umbrella: 'Parapluie activé ! Danse avec les éléments !',
       speed: 'Vitesse divine ! Tes ailes sont libres !',
-      multishot: 'Triple lumière ! Ton cœur rayonne !'
+      multishot: 'Triple lumière ! Ton cœur rayonne !',
+      heart: '💖 Vie supplémentaire !',
+      rainbow: '🌈 Magie arc-en-ciel ! Les nuages deviennent des cœurs + Triple laser !',
+      star: '⭐ BOUM ! Onde de choc activée ! Tous les nuages s\'évaporent !'
     }
   },
   
@@ -76,7 +84,12 @@ const TRANSLATIONS = {
       'Reject hatred and racism!',
       'The work of evil: war, destruction... Fly!',
       'Don\'t judge others!',
-      'Be first yourself the best version possible!'
+      'Be first yourself the best version possible!',
+      'Don\'t isolate yourself in the worst moments!',
+      'Never give up!',
+      'Life is full of impossible surprises!',
+      'The impossible can become possible!',
+      'Courage, persevere!'
     ],
     rain: [
       'After the rain comes sunshine!',
@@ -86,7 +99,10 @@ const TRANSLATIONS = {
     powerups: {
       umbrella: 'Umbrella activated! Dance with the elements!',
       speed: 'Divine speed! Your wings are free!',
-      multishot: 'Triple light! Your heart shines!'
+      multishot: 'Triple light! Your heart shines!',
+      heart: '💖 Extra life!',
+      rainbow: '🌈 Rainbow magic! Clouds turn into hearts + Triple laser!',
+      star: '⭐ BOOM! Shockwave activated! All clouds evaporate!'
     }
   },
   
@@ -120,7 +136,12 @@ const TRANSLATIONS = {
       '¡Rechaza el odio y el racismo!',
       'La obra del mal: guerra, destrucción... ¡Vuela!',
       '¡No juzgues a los demás!',
-      '¡Sé primero tú mismo la mejor versión posible!'
+      '¡Sé primero tú mismo la mejor versión posible!',
+      '¡No te aísles en los peores momentos!',
+      '¡Nunca te rindas!',
+      '¡La vida está llena de sorpresas imposibles!',
+      '¡Lo imposible puede volverse posible!',
+      '¡Valor, persevera!'
     ],
     rain: [
       '¡Después de la lluvia viene el sol!',
@@ -130,7 +151,10 @@ const TRANSLATIONS = {
     powerups: {
       umbrella: '¡Paraguas activado! ¡Baila con los elementos!',
       speed: '¡Velocidad divina! ¡Tus alas son libres!',
-      multishot: '¡Triple luz! ¡Tu corazón brilla!'
+      multishot: '¡Triple luz! ¡Tu corazón brilla!',
+      heart: '💖 ¡Vida extra!',
+      rainbow: '🌈 ¡Magia arcoíris! ¡Las nubes se vuelven corazones + Láser triple!',
+      star: '⭐ ¡BUM! ¡Onda de choque activada! ¡Todas las nubes se evaporan!'
     }
   },
   
@@ -164,7 +188,12 @@ const TRANSLATIONS = {
       'Lehne Hass und Rassismus ab!',
       'Das Werk des Bösen: Krieg, Zerstörung... Fliege!',
       'Urteile nicht über andere!',
-      'Sei zuerst selbst die beste Version möglich!'
+      'Sei zuerst selbst die beste Version möglich!',
+      'Isoliere dich nicht in den schlimmsten Momenten!',
+      'Gib niemals auf!',
+      'Das Leben ist voller unmöglicher Überraschungen!',
+      'Das Unmögliche kann möglich werden!',
+      'Mut, bleib dran!'
     ],
     rain: [
       'Nach dem Regen kommt die Sonne!',
@@ -174,7 +203,10 @@ const TRANSLATIONS = {
     powerups: {
       umbrella: 'Regenschirm aktiviert! Tanze mit den Elementen!',
       speed: 'Göttliche Geschwindigkeit! Deine Flügel sind frei!',
-      multishot: 'Dreifaches Licht! Dein Herz strahlt!'
+      multishot: 'Dreifaches Licht! Dein Herz strahlt!',
+      heart: '💖 Extra Leben!',
+      rainbow: '🌈 Regenbogenmagie! Wolken werden zu Herzen + Dreifachlaser!',
+      star: '⭐ BUMM! Schockwelle aktiviert! Alle Wolken verdampfen!'
     }
   },
   
@@ -208,7 +240,12 @@ const TRANSLATIONS = {
       'Rifiuta l\'odio e il razzismo!',
       'L\'opera del male: guerra, distruzione... Vola!',
       'Non giudicare gli altri!',
-      'Sii prima tu stesso la migliore versione possibile!'
+      'Sii prima tu stesso la migliore versione possibile!',
+      'Non isolarti nei momenti peggiori!',
+      'Non mollare mai!',
+      'La vita è piena di sorprese impossibili!',
+      'L\'impossibile può diventare possibile!',
+      'Coraggio, persevera!'
     ],
     rain: [
       'Dopo la pioggia viene il sole!',
@@ -218,7 +255,10 @@ const TRANSLATIONS = {
     powerups: {
       umbrella: 'Ombrello attivato! Danza con gli elementi!',
       speed: 'Velocità divina! Le tue ali sono libere!',
-      multishot: 'Tripla luce! Il tuo cuore brilla!'
+      multishot: 'Tripla luce! Il tuo cuore brilla!',
+      heart: '💖 Vita extra!',
+      rainbow: '🌈 Magia arcobaleno! Le nuvole diventano cuori + Laser triplo!',
+      star: '⭐ BUM! Onda d\'urto attivata! Tutte le nuvole evaporano!'
     }
   },
   
@@ -252,7 +292,12 @@ const TRANSLATIONS = {
       'Rejeita o ódio e o racismo!',
       'A obra do mal: guerra, destruição... Voa!',
       'Não julgues os outros!',
-      'Sê primeiro tu mesmo a melhor versão possível!'
+      'Sê primeiro tu mesmo a melhor versão possível!',
+      'Não se isole nos piores momentos!',
+      'Nunca desista!',
+      'A vida está cheia de surpresas impossíveis!',
+      'O impossível pode se tornar possível!',
+      'Coragem, persevere!'
     ],
     rain: [
       'Depois da chuva vem o sol!',
@@ -262,7 +307,10 @@ const TRANSLATIONS = {
     powerups: {
       umbrella: 'Guarda-chuva ativado! Dança com os elementos!',
       speed: 'Velocidade divina! Tuas asas são livres!',
-      multishot: 'Tripla luz! Teu coração brilha!'
+      multishot: 'Tripla luz! Teu coração brilha!',
+      heart: '💖 Vida extra!',
+      rainbow: '🌈 Magia arco-íris! As nuvens viram corações + Laser triplo!',
+      star: '⭐ BUM! Onda de choque ativada! Todas as nuvens evaporam!'
     }
   }
 };

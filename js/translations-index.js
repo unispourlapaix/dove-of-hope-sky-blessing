@@ -25,8 +25,8 @@ const LANGUAGES = {
   ar: typeof ar !== 'undefined' ? ar : null,
   ko: typeof ko !== 'undefined' ? ko : null,
   hi: typeof hi !== 'undefined' ? hi : null,
-  tr: typeof tr !== 'undefined' ? tr : null,
-  nl: typeof nl !== 'undefined' ? nl : null
+  sw: typeof sw !== 'undefined' ? sw : null,
+  pl: typeof pl !== 'undefined' ? pl : null
 };
 
 // Filtrer les langues null (non chargées)

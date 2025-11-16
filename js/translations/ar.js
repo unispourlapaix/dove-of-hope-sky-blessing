@@ -10,7 +10,7 @@ const ar = {
   ui: {
     score: 'النقاط',
     clouds: 'الغيوم',
-    level: 'المستوى',
+    level: 'الفصل',
     lives: 'الحياة'
   },
   

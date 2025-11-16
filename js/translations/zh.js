@@ -9,8 +9,8 @@ const zh = {
   
   ui: {
     score: '分数',
-    clouds: '云',
-    level: '关卡',
+    clouds: '云朵',
+    level: '章节',
     lives: '生命'
   },
   

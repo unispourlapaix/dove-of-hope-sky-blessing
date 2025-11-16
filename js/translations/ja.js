@@ -10,7 +10,7 @@ const ja = {
   ui: {
     score: 'スコア',
     clouds: '雲',
-    level: 'レベル',
+    level: 'チャプター',
     lives: 'ライフ'
   },
   
