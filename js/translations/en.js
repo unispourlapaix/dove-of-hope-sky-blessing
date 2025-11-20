@@ -392,21 +392,21 @@ const en = {
     },
     crazy_chicken: {
       name: '🐔 The Crazy Chicken',
-      intro: 'A disoriented chicken frantically flies in all directions... Sometimes our lives look like that!',
-      phase_1: '🌪️ "You are not your own; you were bought at a price. Therefore honor God with your bodies." (1 Corinthians 6:19-20)\n\nCONSTANT AGITATION, STRESS, EXHAUSTION... You run everywhere without purpose!',
-      phase_2: '🎯 "For God is not a God of disorder but of peace." (1 Corinthians 14:33)\n\nDISORGANIZATION and CHAOS do not come from God!',
-      phase_3: '🕊️ "Come to me, all you who are weary and burdened, and I will give you rest." (Matthew 11:28)\n\nFind your CENTER in Christ! Stop running in circles!',
-      defeated: '☮️ VICTORY OVER CHAOS!\n\n"There is a time for everything... a time to search and a time to give up." (Ecclesiastes 3:1-6)\n\nYou have found peace! God\'s order replaces chaos.',
-      wisdom: 'The crazy chicken symbolizes our lives when we run frantically without direction: constant stress, agitation, exhaustion, disorganization. We flap around like headless chickens, busy but not productive, tired but not fulfilled. The Bible says: "God is not a God of disorder, but of peace." Jesus invites us: "Come to me, all you who are weary and burdened, and I will give you rest." True peace doesn\'t come from a less full life, but from a life centered on Christ. When we find our center in Him, chaos transforms into order, agitation into peace, confusion into clarity. "Seek first the kingdom of God, and all these things will be added to you."'
+      intro: 'A panicking chicken running in all directions... False fears drive you mad and paralyze you!',
+      phase_1: '😰 "For God has not given us a spirit of fear, but of power and love and a sound mind." (2 Timothy 1:7)\n\nFALSE SUBJECTIVE FEARS: "What if...?", "Maybe...", "I\'m afraid that..." - IMAGINARY fears that HOLD YOU BACK!',
+      phase_2: '🧠 "Do not be anxious about anything, but in every situation, by prayer and petition, present your requests to God." (Philippians 4:6)\n\nCATASTROPHIC SCENARIOS in your head, IRRATIONAL FEARS that drive you crazy! STOP!',
+      phase_3: '✨ "For it is God who works in you to will and to act in order to fulfill his good purpose." (Philippians 2:13)\n\nThese SUBJECTIVE fears are NOT REALITY! God gave you WISDOM, not MADNESS!',
+      defeated: '🦅 VICTORY OVER FALSE FEARS!\n\n"Fear not, for I am with you." (Isaiah 41:10)\n\nYou have conquered imaginary fears! You now walk in wisdom, not in madness.',
+      wisdom: 'The crazy chicken represents the false subjective fears that drive us mad: "What if I fail?", "What if people judge me?", "What if I\'m not good enough?". These imaginary fears, these catastrophic scenarios in our heads paralyze us and hold us back. We panic like a frightened chicken over things that may never happen! The Bible says: "God has not given us a spirit of fear, but of power, love, and a sound mind." 95% of our fears never come true. These subjective fears are not reality - they are lies from the enemy to stop us from moving forward. "Do not be anxious about anything" - God calls us to replace false fears with faith, panic with peace, catastrophic scenarios with trust in His providence.'
     },
     grim_reaper: {
       name: '💀 The Grim Reaper',
       intro: 'Death itself stands before you... But remember: Christ has conquered death!',
       phase_1: '🕊️ "O death, where is your victory? O death, where is your sting?" (1 Corinthians 15:55)\n\nThe fear of death has no power over those who believe in eternal life!',
-      phase_2: '✝️ "Jesus said to her, I am the resurrection and the life. Whoever believes in me, though he die, yet shall he live." (John 11:25)\n\nLife always triumphs over darkness!',
-      phase_3: '🌟 "For God gave us a spirit not of fear but of power and love and self-control." (2 Timothy 1:7)\n\nDeath is only a passage to true Life!',
+      phase_2: '✝️ "Jesus said to her, I am the resurrection and the life. Whoever believes in me, though he die, yet shall he live." (John 11:25)\n\nLife always triumphs over darkness! Every moment is a VICTORY!',
+      phase_3: '🌟 "Teach us to number our days, that we may gain a heart of wisdom." (Psalm 90:12)\n\nNo matter how much time remains - LIVE FULLY! Each day is a GIFT!',
       defeated: '🙏 VICTORY OVER DEATH!\n\n"There is therefore now no condemnation for those who are in Christ Jesus." (Romans 8:1)\n\nYou have conquered fear! Eternal life is yours through God\'s grace.',
-      wisdom: 'Death is not an end, but a transformation. Through Christ, we pass from earthly life to eternal life. Every life is precious and sacred, from the first breath to the last. The Christian faith teaches us that death was defeated at the Cross, and that the hope of resurrection lights our way.'
+      wisdom: 'Death is not an end, but a transformation. Through Christ, we pass from earthly life to eternal life. No matter how much time we have left or how we live - the best thing is to live each moment as a victory, each new year as a gift. Even in illness, even in trials, HOPE and OPTIMISM give us wings and make the impossible often possible! The Bible says: "Teach us to number our days, that we may gain a heart of wisdom." Every day is precious. Every breath is grace. The Christian faith teaches us that death was defeated at the Cross, and that the hope of resurrection lights our way. Let us therefore live fully, with joy and gratitude, for "This is the day the Lord has made; let us rejoice and be glad in it!" (Psalm 118:24)'
     },
     wall: {
       name: '🧱 The Wall of Chains',
