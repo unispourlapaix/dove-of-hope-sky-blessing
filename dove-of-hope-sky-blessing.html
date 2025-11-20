@@ -1484,13 +1484,24 @@ function playRainMusic() {
   
   rainMusicAudio = new Audio(rainMusicPath);
   rainMusicAudio.volume = 0.35; // Un peu plus fort pour la pluie
-  rainMusicAudio.loop = true; // Boucle pendant la pluie
+  rainMusicAudio.loop = false; // PAS de boucle - la chanson se termine naturellement
+  
+  // Quand la chanson de pluie se termine, reprendre la playlist aléatoire
+  rainMusicAudio.addEventListener('ended', () => {
+    console.log('🎵 Musique de pluie terminée, reprise de la playlist aléatoire');
+    rainMusicAudio = null;
+    normalMusicPaused = false;
+    if (musicEnabled) {
+      playRandomMusic();
+    }
+  });
+  
   rainMusicAudio.play().catch(err => {
     // Ignorer silencieusement les erreurs d'autoplay (restrictions navigateur)
   });
 }
 
-// Fonction pour arrêter la musique de pluie et reprendre la normale
+// Fonction pour arrêter la musique de pluie (utilisée seulement en cas de game over ou pause)
 function stopRainMusic(resumeNormalMusic = true) {
   if (rainMusicAudio) {
     rainMusicAudio.pause();
@@ -3073,10 +3084,9 @@ for(let bi = bullets.length - 1; bi >= 0; bi--){
         // 🌧️ Arrêter la tempête après la victoire sur le Dark Cloud
         if(bossManager.bossType === 'dark_cloud') {
           rain.length = 0; // Vider toute la pluie
-          stopRainMusic(false); // Arrêter la musique de pluie SANS reprendre la playlist
+          // NE PAS arrêter la musique - elle continue jusqu'à la fin naturelle
+          // puis reprendra automatiquement la playlist aléatoire
           msg('🌈 La tempête se dissipe ! L\'espoir brille de nouveau !');
-          
-          // La musique normale reprendra automatiquement au prochain changement de niveau
         }
 
         const rewards = bossManager.getBossRewards();
@@ -3128,13 +3138,6 @@ for(let bi = bullets.length - 1; bi >= 0; bi--){
 
             // Afficher le message de niveau avec les informations du module
             msg(t('powerups.level_up', {level: level, title: newLevelInfo.title}));
-
-            // 🎵 Reprendre la musique normale après victoire sur Dark Cloud
-            if(bossManager.bossType === 'dark_cloud' || !musicAudio || musicAudio.paused) {
-              if(musicEnabled) {
-                playRandomMusic();
-              }
-            }
 
             // Ajouter des coeurs
             for(let i=0;i<3;i++)setTimeout(()=>hearts.push(heart()),i*150);
