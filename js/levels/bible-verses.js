@@ -2323,16 +2323,61 @@ const INFINITE_VERSES = [
  * @returns {Object} {text, reference} du verset
  */
 function getLevelVerse(levelId) {
+    // Récupérer depuis verses.rank (nouveau système de 14 rangs)
+    if (typeof LANGUAGES !== 'undefined' && typeof currentLang !== 'undefined' && levelId >= 1 && levelId <= 14) {
+        const lang = LANGUAGES[currentLang];
+        if (lang && lang.verses && lang.verses.rank && lang.verses.rank[levelId]) {
+            return lang.verses.rank[levelId];
+        }
+    }
+    // Fallback vers LEVEL_VERSES si traduction non disponible
     return LEVEL_VERSES[levelId] || { text: "", reference: "" };
 }
 
 /**
  * Obtenir un verset aléatoire pour le mode infini
+ * Pioche dans les 20 versets généraux + 150 psaumes (total: 170 versets)
+ * Utilise la langue du jeu (currentLang) si disponible
  * @returns {Object} {text, reference} du verset aléatoire
  */
 function getRandomVerse() {
-    const randomIndex = Math.floor(Math.random() * INFINITE_VERSES.length);
-    return INFINITE_VERSES[randomIndex];
+    // Récupérer la langue du jeu (défaut: français)
+    const lang = (typeof currentLang !== 'undefined') ? currentLang : 'fr';
+    
+    // 50% de chance de piocher dans INFINITE_VERSES, 50% dans les psaumes
+    const usePsalm = Math.random() < 0.5;
+    
+    if (usePsalm && PSALM_VERSES[lang]) {
+        // Piocher un psaume aléatoire (1-150)
+        const psalmNumber = Math.floor(Math.random() * 150) + 1;
+        const psalmText = PSALM_VERSES[lang][psalmNumber];
+        
+        // Nom du livre "Psaume" traduit selon la langue
+        const psalmNames = {
+            fr: "Psaume", en: "Psalm", es: "Salmo", de: "Psalm", 
+            it: "Salmo", pt: "Salmo", ru: "Псалом", ar: "مزمور",
+            hi: "भजन संहिता", ja: "詩篇", ko: "시편", zh: "诗篇",
+            sw: "Zaburi", pl: "Psalm"
+        };
+        const psalmName = psalmNames[lang] || "Psalm";
+        
+        return {
+            text: psalmText,
+            reference: `${psalmName} ${psalmNumber}`
+        };
+    } else {
+        // Piocher dans les versets généraux traduits
+        if (typeof t === 'function') {
+            const verses = t('verses.infinite');
+            if (verses && Array.isArray(verses) && verses.length > 0) {
+                const randomIndex = Math.floor(Math.random() * verses.length);
+                return verses[randomIndex];
+            }
+        }
+        // Fallback vers INFINITE_VERSES si traduction non disponible
+        const randomIndex = Math.floor(Math.random() * INFINITE_VERSES.length);
+        return INFINITE_VERSES[randomIndex];
+    }
 }
 
 /**

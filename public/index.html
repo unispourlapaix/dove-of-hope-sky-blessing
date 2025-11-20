@@ -24,7 +24,7 @@ body{margin:0;padding:0;background:linear-gradient(135deg,#e8eef2 0%,#d4dce3 50%
 #ui > div{display:flex;align-items:center;gap:3px;color:#34495e;white-space:nowrap}
 #ui > div span{font-weight:900;color:#2c3e50;font-size:13px}
 #ui .ui-section{display:flex;align-items:center;gap:8px}
-#message{position:absolute;top:20%;left:50%;transform:translate(-50%,-50%);color:#000000;font-size:18px;font-weight:bold;text-align:center;opacity:0;transition:opacity 0.5s;-webkit-text-stroke:2px white;text-stroke:2px white;paint-order:stroke fill;z-index:200;max-width:90%;padding:15px}
+#message{position:absolute;top:20%;left:50%;transform:translate(-50%,-50%);color:#000000;font-size:18px;font-weight:bold;text-align:center;opacity:0;transition:opacity 0.5s;-webkit-text-stroke:2px white;text-stroke:2px white;paint-order:stroke fill;z-index:200;max-width:90%;padding:15px;word-wrap:break-word;overflow-wrap:break-word;white-space:normal;line-height:1.4}
 #startButton{position:absolute;bottom:80px;left:50%;transform:translateX(-50%);width:90px;height:110px;background:linear-gradient(180deg,transparent 0%,transparent 50%,#34495e 50%,#2c3e50 100%);border:3px solid #2c3e50;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;cursor:pointer;transition:all 0.5s;overflow:visible;z-index:300;box-shadow:0 5px 15px rgba(0,0,0,0.3)}
 #startButton.hidden{opacity:0;pointer-events:none;transform:translateX(-50%) scale(0.5)}
 #startButton::before{content:'💡';position:absolute;top:40%;left:50%;transform:translate(-50%,-50%);font-size:42px;animation:bulbGlow 2s infinite;filter:drop-shadow(0 0 10px rgba(255,235,59,0.6))}
@@ -74,22 +74,34 @@ body{margin:0;padding:0;background:linear-gradient(135deg,#e8eef2 0%,#d4dce3 50%
 <canvas id="gameCanvas"></canvas>
 <div class="landscape"></div>
 <div class="sun neutral" id="sun"></div>
-<button id="menuToggle" onclick="togglePause()" style="position:absolute;top:70px;left:10px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.95);border:2px solid rgba(0,0,0,0.1);font-size:11px;font-weight:bold;cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,0.2);z-index:150;transition:all 0.3s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'" title="Pause">O/I</button>
-<div id="ui" style="display:flex;justify-content:space-between;align-items:center;width:100%;background:rgba(255,255,255,0.95);padding:10px 20px;border-radius:20px;box-shadow:0 4px 15px rgba(0,0,0,0.1);backdrop-filter:blur(10px);box-sizing:border-box;transition:opacity 0.3s, transform 0.3s;">
+
+<!-- Menu Pause -->
+<div id="pauseMenu" style="position:absolute;top:70px;left:10px;background:rgba(255,255,255,0.8);border-radius:15px;box-shadow:0 4px 15px rgba(0,0,0,0.2);padding:10px;z-index:150;display:none;">
+  <button onclick="document.getElementById('pauseMenu').style.display='none'" style="width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.95);border:2px solid rgba(0,0,0,0.1);font-size:11px;font-weight:bold;cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,0.2);transition:all 0.3s;margin-bottom:8px;display:block;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'" title="Fermer le menu">O/I</button>
+  
+  <div style="display:flex;flex-direction:column;gap:8px;">
+    <div onclick="togglePause(); document.getElementById('pauseMenu').style.display='none';" style="cursor:pointer;font-size:20px;padding:8px;border-radius:8px;transition:all 0.2s;background:rgba(231,76,60,0.1);text-align:center;" onmouseover="this.style.background='rgba(231,76,60,0.2)'" onmouseout="this.style.background='rgba(231,76,60,0.1)'" title="Pause / Reprendre">⏸️</div>
+    
+    <div id="langFlag" onclick="showLanguageSelector(); document.getElementById('pauseMenu').style.display='none';" style="cursor:pointer;font-size:20px;padding:8px;border-radius:8px;transition:all 0.2s;background:rgba(243,156,18,0.1);text-align:center;" onmouseover="this.style.background='rgba(243,156,18,0.2)'" onmouseout="this.style.background='rgba(243,156,18,0.1)'" title="Changer de langue">🇫🇷</div>
+    
+    <div onclick="showStats(); document.getElementById('pauseMenu').style.display='none';" style="cursor:pointer;font-size:20px;padding:8px;border-radius:8px;transition:all 0.2s;background:rgba(52,152,219,0.1);text-align:center;" onmouseover="this.style.background='rgba(52,152,219,0.2)'" onmouseout="this.style.background='rgba(52,152,219,0.1)'" title="Mes Trésors">💎</div>
+    
+    <div class="audio-btn" id="musicBtn" onclick="document.getElementById('pauseMenu').style.display='none';" style="cursor:pointer;font-size:20px;padding:8px;border-radius:8px;transition:all 0.2s;background:rgba(155,89,182,0.1);text-align:center;" onmouseover="this.style.background='rgba(155,89,182,0.2)'" onmouseout="this.style.background='rgba(155,89,182,0.1)'" title="Musique">♫</div>
+    
+    <div class="audio-btn" id="sfxBtn" onclick="document.getElementById('pauseMenu').style.display='none';" style="cursor:pointer;font-size:20px;padding:8px;border-radius:8px;transition:all 0.2s;background:rgba(155,89,182,0.1);text-align:center;" onmouseover="this.style.background='rgba(155,89,182,0.2)'" onmouseout="this.style.background='rgba(155,89,182,0.1)'" title="Effets sonores">♪</div>
+  </div>
+</div>
+
+<!-- Bouton pour ouvrir le menu -->
+<button onclick="document.getElementById('pauseMenu').style.display='block'" style="position:absolute;top:70px;left:10px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.95);border:2px solid rgba(0,0,0,0.1);font-size:11px;font-weight:bold;cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,0.2);z-index:140;transition:all 0.3s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'" title="Menu">O/I</button>
+
+<div id="ui" style="position:absolute;top:10px;left:20px;right:20px;display:flex;justify-content:center;align-items:center;background:rgba(255,255,255,0.7);padding:6px 20px;border-radius:8px;box-shadow:0 4px 15px rgba(0,0,0,0.1);backdrop-filter:blur(10px);transition:opacity 0.3s, transform 0.3s;z-index:100;">
 <div style="display:flex;gap:15px;align-items:center;">
 <div style="font-weight:700;color:#667eea;font-size:18px;"><span id="score">0</span> <span style="font-size:12px;opacity:0.7;">pts</span></div>
 <div style="color:#3498db;font-weight:600;">☁️ <span id="clouds">0</span></div>
 <div style="color:#9b59b6;font-weight:600;">Niv. <span id="level">1</span></div>
 <div style="color:#e74c3c;font-weight:600;"><span id="lives">3</span> ❤️</div>
 <div style="color:#f39c12;font-weight:600;">⭐ <span id="starStock">0</span></div>
-</div>
-<div style="display:flex;gap:6px;align-items:center;">
-<div id="langFlag" onclick="showLanguageSelector()" style="cursor:pointer;font-size:20px;padding:4px;border-radius:8px;transition:all 0.2s;background:rgba(243,156,18,0.1);" onmouseover="this.style.transform='scale(1.1)';this.style.background='rgba(243,156,18,0.2)'" onmouseout="this.style.transform='scale(1)';this.style.background='rgba(243,156,18,0.1)'" title="Changer de langue">🇫🇷</div>
-<div onclick="showStats()" style="cursor:pointer;font-size:18px;padding:4px;border-radius:8px;transition:all 0.2s;background:rgba(52,152,219,0.1);" onmouseover="this.style.transform='scale(1.1)';this.style.background='rgba(52,152,219,0.2)'" onmouseout="this.style.transform='scale(1)';this.style.background='rgba(52,152,219,0.1)'" title="Mes Trésors">💎</div>
-<div onclick="showSupabaseSave()" style="cursor:pointer;font-size:18px;padding:4px;border-radius:8px;transition:all 0.2s;background:rgba(46,204,113,0.1);" onmouseover="this.style.transform='scale(1.1)';this.style.background='rgba(46,204,113,0.2)'" onmouseout="this.style.transform='scale(1)';this.style.background='rgba(46,204,113,0.1)'" title="Connexion Cloud">☁️</div>
-<div style="width:1px;height:20px;background:rgba(0,0,0,0.1);margin:0 4px;"></div>
-<div class="audio-btn" id="musicBtn" style="cursor:pointer;font-size:18px;padding:4px;border-radius:8px;transition:all 0.2s;background:rgba(155,89,182,0.1);" onmouseover="this.style.transform='scale(1.1)';this.style.background='rgba(155,89,182,0.2)'" onmouseout="this.style.transform='scale(1)';this.style.background='rgba(155,89,182,0.1)'" title="Musique">♫</div>
-<div class="audio-btn" id="sfxBtn" style="cursor:pointer;font-size:18px;padding:4px;border-radius:8px;transition:all 0.2s;background:rgba(155,89,182,0.1);" onmouseover="this.style.transform='scale(1.1)';this.style.background='rgba(155,89,182,0.2)'" onmouseout="this.style.transform='scale(1)';this.style.background='rgba(155,89,182,0.1)'" title="Effets sonores">♪</div>
 </div>
 </div>
 <div id="message"></div>
@@ -116,38 +128,16 @@ function togglePause() {
     // Mettre en pause
     pausedState = state;
     state = 'paused';
-    menuVisible = true;
-    ui.style.opacity = '1';
-    ui.style.transform = 'translateY(0)';
-    ui.style.pointerEvents = 'auto';
-    clearTimeout(menuHideTimeout);
   } else if (state === 'paused') {
     // Reprendre le jeu
     state = pausedState || 'playing';
     pausedState = null;
-    // Auto-masquer le menu après 3 secondes
-    menuHideTimeout = setTimeout(() => {
-      if (state === 'playing') {
-        ui.style.opacity = '0';
-        ui.style.transform = 'translateY(-20px)';
-        ui.style.pointerEvents = 'none';
-        menuVisible = false;
-      }
-    }, 3000);
   }
 }
 
 // Masquer le menu automatiquement après le démarrage du jeu
 function autoHideMenuOnStart() {
-  const ui = document.getElementById('ui');
-  if (state === 'playing') {
-    menuHideTimeout = setTimeout(() => {
-      ui.style.opacity = '0';
-      ui.style.transform = 'translateY(-20px)';
-      ui.style.pointerEvents = 'none';
-      menuVisible = false;
-    }, 3000);
-  }
+  // Désactivé - le menu reste toujours visible
 }
 
 // Langue actuelle (par défaut: français)
@@ -212,10 +202,11 @@ function updateLanguageFlag() {
 }
 
 function showTestimonies() {
-  const lang = currentLanguage || 'fr';
+  const lang = currentLang || 'fr';
   const testimonies = getTestimonies(lang);
   
   const testimonyDiv = document.createElement('div');
+  testimonyDiv.id = 'testimonyDisplay';
   testimonyDiv.style.cssText = `
     position: absolute;
     top: 50%;
@@ -234,42 +225,58 @@ function showTestimonies() {
   `;
   
   testimonyDiv.innerHTML = `
-    <button onclick="this.parentElement.remove()" style="position:absolute;top:10px;right:10px;background:rgba(0,0,0,0.3);color:white;border:none;border-radius:50%;width:35px;height:35px;font-size:20px;cursor:pointer;font-weight:bold;line-height:1;">✕</button>
+    <button onclick="document.getElementById('testimonyDisplay').remove()" style="position:absolute;top:10px;right:10px;background:rgba(0,0,0,0.3);color:white;border:none;border-radius:50%;width:35px;height:35px;font-size:20px;cursor:pointer;font-weight:bold;line-height:1;">✕</button>
     <h2 style="text-align:center;margin-bottom:20px;font-size:24px;">💬 Témoignages d'Espoir</h2>
     
     ${testimonies.map((testimony, index) => `
-      <div style="background:rgba(255,255,255,0.15);padding:20px;border-radius:12px;margin-bottom:20px;border:2px solid rgba(255,255,255,0.2);">
-        <h3 style="margin-top:0;text-align:center;color:#fff;font-size:18px;">✨ ${testimony.title}</h3>
-        <div style="font-size:14px;line-height:1.8;text-align:justify;white-space:pre-line;opacity:0.95;">
-          ${testimony.text}
+      <div style="margin-bottom:15px;">
+        <button onclick="const content=this.nextElementSibling;const arrow=this.querySelector('span');if(content.style.display==='none'||content.style.display===''){content.style.display='block';arrow.textContent='▼';}else{content.style.display='none';arrow.textContent='▶';}" 
+          style="width:100%;text-align:left;background:rgba(255,255,255,0.2);border:2px solid rgba(255,255,255,0.3);color:white;padding:15px;border-radius:10px;font-size:16px;font-weight:bold;cursor:pointer;display:flex;align-items:center;gap:10px;transition:all 0.3s;"
+          onmouseover="this.style.background='rgba(255,255,255,0.3)'"
+          onmouseout="this.style.background='rgba(255,255,255,0.2)'">
+          <span style="font-size:12px;">▶</span>
+          <span style="flex:1;">✨ ${testimony.title}</span>
+        </button>
+        <div style="display:none;background:rgba(255,255,255,0.15);padding:20px;border-radius:0 0 10px 10px;margin-top:-5px;border:2px solid rgba(255,255,255,0.2);border-top:none;">
+          <div style="font-size:14px;line-height:1.8;text-align:justify;white-space:pre-line;opacity:0.95;">
+            ${testimony.text}
+          </div>
+          <p style="margin-top:15px;text-align:right;font-style:italic;font-size:13px;opacity:0.8;">— ${testimony.author}</p>
         </div>
-        <p style="margin-top:15px;text-align:right;font-style:italic;font-size:13px;opacity:0.8;">— ${testimony.author}</p>
       </div>
     `).join('')}
     
-    <div style="background:linear-gradient(135deg, rgba(231,76,60,0.15), rgba(241,196,15,0.15));padding:18px;border-radius:10px;margin-bottom:20px;border:2px solid rgba(231,76,60,0.3);max-height:300px;overflow-y:auto;">
-      <h3 style="margin-top:0;text-align:center;color:#fff;">💎 Trésor de Vie - Emmanuel</h3>
-      <div style="font-size:13px;line-height:1.7;text-align:justify;opacity:0.95;">
-        <p style="margin:10px 0;">Il fut un temps où la maladie m'a terriblement isolé et de sombres nuages est venue envahir ma vie. J'ai tenté d'abandonner mais avant j'ai crié à Dieu ! <strong>C'est à toi que je donne ma vie et pas aux ombres sournoises.</strong></p>
-        
-        <p style="margin:10px 0;">Comme une prière, mon cri fut entendu et ma vie a changé dès ce jour où j'ai su dans mon cœur que <em>je suis aimé comme je suis</em>. Un long travail de confiance, de courage, de changement s'amorça en moi.</p>
-        
-        <p style="margin:10px 0;">J'ai appris des erreurs, j'ai appris à ne pas regarder en arrière toujours sans jamais oublier. Mais j'ai surtout appris à regarder l'avenir à patience, espérance et joie.</p>
-        
-        <p style="margin:10px 0;">Une joie que j'ai retrouvée dans la louange et une adoration de Dieu sauveur, à celui qui m'a tendu la main quand personne ne pouvait être là pour moi. Il m'a sorti de la vallée de la mort et fait voir ce qui est vraiment important : <strong>la vie simple, ordinaire</strong>.</p>
-        
-        <p style="margin:10px 0;">J'ai vu au-delà de mes désirs matérialistes, j'ai vu qu'il fallait regarder à ce que j'ai et pas à ce que je n'ai pas. Et aimer ce que je suis, comme je veux être. <em>J'ai vu l'espoir en face.</em></p>
-        
-        <p style="margin:10px 0;">J'ai demandé et j'ai reçu des réponses ineffables qui a produit en moi une foi inébranlable. À travers les difficultés j'ai grandi et je ne regrette pas d'avoir persévéré, espéré encore et encore car <strong>chaque colline cachait des trésors de vie</strong>, chaque montagne vaincue par le courage de bouger a porté un meilleur avenir, des souvenirs de vie extraordinaire, des rencontres et lieux merveilleux.</p>
-        
-        <p style="margin:10px 0;text-align:center;font-weight:bold;color:#fff;font-size:14px;padding:10px;background:rgba(255,255,255,0.2);border-radius:8px;">
-          🕊️ C'est pour cela que Jésus te dit : N'abandonne jamais, persévère jusqu'à l'impossible ! 🕊️
-        </p>
+    <div style="margin-bottom:15px;">
+      <button onclick="const content=this.nextElementSibling;const arrow=this.querySelector('span');if(content.style.display==='none'||content.style.display===''){content.style.display='block';arrow.textContent='▼';}else{content.style.display='none';arrow.textContent='▶';}" 
+        style="width:100%;text-align:left;background:rgba(231,76,60,0.3);border:2px solid rgba(231,76,60,0.4);color:white;padding:15px;border-radius:10px;font-size:16px;font-weight:bold;cursor:pointer;display:flex;align-items:center;gap:10px;transition:all 0.3s;"
+        onmouseover="this.style.background='rgba(231,76,60,0.4)'"
+        onmouseout="this.style.background='rgba(231,76,60,0.3)'">
+        <span style="font-size:12px;">▶</span>
+        <span style="flex:1;">💎 Trésor de Vie - Emmanuel</span>
+      </button>
+      <div style="display:none;background:linear-gradient(135deg, rgba(231,76,60,0.15), rgba(241,196,15,0.15));padding:18px;border-radius:0 0 10px 10px;margin-top:-5px;border:2px solid rgba(231,76,60,0.3);border-top:none;max-height:300px;overflow-y:auto;">
+        <div style="font-size:13px;line-height:1.7;text-align:justify;opacity:0.95;">
+          <p style="margin:10px 0;">Il fut un temps où la maladie m'a terriblement isolé et de sombres nuages est venue envahir ma vie. J'ai tenté d'abandonner mais avant j'ai crié à Dieu ! <strong>C'est à toi que je donne ma vie et pas aux ombres sournoises.</strong></p>
+          
+          <p style="margin:10px 0;">Comme une prière, mon cri fut entendu et ma vie a changé dès ce jour où j'ai su dans mon cœur que <em>je suis aimé comme je suis</em>. Un long travail de confiance, de courage, de changement s'amorça en moi.</p>
+          
+          <p style="margin:10px 0;">J'ai appris des erreurs, j'ai appris à ne pas regarder en arrière toujours sans jamais oublier. Mais j'ai surtout appris à regarder l'avenir à patience, espérance et joie.</p>
+          
+          <p style="margin:10px 0;">Une joie que j'ai retrouvée dans la louange et une adoration de Dieu sauveur, à celui qui m'a tendu la main quand personne ne pouvait être là pour moi. Il m'a sorti de la vallée de la mort et fait voir ce qui est vraiment important : <strong>la vie simple, ordinaire</strong>.</p>
+          
+          <p style="margin:10px 0;">J'ai vu au-delà de mes désirs matérialistes, j'ai vu qu'il fallait regarder à ce que j'ai et pas à ce que je n'ai pas. Et aimer ce que je suis, comme je veux être. <em>J'ai vu l'espoir en face.</em></p>
+          
+          <p style="margin:10px 0;">J'ai demandé et j'ai reçu des réponses ineffables qui a produit en moi une foi inébranlable. À travers les difficultés j'ai grandi et je ne regrette pas d'avoir persévéré, espéré encore et encore car <strong>chaque colline cachait des trésors de vie</strong>, chaque montagne vaincue par le courage de bouger a porté un meilleur avenir, des souvenirs de vie extraordinaire, des rencontres et lieux merveilleux.</p>
+          
+          <p style="margin:10px 0;text-align:center;font-weight:bold;color:#fff;font-size:14px;padding:10px;background:rgba(255,255,255,0.2);border-radius:8px;">
+            🕊️ C'est pour cela que Jésus te dit : N'abandonne jamais, persévère jusqu'à l'impossible ! 🕊️
+          </p>
+        </div>
       </div>
     </div>
     
     <div style="text-align:center;margin-top:20px;">
-      <button onclick="this.parentElement.parentElement.remove()" style="
+      <button onclick="document.getElementById('testimonyDisplay').remove()" style="
         padding:12px 24px;
         background:#27ae60;
         color:white;
@@ -287,7 +294,6 @@ function showTestimonies() {
   `;
   
   document.body.appendChild(testimonyDiv);
-  testimonyDiv.id = 'testimonyDisplay';
 }
 
 // Fonction pour afficher le sélecteur de langue
@@ -546,6 +552,64 @@ function exportProfileData() {
   showPopup('\u2705 Score export\u00e9 !\n\nPartage ce fichier pour le classement global.', '\ud83c\udfc6', 'success');
 }
 
+// Afficher les conseils de vie dans les onglets
+function showLifeTip(category) {
+  const tips = {
+    faith: {
+      title: '\u271d\ufe0f Conseils de Foi',
+      content: [
+        '\ud83d\udcab "La foi est la ferme assurance des choses qu\'on espère" - Hébreux 11:1',
+        '\ud83d\ude4f Prie chaque jour, même quelques minutes suffisent pour fortifier ton âme',
+        '\ud83d\udcd6 Lis la Bible régulièrement pour nourrir ta foi et trouver des réponses',
+        '\u2728 Fais confiance à Dieu dans les moments difficiles, Il a un plan pour toi',
+        '\ud83c\udf1f Entoure-toi de croyants qui t\'encouragent dans ta foi'
+      ]
+    },
+    courage: {
+      title: '\ud83d\udcaa Conseils de Courage',
+      content: [
+        '\ud83e\udd81 "Sois fort et courageux, ne crains point" - Josué 1:9',
+        '\ud83d\udd25 Affronte tes peurs une par une, chaque petite victoire compte',
+        '\ud83c\udfaf Fixe-toi des objectifs clairs et avance pas à pas vers eux',
+        '\ud83d\udc4a N\'abandonne jamais, même quand c\'est difficile - la persévérance paie',
+        '\u2b50 Rappelle-toi tes succès passés pour trouver la force de continuer'
+      ]
+    },
+    peace: {
+      title: '\ud83d\udd4a\ufe0f Conseils de Paix',
+      content: [
+        '\ud83c\udf3f "Je vous laisse la paix, je vous donne ma paix" - Jean 14:27',
+        '\ud83e\uddd8 Prends du temps chaque jour pour te reposer et méditer',
+        '\ud83c\udf3a Pardonne ceux qui t\'ont blessé, libère-toi du poids de la rancune',
+        '\ud83c\udf08 Cherche la paix dans les petites choses : la nature, la musique, la prière',
+        '\ud83d\udc95 Entoure-toi de personnes positives qui t\'apportent de la sérénité'
+      ]
+    },
+    love: {
+      title: '\u2764\ufe0f Conseils d\'Amour',
+      content: [
+        '\ud83d\udc96 "Aimez-vous les uns les autres comme je vous ai aimés" - Jean 13:34',
+        '\ud83e\udd1d Montre de la bienveillance envers tous, même ceux qui sont différents',
+        '\ud83c\udf81 Donne sans attendre en retour, l\'amour véritable est désintéressé',
+        '\ud83d\udc42 Écoute vraiment les autres, sois présent pour ceux qui souffrent',
+        '\u2728 Commence par t\'aimer toi-même : tu es précieux(se) aux yeux de Dieu'
+      ]
+    }
+  };
+  
+  const tip = tips[category];
+  const contentDiv = document.getElementById('lifeTipContent');
+  
+  if (contentDiv && tip) {
+    contentDiv.innerHTML = `
+      <h4 style="margin-top:0;text-align:center;color:#fff;font-size:16px;margin-bottom:15px;">${tip.title}</h4>
+      <div style="text-align:left;">
+        ${tip.content.map(line => `<p style="margin:10px 0;font-size:13px;line-height:1.6;">${line}</p>`).join('')}
+      </div>
+    `;
+  }
+}
+
 // Charger le profil au démarrage
 loadPlayerProfile();
 
@@ -573,14 +637,18 @@ function updateStats(statName, value = 1) {
 
 // Sauvegarder la progression du niveau
 function saveProgress(level, score, totalClouds) {
+  let newRecord = false;
+  
   // Mise à jour du meilleur niveau atteint
   if (level > gameData.highestLevelReached) {
     gameData.highestLevelReached = level;
+    newRecord = true;
   }
   
   // Mise à jour du meilleur score
   if (score > gameData.highScore) {
     gameData.highScore = score;
+    newRecord = true;
   }
   
   // Mise à jour des nuages détruits (seulement le delta depuis la dernière sauvegarde)
@@ -597,8 +665,26 @@ function saveProgress(level, score, totalClouds) {
   gameData.lastScore = score;
   gameData.lastLevel = level;
   
-  // Sauvegarder
-  saveGameData();
+  // Sauvegarder localement tous les 100 nuages
+  if (gameData.totalCloudsDestroyed % 100 === 0) {
+    saveGameData();
+    console.log('💾 Sauvegarde locale (100 nuages)');
+  } else {
+    saveGameData();
+  }
+  
+  // Sauvegarde cloud tous les 200 nuages si nouveau record
+  if (newRecord && gameData.totalCloudsDestroyed % 200 === 0) {
+    const nickname = localStorage.getItem('dovePlayerNickname');
+    const email = localStorage.getItem('dovePlayerEmail');
+    
+    if (nickname && email) {
+      console.log('🏆 Nouveau record + 200 nuages - Sauvegarde cloud...');
+      setTimeout(() => {
+        autoSaveToCloud();
+      }, 1000);
+    }
+  }
 }
 
 // Sauvegarder à la fin de la partie
@@ -2228,10 +2314,14 @@ for(let bi = bullets.length - 1; bi >= 0; bi--){
       if(isInfiniteMode) {
         infiniteCloudsCleared++;
         
-        // Afficher verset tous les 50 nuages
-        if(infiniteCloudsCleared % 50 === 0) {
+        // Afficher verset tous les 50 nuages (50, 100, 150, etc.)
+        if(infiniteCloudsCleared % 50 === 0 && state === 'playing') {
+          console.log('\ud83d\udcd6 Affichage verset - Nuages d\u00e9truits:', infiniteCloudsCleared);
+          // Arr\u00eater compl\u00e8tement le jeu
+          const previousState = state;
           state = 'paused';
-          showInfiniteVerse();
+          showInfiniteVerse(previousState);
+          return; // Sortir de la fonction pour arr\u00eater le traitement
         }
       }
       
@@ -2348,7 +2438,8 @@ if(state==='playing' || state==='levelComplete'){
         ctx.fillText(progress,c.width/2,c.height-10);
       }else{
         const levelInfo = LEVELS_CONFIG[currentLevelIndex];
-        const progress=`${levelInfo.icon} ${levelInfo.title} - ${cloudsInLevel}/${currentLevelConfig.cloudsToPass}`;
+        const translatedTitle = t('level_titles.' + levelInfo.id);
+        const progress=`${levelInfo.icon} ${translatedTitle} - ${cloudsInLevel}/${currentLevelConfig.cloudsToPass}`;
         ctx.fillText(progress,c.width/2,c.height-10);
       }
       
@@ -2503,6 +2594,152 @@ startBtn.addEventListener('click',()=>{
 
 addEventListener('resize',resizeCanvas);
 
+// Charger les sauvegardes au démarrage de la page
+loadGameData();
+loadPlayerProfile();
+
+// Si pas de données locales mais connecté au cloud, restaurer depuis Supabase
+async function restoreFromCloudIfNeeded() {
+  const nickname = localStorage.getItem('dovePlayerNickname');
+  const email = localStorage.getItem('dovePlayerEmail');
+  
+  // Vérifier si connecté
+  if (nickname && email) {
+    console.log('\ud83d\udce5 V\u00e9rification des donn\u00e9es cloud pour:', nickname);
+    
+    try {
+      // Initialiser Supabase
+      if (typeof initSupabaseDove === 'function') {
+        await initSupabaseDove();
+      }
+      
+      // Charger les données du cloud
+      if (typeof loadDovePlayerData === 'function') {
+        const cloudData = await loadDovePlayerData(nickname);
+        
+        console.log('📊 Données cloud reçues:', cloudData);
+        
+        if (cloudData.success && cloudData.progress) {
+          const progress = cloudData.progress;
+          
+          console.log('📊 Progress détails:', {
+            highScore: progress.highScore,
+            highestLevelReached: progress.highestLevelReached,
+            starStock: progress.starStock,
+            totalCloudsDestroyed: progress.totalCloudsDestroyed
+          });
+          
+          console.log('📊 Données locales actuelles:', {
+            highScore: gameData.highScore,
+            highestLevelReached: gameData.highestLevelReached,
+            starStock: gameData.starStock,
+            totalCloudsDestroyed: gameData.totalCloudsDestroyed
+          });
+          
+          // Si le cloud a des données plus récentes ou si local est vide
+          const cloudIsNewer = progress.highScore > gameData.highScore || 
+                               progress.highestLevelReached > gameData.highestLevelReached;
+          
+          const localHasData = gameData.highScore > 0 || gameData.highestLevelReached > 1;
+          const cloudIsEmpty = progress.highScore === 0 && progress.highestLevelReached === 1;
+          
+          if (cloudIsNewer) {
+            console.log('\ud83d\udd04 Synchronisation depuis le cloud - Donn\u00e9es plus r\u00e9centes d\u00e9tect\u00e9es');
+            
+            // Restaurer les données depuis le cloud
+            gameData.highScore = progress.highScore || 0;
+            gameData.highestLevelReached = progress.highestLevelReached || 1;
+            gameData.starStock = progress.starStock || 0;
+            gameData.totalCloudsDestroyed = progress.totalCloudsDestroyed || 0;
+            gameData.totalGamesPlayed = progress.totalGamesPlayed || 0;
+            gameData.stats.totalShots = progress.totalShots || 0;
+            gameData.stats.totalHits = progress.totalHits || 0;
+            gameData.stats.perfectLevels = progress.perfectLevels || 0;
+            
+            // Sauvegarder localement
+            localStorage.setItem(SAVE_KEY, JSON.stringify(gameData));
+            
+            console.log('\u2705 Donn\u00e9es restaur\u00e9es depuis le cloud:', progress);
+            
+            // Mettre \u00e0 jour l'affichage
+            score = gameData.highScore;
+            level = gameData.highestLevelReached;
+            starCount = gameData.starStock;
+            
+            const scoreEl = document.getElementById('score');
+            const levelEl = document.getElementById('level');
+            const starsEl = document.getElementById('starStock');
+            const cloudsEl = document.getElementById('clouds');
+            
+            if (scoreEl) scoreEl.textContent = score;
+            if (levelEl) levelEl.textContent = level;
+            if (starsEl) starsEl.textContent = starCount;
+            if (cloudsEl) cloudsEl.textContent = gameData.totalCloudsDestroyed;
+            
+            return true;
+          } else if (cloudIsEmpty && localHasData) {
+            console.log('\ud83d\udce4 Cloud vide mais donn\u00e9es locales d\u00e9tect\u00e9es - Envoi vers le cloud...');
+            
+            // Envoyer les données locales vers le cloud
+            try {
+              if (typeof syncDovePlayerData === 'function') {
+                const syncResult = await syncDovePlayerData(nickname, email, gameData);
+                if (syncResult.success) {
+                  console.log('\u2705 Donn\u00e9es locales synchronis\u00e9es vers le cloud');
+                } else {
+                  console.warn('\u26a0\ufe0f \u00c9chec synchronisation locale vers cloud:', syncResult.error);
+                }
+              }
+            } catch (error) {
+              console.error('\u274c Erreur envoi vers cloud:', error);
+            }
+            return false;
+          } else {
+            console.log('\u2705 Donn\u00e9es locales \u00e0 jour - Pas de synchronisation n\u00e9cessaire');
+          }
+        } else {
+          console.log('\u2139\ufe0f Aucune donn\u00e9e cloud trouv\u00e9e pour ce joueur');
+        }
+      }
+    } catch (error) {
+      console.error('\u274c Erreur restauration cloud:', error);
+    }
+  }
+  return false;
+}
+
+// Exécuter la restauration cloud si nécessaire
+restoreFromCloudIfNeeded().then(restored => {
+  if (!restored) {
+    // Mettre \u00e0 jour l'affichage avec les donn\u00e9es locales
+if (gameData.highScore > 0) {
+  score = gameData.highScore;
+  const scoreEl = document.getElementById('score');
+  if (scoreEl) scoreEl.textContent = score;
+}
+
+if (gameData.highestLevelReached > 1) {
+  level = gameData.highestLevelReached;
+  const levelEl = document.getElementById('level');
+  if (levelEl) levelEl.textContent = level;
+}
+
+if (gameData.starStock > 0) {
+  starCount = gameData.starStock;
+  const starsEl = document.getElementById('starStock');
+  if (starsEl) starsEl.textContent = starCount;
+}
+
+// Afficher le total de nuages détruits (toutes parties confondues)
+if (gameData.totalCloudsDestroyed > 0) {
+  const cloudsEl = document.getElementById('clouds');
+  if (cloudsEl) cloudsEl.textContent = gameData.totalCloudsDestroyed;
+}
+
+console.log('\ud83c\udfae Interface mise \u00e0 jour - Score:', score, 'Niveau:', level, '\u2b50 \u00c9toiles:', starCount, '\u2601\ufe0f Nuages:', gameData.totalCloudsDestroyed);
+  }
+});
+
 // Initialiser la langue au chargement
 updateUILanguage();
 
@@ -2512,6 +2749,7 @@ updateUILanguage();
 
 function showStats() {
   const statsDiv = document.createElement('div');
+  statsDiv.id = 'statsDisplay';
   statsDiv.style.cssText = `
     position: absolute;
     top: 50%;
@@ -2556,7 +2794,7 @@ function showStats() {
       <p style="margin:8px 0;text-align:center;"><strong>🎯 Niveau Max:</strong> ${playerProfile.highestLevel}</p>
       ${playerProfile.lastPlayed ? `<p style="margin:8px 0;text-align:center;font-size:12px;opacity:0.8;">Dernière partie: ${new Date(playerProfile.lastPlayed).toLocaleDateString('fr-FR')}</p>` : ''}
       <div style="text-align:center;margin-top:12px;">
-        <button onclick="this.closest('[id=\'statsDisplay\']').remove();showSupabaseSave()" style="
+        <button onclick="document.getElementById('statsDisplay').remove(); showSupabaseSave();" style="
           padding:10px 20px;
           background:linear-gradient(135deg, #667eea, #764ba2);
           color:white;
@@ -2573,51 +2811,24 @@ function showStats() {
       </div>
     </div>
     
-    <div style="background:rgba(255,255,255,0.1);padding:15px;border-radius:10px;margin-bottom:15px;">
-      <h3 style="margin-top:0;">🎁 Niveaux Bonus</h3>
-      <p style="margin:8px 0;"><strong>Bonus Complétés:</strong> ${bonusCompleted}/4</p>
-      <p style="margin:8px 0;"><strong>Objets Collectés:</strong> ${gameData.bonusLevels?.totalItemsCollected || 0}</p>
-      <p style="margin:8px 0;"><strong>Score Bonus Total:</strong> ${bonusTotalScore.toLocaleString()}</p>
-      <div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap;">
-        ${[1,2,3,4].map(i => `
-          <div style="flex:1;min-width:60px;padding:8px;background:${gameData.bonusLevels?.completed?.[i-1] ? 'rgba(46,204,113,0.3)' : 'rgba(0,0,0,0.2)'};border-radius:8px;text-align:center;">
-            <div style="font-size:20px;">${gameData.bonusLevels?.completed?.[i-1] ? '✅' : '🔒'}</div>
-            <div style="font-size:11px;margin-top:4px;">Bonus ${i}</div>
-            ${gameData.bonusLevels?.bestScores?.[i-1] ? `<div style="font-size:10px;opacity:0.8;">${gameData.bonusLevels.bestScores[i-1]}</div>` : ''}
-          </div>
-        `).join('')}
+    <!-- Onglets de Conseils de Vie -->
+    <div style="margin-bottom:20px;">
+      <div style="display:flex;gap:8px;margin-bottom:15px;flex-wrap:wrap;justify-content:center;">
+        <button onclick="showLifeTip('faith')" style="padding:8px 15px;background:rgba(46,204,113,0.3);color:white;border:2px solid rgba(46,204,113,0.5);border-radius:8px;cursor:pointer;font-weight:bold;font-size:12px;transition:all 0.2s;" onmouseover="this.style.background='rgba(46,204,113,0.5)'" onmouseout="this.style.background='rgba(46,204,113,0.3)'">✝️ Foi</button>
+        <button onclick="showLifeTip('courage')" style="padding:8px 15px;background:rgba(241,196,15,0.3);color:white;border:2px solid rgba(241,196,15,0.5);border-radius:8px;cursor:pointer;font-weight:bold;font-size:12px;transition:all 0.2s;" onmouseover="this.style.background='rgba(241,196,15,0.5)'" onmouseout="this.style.background='rgba(241,196,15,0.3)'">💪 Courage</button>
+        <button onclick="showLifeTip('peace')" style="padding:8px 15px;background:rgba(52,152,219,0.3);color:white;border:2px solid rgba(52,152,219,0.5);border-radius:8px;cursor:pointer;font-weight:bold;font-size:12px;transition:all 0.2s;" onmouseover="this.style.background='rgba(52,152,219,0.5)'" onmouseout="this.style.background='rgba(52,152,219,0.3)'">🕊️ Paix</button>
+        <button onclick="showLifeTip('love')" style="padding:8px 15px;background:rgba(231,76,60,0.3);color:white;border:2px solid rgba(231,76,60,0.5);border-radius:8px;cursor:pointer;font-weight:bold;font-size:12px;transition:all 0.2s;" onmouseover="this.style.background='rgba(231,76,60,0.5)'" onmouseout="this.style.background='rgba(231,76,60,0.3)'">❤️ Amour</button>
+      </div>
+      <div id="lifeTipContent" style="background:rgba(255,255,255,0.15);padding:20px;border-radius:10px;min-height:150px;">
+        <p style="text-align:center;opacity:0.8;font-style:italic;">Clique sur un onglet pour découvrir un conseil de vie</p>
       </div>
     </div>
     
     <div style="background:rgba(255,255,255,0.1);padding:15px;border-radius:10px;margin-bottom:15px;">
-      <h3 style="margin-top:0;">🏆 Records</h3>
+      <h3 style="margin-top:0;">🏆 Mes Records</h3>
       <p style="margin:8px 0;"><strong>Meilleur Score:</strong> ${gameData.highScore.toLocaleString()}</p>
       <p style="margin:8px 0;"><strong>Niveau Maximum:</strong> ${gameData.highestLevelReached}</p>
-      <p style="margin:8px 0;"><strong>Plus Longue Survie:</strong> ${formatTime(Math.floor(gameData.stats.longestSurvival / 1000))}</p>
-    </div>
-    
-    <div style="background:rgba(255,255,255,0.1);padding:15px;border-radius:10px;margin-bottom:15px;">
-      <h3 style="margin-top:0;">📈 Progression</h3>
-      <p style="margin:8px 0;"><strong>Nuages Détruits:</strong> ${gameData.totalCloudsDestroyed.toLocaleString()}</p>
-      <p style="margin:8px 0;"><strong>Parties Jouées:</strong> ${gameData.totalGamesPlayed}</p>
-      <p style="margin:8px 0;"><strong>Temps de Jeu:</strong> ${formatTime(gameData.totalPlayTime)}</p>
-      <p style="margin:8px 0;"><strong>Niveaux Parfaits:</strong> ${gameData.stats.perfectLevels}</p>
       <p style="margin:8px 0;"><strong>⭐ Stock d'Étoiles:</strong> ${gameData.starStock || 0}</p>
-    </div>
-    
-    <div style="background:rgba(255,255,255,0.1);padding:15px;border-radius:10px;margin-bottom:15px;">
-      <h3 style="margin-top:0;">🎯 Précision</h3>
-      <p style="margin:8px 0;"><strong>Tirs Totaux:</strong> ${gameData.stats.totalShots.toLocaleString()}</p>
-      <p style="margin:8px 0;"><strong>Tirs Réussis:</strong> ${gameData.stats.totalHits.toLocaleString()}</p>
-      <p style="margin:8px 0;"><strong>Précision:</strong> ${accuracy}%</p>
-      <p style="margin:8px 0;"><strong>Power-ups Collectés:</strong> ${gameData.stats.totalPowerUpsCollected}</p>
-    </div>
-    
-    <div style="background:rgba(255,255,255,0.1);padding:15px;border-radius:10px;margin-bottom:20px;">
-      <h3 style="margin-top:0;">💔 Défaites</h3>
-      <p style="margin:8px 0;"><strong>Vies Perdues:</strong> ${gameData.stats.totalLivesLost}</p>
-      <p style="margin:8px 0;"><strong>Morts par Pluie:</strong> ${gameData.stats.deathsByRain}</p>
-      <p style="margin:8px 0;"><strong>Morts par Nuages:</strong> ${gameData.stats.deathsByClouds}</p>
     </div>
     
     ${gameData.lastPlayed ? `
@@ -2633,7 +2844,7 @@ function showStats() {
       <p style="margin:8px 0;text-align:center;font-size:12px;opacity:0.8;">📱 Audiomack: <strong>emmanuelpayet888</strong></p>
       <p style="margin:6px 0;text-align:center;font-size:11px;opacity:0.7;">Que ce jeu t'inspire et te fortifie ! 🕊️</p>
       <div style="text-align:center;margin-top:12px;">
-        <a href="public/emmanuel-artist-module.html" target="_blank" style="
+        <a href="./emmanuel-artist-module.html" target="_blank" style="
           display:inline-block;
           padding:10px 20px;
           background:linear-gradient(135deg, #3498db, #9b59b6);
@@ -2650,31 +2861,10 @@ function showStats() {
       </div>
     </div>
     
-    <div style="background:linear-gradient(135deg, rgba(231,76,60,0.15), rgba(241,196,15,0.15));padding:18px;border-radius:10px;margin-bottom:20px;border:2px solid rgba(231,76,60,0.3);max-height:300px;overflow-y:auto;">
-      <h3 style="margin-top:0;text-align:center;color:#e74c3c;">💎 Trésor de Vie - Témoignage</h3>
-      <div style="font-size:13px;line-height:1.7;text-align:justify;opacity:0.95;">
-        <p style="margin:10px 0;">Il fut un temps où la maladie m'a terriblement isolé et de sombres nuages est venue envahir ma vie. J'ai tenté d'abandonner mais avant j'ai crié à Dieu ! <strong>C'est à toi que je donne ma vie et pas aux ombres sournoises.</strong></p>
-        
-        <p style="margin:10px 0;">Comme une prière, mon cri fut entendu et ma vie a changé dès ce jour où j'ai su dans mon cœur que <em>je suis aimé comme je suis</em>. Un long travail de confiance, de courage, de changement s'amorça en moi.</p>
-        
-        <p style="margin:10px 0;">J'ai appris des erreurs, j'ai appris à ne pas regarder en arrière toujours sans jamais oublier. Mais j'ai surtout appris à regarder l'avenir à patience, espérance et joie.</p>
-        
-        <p style="margin:10px 0;">Une joie que j'ai retrouvée dans la louange et une adoration de Dieu sauveur, à celui qui m'a tendu la main quand personne ne pouvait être là pour moi. Il m'a sorti de la vallée de la mort et fait voir ce qui est vraiment important : <strong>la vie simple, ordinaire</strong>.</p>
-        
-        <p style="margin:10px 0;">J'ai vu au-delà de mes désirs matérialistes, j'ai vu qu'il fallait regarder à ce que j'ai et pas à ce que je n'ai pas. Et aimer ce que je suis, comme je veux être. <em>J'ai vu l'espoir en face.</em></p>
-        
-        <p style="margin:10px 0;">J'ai demandé et j'ai reçu des réponses ineffables qui a produit en moi une foi inébranlable. À travers les difficultés j'ai grandi et je ne regrette pas d'avoir persévéré, espéré encore et encore car <strong>chaque colline cachait des trésors de vie</strong>, chaque montagne vaincue par le courage de bouger a porté un meilleur avenir, des souvenirs de vie extraordinaire, des rencontres et lieux merveilleux.</p>
-        
-        <p style="margin:10px 0;text-align:center;font-weight:bold;color:#e74c3c;font-size:14px;padding:10px;background:rgba(255,255,255,0.2);border-radius:8px;">
-          🕊️ C'est pour cela que Jésus te dit : N'abandonne jamais, persévère jusqu'à l'impossible ! 🕊️
-        </p>
-      </div>
-    </div>
-    
     <div style="background:linear-gradient(135deg, rgba(231,76,60,0.15), rgba(241,196,15,0.15));padding:18px;border-radius:10px;margin-bottom:20px;border:2px solid rgba(231,76,60,0.3);text-align:center;">
       <h3 style="margin-top:0;color:#e74c3c;">💬 Témoignages d'Espoir</h3>
       <p style="margin:10px 0;font-size:13px;opacity:0.9;">Découvre des histoires de courage et de guérison</p>
-      <button onclick="this.closest('div[id]').remove();showTestimonies()" style="
+      <button onclick="document.getElementById('statsDisplay').remove(); showTestimonies();" style="
         padding:12px 24px;
         background:linear-gradient(135deg, #e74c3c, #f39c12);
         color:white;
@@ -2702,16 +2892,16 @@ function showStats() {
         cursor:pointer;
       ">✅ Fermer</button>
       
-      <button onclick="exportGameData()" style="
+      <button onclick="manualCloudSave()" style="
         padding:12px 24px;
-        background:#f39c12;
+        background:#3498db;
         color:white;
         border:none;
         border-radius:10px;
         font-size:16px;
         font-weight:bold;
         cursor:pointer;
-      ">📤 Exporter Stats</button>
+      ">☁️ Sauvegarder Cloud</button>
       
       <button onclick="exportProfileData()" style="
         padding:12px 24px;
@@ -2722,11 +2912,93 @@ function showStats() {
         font-size:16px;
         font-weight:bold;
         cursor:pointer;
-      ">🏆 Exporter Score</button>
+      ">🏆 Partager mon score</button>
     </div>
   `;
   
   document.getElementById('gameContainer').appendChild(statsDiv);
+}
+
+// Sauvegarde manuelle vers le cloud
+async function manualCloudSave() {
+  const nickname = localStorage.getItem('dovePlayerNickname');
+  const email = localStorage.getItem('dovePlayerEmail');
+  
+  if (!nickname || !email) {
+    showPopup('⚠️ Non connecté !\n\nConnecte-toi d\'abord via le menu Trésor.', '☁️', 'error');
+    return;
+  }
+  
+  // Vérifier qu'on a des données valides à sauvegarder
+  const hasValidData = gameData.highScore > 0 || gameData.highestLevelReached > 1;
+  if (!hasValidData) {
+    showPopup('⚠️ Aucune donnée à sauvegarder\n\nJoue d\'abord pour créer des données !', '☁️', 'warning');
+    return;
+  }
+  
+  console.log('📤 Sauvegarde manuelle vers le cloud...');
+  showPopup('⏳ Sauvegarde en cours...', '☁️', 'info');
+  
+  try {
+    // Initialiser Supabase
+    if (typeof initSupabaseDove === 'function') {
+      await initSupabaseDove();
+    }
+    
+    // Sauvegarder avec syncDovePlayerData
+    if (typeof syncDovePlayerData === 'function') {
+      const result = await syncDovePlayerData(nickname, email, gameData);
+      
+      if (result.success) {
+        console.log('✅ Sauvegarde cloud réussie');
+        showPopup(
+          '✅ Sauvegarde réussie !\n\n' +
+          `Score: ${gameData.highScore}\n` +
+          `Niveau: ${gameData.highestLevelReached}\n` +
+          `⭐ Étoiles: ${gameData.starStock}\n` +
+          `☁️ Nuages: ${gameData.totalCloudsDestroyed}`,
+          '☁️',
+          'success'
+        );
+      } else {
+        console.warn('⚠️ Échec sauvegarde cloud:', result.error);
+        showPopup('❌ Échec sauvegarde !\n\n' + result.error, '☁️', 'error');
+      }
+    } else {
+      throw new Error('Fonction syncDovePlayerData non disponible');
+    }
+  } catch (error) {
+    console.error('❌ Erreur sauvegarde cloud:', error);
+    showPopup('❌ Erreur sauvegarde !\n\n' + error.message, '☁️', 'error');
+  }
+}
+
+// Sauvegarde automatique dans le cloud après un nouveau record
+async function autoSaveToCloud() {
+  const nickname = localStorage.getItem('dovePlayerNickname');
+  const email = localStorage.getItem('dovePlayerEmail');
+  
+  if (!nickname || !email) return;
+  
+  console.log('🏆 Sauvegarde automatique du nouveau record...');
+  
+  try {
+    if (typeof initSupabaseDove === 'function') {
+      await initSupabaseDove();
+    }
+    
+    if (typeof syncDovePlayerData === 'function') {
+      const result = await syncDovePlayerData(nickname, email, gameData);
+      
+      if (result.success) {
+        console.log('✅ Record sauvegardé dans le cloud !');
+        // Afficher une notification discrète
+        showMessage('☁️ Record sauvegardé !', 2000);
+      }
+    }
+  } catch (error) {
+    console.warn('⚠️ Sauvegarde auto cloud échouée:', error);
+  }
 }
 
 // ============================================
@@ -2901,25 +3173,78 @@ async function connectCloudSave() {
   }
   
   try {
-    // Sauvegarder les identifiants
-    localStorage.setItem('dovePlayerNickname', nickname);
-    localStorage.setItem('dovePlayerEmail', email);
+    // Sauvegarder les identifiants temporairement
+    const tempNickname = nickname;
+    const tempEmail = email;
     
     // Initialiser Supabase
     if (typeof initSupabaseDove === 'function') {
       await initSupabaseDove();
     }
     
-    // Envoyer la progression actuelle
-    await autoSaveToCloud();
-    
-    showPopup('\u2705 Connect\u00e9 avec succ\u00e8s !\n\nTa progression sera automatiquement sauvegard\u00e9e en ligne.', '\u2601\ufe0f', 'success');
+    // Charger les données cloud pour comparaison
+    console.log('🔄 Vérification des données cloud...');
+    if (typeof loadDovePlayerData === 'function') {
+      const cloudData = await loadDovePlayerData(tempNickname);
+      
+      if (cloudData.success && cloudData.progress) {
+        const cloudScore = cloudData.progress.highScore || 0;
+        const cloudLevel = cloudData.progress.highestLevelReached || 1;
+        const localScore = gameData.highScore;
+        const localLevel = gameData.highestLevelReached;
+        
+        const cloudHasData = cloudScore > 0 || cloudLevel > 1;
+        const localHasData = localScore > 0 || localLevel > 1;
+        const localIsBetter = localScore > cloudScore || localLevel > cloudLevel;
+        
+        // Si conflit : local et cloud ont tous les deux des données différentes
+        if (cloudHasData && localHasData && localIsBetter) {
+          const choice = confirm(
+            `⚠️ Conflit de données détecté !\n\n` +
+            `☁️ Cloud: Score ${cloudScore}, Niveau ${cloudLevel}\n` +
+            `💾 Local: Score ${localScore}, Niveau ${localLevel}\n\n` +
+            `Tes données locales sont meilleures !\n\n` +
+            `OK = Garder LOCAL et écraser le cloud\n` +
+            `Annuler = Garder CLOUD et écraser le local`
+          );
+          
+          if (choice) {
+            // Garder le local, envoyer au cloud
+            console.log('✅ Conservation des données locales');
+            localStorage.setItem('dovePlayerNickname', tempNickname);
+            localStorage.setItem('dovePlayerEmail', tempEmail);
+            await autoSaveToCloud();
+            showPopup('✅ Connecté !\n\nDonnées locales sauvegardées dans le cloud.', '☁️', 'success');
+          } else {
+            // Garder le cloud, écraser le local
+            console.log('✅ Conservation des données cloud');
+            localStorage.setItem('dovePlayerNickname', tempNickname);
+            localStorage.setItem('dovePlayerEmail', tempEmail);
+            await restoreFromCloudIfNeeded();
+            showPopup('✅ Connecté !\n\nDonnées cloud restaurées.', '☁️', 'success');
+          }
+        } else {
+          // Pas de conflit : synchronisation automatique
+          localStorage.setItem('dovePlayerNickname', tempNickname);
+          localStorage.setItem('dovePlayerEmail', tempEmail);
+          await restoreFromCloudIfNeeded();
+          showPopup('✅ Connecté avec succès !\n\nTa progression sera automatiquement sauvegardée en ligne.', '☁️', 'success');
+        }
+      } else {
+        // Pas de données cloud, juste se connecter
+        localStorage.setItem('dovePlayerNickname', tempNickname);
+        localStorage.setItem('dovePlayerEmail', tempEmail);
+        await restoreFromCloudIfNeeded();
+        showPopup('✅ Connecté avec succès !\n\nTa progression sera automatiquement sauvegardée en ligne.', '☁️', 'success');
+      }
+    }
     
     // Fermer la modal
-    document.querySelector('[style*="position: fixed"]').remove();
+    const modal = document.querySelector('[style*="position: fixed"]');
+    if (modal) modal.remove();
   } catch (error) {
     console.error('Erreur connexion cloud:', error);
-    showPopup(`\u274c Erreur de connexion:\n${error.message}`, '\u26a0\ufe0f', 'error');
+    showPopup(`❌ Erreur de connexion:\n${error.message}`, '⚠️', 'error');
   }
 }
 
@@ -3278,7 +3603,7 @@ function startLevel(levelIndex) {
           </div>
           <div style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); padding: 20px; border-radius: 20px; margin-bottom: 20px;">
             <h4 style="color: #2c3e50; font-size: 18px; margin: 0 0 15px 0; font-weight: 700;">
-              ${currentLevelConfig.title}
+              ${t('level_titles.' + currentLevelConfig.id)}
             </h4>
             <p style="color: #4a5568; font-size: 14px; line-height: 1.7; margin: 0;">
               ${currentLevelConfig.message}
@@ -3445,7 +3770,7 @@ function completeLevel() {
           </div>
           <div style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); padding: 20px; border-radius: 20px; margin-bottom: 20px;">
             <h3 style="color: #2c3e50; font-size: 18px; margin: 0 0 15px 0; font-weight: 700;">
-              ${nextConfig.title}
+              ${t('level_titles.' + nextConfig.id)}
             </h3>
             <p style="color: #4a5568; font-size: 14px; line-height: 1.7; margin: 0;">
               ${nextConfig.message}
@@ -3520,7 +3845,7 @@ function showInfiniteVerse() {
         🔄 Chapitre ${15 + infiniteChapter} (Mode Infini)
       </h2>
       <p style="color: #f1c40f; font-size: 20px; margin-bottom: 25px; font-weight: bold;">
-        ${cloudsCleared} nuages dissipés !
+        ${infiniteCloudsCleared} nuages dissipés !
       </p>
       <p style="font-size: 18px; line-height: 1.8; margin-bottom: 20px; font-style: italic;">
         « ${randomVerse.text} »<br>
@@ -3546,26 +3871,49 @@ function showInfiniteVerse() {
   `;
   document.getElementById('gameContainer').appendChild(verseDiv);
   
-  // Mettre en pause le jeu
-  const previousState = state;
-  state = 'paused';
+  // Jouer un son de récompense si disponible
+  if (typeof playSound === 'function') {
+    playSound('powerup');
+  }
   
   // Attendre le clic du joueur
   document.getElementById('verseBtn').addEventListener('click', () => {
     verseDiv.remove();
-    state = previousState;
+    state = 'playing';
+    console.log('✅ Verset fermé - Reprise du jeu');
   });
 }
 
 function initGame() {
+  // Restaurer les données sauvegardées
+  if (gameData.highScore > 0) {
+    score = gameData.highScore;
+  }
+  
+  // Restaurer le niveau actuel
+  level = gameData.highestLevelReached || 1;
+  
+  // Restaurer les étoiles
+  if (gameData.starStock) {
+    starCount = gameData.starStock;
+  }
+  
   // Démarrer au niveau sauvegardé (ou niveau 1 si c'est la première fois)
   const savedLevelIndex = Math.max(0, (gameData.highestLevelReached || 1) - 1);
   // Vérifier que l'index est valide
   const startLevelIndex = Math.min(savedLevelIndex, LEVELS_CONFIG.length - 1);
   startLevel(startLevelIndex);
   
-  // Mettre à jour le niveau affiché
-  level = gameData.highestLevelReached || 1;
+  // Mettre à jour l'affichage des éléments UI
+  const scoreEl = document.getElementById('score');
+  const levelEl = document.getElementById('level');
+  const starsEl = document.getElementById('stars');
+  
+  if (scoreEl) scoreEl.textContent = score;
+  if (levelEl) levelEl.textContent = level;
+  if (starsEl) starsEl.textContent = starCount;
+  
+  console.log('\ud83c\udfae Jeu initialis\u00e9 - Score:', score, 'Niveau:', level, '\u2b50\ufe0f \u00c9toiles:', starCount);
 }
 
 // Initialiser le drapeau de langue au chargement
@@ -3575,4 +3923,7 @@ requestAnimationFrame(loop);
 </script>
 </body>
 </html>
+
+
+
 

@@ -153,10 +153,11 @@ const LevelSystem = {
     /**
      * Obtenir toutes les informations pour un affichage
      * @param {number} cloudCount - Nombre de nuages
+     * @param {string} lang - Code de langue (optionnel, utilise currentLang par défaut)
      * @returns {Object} Toutes les infos formatées
      */
-    getDisplayInfo: function(cloudCount) {
-        const summary = this.getProgressionSummary(cloudCount);
+    getDisplayInfo: function(cloudCount, lang) {
+        const summary = this.getProgressionSummary(cloudCount, lang);
         const level = summary.currentLevel;
         
         return {

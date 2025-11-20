@@ -31,25 +31,30 @@ function getCurrentLevel(cloudCount) {
 /**
  * Obtenir les informations complètes d'un niveau
  * @param {number} levelId - ID du niveau (1-14)
+ * @param {string} lang - Code de langue (optionnel, utilise currentLang par défaut)
  * @returns {Object} Informations du niveau
  */
-function getLevelInfo(levelId) {
+function getLevelInfo(levelId, lang) {
+    // Utiliser currentLang si disponible, sinon 'fr' par défaut
+    const language = lang || (typeof currentLang !== 'undefined' ? currentLang : 'fr');
+
     if (levelId === 15) {
         return {
             id: 15,
-            title: "Mode Infini",
+            title: t('infinite_mode') || "Mode Infini",
             icon: "♾️",
             threshold: INFINITE_MODE_THRESHOLD,
-            message: getRandomInfiniteMessage(),
+            message: getInfiniteModeMessage(),
             verse: getRandomVerse()
         };
     }
-    
+
     const definition = LEVEL_DEFINITIONS.find(level => level.id === levelId);
     if (!definition) return null;
-    
+
     return {
         ...definition,
+        title: getLevelTitle(levelId, language), // Utiliser getLevelTitle() au lieu du titre hardcodé
         message: getLevelMessage(levelId),
         verse: getLevelVerse(levelId)
     };
@@ -59,16 +64,18 @@ function getLevelInfo(levelId) {
  * Vérifier si un changement de niveau s'est produit
  * @param {number} oldCloudCount - Ancien nombre de nuages
  * @param {number} newCloudCount - Nouveau nombre de nuages
+ * @param {string} lang - Code de langue (optionnel, utilise currentLang par défaut)
  * @returns {Object|null} Informations du nouveau niveau, ou null si pas de changement
  */
-function checkLevelUp(oldCloudCount, newCloudCount) {
+function checkLevelUp(oldCloudCount, newCloudCount, lang) {
     const oldLevel = getCurrentLevel(oldCloudCount);
     const newLevel = getCurrentLevel(newCloudCount);
-    
+
     if (newLevel > oldLevel) {
-        return getLevelInfo(newLevel);
+        const language = lang || (typeof currentLang !== 'undefined' ? currentLang : 'fr');
+        return getLevelInfo(newLevel, language);
     }
-    
+
     return null;
 }
 
@@ -140,14 +147,16 @@ function getProgressToNextLevel(cloudCount) {
 /**
  * Obtenir un résumé complet de la progression
  * @param {number} cloudCount - Nombre de nuages dissipés
+ * @param {string} lang - Code de langue (optionnel, utilise currentLang par défaut)
  * @returns {Object} Résumé de progression
  */
-function getProgressionSummary(cloudCount) {
+function getProgressionSummary(cloudCount, lang) {
     const currentLevel = getCurrentLevel(cloudCount);
-    const levelInfo = getLevelInfo(currentLevel);
+    const language = lang || (typeof currentLang !== 'undefined' ? currentLang : 'fr');
+    const levelInfo = getLevelInfo(currentLevel, language);
     const nextThreshold = getNextLevelThreshold(cloudCount);
     const progress = getProgressToNextLevel(cloudCount);
-    
+
     return {
         cloudCount,
         currentLevel: levelInfo,

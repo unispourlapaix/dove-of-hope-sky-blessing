@@ -7,28 +7,14 @@
 <meta name="mobile-web-app-capable" content="yes">
 <title>Dove of Hope : Sky Blessing</title>
 <script src="bible-verses.js"></script>
-<script src="js/translations/fr.js"></script>
-<script src="js/translations/en.js"></script>
-<script src="js/translations/es.js"></script>
-<script src="js/translations/de.js"></script>
-<script src="js/translations/it.js"></script>
-<script src="js/translations/pt.js"></script>
-<script src="js/translations/ru.js"></script>
-<script src="js/translations/ar.js"></script>
-<script src="js/translations/hi.js"></script>
-<script src="js/translations/ja.js"></script>
-<script src="js/translations/ko.js"></script>
-<script src="js/translations/zh.js"></script>
-<script src="js/translations/sw.js"></script>
-<script src="js/translations/pl.js"></script>
+<script src="translations.js"></script>
 <script src="js/testimonies.js"></script>
-<!-- Modules de progression -->
+<!-- Modules temporairement désactivés pour debug
+<script src="js/levels/bible-verses.js"></script>
 <script src="js/levels/level-definitions.js"></script>
 <script src="js/levels/level-messages.js"></script>
-<script src="js/levels/bible-verses.js"></script>
 <script src="js/levels/progression-system.js"></script>
-<!-- Module de boss -->
-<script src="js/bosses/boss-system.js"></script>
+-->
 <style>
 * {
   -webkit-tap-highlight-color: transparent;
@@ -98,22 +84,17 @@ body{margin:0;padding:0;background:linear-gradient(135deg,#e8eef2 0%,#d4dce3 50%
 <!-- Menu Pause -->
 <div id="pauseMenu" style="position:absolute;top:70px;left:10px;background:rgba(255,255,255,0.8);border-radius:15px;box-shadow:0 4px 15px rgba(0,0,0,0.2);padding:10px;z-index:150;display:none;">
   <button onclick="document.getElementById('pauseMenu').style.display='none'" style="width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.95);border:2px solid rgba(0,0,0,0.1);font-size:11px;font-weight:bold;cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,0.2);transition:all 0.3s;margin-bottom:8px;display:block;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'" title="Fermer le menu">O/I</button>
-
+  
   <div style="display:flex;flex-direction:column;gap:8px;">
     <div onclick="togglePause(); document.getElementById('pauseMenu').style.display='none';" style="cursor:pointer;font-size:20px;padding:8px;border-radius:8px;transition:all 0.2s;background:rgba(231,76,60,0.1);text-align:center;" onmouseover="this.style.background='rgba(231,76,60,0.2)'" onmouseout="this.style.background='rgba(231,76,60,0.1)'" title="Pause / Reprendre">⏸️</div>
-
-    <div class="audio-btn" id="musicBtn" onclick="document.getElementById('pauseMenu').style.display='none';" style="cursor:pointer;font-size:20px;padding:8px;border-radius:8px;transition:all 0.2s;background:rgba(155,89,182,0.1);text-align:center;" onmouseover="this.style.background='rgba(155,89,182,0.2)'" onmouseout="this.style.background='rgba(155,89,182,0.1)'" title="Musique">♫</div>    <div class="audio-btn" id="sfxBtn" onclick="document.getElementById('pauseMenu').style.display='none';" style="cursor:pointer;font-size:20px;padding:8px;border-radius:8px;transition:all 0.2s;background:rgba(155,89,182,0.1);text-align:center;" onmouseover="this.style.background='rgba(155,89,182,0.2)'" onmouseout="this.style.background='rgba(155,89,182,0.1)'" title="Effets sonores">♪</div>
-
-    <!-- Sélection de difficulté -->
-    <div style="margin-top:8px;padding-top:8px;border-top:1px solid rgba(0,0,0,0.1);">
-      <div id="difficultyLabel" style="font-size:11px;font-weight:600;text-align:center;margin-bottom:6px;color:#34495e;">DIFFICULTÉ</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;">
-        <div id="diffBtn_easy" onclick="changeDifficulty('easy')" style="cursor:pointer;font-size:10px;padding:6px 4px;border-radius:6px;transition:all 0.2s;background:rgba(46,204,113,0.2);text-align:center;font-weight:600;color:#27ae60;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">FACILE</div>
-        <div id="diffBtn_normal" onclick="changeDifficulty('normal')" style="cursor:pointer;font-size:10px;padding:6px 4px;border-radius:6px;transition:all 0.2s;background:rgba(52,152,219,0.2);text-align:center;font-weight:600;color:#2980b9;border:2px solid #3498db;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">NORMAL</div>
-        <div id="diffBtn_hard" onclick="changeDifficulty('hard')" style="cursor:pointer;font-size:10px;padding:6px 4px;border-radius:6px;transition:all 0.2s;background:rgba(230,126,34,0.2);text-align:center;font-weight:600;color:#d35400;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">DIFFICILE</div>
-        <div id="diffBtn_legendary" onclick="changeDifficulty('legendary')" style="cursor:pointer;font-size:10px;padding:6px 4px;border-radius:6px;transition:all 0.2s;background:rgba(142,68,173,0.2);text-align:center;font-weight:600;color:#8e44ad;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">LÉGENDAIRE</div>
-      </div>
-    </div>
+    
+    <div id="langFlag" onclick="showLanguageSelector(); document.getElementById('pauseMenu').style.display='none';" style="cursor:pointer;font-size:20px;padding:8px;border-radius:8px;transition:all 0.2s;background:rgba(243,156,18,0.1);text-align:center;" onmouseover="this.style.background='rgba(243,156,18,0.2)'" onmouseout="this.style.background='rgba(243,156,18,0.1)'" title="Changer de langue">🇫🇷</div>
+    
+    <div onclick="showStats(); document.getElementById('pauseMenu').style.display='none';" style="cursor:pointer;font-size:20px;padding:8px;border-radius:8px;transition:all 0.2s;background:rgba(52,152,219,0.1);text-align:center;" onmouseover="this.style.background='rgba(52,152,219,0.2)'" onmouseout="this.style.background='rgba(52,152,219,0.1)'" title="Mes Trésors">💎</div>
+    
+    <div class="audio-btn" id="musicBtn" onclick="document.getElementById('pauseMenu').style.display='none';" style="cursor:pointer;font-size:20px;padding:8px;border-radius:8px;transition:all 0.2s;background:rgba(155,89,182,0.1);text-align:center;" onmouseover="this.style.background='rgba(155,89,182,0.2)'" onmouseout="this.style.background='rgba(155,89,182,0.1)'" title="Musique">♫</div>
+    
+    <div class="audio-btn" id="sfxBtn" onclick="document.getElementById('pauseMenu').style.display='none';" style="cursor:pointer;font-size:20px;padding:8px;border-radius:8px;transition:all 0.2s;background:rgba(155,89,182,0.1);text-align:center;" onmouseover="this.style.background='rgba(155,89,182,0.2)'" onmouseout="this.style.background='rgba(155,89,182,0.1)'" title="Effets sonores">♪</div>
   </div>
 </div>
 
@@ -121,86 +102,22 @@ body{margin:0;padding:0;background:linear-gradient(135deg,#e8eef2 0%,#d4dce3 50%
 <button onclick="document.getElementById('pauseMenu').style.display='block'" style="position:absolute;top:70px;left:10px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.95);border:2px solid rgba(0,0,0,0.1);font-size:11px;font-weight:bold;cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,0.2);z-index:140;transition:all 0.3s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'" title="Menu">O/I</button>
 
 <div id="ui" style="position:absolute;top:10px;left:20px;right:20px;display:flex;justify-content:center;align-items:center;background:rgba(255,255,255,0.7);padding:6px 20px;border-radius:8px;box-shadow:0 4px 15px rgba(0,0,0,0.1);backdrop-filter:blur(10px);transition:opacity 0.3s, transform 0.3s;z-index:100;">
-<div style="display:flex;gap:15px;align-items:center;flex:1;justify-content:center;">
+<div style="display:flex;gap:15px;align-items:center;">
 <div style="font-weight:700;color:#667eea;font-size:18px;"><span id="score">0</span> <span style="font-size:12px;opacity:0.7;">pts</span></div>
 <div style="color:#3498db;font-weight:600;">☁️ <span id="clouds">0</span></div>
-<div style="color:#9b59b6;font-weight:600;"><span id="levelLabel"></span> <span id="level">1</span></div>
+<div style="color:#9b59b6;font-weight:600;">Niv. <span id="level">1</span></div>
 <div style="color:#e74c3c;font-weight:600;"><span id="lives">3</span> ❤️</div>
 <div style="color:#f39c12;font-weight:600;">⭐ <span id="starStock">0</span></div>
 </div>
-<div onclick="showStats();" style="cursor:pointer;font-size:20px;padding:4px 8px;border-radius:8px;transition:all 0.2s;background:rgba(52,152,219,0.15);" onmouseover="this.style.background='rgba(52,152,219,0.3)'" onmouseout="this.style.background='rgba(52,152,219,0.15)'" title="Mes Trésors">💎</div>
-<div id="langFlag" onclick="showLanguageSelector();" style="cursor:pointer;font-size:20px;padding:4px 8px;border-radius:8px;transition:all 0.2s;background:rgba(243,156,18,0.15);" onmouseover="this.style.background='rgba(243,156,18,0.3)'" onmouseout="this.style.background='rgba(243,156,18,0.15)'" title="Changer de langue">🇫🇷</div>
 </div>
 <div id="message"></div>
 <button id="startButton"></button>
-<div class="motivation" id="motivationText"></div>
+<div class="motivation">"La vie est souvent un long combat, il faut du courage et de la force pour tenir bon aux mauvais jours. Vaillant héros, lève-toi, et avec l'amour de Dieu transforme les nuages gris en bien."</div>
 </div>
-
-<style>
-#message {
-  position: absolute;
-  top: 80px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: transparent;
-  color: #333;
-  padding: 10px 20px;
-  border-radius: 20px;
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: 0.3px;
-  text-shadow: 
-    -1px -1px 0 #fff,
-    1px -1px 0 #fff,
-    -1px 1px 0 #fff,
-    1px 1px 0 #fff,
-    0 0 8px rgba(255,255,255,0.8);
-  z-index: 300;
-  max-width: 80%;
-  text-align: center;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  line-height: 1.4;
-  word-wrap: break-word;
-}
-</style>
 
 <script>
 // ============================================
 // 🌍 SYSTEM DE TRADUCTION MULTILINGUE
-// ============================================
-
-// Créer l'objet LANGUAGES à partir des constantes individuelles
-const LANGUAGES = {
-  fr, en, es, de, it, pt, ru, ar, hi, ja, ko, zh, sw, pl
-};
-
-// Fonction pour obtenir une traduction par chemin (ex: "ui.score")
-function getTranslation(langCode, key) {
-  const lang = LANGUAGES[langCode];
-  if (!lang) return null;
-  
-  const keys = key.split('.');
-  let value = lang;
-  
-  for (const k of keys) {
-    if (value && typeof value === 'object') {
-      value = value[k];
-    } else {
-      return null;
-    }
-  }
-  
-  return value;
-}
-
-// Vérifier si une langue existe
-function languageExists(langCode) {
-  return !!LANGUAGES[langCode];
-}
-
 // ============================================
 // SYSTÈME DE TRADUCTION (utilise translations.js)
 // ============================================
@@ -212,7 +129,7 @@ let pausedState = null;
 function togglePause() {
   const ui = document.getElementById('ui');
   const toggleBtn = document.getElementById('menuToggle');
-
+  
   if (state === 'playing') {
     // Mettre en pause
     pausedState = state;
@@ -222,113 +139,6 @@ function togglePause() {
     state = pausedState || 'playing';
     pausedState = null;
   }
-}
-
-// Difficulté actuelle (par défaut: normal)
-let currentDifficulty = 'normal';
-
-// Multiplicateurs de difficulté
-const DIFFICULTY_MULTIPLIERS = {
-  easy: {
-    cloudSpeed: 0.7,
-    cloudSpawnRate: 0.7,
-    shootingClouds: 0.7,
-    rainSpeed: 0.8,
-    powerUpRate: 1.3
-  },
-  normal: {
-    cloudSpeed: 1.0,
-    cloudSpawnRate: 1.0,
-    shootingClouds: 1.0,
-    rainSpeed: 1.0,
-    powerUpRate: 1.0
-  },
-  hard: {
-    cloudSpeed: 1.3,
-    cloudSpawnRate: 1.3,
-    shootingClouds: 1.2,
-    rainSpeed: 1.2,
-    powerUpRate: 0.8
-  },
-  legendary: {
-    cloudSpeed: 1.6,
-    cloudSpawnRate: 1.5,
-    shootingClouds: 1.4,
-    rainSpeed: 1.4,
-    powerUpRate: 0.6
-  }
-};
-
-// Fonction pour changer de difficulté
-function changeDifficulty(difficulty) {
-  if (!DIFFICULTY_MULTIPLIERS[difficulty]) return;
-
-  currentDifficulty = difficulty;
-  localStorage.setItem('doveGameDifficulty', difficulty);
-
-  // Mettre à jour l'affichage des boutons
-  updateDifficultyButtons();
-
-  // Afficher un message
-  msg(t('ui.difficulty_changed') + ' : ' + t('ui.' + difficulty));
-
-  console.log('Difficulté changée:', difficulty);
-}
-
-// Fonction pour mettre à jour l'affichage des boutons de difficulté
-function updateDifficultyButtons() {
-  const difficulties = ['easy', 'normal', 'hard', 'legendary'];
-
-  difficulties.forEach(diff => {
-    const btn = document.getElementById('diffBtn_' + diff);
-    if (btn) {
-      if (diff === currentDifficulty) {
-        btn.style.border = '2px solid #3498db';
-        btn.style.fontWeight = '700';
-      } else {
-        btn.style.border = 'none';
-        btn.style.fontWeight = '600';
-      }
-    }
-  });
-
-  // Mettre à jour le texte des boutons selon la langue
-  updateDifficultyTexts();
-}
-
-// Fonction pour mettre à jour les textes de difficulté selon la langue
-function updateDifficultyTexts() {
-  const diffLabel = document.getElementById('difficultyLabel');
-  if (diffLabel) diffLabel.textContent = t('ui.difficulty').toUpperCase();
-
-  const btnEasy = document.getElementById('diffBtn_easy');
-  if (btnEasy) btnEasy.textContent = t('ui.easy').toUpperCase();
-
-  const btnNormal = document.getElementById('diffBtn_normal');
-  if (btnNormal) btnNormal.textContent = t('ui.normal').toUpperCase();
-
-  const btnHard = document.getElementById('diffBtn_hard');
-  if (btnHard) btnHard.textContent = t('ui.hard').toUpperCase();
-
-  const btnLegendary = document.getElementById('diffBtn_legendary');
-  if (btnLegendary) btnLegendary.textContent = t('ui.legendary').toUpperCase();
-}
-
-// Fonction pour obtenir une valeur ajustée selon la difficulté
-function applyDifficulty(paramName, baseValue) {
-  const multiplier = DIFFICULTY_MULTIPLIERS[currentDifficulty];
-  if (!multiplier || !multiplier[paramName]) return baseValue;
-
-  // Pour les objets avec min/max (vitesses)
-  if (typeof baseValue === 'object' && baseValue.min !== undefined && baseValue.max !== undefined) {
-    return {
-      min: baseValue.min * multiplier[paramName],
-      max: baseValue.max * multiplier[paramName]
-    };
-  }
-
-  // Pour les valeurs simples
-  return baseValue * multiplier[paramName];
 }
 
 // Masquer le menu automatiquement après le démarrage du jeu
@@ -366,15 +176,6 @@ function t(key, params = {}) {
 
 // Fonction pour mettre à jour la langue de l'interface
 function updateUILanguage() {
-  // Mettre à jour le label de niveau dans la barre de statut
-  const levelLabel = document.getElementById('levelLabel');
-  if (levelLabel) {
-    levelLabel.textContent = t('ui.level').substring(0, 4) + '.';
-  }
-
-  // Mettre à jour les textes de difficulté
-  updateDifficultyTexts();
-
   // Mettre à jour les textes de l'UI si nécessaire
   if (state === 'start' || state === 'gameOver') {
     // Recharger l'écran
@@ -385,12 +186,6 @@ function updateUILanguage() {
 const savedLang = localStorage.getItem('doveGameLang');
 if (savedLang && languageExists(savedLang)) {
   currentLang = savedLang;
-}
-
-// Charger la difficulté sauvegardée
-const savedDifficulty = localStorage.getItem('doveGameDifficulty');
-if (savedDifficulty && DIFFICULTY_MULTIPLIERS[savedDifficulty]) {
-  currentDifficulty = savedDifficulty;
 }
 
 // Fonction pour obtenir le drapeau de la langue actuelle
@@ -410,55 +205,11 @@ function updateLanguageFlag() {
   if (langFlagEl) {
     langFlagEl.textContent = getCurrentLanguageFlag();
   }
-  
-  // Mettre à jour le texte de motivation
-  const motivationEl = document.getElementById('motivationText');
-  if (motivationEl && typeof t === 'function') {
-    motivationEl.textContent = '"' + t('intro') + '"';
-  }
-  
-  // Mettre à jour le témoignage
-  updateTestimonyContent();
-}
-
-// Fonction pour mettre à jour le contenu du témoignage
-function updateTestimonyContent() {
-  if (typeof t !== 'function') return;
-  
-  const titleEl = document.getElementById('testimonyTitleText');
-  const paragraphsEl = document.getElementById('testimonyParagraphs');
-  
-  if (titleEl) {
-    titleEl.textContent = t('testimony.title');
-  }
-  
-  if (paragraphsEl) {
-    paragraphsEl.innerHTML = `
-      <p style="margin:10px 0;">${t('testimony.paragraph1')}</p>
-      <p style="margin:10px 0;">${t('testimony.paragraph2')}</p>
-      <p style="margin:10px 0;">${t('testimony.paragraph3')}</p>
-      <p style="margin:10px 0;">${t('testimony.paragraph4')}</p>
-      <p style="margin:10px 0;">${t('testimony.paragraph5')}</p>
-      <p style="margin:10px 0;">${t('testimony.paragraph6')}</p>
-      <p style="margin:10px 0;text-align:center;font-weight:bold;color:#fff;font-size:14px;padding:10px;background:rgba(255,255,255,0.2);border-radius:8px;">
-        ${t('testimony.final_message')}
-      </p>
-    `;
-  }
 }
 
 function showTestimonies() {
   const lang = currentLang || 'fr';
-
-  // Vérifier si les fonctions sont disponibles
-  if (typeof getTestimonies !== 'function' || typeof getTestimonyTitle !== 'function') {
-    console.error('Les fonctions de témoignages ne sont pas chargées');
-    alert('Erreur: Le module de témoignages n\'est pas chargé. Veuillez recharger la page.');
-    return;
-  }
-
   const testimonies = getTestimonies(lang);
-  const testimonyTitle = getTestimonyTitle(lang);
   
   const testimonyDiv = document.createElement('div');
   testimonyDiv.id = 'testimonyDisplay';
@@ -481,7 +232,7 @@ function showTestimonies() {
   
   testimonyDiv.innerHTML = `
     <button onclick="document.getElementById('testimonyDisplay').remove()" style="position:absolute;top:10px;right:10px;background:rgba(0,0,0,0.3);color:white;border:none;border-radius:50%;width:35px;height:35px;font-size:20px;cursor:pointer;font-weight:bold;line-height:1;">✕</button>
-    <h2 style="text-align:center;margin-bottom:20px;font-size:24px;">${testimonyTitle}</h2>
+    <h2 style="text-align:center;margin-bottom:20px;font-size:24px;">💬 Témoignages d'Espoir</h2>
     
     ${testimonies.map((testimony, index) => `
       <div style="margin-bottom:15px;">
@@ -501,6 +252,35 @@ function showTestimonies() {
       </div>
     `).join('')}
     
+    <div style="margin-bottom:15px;">
+      <button onclick="const content=this.nextElementSibling;const arrow=this.querySelector('span');if(content.style.display==='none'||content.style.display===''){content.style.display='block';arrow.textContent='▼';}else{content.style.display='none';arrow.textContent='▶';}" 
+        style="width:100%;text-align:left;background:rgba(231,76,60,0.3);border:2px solid rgba(231,76,60,0.4);color:white;padding:15px;border-radius:10px;font-size:16px;font-weight:bold;cursor:pointer;display:flex;align-items:center;gap:10px;transition:all 0.3s;"
+        onmouseover="this.style.background='rgba(231,76,60,0.4)'"
+        onmouseout="this.style.background='rgba(231,76,60,0.3)'">
+        <span style="font-size:12px;">▶</span>
+        <span style="flex:1;">💎 Trésor de Vie - Emmanuel</span>
+      </button>
+      <div style="display:none;background:linear-gradient(135deg, rgba(231,76,60,0.15), rgba(241,196,15,0.15));padding:18px;border-radius:0 0 10px 10px;margin-top:-5px;border:2px solid rgba(231,76,60,0.3);border-top:none;max-height:300px;overflow-y:auto;">
+        <div style="font-size:13px;line-height:1.7;text-align:justify;opacity:0.95;">
+          <p style="margin:10px 0;">Il fut un temps où la maladie m'a terriblement isolé et de sombres nuages est venue envahir ma vie. J'ai tenté d'abandonner mais avant j'ai crié à Dieu ! <strong>C'est à toi que je donne ma vie et pas aux ombres sournoises.</strong></p>
+          
+          <p style="margin:10px 0;">Comme une prière, mon cri fut entendu et ma vie a changé dès ce jour où j'ai su dans mon cœur que <em>je suis aimé comme je suis</em>. Un long travail de confiance, de courage, de changement s'amorça en moi.</p>
+          
+          <p style="margin:10px 0;">J'ai appris des erreurs, j'ai appris à ne pas regarder en arrière toujours sans jamais oublier. Mais j'ai surtout appris à regarder l'avenir à patience, espérance et joie.</p>
+          
+          <p style="margin:10px 0;">Une joie que j'ai retrouvée dans la louange et une adoration de Dieu sauveur, à celui qui m'a tendu la main quand personne ne pouvait être là pour moi. Il m'a sorti de la vallée de la mort et fait voir ce qui est vraiment important : <strong>la vie simple, ordinaire</strong>.</p>
+          
+          <p style="margin:10px 0;">J'ai vu au-delà de mes désirs matérialistes, j'ai vu qu'il fallait regarder à ce que j'ai et pas à ce que je n'ai pas. Et aimer ce que je suis, comme je veux être. <em>J'ai vu l'espoir en face.</em></p>
+          
+          <p style="margin:10px 0;">J'ai demandé et j'ai reçu des réponses ineffables qui a produit en moi une foi inébranlable. À travers les difficultés j'ai grandi et je ne regrette pas d'avoir persévéré, espéré encore et encore car <strong>chaque colline cachait des trésors de vie</strong>, chaque montagne vaincue par le courage de bouger a porté un meilleur avenir, des souvenirs de vie extraordinaire, des rencontres et lieux merveilleux.</p>
+          
+          <p style="margin:10px 0;text-align:center;font-weight:bold;color:#fff;font-size:14px;padding:10px;background:rgba(255,255,255,0.2);border-radius:8px;">
+            🕊️ C'est pour cela que Jésus te dit : N'abandonne jamais, persévère jusqu'à l'impossible ! 🕊️
+          </p>
+        </div>
+      </div>
+    </div>
+    
     <div style="text-align:center;margin-top:20px;">
       <button onclick="document.getElementById('testimonyDisplay').remove()" style="
         padding:12px 24px;
@@ -514,7 +294,7 @@ function showTestimonies() {
         box-shadow:0 4px 6px rgba(0,0,0,0.2);
         transition:transform 0.2s;
       " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-        ${t('buttons.close')}
+        Fermer
       </button>
     </div>
   `;
@@ -559,7 +339,7 @@ function showLanguageSelector() {
   
   langDiv.innerHTML = `
     <button onclick="this.parentElement.remove()" style="position:absolute;top:10px;right:10px;background:rgba(0,0,0,0.3);color:white;border:none;border-radius:50%;width:35px;height:35px;font-size:20px;cursor:pointer;font-weight:bold;line-height:1;">✕</button>
-    <h2 style="text-align:center;margin-bottom:20px;color:white;font-size:22px;">🌍 ${t('ui.choose_language')}</h2>
+    <h2 style="text-align:center;margin-bottom:20px;color:white;font-size:22px;">🌍 Choisir la langue</h2>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
       ${languages.map(lang => `
         <button onclick="selectLanguage('${lang.code}')" style="
@@ -589,28 +369,16 @@ function showLanguageSelector() {
 
 // Fonction pour sélectionner une langue
 function selectLanguage(langCode) {
-  // Préparer le message AVANT de changer la langue
-  const langNames = {
-    'fr': 'Français', 'en': 'English', 'es': 'Español', 'pt': 'Português',
-    'de': 'Deutsch', 'it': 'Italiano', 'ru': 'Русский', 'zh': '中文',
-    'ar': 'العربية', 'hi': 'हिन्दी', 'sw': 'Kiswahili', 'ko': '한국어',
-    'ja': '日本語', 'pl': 'Polski'
-  };
-  
+  setLanguage(langCode);
+  // Mettre à jour le drapeau dans l'UI
+  updateLanguageFlag();
   // Fermer le sélecteur
   const selector = document.querySelector('div[style*="grid-template-columns"]');
   if (selector && selector.parentElement) {
     selector.parentElement.remove();
   }
-  
-  // Changer la langue
-  setLanguage(langCode);
-  
-  // Mettre à jour le drapeau dans l'UI
-  updateLanguageFlag();
-  
-  // Afficher un message de confirmation dans la NOUVELLE langue
-  msg(`🌍 ${t('ui.language_changed')}: ${langNames[langCode] || langCode.toUpperCase()}`);
+  // Afficher un message de confirmation
+  msg(`🌍 ${t('ui.language')} : ${langCode.toUpperCase()}`);
 }
 
 // ============================================
@@ -653,17 +421,6 @@ let gameData = {
     totalItemsCollected: 0
   },
   
-  // Boss vaincus (pour déverrouiller les sagesses)
-  bossesDefeated: {
-    spider: false,
-    flying_snake: false,
-    crazy_chicken: false,
-    grim_reaper: false,
-    wall: false,
-    dark_cloud: false,
-    black_raven: false
-  },
-  
   // Dernière session
   lastPlayed: null,
   lastScore: 0,
@@ -676,10 +433,13 @@ let lastStarChangeTime = 0; // Pour faire disparaître le texte rapidement
 
 // Charger les données sauvegardées
 function loadGameData() {
+  console.log('🔍 loadGameData() appelé, clé:', SAVE_KEY);
   try {
     const savedData = localStorage.getItem(SAVE_KEY);
+    console.log('📦 Données brutes localStorage:', savedData);
     if (savedData) {
       const parsed = JSON.parse(savedData);
+      console.log('📊 Données parsées:', parsed);
       // Fusionner avec la structure par défaut pour compatibilité
       gameData = { ...gameData, ...parsed };
       // Restaurer le stock d'étoiles
@@ -689,6 +449,8 @@ function loadGameData() {
       console.log('💾 Données chargées:', gameData);
       console.log('⭐ Stock d\'étoiles restauré:', starCount);
       return true;
+    } else {
+      console.log('⚠️ Aucune donnée trouvée dans localStorage');
     }
   } catch (error) {
     console.error('❌ Erreur lors du chargement:', error);
@@ -766,130 +528,16 @@ function updateHighestLevel(newLevel) {
   return false;
 }
 
-// Popup élégant pour le Game Over
-function showGameOverPopup() {
-  // Créer le popup
-  const popup = document.createElement('div');
-  popup.id = 'gameOverPopup';
-  popup.style.cssText = `
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.8);
-    background: linear-gradient(135deg, rgba(231,76,60,0.98) 0%, rgba(192,57,43,0.98) 100%);
-    color: white;
-    padding: 40px;
-    border-radius: 25px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-    z-index: 10000;
-    text-align: center;
-    font-family: Arial, sans-serif;
-    max-width: 450px;
-    min-width: 350px;
-    border: 4px solid rgba(255,255,255,0.3);
-    animation: popupEnter 0.4s ease-out forwards;
-  `;
-
-  const needsInfo = !playerProfile.nickname;
-
-  popup.innerHTML = `
-    <div style="font-size: 80px; margin-bottom: 20px; animation: shake 0.5s;">💔</div>
-
-    <div style="background: rgba(0,0,0,0.2); padding: 25px; border-radius: 15px; margin-bottom: 25px;">
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 15px;">
-        <div>
-          <div style="font-size: 32px; font-weight: bold;">🏆</div>
-          <div style="font-size: 26px; font-weight: bold; margin-top: 8px;">${totalScore}</div>
-        </div>
-        <div>
-          <div style="font-size: 32px; font-weight: bold;">📊</div>
-          <div style="font-size: 26px; font-weight: bold; margin-top: 8px;">${level}</div>
-        </div>
-      </div>
-      <div>
-        <div style="font-size: 32px; font-weight: bold;">☁️</div>
-        <div style="font-size: 26px; font-weight: bold; margin-top: 8px;">${gameData.totalCloudsDestroyed}</div>
-      </div>
-    </div>
-
-    ${needsInfo ? `
-      <div style="margin-bottom: 20px; text-align: center;">
-        <div style="position: relative; margin-bottom: 15px;">
-          <span style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 20px;">🎮</span>
-          <input id="nicknameInput" type="text" placeholder="${t('profile.enter_nickname') || 'Entre ton surnom...'}"
-            style="width: 100%; padding: 12px 12px 12px 45px; border: none; border-radius: 10px; font-size: 16px;
-                   background: rgba(255,255,255,0.9); color: #2c3e50; box-sizing: border-box;" />
-        </div>
-
-        <div style="position: relative;">
-          <span style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 20px;">📧</span>
-          <input id="emailInput" type="email" placeholder="${t('profile.enter_email') || 'ton@email.com'}"
-            style="width: 100%; padding: 12px 12px 12px 45px; border: none; border-radius: 10px; font-size: 16px;
-                   background: rgba(255,255,255,0.7); color: #2c3e50; box-sizing: border-box;" />
-        </div>
-      </div>
-    ` : ''}
-
-    <button id="restartBtn" style="
-      width: 100%;
-      padding: 20px;
-      background: linear-gradient(135deg, #f39c12, #e67e22);
-      border: none;
-      border-radius: 15px;
-      color: white;
-      font-size: 40px;
-      cursor: pointer;
-      transition: all 0.3s;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-    " onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 8px 25px rgba(0,0,0,0.4)'"
-       onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 6px 20px rgba(0,0,0,0.3)'">
-      🔄
-    </button>
-  `;
-
-  // Ajouter l'animation shake
-  if (!document.getElementById('shakeAnimation')) {
-    const style = document.createElement('style');
-    style.id = 'shakeAnimation';
-    style.textContent = `
-      @keyframes shake {
-        0%, 100% { transform: rotate(0deg); }
-        25% { transform: rotate(-10deg); }
-        75% { transform: rotate(10deg); }
-      }
-    `;
-    document.head.appendChild(style);
-  }
-
-  document.getElementById('gameContainer').appendChild(popup);
-
-  // Gestion du bouton restart
-  document.getElementById('restartBtn').addEventListener('click', () => {
-    if (needsInfo) {
-      const nickname = document.getElementById('nicknameInput').value.trim() || 'Anonyme';
-      const email = document.getElementById('emailInput').value.trim() || '';
-
-      playerProfile.nickname = nickname;
-      playerProfile.email = email;
-      savePlayerProfile();
-    }
-
-    popup.remove();
-    restart();
-  });
-
-  // Focus sur le champ pseudo si nécessaire
-  if (needsInfo) {
-    setTimeout(() => {
-      const input = document.getElementById('nicknameInput');
-      if (input) input.focus();
-    }, 100);
-  }
-}
-
-// Demander les informations du joueur au Game Over (DÉPRÉCIÉ - utilise showGameOverPopup)
+// Demander les informations du joueur au Game Over
 function promptPlayerInfo() {
-  showGameOverPopup();
+  if (!playerProfile.nickname || !playerProfile.email) {
+    const nickname = prompt('🎮 Entre ton surnom pour le classement :') || 'Anonyme';
+    const email = prompt('📧 Entre ton email (optionnel) :') || '';
+    
+    playerProfile.nickname = nickname;
+    playerProfile.email = email;
+    savePlayerProfile();
+  }
 }
 
 // Exporter le profil pour la base de données
@@ -917,25 +565,57 @@ function exportProfileData() {
 
 // Afficher les conseils de vie dans les onglets
 function showLifeTip(category) {
-  if (typeof t !== 'function') return;
+  const tips = {
+    faith: {
+      title: '✝️ Conseils de Foi',
+      content: [
+        '💫 "La foi est la ferme assurance des choses qu\'on espère" - Hébreux 11:1',
+        '🙏 Prie chaque jour, même quelques minutes suffisent pour fortifier ton âme',
+        '📖 Lis la Bible régulièrement pour nourrir ta foi et trouver des réponses',
+        '✨ Fais confiance à Dieu dans les moments difficiles, Il a un plan pour toi',
+        '🌟 Entoure-toi de croyants qui t\'encouragent dans ta foi'
+      ]
+    },
+    courage: {
+      title: '💪 Conseils de Courage',
+      content: [
+        '🦁 "Sois fort et courageux, ne crains point" - Josué 1:9',
+        '🔥 Affronte tes peurs une par une, chaque petite victoire compte',
+        '🎯 Fixe-toi des objectifs clairs et avance pas à pas vers eux',
+        '👊 N\'abandonne jamais, même quand c\'est difficile - la persévérance paie',
+        '⭐ Rappelle-toi tes succès passés pour trouver la force de continuer'
+      ]
+    },
+    peace: {
+      title: '🕊️ Conseils de Paix',
+      content: [
+        '🌿 "Je vous laisse la paix, je vous donne ma paix" - Jean 14:27',
+        '🧘 Prends du temps chaque jour pour te reposer et méditer',
+        '🌺 Pardonne ceux qui t\'ont blessé, libère-toi du poids de la rancune',
+        '🌈 Cherche la paix dans les petites choses : la nature, la musique, la prière',
+        '💕 Entoure-toi de personnes positives qui t\'apportent de la sérénité'
+      ]
+    },
+    love: {
+      title: '❤️ Conseils d\'Amour',
+      content: [
+        '💖 "Aimez-vous les uns les autres comme je vous ai aimés" - Jean 13:34',
+        '🤝 Montre de la bienveillance envers tous, même ceux qui sont différents',
+        '🎁 Donne sans attendre en retour, l\'amour véritable est désintéressé',
+        '👂 Écoute vraiment les autres, sois présent pour ceux qui souffrent',
+        '✨ Commence par t\'aimer toi-même : tu es précieux(se) aux yeux de Dieu'
+      ]
+    }
+  };
   
-  const categoryKey = `life_tips.${category}`;
+  const tip = tips[category];
   const contentDiv = document.getElementById('lifeTipContent');
   
-  if (contentDiv) {
-    const title = t(`${categoryKey}.title`);
-    const tips = [
-      t(`${categoryKey}.tip1`),
-      t(`${categoryKey}.tip2`),
-      t(`${categoryKey}.tip3`),
-      t(`${categoryKey}.tip4`),
-      t(`${categoryKey}.tip5`)
-    ];
-    
+  if (contentDiv && tip) {
     contentDiv.innerHTML = `
-      <h4 style="margin-top:0;text-align:center;color:#fff;font-size:16px;margin-bottom:15px;">${title}</h4>
+      <h4 style="margin-top:0;text-align:center;color:#fff;font-size:16px;margin-bottom:15px;">${tip.title}</h4>
       <div style="text-align:left;">
-        ${tips.map(tip => `<p style="margin:10px 0;font-size:13px;line-height:1.6;">${tip}</p>`).join('')}
+        ${tip.content.map(line => `<p style="margin:10px 0;font-size:13px;line-height:1.6;">${line}</p>`).join('')}
       </div>
     `;
   }
@@ -982,8 +662,12 @@ function saveProgress(level, score, totalClouds) {
     newRecord = true;
   }
   
-  // Les nuages sont maintenant mis à jour en temps réel dans la collision
-  // Plus besoin de calculer le delta ici
+  // Mise à jour des nuages détruits (seulement le delta depuis la dernière sauvegarde)
+  const cloudsDelta = totalClouds - lastSavedCloudsCount;
+  if (cloudsDelta > 0) {
+    gameData.totalCloudsDestroyed += cloudsDelta;
+    lastSavedCloudsCount = totalClouds;
+  }
   
   // Sauvegarder le stock d'étoiles
   gameData.starStock = starCount;
@@ -1000,8 +684,8 @@ function saveProgress(level, score, totalClouds) {
     saveGameData();
   }
   
-  // Sauvegarde cloud tous les 200 nuages si nouveau record
-  if (newRecord && gameData.totalCloudsDestroyed % 200 === 0) {
+  // Sauvegarde cloud tous les 200 nuages si nouveau record ET multiple de 200
+  if (newRecord && gameData.totalCloudsDestroyed > 0 && gameData.totalCloudsDestroyed % 200 === 0) {
     const nickname = localStorage.getItem('dovePlayerNickname');
     const email = localStorage.getItem('dovePlayerEmail');
     
@@ -1061,6 +745,24 @@ function resetGameData() {
     return true;
   }
   return false;
+}
+
+// Fonction de test rapide pour aller au niveau 14
+window.testLevel14 = function testLevel14() {
+  // Sauvegarder directement les données de test dans localStorage
+  const testData = {
+    score: 50000,
+    level: 14,
+    starCount: 100,
+    highScore: 50000,
+    highestLevelReached: 14,
+    starStock: 100,
+    totalCloudsDestroyed: 900  // Juste avant le seuil de 991 pour mode infini
+  };
+  
+  localStorage.setItem('doveGameData', JSON.stringify(testData));
+  console.log('✅ Données de test niveau 14 sauvegardées - Rechargement...');
+  location.reload();
 }
 
 // Exporter les données (pour backup)
@@ -1310,7 +1012,7 @@ function exportGameData() {
   // Nuages détruits
   ctx.fillStyle = '#95a5a6';
   ctx.font = '40px Arial';
-  ctx.fillText(t('clouds_cleared', {count: gameData.totalCloudsDestroyed}), 540, 680);
+  ctx.fillText(`${gameData.totalCloudsDestroyed} nuages dissipés`, 540, 680);
   
   // Message motivant
   ctx.fillStyle = '#e74c3c';
@@ -1322,7 +1024,7 @@ function exportGameData() {
   // Phrase inspirante
   ctx.fillStyle = '#2c3e50';
   ctx.font = '32px Arial';
-  ctx.fillText(t('transform_clouds'), 540, 830);
+  ctx.fillText('Transforme les nuages gris', 540, 830);
   ctx.fillText('en lumière divine', 540, 870);
   
   // Télécharger l'image
@@ -1348,10 +1050,10 @@ function importGameData(fileInput) {
         gameData = { ...gameData, ...imported };
         saveGameData();
         console.log('📥 Données importées');
-        showPopup(t('popups.data_imported'), '💾', 'success');
+        showPopup('✅ Données importées avec succès !', '💾', 'success');
       } catch (error) {
         console.error('❌ Erreur lors de l\'import:', error);
-        showPopup(t('popups.invalid_file'), '⚠️', 'error');
+        showPopup('❌ Fichier invalide', '⚠️', 'error');
       }
     };
     reader.readAsText(file);
@@ -1386,7 +1088,6 @@ const gospelPlaylist = [
   'public/gospel/il-est-la-la-avec-nous.mp3',
   'public/gospel/il-y-a-un-espoir-pour-toi-pour-moi.mp3',
   'public/gospel/il-y-a-une-chose-que-tu-dois-voir.mp3',
-  'public/gospel/je-tecoute-parler-mais-tout-mechappe.mp3',
   'public/gospel/je-veux-prier.mp3',
   'public/gospel/jesus-connait-ta-vie.mp3',
   'public/gospel/jai-un-secret-en-moi.mp3',
@@ -1412,7 +1113,7 @@ let musicAudio = null;
 let firstPlay = true; // Pour savoir si c'est le premier lancement
 let rainMusicAudio = null; // Audio spécial pour la pluie
 let normalMusicPaused = false; // Pour reprendre la musique normale après la pluie
-const rainMusicPath = 'public/gospel/un-sos-sur-les-flots.mp3'; // Chanson pour la pluie
+const rainMusicPath = 'gospel/un-sos-sur-les-flots.mp3'; // Chanson pour la pluie
 
 // Fonction pour jouer une musique aléatoire
 function playRandomMusic() {
@@ -1485,9 +1186,7 @@ function playRainMusic() {
   rainMusicAudio = new Audio(rainMusicPath);
   rainMusicAudio.volume = 0.35; // Un peu plus fort pour la pluie
   rainMusicAudio.loop = true; // Boucle pendant la pluie
-  rainMusicAudio.play().catch(err => {
-    // Ignorer silencieusement les erreurs d'autoplay (restrictions navigateur)
-  });
+  rainMusicAudio.play().catch(err => console.log('Erreur lecture musique pluie:', err));
 }
 
 // Fonction pour arrêter la musique de pluie et reprendre la normale
@@ -1501,9 +1200,7 @@ function stopRainMusic() {
   // Reprendre la musique normale
   normalMusicPaused = false;
   if (musicEnabled && musicAudio && musicAudio.paused) {
-    musicAudio.play().catch(err => {
-      // Ignorer silencieusement les erreurs d'autoplay (restrictions navigateur)
-    });
+    musicAudio.play().catch(err => console.log('Erreur reprise musique:', err));
   } else if (musicEnabled && !musicAudio) {
     playRandomMusic();
   }
@@ -1766,17 +1463,9 @@ function playSound(type) {
 // ============================================
 // �🎮 CODE DU JEU
 // ============================================
-const c=document.getElementById('gameCanvas'),ctx=c.getContext('2d'),scoreEl=document.getElementById('score'),cloudsEl=document.getElementById('clouds'),levelEl=document.getElementById('level'),livesEl=document.getElementById('lives'),starStockEl=document.getElementById('starStock'),messageEl=document.getElementById('message'),startBtn=document.getElementById('startButton'),sunEl=document.getElementById('sun'),motivationEl=document.getElementById('motivationText');
+const c=document.getElementById('gameCanvas'),ctx=c.getContext('2d'),scoreEl=document.getElementById('score'),cloudsEl=document.getElementById('clouds'),levelEl=document.getElementById('level'),livesEl=document.getElementById('lives'),starStockEl=document.getElementById('starStock'),messageEl=document.getElementById('message'),startBtn=document.getElementById('startButton'),sunEl=document.getElementById('sun');
 
-// Initialiser le texte de motivation traduit
-if (motivationEl && typeof t === 'function') {
-  motivationEl.textContent = '"' + t('intro') + '"';
-}
-
-// Initialiser le témoignage traduit
-updateTestimonyContent();
-
-let state='start',score=0,cloudsCleared=0,level=1,lives=3,lastTime=0,umbrella=false,electric=false,multi=false;
+let state='start',score=0,cloudsCleared=0,level=1,lives=3,lastTime=0,umbrella=false,speed=false,multi=false;
 let lastSavedCloudsCount=0;
 
 const player={x:c.width/2,y:c.height-120,w:40,h:30,s:5};
@@ -1784,11 +1473,7 @@ const player={x:c.width/2,y:c.height-120,w:40,h:30,s:5};
 let bullets=[],clouds=[],rain=[],particles=[],powerUps=[],hearts=[],touchX=null,touchY=null,shooting=false,lastShot=0,bonusItems=[];
 let isBonusLevel=false,bonusItemsCollected=0,bonusItemsTarget=20,bonusLevelNumber=0;
 let cloudKillCount=0,fallingPowerUps=[],collectedStar=false,lastClickTime=0,shockwaves=[];
-let umbrellaEndTime=0,electricEndTime=0,multiEndTime=0,lastElectricShock=0;
-let bossShootCount=0; // Compteur de tirs pendant les combats de boss (power-up tous les 10 tirs)
-
-// Gestionnaire de boss
-let bossManager = new BossManager();
+let umbrellaEndTime=0,speedEndTime=0,multiEndTime=0;
 
 // Nuages de fond décoratifs
 let backgroundClouds = [];
@@ -1848,10 +1533,10 @@ function drawPowerUp(powerup) {
     ctx.fillText('🌈', 0, 0);
   } else if(powerup.type === 'star') {
     ctx.fillText('⭐', 0, 0);
-  } else if(powerup.type === 'electric') {
-    ctx.fillText('⚡', 0, 0);
   } else if(powerup.type === 'umbrella') {
     ctx.fillText('☂️', 0, 0);
+  } else if(powerup.type === 'speed') {
+    ctx.fillText('⚡', 0, 0);
   } else if(powerup.type === 'multishot') {
     ctx.fillText('🔫', 0, 0);
   }
@@ -1873,24 +1558,20 @@ function createShockwave(x, y) {
 
 // Fonction pour dessiner une onde de choc
 function drawShockwave(wave) {
-  // Sécurité : s'assurer que le rayon est positif
-  const safeRadius = Math.max(0, wave.radius);
-  if (safeRadius === 0) return;
-
   ctx.save();
   ctx.strokeStyle = `rgba(255, 215, 0, ${wave.opacity})`;
   ctx.lineWidth = 4;
   ctx.shadowBlur = 20;
   ctx.shadowColor = 'rgba(255, 215, 0, 0.8)';
   ctx.beginPath();
-  ctx.arc(wave.x, wave.y, safeRadius, 0, Math.PI * 2);
+  ctx.arc(wave.x, wave.y, wave.radius, 0, Math.PI * 2);
   ctx.stroke();
-
+  
   // Deuxième cercle intérieur
   ctx.strokeStyle = `rgba(255, 255, 255, ${wave.opacity * 0.6})`;
   ctx.lineWidth = 2;
   ctx.beginPath();
-  ctx.arc(wave.x, wave.y, safeRadius * 0.8, 0, Math.PI * 2);
+  ctx.arc(wave.x, wave.y, wave.radius * 0.8, 0, Math.PI * 2);
   ctx.stroke();
   ctx.restore();
 }
@@ -1961,24 +1642,7 @@ function updateBackgroundClouds() {
   });
 }
 
-function cloud(){
-  // Appliquer les multiplicateurs de difficulté
-  const adjustedSpeed = applyDifficulty('cloudSpeed', currentLevelConfig.cloudSpeed);
-  const adjustedShootingClouds = applyDifficulty('shootingClouds', currentLevelConfig.shootingClouds);
-
-  const shoot=Math.random()>(1-adjustedShootingClouds);
-  return{
-    x:Math.random()*(c.width-55),
-    y:-40,
-    w:52,
-    h:32,
-    s:adjustedSpeed.min+Math.random()*(adjustedSpeed.max-adjustedSpeed.min),
-    c:shoot?'#7f8c8d':'#95a5a6',
-    shoot:shoot,
-    lastShot:Date.now(),
-    delay:2000+Math.random()*3000
-  };
-}
+function cloud(){const shoot=Math.random()>(1-currentLevelConfig.shootingClouds);return{x:Math.random()*(c.width-55),y:-40,w:52,h:32,s:currentLevelConfig.cloudSpeed.min+Math.random()*(currentLevelConfig.cloudSpeed.max-currentLevelConfig.cloudSpeed.min),c:shoot?'#7f8c8d':'#95a5a6',shoot:shoot,lastShot:Date.now(),delay:2000+Math.random()*3000};}
 
 function bonusItem(){
   const types=[
@@ -2004,21 +1668,9 @@ function bonusItem(){
   };
 }
 
-function rainDrop(x,y){
-  // Appliquer les multiplicateurs de difficulté
-  const adjustedRainSpeed = applyDifficulty('rainSpeed', currentLevelConfig.rainSpeed);
+function rainDrop(x,y){return{x:x,y:y,w:3,h:8,s:currentLevelConfig.rainSpeed.min+Math.random()*(currentLevelConfig.rainSpeed.max-currentLevelConfig.rainSpeed.min),c:'#3498db'};}
 
-  return{
-    x:x,
-    y:y,
-    w:3,
-    h:8,
-    s:adjustedRainSpeed.min+Math.random()*(adjustedRainSpeed.max-adjustedRainSpeed.min),
-    c:'#e74c3c'
-  };
-}
-
-function powerUp(x,y){const types=['umbrella','electric','multishot'],type=types[Math.floor(Math.random()*types.length)],colors={umbrella:'#e74c3c',electric:'#9b59b6',multishot:'#f39c12'};return{x:x,y:y,w:25,h:25,s:2,type:type,c:colors[type]};}
+function powerUp(x,y){const types=['umbrella','speed','multishot'],type=types[Math.floor(Math.random()*types.length)],colors={umbrella:'#e74c3c',speed:'#9b59b6',multishot:'#f39c12'};return{x:x,y:y,w:25,h:25,s:2,type:type,c:colors[type]};}
 
 function bullet(x,y,color,width){return{x:x,y:y,w:width||4,h:12,s:8,c:color||'#f1c40f'};}
 
@@ -2050,9 +1702,9 @@ if(umbrella){
   intensity=30;
   haloColor='rgba(231,76,60,0.2)';
   haloGlow='#e74c3c';
-}else if(electric){
+}else if(speed){
   glow='#9b59b6';
-  intensity=28;
+  intensity=25;
   haloColor='rgba(155,89,182,0.2)';
   haloGlow='#9b59b6';
 }else if(multi){
@@ -2074,7 +1726,7 @@ ctx.shadowBlur=intensity;ctx.shadowColor=glow;ctx.fillStyle='#ffffff';
 
 ctx.strokeStyle='#2c3e50';ctx.lineWidth=1;
 
-const beat=Math.sin(Date.now()*(electric?0.025:0.015))*2;
+const beat=Math.sin(Date.now()*(speed?0.025:0.015))*2;
 
 ctx.beginPath();ctx.moveTo(player.x+20,player.y+8);ctx.lineTo(player.x+15,player.y+22);ctx.lineTo(player.x+25,player.y+22);ctx.closePath();ctx.fill();ctx.stroke();
 
@@ -2274,97 +1926,19 @@ function restart(){
     const survivalTime = Date.now() - gameStartTime;
     saveGameEnd(score, level, cloudsCleared, survivalTime);
   }
-
+  
   // NE PAS réinitialiser starCount pour conserver le stock entre les parties
-  score=0;cloudsCleared=0;lives=3;bullets=[];clouds=[];rain=[];particles=[];powerUps=[];hearts=[];umbrella=false;electric=false;multi=false;totalScore=0;cloudsInLevel=0;bonusItems=[];isBonusLevel=false;bonusItemsCollected=0;bonusLevelNumber=0;fallingPowerUps=[];cloudKillCount=0;collectedStar=false;shockwaves=[];umbrellaEndTime=0;electricEndTime=0;multiEndTime=0;lastElectricShock=0;lastSavedCloudsCount=0;bossSpawnedThisLevel=false;bossDefeatRewardsGiven=false;bossShootCount=0;
-
-  // Réinitialiser le boss
-  bossManager.reset();
-
+  score=0;cloudsCleared=0;lives=3;bullets=[];clouds=[];rain=[];particles=[];powerUps=[];hearts=[];umbrella=false;speed=false;multi=false;totalScore=0;cloudsInLevel=0;bonusItems=[];isBonusLevel=false;bonusItemsCollected=0;bonusLevelNumber=0;fallingPowerUps=[];cloudKillCount=0;collectedStar=false;shockwaves=[];umbrellaEndTime=0;speedEndTime=0;multiEndTime=0;lastSavedCloudsCount=0;
   gameStartTime = Date.now(); // Nouveau départ
-
-  // Reprendre au niveau sauvegardé basé sur le nombre de nuages
-  level = getCurrentLevel(gameData.totalCloudsDestroyed);
-  const savedLevelIndex = Math.max(0, level - 1);
+  
+  // Reprendre au niveau sauvegardé
+  const savedLevelIndex = Math.max(0, (gameData.highestLevelReached || 1) - 1);
   currentLevelIndex = Math.min(savedLevelIndex, LEVELS_CONFIG.length - 1);
-
+  level = gameData.highestLevelReached || 1;
+  
   startLevel(currentLevelIndex);
-
-  // IMPORTANT : Recalculer cloudsInLevel pour savoir où on en est dans le niveau actuel
-  // Si on était en train de combattre un boss, cela permettra de le respawn
-  const currentLevelThreshold = LEVEL_DEFINITIONS.find(l => l.id === level)?.threshold || 0;
-  cloudsInLevel = gameData.totalCloudsDestroyed - currentLevelThreshold;
-
-  // Si on était déjà à 90%+ du niveau, respawn le boss immédiatement
-  const currentLevelCloudsToPass = currentLevelConfig.cloudsToPass || 0;
-  const bossSpawnThreshold = Math.floor(currentLevelCloudsToPass * 0.9);
-
-  // Boss araignée niveau 2
-  if(level === 2 && cloudsInLevel >= bossSpawnThreshold) {
-    levelBeforeBoss = level;
-    bossShootCount = 0;
-    bossManager.spawnBoss('spider', c.width, c.height);
-    msg('⚠️ BOSS : L\'ARAIGNÉE DES TÉNÈBRES !');
-    playSound('levelup');
-    bossSpawnedThisLevel = true;
-  }
-  // Boss Grim Reaper niveau 4
-  else if(level === 4 && cloudsInLevel >= bossSpawnThreshold) {
-    levelBeforeBoss = level;
-    bossShootCount = 0;
-    bossManager.spawnBoss('grim_reaper', c.width, c.height);
-    msg(t('bosses.grim_reaper.intro'));
-    playSound('levelup');
-    bossSpawnedThisLevel = true;
-  }
-  // Boss poule niveau 6
-  else if(level === 6 && cloudsInLevel >= bossSpawnThreshold) {
-    levelBeforeBoss = level;
-    bossShootCount = 0;
-    bossManager.spawnBoss('chicken', c.width, c.height);
-    msg('⚠️ BOSS : LA POULE FOLLE !');
-    playSound('levelup');
-    bossSpawnedThisLevel = true;
-  }
-  // Boss Wall niveau 8
-  else if(level === 8 && cloudsInLevel >= bossSpawnThreshold) {
-    levelBeforeBoss = level;
-    bossShootCount = 0;
-    bossManager.spawnBoss('wall', c.width, c.height);
-    msg(t('bosses.wall.intro'));
-    playSound('levelup');
-    bossSpawnedThisLevel = true;
-  }
-  // Boss Dark Cloud niveau 10
-  else if(level === 10 && cloudsInLevel >= bossSpawnThreshold) {
-    levelBeforeBoss = level;
-    bossShootCount = 0;
-    bossManager.spawnBoss('dark_cloud', c.width, c.height);
-    msg(t('bosses.dark_cloud.intro'));
-    playSound('levelup');
-    bossSpawnedThisLevel = true;
-  }
-  // Boss Black Raven niveau 12
-  else if(level === 12 && cloudsInLevel >= bossSpawnThreshold) {
-    levelBeforeBoss = level;
-    bossShootCount = 0;
-    bossManager.spawnBoss('black_raven', c.width, c.height);
-    msg(t('bosses.black_raven.intro'));
-    playSound('levelup');
-    bossSpawnedThisLevel = true;
-  }
-  // Boss serpent FINAL niveau 14
-  else if(level === 14 && cloudsInLevel >= bossSpawnThreshold) {
-    levelBeforeBoss = level;
-    bossShootCount = 0;
-    bossManager.spawnBoss('snake', c.width, c.height);
-    msg('⚠️ BOSS FINAL : LE SERPENT VOLANT !');
-    playSound('levelup');
-    bossSpawnedThisLevel = true;
-  }
-
   msg(t('messages.restart'));
-
+  
   // Démarrer la musique gospel
   if (musicEnabled) {
     playRandomMusic();
@@ -2418,25 +1992,25 @@ function startBonusLevel(){
   
   bonusDiv.innerHTML=`
     <div style="display:inline-block;padding:8px 20px;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);border-radius:20px;margin-bottom:15px;">
-      <h2 style="font-size:22px;margin:0;color:white;font-weight:800;letter-spacing:1px;">🎁 ${t('bonus.level_title')} ${bonusLevelNumber}</h2>
+      <h2 style="font-size:22px;margin:0;color:white;font-weight:800;letter-spacing:1px;">🎁 NIVEAU BONUS ${bonusLevelNumber}</h2>
     </div>
     <p style="font-size:12px;font-style:italic;margin-bottom:18px;color:#4a4a68;line-height:1.5;padding:0 10px;">
       "${message}"
     </p>
     <div style="background:linear-gradient(135deg,#f5f7fa 0%,#c3cfe2 100%);padding:15px;border-radius:15px;margin-bottom:15px;font-size:13px;line-height:1.8;color:#2d3436;">
-      <strong style="display:block;margin-bottom:8px;font-size:14px;color:#1a1a2e;">✨ ${t('bonus.collect_blessings')}</strong>
+      <strong style="display:block;margin-bottom:8px;font-size:14px;color:#1a1a2e;">✨ Collecte les bénédictions :</strong>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;text-align:left;">
-        <div>⭐ ${t('bonus.star')} <span style="color:#f39c12;font-weight:bold;">+300</span></div>
-        <div>❤️ ${t('bonus.heart')} <span style="color:#e74c3c;font-weight:bold;">+500</span></div>
-        <div>✝️ ${t('bonus.cross')} <span style="color:#3498db;font-weight:bold;">+1000</span></div>
-        <div>🌈 ${t('bonus.rainbow')} <span style="color:#9b59b6;font-weight:bold;">+1500</span></div>
+        <div>⭐ Étoile <span style="color:#f39c12;font-weight:bold;">+300</span></div>
+        <div>❤️ Cœur <span style="color:#e74c3c;font-weight:bold;">+500</span></div>
+        <div>✝️ Croix <span style="color:#3498db;font-weight:bold;">+1000</span></div>
+        <div>🌈 Arc-en-ciel <span style="color:#9b59b6;font-weight:bold;">+1500</span></div>
       </div>
       <div style="margin-top:8px;text-align:center;color:#e74c3c;font-weight:bold;background:rgba(231,76,60,0.1);padding:6px;border-radius:8px;">
-        💰 ${t('bonus.coin_trap')}
+        💰 Pièce = -200 pts (PIÈGE !)
       </div>
     </div>
     <p style="font-size:14px;margin-bottom:20px;font-weight:600;color:#2d3436;background:rgba(52,152,219,0.1);padding:10px;border-radius:10px;">
-      🎯 ${t('bonus.objective')} <span style="color:#3498db;font-size:16px;">${bonusItemsTarget}</span> ${t('bonus.objects')}
+      🎯 Objectif : <span style="color:#3498db;font-size:16px;">${bonusItemsTarget}</span> objets
     </p>
     <button onclick="this.parentElement.remove();state='playing';" style="
       padding:14px 40px;
@@ -2451,7 +2025,7 @@ function startBonusLevel(){
       transition:all 0.3s;
       letter-spacing:1px;
       text-transform:uppercase;
-    " onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 12px 25px rgba(102,126,234,0.5)'" onmouseout="this.style.transform='';this.style.boxShadow='0 8px 20px rgba(102,126,234,0.4)'">✨ ${t('buttons.start_bonus')}</button>
+    " onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 12px 25px rgba(102,126,234,0.5)'" onmouseout="this.style.transform='';this.style.boxShadow='0 8px 20px rgba(102,126,234,0.4)'">✨ Commencer</button>
   `;
   
   document.getElementById('gameContainer').appendChild(bonusDiv);
@@ -2554,31 +2128,9 @@ if(state!=='playing')return;
 // Mettre à jour les nuages de fond
 updateBackgroundClouds();
 
-// Normaliser le delta time (dt en ms, on veut un facteur basé sur 60 FPS = 16.67ms par frame)
-const dtFactor = dt / 16.67;
-
-// Mettre à jour le boss s'il est actif
-if(bossManager.isBossActive()) {
-  bossManager.update(dt, player.x + player.w/2, player.y + player.h/2);
-
-  // Vérifier collision joueur-toiles d'araignée
-  if(bossManager.checkPlayerCollision(player.x, player.y, player.w, player.h) && !umbrella) {
-    lives--;
-    playSound('damage');
-    msg(t('powerups.damaged'));
-    if(lives <= 0) {
-      state = 'gameOver';
-      setSun('sad');
-      stopMusic();
-      const survivalTime = Date.now() - gameStartTime;
-      saveGameEnd(score, level, cloudsCleared, survivalTime);
-    }
-  }
-}
-
 // Mettre à jour la pluie décorative (niveau 7)
 decorativeRain.forEach((drop, i) => {
-  drop.y += drop.speed * dtFactor;
+  drop.y += drop.speed;
   if (drop.y > c.height) {
     decorativeRain[i] = decorativeRainDrop();
   }
@@ -2587,8 +2139,8 @@ decorativeRain.forEach((drop, i) => {
 // Mettre à jour les power-ups qui tombent
 for(let i = fallingPowerUps.length - 1; i >= 0; i--) {
   const pu = fallingPowerUps[i];
-  pu.y += pu.speed * dtFactor;
-  pu.angle += 0.05 * dtFactor;
+  pu.y += pu.speed;
+  pu.angle += 0.05;
   
   // Vérifier la collision avec le joueur
   if(hitCloud(player, pu)) {
@@ -2616,16 +2168,7 @@ for(let i = fallingPowerUps.length - 1; i >= 0; i--) {
       starCount++;
       lastStarChangeTime = Date.now(); // Marquer le moment du changement
       playSound('powerup');
-      msg(t('powerups.star_collected', {count: starCount}));
-      fallingPowerUps.splice(i, 1);
-    } else if(pu.type === 'electric') {
-      electric = true;
-      // Additionner le temps si déjà actif, sinon nouveau timer
-      const remainingElectric = electric && electricEndTime > Date.now() ? electricEndTime - Date.now() : 0;
-      electricEndTime = Date.now() + remainingElectric + 10000; // 10 secondes
-      lastElectricShock = Date.now(); // Réinitialiser le timer des chocs
-      playSound('powerup');
-      msg('⚡ Recharge Électrique ! Les nuages explosent autour de toi !');
+      msg(`⭐ Étoile collectée ! (${starCount} en stock) - Double-clic pour onde de choc !`);
       fallingPowerUps.splice(i, 1);
     }
   } else if(pu.y > c.height) {
@@ -2633,22 +2176,14 @@ for(let i = fallingPowerUps.length - 1; i >= 0; i--) {
   }
 }
 
-if(touchX!==null&&touchY!==null){const currentSpeed=player.s;const targetX=Math.max(20,Math.min(c.width-60,touchX-20));const targetY=Math.max(30,Math.min(c.height-50,touchY-80));player.x+=(targetX-player.x)*0.12*currentSpeed*dtFactor;player.y+=(targetY-player.y)*0.12*currentSpeed*dtFactor;}
+if(touchX!==null&&touchY!==null){const currentSpeed=speed?player.s*1.8:player.s;const targetX=Math.max(20,Math.min(c.width-60,touchX-20));const targetY=Math.max(30,Math.min(c.height-50,touchY-80));player.x+=(targetX-player.x)*0.12*currentSpeed;player.y+=(targetY-player.y)*0.12*currentSpeed;}
 
 // Forcer le joueur à rester dans les limites du canvas
 player.x = Math.max(0, Math.min(c.width - player.w, player.x));
 player.y = Math.max(0, Math.min(c.height - player.h, player.y));
 
-// Gérer les ondes de choc électriques (toutes les 2 secondes)
-if(electric && Date.now() - lastElectricShock > 2000) {
-  // Créer une onde de choc depuis la colombe
-  shockwaves.push(createShockwave(player.x + player.w/2, player.y + player.h/2));
-  playSound('shockwave');
-  lastElectricShock = Date.now();
-}
-
 // Mode bonus : pas de tir
-if(!isBonusLevel&&shooting&&Date.now()-lastShot>(multi?150:200)){
+if(!isBonusLevel&&shooting&&Date.now()-lastShot>(multi?100:200)){
   if(multi){
     // Triple laser : trois larges faisceaux colorés
     bullets.push(bullet(player.x+2,player.y,'#e74c3c',12));  // Rouge gauche
@@ -2660,26 +2195,12 @@ if(!isBonusLevel&&shooting&&Date.now()-lastShot>(multi?150:200)){
   }
   playSound('shoot');
   lastShot=Date.now();
-
-  // Incrémenter le compteur de tirs pendant les combats de boss
-  if(bossManager.isBossActive()) {
-    bossShootCount++;
-
-    // Faire tomber un power-up tous les 10 tirs pendant un combat de boss
-    if(bossShootCount >= 10) {
-      const types = ['heart', 'rainbow', 'star', 'electric'];
-      const randomType = types[Math.floor(Math.random() * types.length)];
-      fallingPowerUps.push(createFallingPowerUp(randomType));
-      msg('🎁 Power-up pendant le combat !');
-      bossShootCount = 0; // Réinitialiser le compteur
-    }
-  }
 }
 
 // Vérifier l'expiration des power-ups basés sur le temps (uniquement en jeu)
 if(state === 'playing') {
   if(umbrella && umbrellaEndTime > 0 && Date.now() > umbrellaEndTime) umbrella = false;
-  if(electric && electricEndTime > 0 && Date.now() > electricEndTime) electric = false;
+  if(speed && speedEndTime > 0 && Date.now() > speedEndTime) speed = false;
   if(multi && multiEndTime > 0 && Date.now() > multiEndTime) multi = false;
 }
 
@@ -2690,8 +2211,8 @@ if(isBonusLevel){
   
   // Faire tomber les objets bonus
   bonusItems.forEach((item,i)=>{
-    item.y+=item.s*dtFactor;
-    item.rotation+=item.rotSpeed*dtFactor;
+    item.y+=item.s;
+    item.rotation+=item.rotSpeed;
     if(item.y>c.height){
       bonusItems.splice(i,1);
     }else if(hit(item,player)){
@@ -2718,17 +2239,15 @@ if(isBonusLevel){
     }
   });
 }else{
-  // Mode normal : nuages (les power-ups sont gérés par fallingPowerUps tous les 10 nuages)
-  const adjustedSpawnRate = applyDifficulty('cloudSpawnRate', currentLevelConfig.cloudSpawnRate);
-  if(Math.random()<adjustedSpawnRate)clouds.push(cloud());
-  // Ancien système de power-ups désactivé - utilise maintenant fallingPowerUps
-  // if(Math.random()<currentLevelConfig.powerUpRate)powerUps.push(powerUp(Math.random()*(c.width-30),-30));
+  // Mode normal : nuages et power-ups
+  if(Math.random()<currentLevelConfig.cloudSpawnRate)clouds.push(cloud());
+  if(Math.random()<currentLevelConfig.powerUpRate)powerUps.push(powerUp(Math.random()*(c.width-30),-30));
 }
 
-bullets.forEach((b,i)=>{b.y-=b.s*dtFactor;if(b.y<0)bullets.splice(i,1);});
+bullets.forEach((b,i)=>{b.y-=b.s;if(b.y<0)bullets.splice(i,1);});
 
 clouds.forEach((cl,i)=>{
-  cl.y+=cl.s*dtFactor;
+  cl.y+=cl.s;
   if(cl.shoot&&Date.now()-cl.lastShot>cl.delay){
     rain.push(rainDrop(cl.x+cl.w/2,cl.y+cl.h));
     cl.lastShot=Date.now();
@@ -2770,11 +2289,11 @@ clouds.forEach((cl,i)=>{
   if(cl.y>c.height)clouds.splice(i,1);
 });
 
-rain.forEach((r,i)=>{r.y+=r.s*dtFactor;if(r.y>c.height){rain.splice(i,1);}else if(!umbrella&&hit(r,player)){rain.splice(i,1);lives--;playSound('damage');updateStats('totalLivesLost');updateStats('deathsByRain');const rainMsgs=t('rain');msg(rainMsgs[Math.floor(Math.random()*rainMsgs.length)]);if(lives<=0){state='gameOver';setSun('sad');stopMusic();const survivalTime=Date.now()-gameStartTime;saveGameEnd(score,level,cloudsCleared,survivalTime);
+rain.forEach((r,i)=>{r.y+=r.s;if(r.y>c.height){rain.splice(i,1);}else if(!umbrella&&hit(r,player)){rain.splice(i,1);lives--;playSound('damage');updateStats('totalLivesLost');updateStats('deathsByRain');const rainMsgs=t('rain');msg(rainMsgs[Math.floor(Math.random()*rainMsgs.length)]);if(lives<=0){state='gameOver';setSun('sad');stopMusic();const survivalTime=Date.now()-gameStartTime;saveGameEnd(score,level,cloudsCleared,survivalTime);
 // Nouveau système de base de données simplifié
 promptPlayerInfo();
 const isNewRecord=updateBestScore(totalScore);
-if(isNewRecord){msg(t('powerups.new_record',{score:totalScore}));showPopup(t('powerups.new_record_popup',{score:totalScore}),'\ud83c\udfc6','success');}
+if(isNewRecord){msg('\ud83c\udfc6 NOUVEAU RECORD ! Score: '+totalScore);showPopup('\ud83c\udf89 Nouveau record !\n\nScore: '+totalScore+'\n\nTon score a \u00e9t\u00e9 sauvegard\u00e9.\nClique sur Exporter dans le menu Tr\u00e9sor pour le partager.', '\ud83c\udfc6', 'success');}
 msg(t('messages.gameOver'));}else{setSun('neutral');setTimeout(()=>{if(state==='playing')setSun('happy');},2000);}}});
 
 // Gestion de la musique de pluie
@@ -2788,7 +2307,7 @@ if (state === 'playing') {
   }
 }
 
-powerUps.forEach((p,i)=>{p.y+=p.s*dtFactor;if(p.y>c.height){powerUps.splice(i,1);}else if(hit(p,player)){powerUps.splice(i,1);playSound('powerup');updateStats('totalPowerUpsCollected');if(p.type==='umbrella'){umbrella=true;const remaining=umbrella&&umbrellaEndTime>Date.now()?umbrellaEndTime-Date.now():0;umbrellaEndTime=Date.now()+remaining+5000;msg(t('powerups.umbrella'));}else if(p.type==='electric'){electric=true;const remaining=electric&&electricEndTime>Date.now()?electricEndTime-Date.now():0;electricEndTime=Date.now()+remaining+10000;msg(t('powerups.electric'));}else if(p.type==='multishot'){multi=true;const remaining=multi&&multiEndTime>Date.now()?multiEndTime-Date.now():0;multiEndTime=Date.now()+remaining+6000;msg(t('powerups.multishot'));}}});
+powerUps.forEach((p,i)=>{p.y+=p.s;if(p.y>c.height){powerUps.splice(i,1);}else if(hit(p,player)){powerUps.splice(i,1);playSound('powerup');updateStats('totalPowerUpsCollected');if(p.type==='umbrella'){umbrella=true;const remaining=umbrella&&umbrellaEndTime>Date.now()?umbrellaEndTime-Date.now():0;umbrellaEndTime=Date.now()+remaining+5000;msg(t('powerups.umbrella'));}else if(p.type==='speed'){speed=true;const remaining=speed&&speedEndTime>Date.now()?speedEndTime-Date.now():0;speedEndTime=Date.now()+remaining+4000;msg(t('powerups.speed'));}else if(p.type==='multishot'){multi=true;const remaining=multi&&multiEndTime>Date.now()?multiEndTime-Date.now():0;multiEndTime=Date.now()+remaining+6000;msg(t('powerups.multishot'));}}});
 
 // Collision balles-nuages (itération inverse pour éviter les problèmes de splice)
 for(let bi = bullets.length - 1; bi >= 0; bi--){
@@ -2813,30 +2332,17 @@ for(let bi = bullets.length - 1; bi >= 0; bi--){
       cloudsCleared++;
       cloudsInLevel++;
       cloudKillCount++;
-      
-      // Mettre à jour gameData.totalCloudsDestroyed immédiatement
-      gameData.totalCloudsDestroyed++;
-      
-      // Mettre à jour l'affichage des nuages
-      if(cloudsEl) cloudsEl.textContent = gameData.totalCloudsDestroyed;
-      
       updateStats('totalHits');
       updateStats('totalShots');
       setSun('happy');
       
       // Mode infini : incrémenter le compteur
-      if(isInfiniteMode(gameData.totalCloudsDestroyed)) {
+      if(infiniteModeActive) {
         infiniteCloudsCleared++;
         
-        // Restaurer le fond de jour et supprimer la nuit étoilée au passage en mode infini
-        if(infiniteCloudsCleared === 1) {
-          console.log('♾️ [INFINI] Passage en mode infini - Restauration du fond de jour');
-          restoreDayBackground();
-        }
-        
-        // Afficher verset tous les 100 nuages (100, 200, 300, etc.)
-        if(infiniteCloudsCleared % 100 === 0 && state === 'playing') {
-          console.log('♾️ [INFINI] Affichage verset - Nuages détruits:', infiniteCloudsCleared);
+        // Afficher verset tous les 50 nuages (50, 100, 150, etc.)
+        if(infiniteCloudsCleared % 50 === 0 && state === 'playing') {
+          console.log('📖 Affichage verset - Nuages détruits:', infiniteCloudsCleared);
           // Arrêter complètement le jeu
           const previousState = state;
           state = 'paused';
@@ -2845,146 +2351,9 @@ for(let bi = bullets.length - 1; bi >= 0; bi--){
         }
       }
       
-      // Vérifier changement de niveau avec le module
-      // IMPORTANT: Ne pas passer au niveau suivant si un boss est actif
-      const newLevelInfo = checkLevelUp(gameData.totalCloudsDestroyed - 1, gameData.totalCloudsDestroyed, currentLang);
-      if(newLevelInfo && newLevelInfo.id <= 14 && !bossManager.isBossActive()) {
-        level = newLevelInfo.id;
-        if(levelEl) levelEl.textContent = level;
-
-        // IMPORTANT: Mettre à jour la difficulté du gameplay
-        currentLevelIndex = level - 1;
-        currentLevelConfig = LEVELS_CONFIG[currentLevelIndex];
-        cloudsInLevel = 0; // Réinitialiser le compteur de nuages pour ce niveau
-        bossSpawnedThisLevel = false; // Permettre le spawn du boss pour ce nouveau niveau
-        updateLevelBackground(); // Mettre à jour le fond
-
-        console.log('🎯 [PROGRESSION] Changement de niveau! Niveau:', level, '- Nuages:', gameData.totalCloudsDestroyed, '- Titre:', newLevelInfo.title, '- Nouvelle difficulté:', currentLevelConfig.difficulty);
-
-        // Changer le fond pour les niveaux 13 et 14 (nuit étoilée avec lune)
-        if(level === 13 || level === 14) {
-          applyNightSkyBackground(level);
-        }
-
-        // Les boss apparaîtront à la fin de leur niveau respectif (voir logique plus bas)
-
-        // Afficher le message de niveau avec les informations du module
-        msg(t('powerups.level_up', {level: level, title: newLevelInfo.title}));
-
-        // Ajouter des coeurs
-        for(let i=0;i<3;i++)setTimeout(()=>hearts.push(heart()),i*150);
-
-        // Afficher le bouclier de progression après 1 seconde
-        setTimeout(() => {
-          const previousState = state;
-          state = 'paused';
-          showLevelUpMessage(newLevelInfo, previousState);
-        }, 1000);
-      }
-      
-      // Faire apparaître les boss à la fin de leur niveau respectif (90% de progression)
-      // Utilise cloudsInLevel et cloudsToPass pour s'adapter aux différentes difficultés
-
-      // Boss araignée: apparaît à 90% du niveau 2
-      if(level === 2 && !bossSpawnedThisLevel && !bossManager.isBossActive()) {
-        const cloudsToPass = currentLevelConfig.cloudsToPass || 75;
-        if(cloudsInLevel >= Math.floor(cloudsToPass * 0.9)) {
-          levelBeforeBoss = level; // Sauvegarder le niveau actuel
-          bossShootCount = 0; // Réinitialiser le compteur de tirs pour ce boss
-          bossManager.spawnBoss('spider', c.width, c.height);
-          msg('⚠️ BOSS : L\'ARAIGNÉE DES TÉNÈBRES !');
-          playSound('levelup');
-          bossSpawnedThisLevel = true;
-        }
-      }
-
-      // Boss Grim Reaper: apparaît à 90% du niveau 4
-      if(level === 4 && !bossSpawnedThisLevel && !bossManager.isBossActive()) {
-        const cloudsToPass = currentLevelConfig.cloudsToPass || 100;
-        if(cloudsInLevel >= Math.floor(cloudsToPass * 0.9)) {
-          levelBeforeBoss = level;
-          bossShootCount = 0;
-          bossManager.spawnBoss('grim_reaper', c.width, c.height);
-          msg(t('bosses.grim_reaper.intro'));
-          playSound('levelup');
-          bossSpawnedThisLevel = true;
-        }
-      }
-
-      // Boss poule: apparaît à 90% du niveau 6
-      if(level === 6 && !bossSpawnedThisLevel && !bossManager.isBossActive()) {
-        const cloudsToPass = currentLevelConfig.cloudsToPass || 175;
-        const spawnAt = Math.floor(cloudsToPass * 0.9);
-        console.log(`🐔 [BOSS DEBUG] Niveau 6 - cloudsInLevel: ${cloudsInLevel}/${spawnAt}, totalClouds: ${gameData.totalCloudsDestroyed}`);
-        if(cloudsInLevel >= spawnAt) {
-          console.log('🐔 [BOSS] SPAWN DU POULET!');
-          levelBeforeBoss = level; // Sauvegarder le niveau actuel
-          bossShootCount = 0; // Réinitialiser le compteur de tirs pour ce boss
-          bossManager.spawnBoss('chicken', c.width, c.height);
-          msg('⚠️ BOSS : LA POULE FOLLE !');
-          playSound('levelup');
-          bossSpawnedThisLevel = true;
-        }
-      }
-
-      // Boss Wall: apparaît à 90% du niveau 8
-      if(level === 8 && !bossSpawnedThisLevel && !bossManager.isBossActive()) {
-        const cloudsToPass = currentLevelConfig.cloudsToPass || 250;
-        if(cloudsInLevel >= Math.floor(cloudsToPass * 0.9)) {
-          levelBeforeBoss = level;
-          bossShootCount = 0;
-          bossManager.spawnBoss('wall', c.width, c.height);
-          msg(t('bosses.wall.intro'));
-          playSound('levelup');
-          bossSpawnedThisLevel = true;
-        }
-      }
-
-      // Boss Dark Cloud: apparaît à 90% du niveau 10
-      if(level === 10 && !bossSpawnedThisLevel && !bossManager.isBossActive()) {
-        const cloudsToPass = currentLevelConfig.cloudsToPass || 350;
-        if(cloudsInLevel >= Math.floor(cloudsToPass * 0.9)) {
-          levelBeforeBoss = level;
-          bossShootCount = 0;
-          bossManager.spawnBoss('dark_cloud', c.width, c.height);
-          msg(t('bosses.dark_cloud.intro'));
-          playSound('levelup');
-          bossSpawnedThisLevel = true;
-        }
-      }
-
-      // Boss Black Raven: apparaît à 90% du niveau 12
-      if(level === 12 && !bossSpawnedThisLevel && !bossManager.isBossActive()) {
-        const cloudsToPass = currentLevelConfig.cloudsToPass || 500;
-        if(cloudsInLevel >= Math.floor(cloudsToPass * 0.9)) {
-          levelBeforeBoss = level;
-          bossShootCount = 0;
-          bossManager.spawnBoss('black_raven', c.width, c.height);
-          msg(t('bosses.black_raven.intro'));
-          playSound('levelup');
-          bossSpawnedThisLevel = true;
-        }
-      }
-
-      // Boss serpent FINAL: apparaît à 90% du niveau 14
-      if(level === 14 && !bossSpawnedThisLevel && !bossManager.isBossActive()) {
-        const cloudsToPass = currentLevelConfig.cloudsToPass || 999;
-        const spawnAt = Math.floor(cloudsToPass * 0.9);
-        console.log(`🐍 [BOSS DEBUG] Niveau 14 - cloudsInLevel: ${cloudsInLevel}/${spawnAt}, totalClouds: ${gameData.totalCloudsDestroyed}`);
-        if(cloudsInLevel >= spawnAt) {
-          console.log('🐍 [BOSS FINAL] SPAWN DU SERPENT!');
-          levelBeforeBoss = level; // Sauvegarder le niveau actuel
-          bossShootCount = 0; // Réinitialiser le compteur de tirs pour ce boss
-          bossManager.spawnBoss('snake', c.width, c.height);
-          msg('⚠️ BOSS FINAL : LE SERPENT VOLANT !');
-          playSound('levelup');
-          bossSpawnedThisLevel = true;
-        }
-      }
-
-      // Faire apparaître un power-up après 7 nuages éliminés
-      if(cloudKillCount >= 7 && fallingPowerUps.length === 0) {
-        const types = ['heart', 'rainbow', 'star', 'electric'];
+      // Faire apparaître un power-up après 10 nuages éliminés
+      if(cloudKillCount >= 10 && fallingPowerUps.length === 0) {
+        const types = ['heart', 'rainbow', 'star'];
         const randomType = types[Math.floor(Math.random() * types.length)];
         fallingPowerUps.push(createFallingPowerUp(randomType));
         cloudKillCount = 0;
@@ -2993,196 +2362,59 @@ for(let bi = bullets.length - 1; bi >= 0; bi--){
       // Message aléatoire
       const gameplayMsgs=t('gameplay');
       if(Math.random()<0.1)msg(gameplayMsgs[Math.floor(Math.random()*gameplayMsgs.length)]);
+
+      // Sauvegarder la progression tous les 10 nuages
+      if(cloudsCleared % 10 === 0){saveProgress(level,score,cloudsCleared);}
+
+      // Vérifier si le niveau est terminé (sauf en mode infini)
+      if(!infiniteModeActive && cloudsInLevel>=currentLevelConfig.cloudsToPass){
+        level++;
+        updateHighestLevel(level); // Sauvegarder la progression
+        
+        // Déclencher niveau bonus après les niveaux 3, 7, 10 et 13
+        if([3,7,10,13].includes(currentLevelIndex)){
+          bonusLevelNumber++;
+          setTimeout(()=>startBonusLevel(),1000);
+        }else{
+          completeLevel();
+        }
+        
+        for(let i=0;i<5;i++)setTimeout(()=>hearts.push(heart()),i*150);
+      }else if(cloudsCleared%30===0){
+        level++;
+        updateHighestLevel(level); // Sauvegarder la progression
+        msg(t('messages.levelUp',{level:level}));
+        for(let i=0;i<3;i++)setTimeout(()=>hearts.push(heart()),i*150);
+      }
       
       hit = true;
       break; // Sortir de la boucle interne après collision
     }
   }
-
-  // Vérifier collision balle-boss si pas encore touché de nuage
-  if(!hit && bossManager.isBossActive()) {
-    const result = bossManager.checkBulletCollision(b.x, b.y, b.w, b.h, 10);
-    if(result.hit) {
-      bullets.splice(bi, 1);
-      playSound('hit');
-
-      // Particules
-      for(let pi = 0; pi < 5; pi++) {
-        particles.push(particle(b.x, b.y));
-      }
-
-      // Message si coup critique (œil touché)
-      if(result.critical) {
-        score += 200;
-        totalScore += 200;
-        msg('💥 COUP CRITIQUE ! +200 pts');
-      } else {
-        score += 50;
-        totalScore += 50;
-      }
-
-      // Vérifier si le boss est vaincu (une seule fois)
-      if(bossManager.isBossDefeated() && !bossDefeatRewardsGiven) {
-        bossDefeatRewardsGiven = true; // Marquer comme traité
-
-        // Déverrouiller la sagesse du boss
-        if(bossManager.bossType && gameData.bossesDefeated) {
-          gameData.bossesDefeated[bossManager.bossType] = true;
-          saveGameData();
-          console.log(`📚 Sagesse débloquée: ${bossManager.bossType}`);
-        }
-
-        const rewards = bossManager.getBossRewards();
-        score += rewards.score;
-        totalScore += rewards.score;
-        msg(`🏆 BOSS VAINCU ! +${rewards.score} pts`);
-        playSound('levelup');
-
-        // Distribuer les power-ups
-        setTimeout(() => {
-          rewards.powerUps.forEach((pu, idx) => {
-            for(let i = 0; i < pu.count; i++) {
-              setTimeout(() => {
-                fallingPowerUps.push(createFallingPowerUp(pu.type));
-              }, idx * 300 + i * 100);
-            }
-          });
-        }, 500);
-
-        // Réinitialiser le boss après distribution des récompenses
-        setTimeout(() => {
-          bossManager.reset();
-          bossDefeatRewardsGiven = false; // Réinitialiser pour le prochain boss
-          bossShootCount = 0; // Réinitialiser le compteur de tirs pour le prochain boss
-          console.log('🎯 [BOSS] Boss désactivé après victoire');
-
-          // Vérifier si le joueur peut passer au niveau suivant après avoir vaincu le boss
-          // IMPORTANT: Ne passer qu'au niveau suivant, pas sauter plusieurs niveaux
-          const currentLevelFromClouds = getCurrentLevel(gameData.totalCloudsDestroyed);
-          if(currentLevelFromClouds > levelBeforeBoss && currentLevelFromClouds <= 14) {
-            // Passer seulement au niveau suivant (levelBeforeBoss + 1)
-            level = levelBeforeBoss + 1;
-            const newLevelInfo = getLevelInfo(level, currentLang);
-            if(levelEl) levelEl.textContent = level;
-
-            // IMPORTANT: Mettre à jour la difficulté du gameplay
-            currentLevelIndex = level - 1;
-            currentLevelConfig = LEVELS_CONFIG[currentLevelIndex];
-            cloudsInLevel = 0; // Réinitialiser le compteur de nuages pour ce niveau
-            bossSpawnedThisLevel = false; // Permettre le spawn du boss pour ce nouveau niveau
-            updateLevelBackground(); // Mettre à jour le fond
-
-            console.log('🎯 [PROGRESSION] Changement de niveau après victoire boss! Niveau:', level, '- Nuages:', gameData.totalCloudsDestroyed);
-
-            // Changer le fond pour les niveaux 13 et 14 (nuit étoilée avec lune)
-            if(level === 13 || level === 14) {
-              applyNightSkyBackground(level);
-            }
-
-            // Afficher le message de niveau avec les informations du module
-            msg(t('powerups.level_up', {level: level, title: newLevelInfo.title}));
-
-            // Ajouter des coeurs
-            for(let i=0;i<3;i++)setTimeout(()=>hearts.push(heart()),i*150);
-
-            // Afficher le bouclier de progression après 1 seconde
-            setTimeout(() => {
-              const previousState = 'playing'; // Toujours revenir en mode playing après le boss
-              state = 'paused';
-              showLevelUpMessage(newLevelInfo, previousState);
-            }, 1000);
-          }
-        }, 1500); // Attendre que les power-ups soient distribués
-      }
-    }
-  }
 }
 
 hearts.forEach((h,i)=>{
-  h.x+=h.vx*dtFactor;
-  h.y+=h.vy*dtFactor;
-  h.life-=(h.decay || 0.01)*dtFactor;
-  h.rot+=(h.rotSpeed || h.rotS || 0)*dtFactor;
-  h.vy+=0.015*dtFactor;
+  h.x+=h.vx;
+  h.y+=h.vy;
+  h.life-=h.decay || 0.01;
+  h.rot+=h.rotSpeed || h.rotS || 0;
+  h.vy+=0.015;
   if(h.life<=0)hearts.splice(i,1);
 });
 
-particles.forEach((p,i)=>{p.x+=p.vx*dtFactor;p.y+=p.vy*dtFactor;p.life-=p.decay*dtFactor;if(p.life<=0)particles.splice(i,1);});
+particles.forEach((p,i)=>{p.x+=p.vx;p.y+=p.vy;p.life-=p.decay;if(p.life<=0)particles.splice(i,1);});
 
-// Mettre à jour les ondes de choc et détruire les nuages
+// Mettre à jour les ondes de choc
 shockwaves.forEach((wave,i)=>{
-  wave.radius += wave.speed*dtFactor;
+  wave.radius += wave.speed;
   wave.opacity = 1 - (wave.radius / wave.maxRadius);
-
-  // Détruire les nuages touchés par l'onde de choc
-  for(let ci = clouds.length - 1; ci >= 0; ci--) {
-    const cl = clouds[ci];
-    // Calculer la distance entre le centre de l'onde et le centre du nuage
-    const dx = (cl.x + cl.w/2) - wave.x;
-    const dy = (cl.y + cl.h/2) - wave.y;
-    const distance = Math.sqrt(dx * dx + dy * dy);
-
-    // Si le nuage est dans le rayon de l'onde (avec une marge de 20px)
-    if(distance <= wave.radius + 20 && distance >= wave.radius - 20) {
-      // Créer des particules
-      for(let pi = 0; pi < 8; pi++) particles.push(particle(cl.x + cl.w/2, cl.y + cl.h/2));
-
-      // Supprimer le nuage
-      clouds.splice(ci, 1);
-
-      // Ajouter les points
-      score += 100;
-      totalScore += 100;
-      cloudsCleared++;
-      cloudsInLevel++;
-      cloudKillCount++;
-
-      // Son
-      playSound('hit');
-    }
-  }
-
-  // Infliger des dégâts au boss si actif (x5 dégâts)
-  if(bossManager.isBossActive() && !wave.hitBoss) {
-    // Obtenir la position du boss pour calculer la distance
-    const boss = bossManager.currentBoss;
-    if(boss) {
-      const dx = boss.x - wave.x;
-      const dy = boss.y - wave.y;
-      const distance = Math.sqrt(dx * dx + dy * dy);
-
-      // Si le boss est dans le rayon de l'onde (avec une marge de 30px pour le corps du boss)
-      if(distance <= wave.radius + 30 && distance >= wave.radius - 30) {
-        // Infliger 50 dégâts (10 x 5) - coordonnées du boss pour détection coup critique
-        const isCritical = boss.takeDamage(50, boss.x, boss.y);
-        wave.hitBoss = true; // Marquer pour ne frapper qu'une fois
-
-        // Créer des particules dorées au point d'impact
-        for(let pi = 0; pi < 12; pi++) {
-          particles.push(particle(boss.x, boss.y));
-        }
-
-        if(isCritical) {
-          score += 1000;
-          totalScore += 1000;
-          msg('💥⚡ ONDE DE CHOC CRITIQUE ! +1000 pts');
-        } else {
-          score += 500;
-          totalScore += 500;
-          msg('⚡ ONDE DE CHOC ! +500 pts');
-        }
-        playSound('hit');
-      }
-    }
-  }
-
   if(wave.radius >= wave.maxRadius) shockwaves.splice(i,1);
 });
 
 // Vérifier l'expiration des power-ups
 const now = Date.now();
 if(umbrella && now >= umbrellaEndTime) umbrella = false;
-if(electric && now >= electricEndTime) electric = false;
+if(speed && now >= speedEndTime) speed = false;
 if(multi && now >= multiEndTime) multi = false;
 
 scoreEl.textContent=score;cloudsEl.textContent=cloudsCleared;levelEl.textContent=level;livesEl.textContent=lives;starStockEl.textContent=starCount;
@@ -3190,13 +2422,13 @@ scoreEl.textContent=score;cloudsEl.textContent=cloudsCleared;levelEl.textContent
 
 function render(){
 ctx.clearRect(0,0,c.width,c.height);
-if(state==='playing' || state==='levelComplete' || state==='paused'){
+if(state==='playing' || state==='levelComplete'){
     // Dessiner la pluie décorative en arrière-plan (niveau 7)
     decorativeRain.forEach(drawDecorativeRain);
-
+    
     // Dessiner les nuages de fond décoratifs
     backgroundClouds.forEach(drawBackgroundCloud);
-
+    
     // Dessine ensuite tout l'arrière-plan du jeu
     clouds.forEach(drawCloud);
     rain.forEach(drawRain);
@@ -3204,30 +2436,20 @@ if(state==='playing' || state==='levelComplete' || state==='paused'){
     bullets.forEach(drawBullet);
     particles.forEach(drawParticle);
     hearts.forEach(drawHeart);
-
+    
     // Dessiner les power-ups qui tombent
     fallingPowerUps.forEach(drawPowerUp);
-
+    
     // Dessiner les ondes de choc
     shockwaves.forEach(drawShockwave);
-
+    
     // Dessiner les objets bonus
     if(isBonusLevel){
       bonusItems.forEach(drawBonusItem);
     }
-
-    // Dessiner le boss avant le joueur (même en pause pour qu'il soit visible derrière le bouclier)
-    if(bossManager.isBossActive()) {
-      bossManager.draw(ctx);
-    }
-
+    
     // Et la colombe EN DERNIER pour qu'elle soit bien visible devant !
     drawPlayer();
-
-    // Dessiner la barre de vie du boss au-dessus de tout (même en pause)
-    if(bossManager.isBossActive()) {
-      bossManager.drawHealthBar(ctx, c.width);
-    }
     
     // Afficher la progression
     if(state==='playing'){
@@ -3252,15 +2474,7 @@ if(state==='playing' || state==='levelComplete' || state==='paused'){
 }
 }
 
-function loop(time){
-  let dt=time-lastTime;
-  // Limiter dt pour éviter des sauts énormes (max 100ms = ~10 FPS minimum)
-  if(dt > 100) dt = 16.67; // Réinitialiser à 60 FPS si pause trop longue
-  lastTime=time;
-  update(dt);
-  render();
-  requestAnimationFrame(loop);
-}
+function loop(time){const dt=time-lastTime;lastTime=time;update(dt);render();requestAnimationFrame(loop);}
 
 // Fonction pour obtenir les coordonnées relatives au canvas
 function getCanvasCoords(clientX, clientY) {
@@ -3394,35 +2608,33 @@ startBtn.addEventListener('click',()=>{
       setTimeout(()=>motivationEl.remove(),500);
     },3000);
   }
-
+  
   // Démarrer la musique gospel
   if (musicEnabled) {
     playRandomMusic();
   }
-
+  
   autoHideMenuOnStart();
-
-  // Démarrer au niveau actuel (sans écraser les valeurs)
-  const currentLevelIndex = Math.max(0, level - 1);
-  const startLevelIndex = Math.min(currentLevelIndex, LEVELS_CONFIG.length - 1);
-  startLevel(startLevelIndex);
-
-  // Les boss apparaîtront automatiquement à la fin de leur niveau respectif (pas au début)
+  
+  // Charger les données puis initialiser le jeu
+  console.log('🚀 DOMContentLoaded - Appel de startGameWithData()');
+  startGameWithData();
 });
 
 addEventListener('resize',resizeCanvas);
 
-// Charger les sauvegardes au démarrage de la page
-loadGameData();
-loadPlayerProfile();
-
-// Initialiser l'affichage de la difficulté
-updateDifficultyButtons();
-
-// Synchroniser le niveau avec le nombre de nuages sauvegardés
-if (gameData.totalCloudsDestroyed > 0) {
-  level = getCurrentLevel(gameData.totalCloudsDestroyed);
-  if(levelEl) levelEl.textContent = level;
+// Fonction d'initialisation complète
+async function startGameWithData() {
+  console.log('📥 startGameWithData() démarré');
+  // 1. Charger les données locales
+  loadGameData();
+  loadPlayerProfile();
+  
+  // 2. Restaurer depuis le cloud si nécessaire
+  await restoreFromCloudIfNeeded();
+  
+  // 3. Initialiser le jeu avec les bonnes données
+  initGame();
 }
 
 // Si pas de données locales mais connecté au cloud, restaurer depuis Supabase
@@ -3495,8 +2707,8 @@ async function restoreFromCloudIfNeeded() {
             
             // Mettre à jour l'affichage
             score = gameData.highScore;
-            level = getCurrentLevel(gameData.totalCloudsDestroyed);
-            starCount = gameData.starStock;
+            level = gameData.highestLevelReached;
+            starCount = gameData.starStock || 0;
             
             const scoreEl = document.getElementById('score');
             const levelEl = document.getElementById('level');
@@ -3542,229 +2754,12 @@ async function restoreFromCloudIfNeeded() {
   return false;
 }
 
-// Exécuter la restauration cloud si nécessaire
-restoreFromCloudIfNeeded().then(restored => {
-  if (!restored) {
-    console.log('🎮 Interface mise à jour - Score:', score, 'Niveau:', level, '⭐ Étoiles:', starCount, '☁️ Nuages:', gameData.totalCloudsDestroyed);
-  }
-});
-
 // Initialiser la langue au chargement
 updateUILanguage();
 
 // ============================================
 // 💎 AFFICHAGE DES STATISTIQUES
 // ============================================
-
-/**
- * Génère les icônes des 14 chapitres avec leur statut (gagné ou non)
- */
-function generateChapterIcons() {
-  const chapters = [
-    { id: 1, roman: "I", icon: "🌅", threshold: 0 },
-    { id: 2, roman: "II", icon: "🌬️", threshold: 51 },
-    { id: 3, roman: "III", icon: "🕊️", threshold: 101 },
-    { id: 4, roman: "IV", icon: "🔓", threshold: 151 },
-    { id: 5, roman: "V", icon: "💎", threshold: 201 },
-    { id: 6, roman: "VI", icon: "💪", threshold: 251 },
-    { id: 7, roman: "VII", icon: "⛈️", threshold: 301 },
-    { id: 8, roman: "VIII", icon: "❤️", threshold: 351 },
-    { id: 9, roman: "IX", icon: "🦸", threshold: 401 },
-    { id: 10, roman: "X", icon: "🦋", threshold: 451 },
-    { id: 11, roman: "XI", icon: "🦁", threshold: 551 },
-    { id: 12, roman: "XII", icon: "📖", threshold: 651 },
-    { id: 13, roman: "XIII", icon: "🌌", threshold: 751 },
-    { id: 14, roman: "XIV", icon: "✨", threshold: 851 }
-  ];
-  
-  return chapters.map(chapter => {
-    const isCompleted = gameData.totalCloudsDestroyed >= chapter.threshold;
-    return `
-      <div style="
-        display:flex;
-        flex-direction:column;
-        align-items:center;
-        justify-content:center;
-        padding:10px 6px;
-        background:${isCompleted ? 'linear-gradient(135deg, rgba(46,204,113,0.3), rgba(39,174,96,0.3))' : 'rgba(0,0,0,0.2)'};
-        border-radius:12px;
-        border:2px solid ${isCompleted ? 'rgba(46,204,113,0.6)' : 'rgba(255,255,255,0.1)'};
-        transition:all 0.3s;
-        opacity:${isCompleted ? '1' : '0.4'};
-      " ${isCompleted ? `onmouseover="this.style.transform='scale(1.1)';this.style.borderColor='rgba(46,204,113,0.9)'" onmouseout="this.style.transform='scale(1)';this.style.borderColor='rgba(46,204,113,0.6)'"` : ''}>
-        <div style="font-size:10px;font-weight:bold;color:${isCompleted ? '#2ecc71' : 'rgba(255,255,255,0.3)'};margin-bottom:4px;font-family:'Georgia',serif;">${chapter.roman}</div>
-        <div style="font-size:${isCompleted ? '32px' : '12px'};line-height:1;">${isCompleted ? chapter.icon : '🔒'}</div>
-      </div>
-    `;
-  }).join('');
-}
-
-/**
- * Compte le nombre de chapitres complétés
- */
-function getCompletedChaptersCount() {
-  const thresholds = [0, 51, 101, 151, 201, 251, 301, 351, 401, 451, 551, 651, 751, 851];
-  return thresholds.filter(threshold => gameData.totalCloudsDestroyed >= threshold).length;
-}
-
-/**
- * Génère les icônes des sagesses de boss (verrouillées/déverrouillées)
- */
-function generateBossWisdomIcons() {
-  const bosses = [
-    { id: 'spider', emoji: '🕷️', name: 'spider' },
-    { id: 'flying_snake', emoji: '🐍', name: 'flying_snake' },
-    { id: 'crazy_chicken', emoji: '🐔', name: 'crazy_chicken' },
-    { id: 'grim_reaper', emoji: '💀', name: 'grim_reaper' },
-    { id: 'wall', emoji: '🧱', name: 'wall' },
-    { id: 'dark_cloud', emoji: '☁️', name: 'dark_cloud' },
-    { id: 'black_raven', emoji: '🐦‍⬛', name: 'black_raven' }
-  ];
-  
-  return bosses.map(boss => {
-    const isDefeated = gameData.bossesDefeated && gameData.bossesDefeated[boss.id];
-    return `
-      <div onclick="${isDefeated ? `showBossWisdom('${boss.id}')` : ''}" style="
-        display:flex;
-        flex-direction:column;
-        align-items:center;
-        justify-content:center;
-        padding:12px 8px;
-        background:${isDefeated ? 'linear-gradient(135deg, rgba(241,196,15,0.3), rgba(243,156,18,0.3))' : 'rgba(0,0,0,0.3)'};
-        border-radius:12px;
-        border:2px solid ${isDefeated ? 'rgba(241,196,15,0.6)' : 'rgba(255,255,255,0.1)'};
-        transition:all 0.3s;
-        opacity:${isDefeated ? '1' : '0.4'};
-        cursor:${isDefeated ? 'pointer' : 'default'};
-        position:relative;
-      " ${isDefeated ? `onmouseover="this.style.transform='scale(1.1)';this.style.borderColor='rgba(241,196,15,0.9)'" onmouseout="this.style.transform='scale(1)';this.style.borderColor='rgba(241,196,15,0.6)'"` : ''}>
-        ${!isDefeated ? '<div style="position:absolute;top:8px;right:8px;font-size:14px;">🔒</div>' : ''}
-        <div style="font-size:${isDefeated ? '36px' : '20px'};line-height:1;filter:${isDefeated ? 'none' : 'grayscale(100%) brightness(0.5)'};">${boss.emoji}</div>
-      </div>
-    `;
-  }).join('');
-}
-
-/**
- * Compte le nombre de boss vaincus
- */
-function getDefeatedBossesCount() {
-  if(!gameData.bossesDefeated) return 0;
-  return Object.values(gameData.bossesDefeated).filter(defeated => defeated).length;
-}
-
-/**
- * Affiche la sagesse d'un boss déverrouillé
- */
-function showBossWisdom(bossId) {
-  if(!gameData.bossesDefeated || !gameData.bossesDefeated[bossId]) {
-    msg('🔒 ' + t('treasure.boss_wisdom_locked'));
-    return;
-  }
-  
-  const bossTranslations = t(`bosses.${bossId}`);
-  if(!bossTranslations) {
-    console.error('Boss translation not found:', bossId);
-    return;
-  }
-  
-  const wisdomDiv = document.createElement('div');
-  wisdomDiv.id = 'bossWisdomDisplay';
-  wisdomDiv.style.cssText = `
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 90%;
-    max-width: 500px;
-    max-height: 85vh;
-    background: linear-gradient(135deg, rgba(52,73,94,0.98) 0%, rgba(44,62,80,0.98) 100%);
-    color: white;
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0 10px 50px rgba(0,0,0,0.7), 0 0 30px rgba(241,196,15,0.3);
-    z-index: 600;
-    overflow-y: auto;
-    border: 3px solid rgba(241,196,15,0.5);
-  `;
-  
-  wisdomDiv.innerHTML = `
-    <button onclick="this.parentElement.remove()" style="position:absolute;top:10px;right:10px;background:rgba(0,0,0,0.5);color:white;border:none;border-radius:50%;width:35px;height:35px;font-size:20px;cursor:pointer;font-weight:bold;line-height:1;">✕</button>
-    
-    <div style="text-align:center;margin-bottom:20px;">
-      <h2 style="margin:0 0 10px 0;font-size:26px;">${bossTranslations.name}</h2>
-      <div style="font-size:48px;margin:15px 0;">${getBossEmoji(bossId)}</div>
-    </div>
-    
-    <div style="background:rgba(241,196,15,0.15);padding:20px;border-radius:12px;border:2px solid rgba(241,196,15,0.3);margin-bottom:20px;">
-      <h3 style="margin:0 0 15px 0;text-align:center;color:#f1c40f;">📜 ${t('treasure.boss_wisdom_philosophy')}</h3>
-      <p style="line-height:1.8;font-size:14px;text-align:justify;margin:0;">
-        ${bossTranslations.wisdom}
-      </p>
-    </div>
-    
-    <div style="background:rgba(46,204,113,0.15);padding:15px;border-radius:10px;border:2px solid rgba(46,204,113,0.3);">
-      <h4 style="margin:0 0 10px 0;text-align:center;color:#2ecc71;">💎 ${t('treasure.boss_wisdom_victory')}</h4>
-      <p style="line-height:1.6;font-size:13px;text-align:center;margin:0;">
-        ${bossTranslations.defeated}
-      </p>
-    </div>
-    
-    <div style="text-align:center;margin-top:20px;">
-      <button onclick="this.parentElement.parentElement.remove()" style="
-        padding:12px 30px;
-        background:linear-gradient(135deg, #f1c40f, #f39c12);
-        color:#2c3e50;
-        border:none;
-        border-radius:10px;
-        font-size:14px;
-        font-weight:bold;
-        cursor:pointer;
-        box-shadow:0 4px 6px rgba(0,0,0,0.3);
-        transition:transform 0.2s;
-      " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-        ✨ ${t('treasure.boss_wisdom_close')}
-      </button>
-    </div>
-  `;
-  
-  document.getElementById('gameContainer').appendChild(wisdomDiv);
-}
-
-/**
- * Récupère l'emoji d'un boss
- */
-function getBossEmoji(bossId) {
-  const emojis = {
-    spider: '🕷️',
-    flying_snake: '🐍',
-    crazy_chicken: '🐔',
-    grim_reaper: '💀',
-    wall: '🧱',
-    dark_cloud: '☁️',
-    black_raven: '🐦‍⬛'
-  };
-  return emojis[bossId] || '👹';
-}
-
-/**
- * Calcule le pourcentage de progression vers le prochain verset (0-100%)
- */
-function getInfiniteProgressPercent() {
-  if (!infiniteCloudsCleared || infiniteCloudsCleared === 0) return 0;
-  const progressInCycle = infiniteCloudsCleared % 100;
-  return progressInCycle;
-}
-
-/**
- * Calcule combien de nuages restent avant le prochain verset
- */
-function getNextVerseIn() {
-  if (!infiniteCloudsCleared || infiniteCloudsCleared === 0) return t('treasure.xp_clouds', {count: 100});
-  const progressInCycle = infiniteCloudsCleared % 100;
-  const remaining = 100 - progressInCycle;
-  return t('treasure.xp_clouds', {count: remaining});
-}
 
 function showStats() {
   const statsDiv = document.createElement('div');
@@ -3802,16 +2797,16 @@ function showStats() {
   
   statsDiv.innerHTML = `
     <button onclick="this.parentElement.remove()" style="position:absolute;top:10px;right:10px;background:rgba(0,0,0,0.3);color:white;border:none;border-radius:50%;width:35px;height:35px;font-size:20px;cursor:pointer;font-weight:bold;line-height:1;">✕</button>
-    <h2 style="text-align:center;margin-bottom:20px;font-size:24px;">${t('treasure.title')}</h2>
+    <h2 style="text-align:center;margin-bottom:20px;font-size:24px;">💎 Mes Trésors</h2>
     
     <div style="background:linear-gradient(135deg, rgba(231,76,60,0.2), rgba(241,196,15,0.2));padding:15px;border-radius:10px;margin-bottom:15px;border:2px solid rgba(231,76,60,0.3);">
-      <h3 style="margin-top:0;text-align:center;">👤 ${t('treasure.my_profile')}</h3>
-      <p style="margin:8px 0;text-align:center;"><strong>🎮 ${t('treasure.nickname')}:</strong> ${localStorage.getItem('dovePlayerNickname') || playerProfile.nickname || t('treasure.not_set')}</p>
-      <p style="margin:8px 0;text-align:center;"><strong>📧 ${t('treasure.email')}:</strong> ${localStorage.getItem('dovePlayerEmail') || playerProfile.email || t('treasure.not_set')}</p>
-      <p style="margin:8px 0;text-align:center;"><strong>☁️ ${t('treasure.cloud_status')}:</strong> ${localStorage.getItem('dovePlayerNickname') && localStorage.getItem('dovePlayerEmail') ? '✅ ' + t('treasure.connected') : '🔒 ' + t('treasure.disconnected')}</p>
-      <p style="margin:8px 0;text-align:center;"><strong>🏆 ${t('treasure.best_score')}:</strong> ${playerProfile.bestScore.toLocaleString()}</p>
-      <p style="margin:8px 0;text-align:center;"><strong>🎯 ${t('treasure.max_level')}:</strong> ${playerProfile.highestLevel}</p>
-      ${playerProfile.lastPlayed ? `<p style="margin:8px 0;text-align:center;font-size:12px;opacity:0.8;">${t('treasure.last_game')}: ${new Date(playerProfile.lastPlayed).toLocaleDateString(currentLang === 'en' ? 'en-US' : 'fr-FR')}</p>` : ''}
+      <h3 style="margin-top:0;text-align:center;">👤 Mon Profil</h3>
+      <p style="margin:8px 0;text-align:center;"><strong>🎮 Surnom:</strong> ${localStorage.getItem('dovePlayerNickname') || playerProfile.nickname || 'Non défini'}</p>
+      <p style="margin:8px 0;text-align:center;"><strong>📧 Email:</strong> ${localStorage.getItem('dovePlayerEmail') || playerProfile.email || 'Non défini'}</p>
+      <p style="margin:8px 0;text-align:center;"><strong>☁️ Cloud:</strong> ${localStorage.getItem('dovePlayerNickname') && localStorage.getItem('dovePlayerEmail') ? '✅ Connecté' : '🔒 Déconnecté'}</p>
+      <p style="margin:8px 0;text-align:center;"><strong>🏆 Meilleur Score:</strong> ${playerProfile.bestScore.toLocaleString()}</p>
+      <p style="margin:8px 0;text-align:center;"><strong>🎯 Niveau Max:</strong> ${playerProfile.highestLevel}</p>
+      ${playerProfile.lastPlayed ? `<p style="margin:8px 0;text-align:center;font-size:12px;opacity:0.8;">Dernière partie: ${new Date(playerProfile.lastPlayed).toLocaleDateString('fr-FR')}</p>` : ''}
       <div style="text-align:center;margin-top:12px;">
         <button onclick="document.getElementById('statsDisplay').remove(); showSupabaseSave();" style="
           padding:10px 20px;
@@ -3825,7 +2820,7 @@ function showStats() {
           box-shadow:0 4px 6px rgba(0,0,0,0.2);
           transition:transform 0.2s;
         " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-          ${localStorage.getItem('dovePlayerNickname') && localStorage.getItem('dovePlayerEmail') ? t('treasure.cloud_manage') : t('treasure.cloud_connect')}
+          ${localStorage.getItem('dovePlayerNickname') && localStorage.getItem('dovePlayerEmail') ? '☁️ Gérer ma connexion' : '☁️ Se connecter au cloud'}
         </button>
       </div>
     </div>
@@ -3833,91 +2828,35 @@ function showStats() {
     <!-- Onglets de Conseils de Vie -->
     <div style="margin-bottom:20px;">
       <div style="display:flex;gap:8px;margin-bottom:15px;flex-wrap:wrap;justify-content:center;">
-        <button onclick="showLifeTip('faith')" style="padding:8px 15px;background:rgba(46,204,113,0.3);color:white;border:2px solid rgba(46,204,113,0.5);border-radius:8px;cursor:pointer;font-weight:bold;font-size:12px;transition:all 0.2s;" onmouseover="this.style.background='rgba(46,204,113,0.5)'" onmouseout="this.style.background='rgba(46,204,113,0.3)'">${t('treasure.life_tips_faith')}</button>
-        <button onclick="showLifeTip('courage')" style="padding:8px 15px;background:rgba(241,196,15,0.3);color:white;border:2px solid rgba(241,196,15,0.5);border-radius:8px;cursor:pointer;font-weight:bold;font-size:12px;transition:all 0.2s;" onmouseover="this.style.background='rgba(241,196,15,0.5)'" onmouseout="this.style.background='rgba(241,196,15,0.3)'">${t('treasure.life_tips_courage')}</button>
-        <button onclick="showLifeTip('peace')" style="padding:8px 15px;background:rgba(52,152,219,0.3);color:white;border:2px solid rgba(52,152,219,0.5);border-radius:8px;cursor:pointer;font-weight:bold;font-size:12px;transition:all 0.2s;" onmouseover="this.style.background='rgba(52,152,219,0.5)'" onmouseout="this.style.background='rgba(52,152,219,0.3)'">${t('treasure.life_tips_peace')}</button>
-        <button onclick="showLifeTip('love')" style="padding:8px 15px;background:rgba(231,76,60,0.3);color:white;border:2px solid rgba(231,76,60,0.5);border-radius:8px;cursor:pointer;font-weight:bold;font-size:12px;transition:all 0.2s;" onmouseover="this.style.background='rgba(231,76,60,0.5)'" onmouseout="this.style.background='rgba(231,76,60,0.3)'">${t('treasure.life_tips_love')}</button>
+        <button onclick="showLifeTip('faith')" style="padding:8px 15px;background:rgba(46,204,113,0.3);color:white;border:2px solid rgba(46,204,113,0.5);border-radius:8px;cursor:pointer;font-weight:bold;font-size:12px;transition:all 0.2s;" onmouseover="this.style.background='rgba(46,204,113,0.5)'" onmouseout="this.style.background='rgba(46,204,113,0.3)'">✝️ Foi</button>
+        <button onclick="showLifeTip('courage')" style="padding:8px 15px;background:rgba(241,196,15,0.3);color:white;border:2px solid rgba(241,196,15,0.5);border-radius:8px;cursor:pointer;font-weight:bold;font-size:12px;transition:all 0.2s;" onmouseover="this.style.background='rgba(241,196,15,0.5)'" onmouseout="this.style.background='rgba(241,196,15,0.3)'">💪 Courage</button>
+        <button onclick="showLifeTip('peace')" style="padding:8px 15px;background:rgba(52,152,219,0.3);color:white;border:2px solid rgba(52,152,219,0.5);border-radius:8px;cursor:pointer;font-weight:bold;font-size:12px;transition:all 0.2s;" onmouseover="this.style.background='rgba(52,152,219,0.5)'" onmouseout="this.style.background='rgba(52,152,219,0.3)'">🕊️ Paix</button>
+        <button onclick="showLifeTip('love')" style="padding:8px 15px;background:rgba(231,76,60,0.3);color:white;border:2px solid rgba(231,76,60,0.5);border-radius:8px;cursor:pointer;font-weight:bold;font-size:12px;transition:all 0.2s;" onmouseover="this.style.background='rgba(231,76,60,0.5)'" onmouseout="this.style.background='rgba(231,76,60,0.3)'">❤️ Amour</button>
       </div>
       <div id="lifeTipContent" style="background:rgba(255,255,255,0.15);padding:20px;border-radius:10px;min-height:150px;">
-        <p style="text-align:center;opacity:0.8;font-style:italic;">${t('treasure.life_tips_prompt')}</p>
+        <p style="text-align:center;opacity:0.8;font-style:italic;">Clique sur un onglet pour découvrir un conseil de vie</p>
       </div>
     </div>
     
     <div style="background:rgba(255,255,255,0.1);padding:15px;border-radius:10px;margin-bottom:15px;">
-      <h3 style="margin-top:0;">${t('treasure.my_records')}</h3>
-      <p style="margin:8px 0;"><strong>${t('treasure.best_score')}:</strong> ${gameData.highScore.toLocaleString()}</p>
-      <p style="margin:8px 0;"><strong>${t('treasure.max_level')}:</strong> ${gameData.highestLevelReached}</p>
-      <p style="margin:8px 0;"><strong>${t('treasure.star_stock')}:</strong> ${gameData.starStock || 0}</p>
-    </div>
-    
-    <!-- Panneau des Chapitres Gagnés -->
-    <div style="background:linear-gradient(135deg, rgba(102,126,234,0.2), rgba(118,75,162,0.2));padding:15px;border-radius:10px;margin-bottom:15px;border:2px solid rgba(102,126,234,0.3);">
-      <h3 style="margin-top:0;text-align:center;">${t('treasure.chapters_conquered')}</h3>
-      <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:10px;margin-top:15px;">
-        ${generateChapterIcons()}
-      </div>
-      <p style="text-align:center;margin-top:15px;font-size:14px;opacity:0.9;">
-        <strong>${getCompletedChaptersCount()}/14</strong> ${t('treasure.chapters_completed')}
-      </p>
-    </div>
-    
-    <!-- Panneau des Sagesses des Boss -->
-    <div style="background:linear-gradient(135deg, rgba(155,89,182,0.2), rgba(142,68,173,0.2));padding:15px;border-radius:10px;margin-bottom:15px;border:2px solid rgba(155,89,182,0.3);">
-      <h3 style="margin-top:0;text-align:center;">📚 ${t('treasure.boss_wisdom_title')}</h3>
-      <p style="text-align:center;font-size:12px;opacity:0.9;margin-bottom:15px;">${t('treasure.boss_wisdom_subtitle')}</p>
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:15px;">
-        ${generateBossWisdomIcons()}
-      </div>
-      <p style="text-align:center;margin-top:15px;font-size:14px;opacity:0.9;">
-        <strong>${getDefeatedBossesCount()}/7</strong> ${t('treasure.boss_wisdom_collected')}
-      </p>
-    </div>
-    
-    <!-- Barre de Progression XP Mode Infini -->
-    <div style="background:linear-gradient(135deg, rgba(212,175,55,0.2), rgba(201,169,97,0.2));padding:15px;border-radius:10px;margin-bottom:15px;border:2px solid rgba(212,175,55,0.4);">
-      <h3 style="margin-top:0;text-align:center;">${t('treasure.infinite_progress')}</h3>
-      <p style="text-align:center;margin:10px 0;font-size:13px;opacity:0.9;">
-        ${t('treasure.verse_collection')}
-      </p>
-      <div style="margin:15px 0;">
-        <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:13px;">
-          <span>${t('treasure.xp_clouds', {count: infiniteCloudsCleared || 0})}</span>
-          <span>${t('treasure.next_verse', {count: getNextVerseIn()})}</span>
-        </div>
-        <div style="
-          background:rgba(0,0,0,0.3);
-          border-radius:20px;
-          height:20px;
-          overflow:hidden;
-          border:2px solid rgba(212,175,55,0.5);
-        ">
-          <div style="
-            background:linear-gradient(90deg, #d4af37 0%, #f1c40f 100%);
-            height:100%;
-            width:${getInfiniteProgressPercent()}%;
-            border-radius:18px;
-            transition:width 0.3s;
-            box-shadow:0 0 10px rgba(212,175,55,0.6);
-          "></div>
-        </div>
-      </div>
-      <p style="text-align:center;margin-top:12px;font-size:14px;">
-        ${t('treasure.verses_collected', {count: Math.floor((infiniteCloudsCleared || 0) / 100)})}
-      </p>
+      <h3 style="margin-top:0;">🏆 Mes Records</h3>
+      <p style="margin:8px 0;"><strong>Meilleur Score:</strong> ${gameData.highScore.toLocaleString()}</p>
+      <p style="margin:8px 0;"><strong>Niveau Maximum:</strong> ${gameData.highestLevelReached}</p>
+      <p style="margin:8px 0;"><strong>⭐ Stock d'Étoiles:</strong> ${gameData.starStock || 0}</p>
     </div>
     
     ${gameData.lastPlayed ? `
       <p style="text-align:center;opacity:0.8;font-size:12px;margin-bottom:15px;">
-        ${t('treasure.last_played')}: ${new Date(gameData.lastPlayed).toLocaleDateString(currentLang === 'en' ? 'en-US' : 'fr-FR')}
+        Dernière partie: ${new Date(gameData.lastPlayed).toLocaleDateString('fr-FR')}
       </p>
     ` : ''}
     
     <div style="background:linear-gradient(135deg, rgba(52,152,219,0.2), rgba(155,89,182,0.2));padding:15px;border-radius:10px;margin-bottom:20px;border:2px solid rgba(52,152,219,0.3);">
-      <h3 style="margin-top:0;text-align:center;">${t('treasure.creator')}</h3>
-      <p style="margin:8px 0;text-align:center;"><strong>${t('treasure.creator_name')}</strong></p>
-      <p style="margin:8px 0;text-align:center;font-size:13px;opacity:0.9;">${t('treasure.creator_bio')}</p>
-      <p style="margin:8px 0;text-align:center;font-size:12px;opacity:0.8;">${t('treasure.audiomack')}: <strong>emmanuelpayet888</strong></p>
-      <p style="margin:6px 0;text-align:center;font-size:11px;opacity:0.7;">${t('treasure.creator_message')}</p>
+      <h3 style="margin-top:0;text-align:center;">✨ Créateur</h3>
+      <p style="margin:8px 0;text-align:center;"><strong>🎮 Emmanuel Payet</strong></p>
+      <p style="margin:8px 0;text-align:center;font-size:13px;opacity:0.9;">Développeur & Créateur de jeux inspirés</p>
+      <p style="margin:8px 0;text-align:center;font-size:12px;opacity:0.8;">📱 Audiomack: <strong>emmanuelpayet888</strong></p>
+      <p style="margin:6px 0;text-align:center;font-size:11px;opacity:0.7;">Que ce jeu t'inspire et te fortifie ! 🕊️</p>
       <div style="text-align:center;margin-top:12px;">
         <a href="./public/emmanuel-artist-module.html" target="_blank" style="
           display:inline-block;
@@ -3931,14 +2870,14 @@ function showStats() {
           box-shadow:0 4px 6px rgba(0,0,0,0.2);
           transition:transform 0.2s;
         " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-          ${t('treasure.discover_artist')}
+          🎨 Découvrir l'artiste
         </a>
       </div>
     </div>
     
     <div style="background:linear-gradient(135deg, rgba(231,76,60,0.15), rgba(241,196,15,0.15));padding:18px;border-radius:10px;margin-bottom:20px;border:2px solid rgba(231,76,60,0.3);text-align:center;">
-      <h3 style="margin-top:0;color:#e74c3c;">💬 ${t('treasure.testimonies_title')}</h3>
-      <p style="margin:10px 0;font-size:13px;opacity:0.9;">${t('treasure.testimonies_description')}</p>
+      <h3 style="margin-top:0;color:#e74c3c;">💬 Témoignages d'Espoir</h3>
+      <p style="margin:10px 0;font-size:13px;opacity:0.9;">Découvre des histoires de courage et de guérison</p>
       <button onclick="document.getElementById('statsDisplay').remove(); showTestimonies();" style="
         padding:12px 24px;
         background:linear-gradient(135deg, #e74c3c, #f39c12);
@@ -3951,7 +2890,7 @@ function showStats() {
         box-shadow:0 4px 6px rgba(0,0,0,0.2);
         transition:transform 0.2s;
       " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-        💎 ${t('treasure.read_testimonies')}
+        💎 Lire les témoignages
       </button>
     </div>
     
@@ -3965,7 +2904,7 @@ function showStats() {
         font-size:16px;
         font-weight:bold;
         cursor:pointer;
-      ">✅ ${t('buttons.close')}</button>
+      ">✅ Fermer</button>
       
       <button onclick="manualCloudSave()" style="
         padding:12px 24px;
@@ -3976,7 +2915,7 @@ function showStats() {
         font-size:16px;
         font-weight:bold;
         cursor:pointer;
-      ">☁️ ${t('treasure.save_cloud')}</button>
+      ">☁️ Sauvegarder Cloud</button>
       
       <button onclick="exportProfileData()" style="
         padding:12px 24px;
@@ -3987,7 +2926,7 @@ function showStats() {
         font-size:16px;
         font-weight:bold;
         cursor:pointer;
-      ">🏆 ${t('treasure.share_score')}</button>
+      ">🏆 Partager mon score</button>
     </div>
   `;
   
@@ -4000,19 +2939,19 @@ async function manualCloudSave() {
   const email = localStorage.getItem('dovePlayerEmail');
   
   if (!nickname || !email) {
-    showPopup(t('popups.not_connected'), '☁️', 'error');
+    showPopup('⚠️ Non connecté !\n\nConnecte-toi d\'abord via le menu Trésor.', '☁️', 'error');
     return;
   }
   
   // Vérifier qu'on a des données valides à sauvegarder
   const hasValidData = gameData.highScore > 0 || gameData.highestLevelReached > 1;
   if (!hasValidData) {
-    showPopup(t('popups.no_data_to_save'), '☁️', 'warning');
+    showPopup('⚠️ Aucune donnée à sauvegarder\n\nJoue d\'abord pour créer des données !', '☁️', 'warning');
     return;
   }
   
   console.log('📤 Sauvegarde manuelle vers le cloud...');
-  showPopup(t('popups.saving'), '☁️', 'info');
+  showPopup('⏳ Sauvegarde en cours...', '☁️', 'info');
   
   try {
     // Initialiser Supabase
@@ -4037,14 +2976,14 @@ async function manualCloudSave() {
         );
       } else {
         console.warn('⚠️ Échec sauvegarde cloud:', result.error);
-        showPopup(t('popups.save_failed').replace('{error}', result.error), '☁️', 'error');
+        showPopup('❌ Échec sauvegarde !\n\n' + result.error, '☁️', 'error');
       }
     } else {
       throw new Error('Fonction syncDovePlayerData non disponible');
     }
   } catch (error) {
     console.error('❌ Erreur sauvegarde cloud:', error);
-    showPopup(t('popups.save_error').replace('{error}', error.message), '☁️', 'error');
+    showPopup('❌ Erreur sauvegarde !\n\n' + error.message, '☁️', 'error');
   }
 }
 
@@ -4068,7 +3007,7 @@ async function autoSaveToCloud() {
       if (result.success) {
         console.log('✅ Record sauvegardé dans le cloud !');
         // Afficher une notification discrète
-        showMessage(t('powerups.record_saved'), 2000);
+        showMessage('☁️ Record sauvegardé !', 2000);
       }
     }
   } catch (error) {
@@ -4237,13 +3176,13 @@ async function connectCloudSave() {
   const email = document.getElementById('cloudEmail').value.trim();
   
   if (!nickname || !email) {
-    showPopup(t('popups.enter_nickname_email'), '⚠️', 'warning');
+    showPopup('❌ Merci d\'entrer pseudo ET email !', '⚠️', 'warning');
     return;
   }
   
   // Valider l'email
   if (!email.includes('@')) {
-    showPopup(t('popups.invalid_email'), '📧', 'error');
+    showPopup('❌ Email invalide !', '📧', 'error');
     return;
   }
   
@@ -4289,28 +3228,28 @@ async function connectCloudSave() {
             localStorage.setItem('dovePlayerNickname', tempNickname);
             localStorage.setItem('dovePlayerEmail', tempEmail);
             await autoSaveToCloud();
-            showPopup(t('popups.connected_local_saved'), '☁️', 'success');
+            showPopup('✅ Connecté !\n\nDonnées locales sauvegardées dans le cloud.', '☁️', 'success');
           } else {
             // Garder le cloud, écraser le local
             console.log('✅ Conservation des données cloud');
             localStorage.setItem('dovePlayerNickname', tempNickname);
             localStorage.setItem('dovePlayerEmail', tempEmail);
             await restoreFromCloudIfNeeded();
-            showPopup(t('popups.connected_cloud_restored'), '☁️', 'success');
+            showPopup('✅ Connecté !\n\nDonnées cloud restaurées.', '☁️', 'success');
           }
         } else {
           // Pas de conflit : synchronisation automatique
           localStorage.setItem('dovePlayerNickname', tempNickname);
           localStorage.setItem('dovePlayerEmail', tempEmail);
           await restoreFromCloudIfNeeded();
-          showPopup(t('popups.connected_success'), '☁️', 'success');
+          showPopup('✅ Connecté avec succès !\n\nTa progression sera automatiquement sauvegardée en ligne.', '☁️', 'success');
         }
       } else {
         // Pas de données cloud, juste se connecter
         localStorage.setItem('dovePlayerNickname', tempNickname);
         localStorage.setItem('dovePlayerEmail', tempEmail);
         await restoreFromCloudIfNeeded();
-        showPopup(t('popups.connected_success'), '☁️', 'success');
+        showPopup('✅ Connecté avec succès !\n\nTa progression sera automatiquement sauvegardée en ligne.', '☁️', 'success');
       }
     }
     
@@ -4369,162 +3308,7 @@ document.addEventListener('keydown', (e) => {
     e.preventDefault();
     showStats();
   }
-  
-  // Test : T pour tester le chapitre 14
-  if (e.key === 't' || e.key === 'T') {
-    testChapter14();
-  }
-  
-  // Test : Y pour tester le chapitre 13
-  if (e.key === 'y' || e.key === 'Y') {
-    testChapter13();
-  }
-  
-  // Test : V pour tester le verset mode infini
-  if (e.key === 'v' || e.key === 'V') {
-    testInfiniteVerse();
-  }
-  
-  // Test : N pour ajouter +47 nuages (sans points)
-  if (e.key === 'n' || e.key === 'N') {
-    addTestClouds();
-  }
-  
-  // Test : K pour tester changement de niveau
-  if (e.key === 'k' || e.key === 'K') {
-    testLevelChange();
-  }
-  
-  // Retour : R pour restaurer
-  if (e.key === 'r' || e.key === 'R') {
-    restoreBeforeTest();
-  }
 });
-
-// 🧪 Fonction de test pour changement de niveau
-function testLevelChange() {
-  console.log('🧪 Test changement de niveau');
-  // Simuler qu'on est à 50 nuages (juste avant le niveau 2)
-  gameData.totalCloudsDestroyed = 50;
-  score = 5000;
-  level = 1;
-  
-  // Mettre à jour l'affichage
-  if(document.getElementById('clouds')) document.getElementById('clouds').textContent = gameData.totalCloudsDestroyed;
-  if(document.getElementById('score')) document.getElementById('score').textContent = score;
-  if(document.getElementById('level')) document.getElementById('level').textContent = level;
-  
-  console.log('🧪 Prêt: 50 nuages - Détruisez 1 nuage pour voir le niveau 2!');
-  msg('🧪 Test: 50 nuages - Détruisez 1 nuage pour niveau 2!');
-}
-
-// 🧪 Fonction de test pour le verset mode infini
-function testInfiniteVerse() {
-  console.log('🧪 Test verset mode infini');
-  // Simuler qu'on est en mode infini avec 100 nuages
-  infiniteCloudsCleared = 100;
-  showInfiniteVerse('playing');
-}
-
-// 🧪 Fonction de test pour le chapitre 13
-function testChapter13() {
-  if (confirm('🧪 TEST CHAPITRE 13\n\nTéléporter à 750 nuages (juste avant le chapitre 13) ?\n\nOK = Oui\nAnnuler = Non')) {
-    // Téléporter au chapitre 13
-    gameData.totalCloudsDestroyed = 750;
-    score = 75000; // Score proportionnel
-    gameData.highScore = Math.max(gameData.highScore, score);
-    
-    // Utiliser le système modulaire pour obtenir le niveau
-    level = getCurrentLevel(750); // Devrait retourner 12
-    gameData.highestLevelReached = Math.max(gameData.highestLevelReached, level);
-    
-    console.log('🧪 Niveau calculé depuis les nuages:', level);
-    
-    // Mettre à jour l'affichage
-    document.getElementById('score').textContent = score;
-    document.getElementById('level').textContent = level;
-    document.getElementById('clouds').textContent = gameData.totalCloudsDestroyed;
-    
-    // Sauvegarder
-    saveGameData();
-    
-    showPopup(
-      '🧪 TEST ACTIVÉ\n\n' +
-      '📍 Position: 750 nuages (chapitre 12)\n' +
-      '🎯 Objectif: 751 nuages (chapitre 13 - nuit étoilée)\n' +
-      '🌌 Détruisez 1 nuage pour voir la nuit !\n\n' +
-      'Appuyez sur R pour restaurer',
-      '🧪',
-      'info'
-    );
-  }
-}
-
-// 🧪 Fonction de test pour le chapitre 14
-function testChapter14() {
-  if (confirm('🧪 TEST CHAPITRE 14\n\nTéléporter à 980 nuages (proche de la fin) ?\n\nOK = Oui\nAnnuler = Non')) {
-    // Sauvegarder l'état actuel
-    const savedState = {
-      clouds: gameData.totalCloudsDestroyed,
-      score: score,
-      level: level
-    };
-    console.log('💾 État sauvegardé:', savedState);
-    
-    // Téléporter au chapitre 14 (proche de la fin à 991)
-    gameData.totalCloudsDestroyed = 980;
-    score = 98000; // Score proportionnel
-    gameData.highScore = Math.max(gameData.highScore, score);
-    
-    // Utiliser le système modulaire pour obtenir le niveau basé sur les nuages
-    level = getCurrentLevel(980); // Devrait retourner 14
-    gameData.highestLevelReached = Math.max(gameData.highestLevelReached, level);
-    
-    console.log('🧪 Niveau calculé depuis les nuages:', level);
-    
-    // Mettre à jour l'affichage
-    document.getElementById('score').textContent = score;
-    document.getElementById('level').textContent = level;
-    document.getElementById('clouds').textContent = gameData.totalCloudsDestroyed;
-    
-    // Sauvegarder
-    saveGameData();
-    
-    showPopup(
-      '🧪 TEST ACTIVÉ\n\n' +
-      '📍 Position: 980 nuages (chapitre 14)\n' +
-      '🎯 Objectif: 991 nuages (victoire)\n' +
-      '⚡ Encore 11 nuages à détruire !\n\n' +
-      'Appuyez sur R pour restaurer',
-      '🧪',
-      'info'
-    );
-  }
-}
-
-// 🔄 Restaurer l'état avant le test
-function restoreBeforeTest() {
-  if (confirm('🔄 Restaurer l\'état avant le test ?\n\nCela va recharger la page.')) {
-    location.reload();
-  }
-}
-
-// 🧪 Ajouter +47 nuages (sans points)
-function addTestClouds() {
-  const before = gameData.totalCloudsDestroyed;
-  gameData.totalCloudsDestroyed += 47;
-  
-  // Mettre à jour l'affichage
-  if(document.getElementById('clouds')) {
-    document.getElementById('clouds').textContent = gameData.totalCloudsDestroyed;
-  }
-  
-  console.log(`🧪 +47 nuages ajoutés : ${before} → ${gameData.totalCloudsDestroyed}`);
-  msg(`🧪 +47 nuages : ${before} → ${gameData.totalCloudsDestroyed}`, 3000);
-  
-  // Sauvegarder
-  saveGameData();
-}
 
 // ============================================
 // 💎📖 SYSTÈME DE NIVEAUX ET HISTOIRE
@@ -4599,385 +3383,158 @@ const STORY_CHAPTERS = {
   // Ajouter d'autres langues au besoin
 };
 
-// ============================================================================
-// SYSTÈME DE RANGS DE MAÎTRISE (Affichage dans le score UI uniquement)
-// ============================================================================
-// Ces 8 rangs (CADET à AILE DU CIEL) sont utilisés UNIQUEMENT pour afficher
-// le titre de maîtrise du joueur dans l'interface de score en haut de l'écran.
-// Ils évoluent en fonction des nuages détruits et donnent un sentiment de 
-// progression visuelle, mais ne déclenchent PAS de boucliers.
-// 
-// NE PAS CONFONDRE avec les 14 CHAPITRES du système modulaire (js/levels/)
-// qui gèrent la vraie progression du jeu et affichent les boucliers.
-// ============================================================================
-
+// Configuration des niveaux
 const LEVELS_CONFIG = [
-  // Rang 1: CADET - Premiers Vols (0-75 nuages)
+  // Niveau 1: CADET - Premiers Vols (0-100 nuages)
   {
     id: 1,
     title: "CADET - Premiers Vols",
-    icon: "🎯",
+    icon: "�",
     threshold: 0,
-    cloudsToPass: 75,
-    cloudSpeed: { min: 0.4, max: 1.0 },
+    cloudsToPass: 100,
+    message: "Bienvenue dans l'Académie des Cieux ! Tu commences ton entraînement de pilote. Chaque mission te rapproche de ta destinée.",
+    verse: { text: "De loin, l'Éternel s'est révélé à moi : « Je t'aime d'un amour éternel ; c'est pourquoi je te maintiens ma bonté.", reference: "Jérémie 31:3" },
+    cloudSpeed: { min: 0.5, max: 1.5 },
     cloudSpawnRate: 0.004,
-    shootingClouds: 0.25,
-    rainSpeed: { min: 3, max: 4.5 },
-    powerUpRate: 0.0036,
+    shootingClouds: 0.3,
+    rainSpeed: { min: 4, max: 6 },
+    powerUpRate: 0.0012,
     background: { top: '#87ceeb', bottom: '#b8d8f8' },
     difficulty: 'easy'
   },
-  // Rang 2: APPRENTI PILOTE - En Formation (76-150 nuages)
+  // Niveau 2: AVIATEUR - Baptême du Ciel (101-250 nuages)
   {
     id: 2,
-    title: "APPRENTI PILOTE - En Formation",
-    icon: "🛩️",
-    threshold: 76,
-    cloudsToPass: 75,
-    cloudSpeed: { min: 0.4, max: 1.03 },
-    cloudSpawnRate: 0.005,
-    shootingClouds: 0.35,
-    rainSpeed: { min: 3.2, max: 4.8 },
-    powerUpRate: 0.0039,
-    background: { top: '#7fc8e8', bottom: '#afd8f8' },
-    difficulty: 'easy'
-  },
-  // Rang 3: AVIATEUR - Baptême du Ciel (151-250 nuages)
-  {
-    id: 3,
     title: "AVIATEUR - Baptême du Ciel",
     icon: "✈️",
-    threshold: 151,
-    cloudsToPass: 100,
-    cloudSpeed: { min: 0.4, max: 1.05 },
+    threshold: 101,
+    cloudsToPass: 150,
+    message: "Tes ailes se déploient avec assurance ! Tu maîtrises les bases du vol et découvres la liberté des cieux.",
+    verse: { text: "L'Éternel donne de la force à celui qui est fatigué, et il augmente la vigueur de celui qui tombe en défaillance.", reference: "Ésaïe 40:29" },
+    cloudSpeed: { min: 0.8, max: 2.0 },
     cloudSpawnRate: 0.006,
     shootingClouds: 0.45,
-    rainSpeed: { min: 3.5, max: 5 },
-    powerUpRate: 0.0042,
-    background: { top: '#75b8d8', bottom: '#a8c8e8' },
+    rainSpeed: { min: 5, max: 7 },
+    powerUpRate: 0.0014,
+    background: { top: '#7db8d8', bottom: '#a8c8e8' },
     difficulty: 'easy'
   },
-  // Rang 4: PILOTE CONFIRMÉ - Navigateur Aguerri (251-375 nuages)
+  // Niveau 3: AS DES CIEUX - Virtuose Ailé (251-450 nuages)
+  {
+    id: 3,
+    title: "AS DES CIEUX - Virtuose Ailé",
+    icon: "�️",
+    threshold: 251,
+    cloudsToPass: 200,
+    message: "Tu danses entre les nuages comme un maître ! Tes réflexes s'aiguisent, ta précision devient légendaire.",
+    verse: { text: "Ceux qui espèrent en l'Éternel prennent des ailes comme les aigles", reference: "Ésaïe 40:31" },
+    cloudSpeed: { min: 1.0, max: 2.5 },
+    cloudSpawnRate: 0.008,
+    shootingClouds: 0.6,
+    rainSpeed: { min: 6, max: 8 },
+    powerUpRate: 0.0016,
+    background: { top: '#6a9fc8', bottom: '#98b8d8' },
+    difficulty: 'medium'
+  },
+  // Niveau 4: COMMANDANT - Tacticien Céleste (451-700 nuages)
   {
     id: 4,
-    title: "PILOTE CONFIRMÉ - Navigateur Aguerri",
-    icon: "🧭",
-    threshold: 251,
-    cloudsToPass: 125,
-    cloudSpeed: { min: 0.4, max: 1.08 },
-    cloudSpawnRate: 0.007,
-    shootingClouds: 0.55,
-    rainSpeed: { min: 3.8, max: 5.3 },
-    powerUpRate: 0.0045,
-    background: { top: '#6da8c8', bottom: '#9fb8d8' },
-    difficulty: 'medium'
-  },
-  // Rang 5: AS DES CIEUX - Virtuose Ailé (376-525 nuages)
-  {
-    id: 5,
-    title: "AS DES CIEUX - Virtuose Ailé",
-    icon: "🦅",
-    threshold: 376,
-    cloudsToPass: 150,
-    cloudSpeed: { min: 0.4, max: 1.10 },
-    cloudSpawnRate: 0.008,
-    shootingClouds: 0.62,
-    rainSpeed: { min: 4, max: 5.5 },
-    powerUpRate: 0.0048,
-    background: { top: '#6298b8', bottom: '#95a8c8' },
-    difficulty: 'medium'
-  },
-  // Rang 6: ESCADRON D'ÉLITE - Force Aérienne (526-700 nuages)
-  {
-    id: 6,
-    title: "ESCADRON D'ÉLITE - Force Aérienne",
-    icon: "⚡",
-    threshold: 526,
-    cloudsToPass: 175,
-    cloudSpeed: { min: 0.4, max: 1.13 },
-    cloudSpawnRate: 0.009,
-    shootingClouds: 0.68,
-    rainSpeed: { min: 4.2, max: 5.8 },
-    powerUpRate: 0.0048,
-    background: { top: '#5a8fb8', bottom: '#8898b8' },
-    difficulty: 'medium'
-  },
-  // Rang 7: COMMANDANT - Tacticien Céleste (701-900 nuages)
-  {
-    id: 7,
     title: "COMMANDANT - Tacticien Céleste",
     icon: "⭐",
-    threshold: 701,
-    cloudsToPass: 200,
-    cloudSpeed: { min: 0.4, max: 1.14 },
+    threshold: 451,
+    cloudsToPass: 250,
+    message: "On te confie des missions stratégiques ! Tu commandes le ciel avec sagesse et courage, guidé par la lumière divine.",
+    verse: { text: "Là où est l'Esprit, là est la liberté", reference: "2 Corinthiens 3:17" },
+    cloudSpeed: { min: 1.3, max: 2.8 },
     cloudSpawnRate: 0.010,
-    shootingClouds: 0.73,
-    rainSpeed: { min: 4.5, max: 6 },
-    powerUpRate: 0.0051,
-    background: { top: '#5287a8', bottom: '#8090b0' },
-    difficulty: 'hard'
+    shootingClouds: 0.7,
+    rainSpeed: { min: 7, max: 9 },
+    powerUpRate: 0.0017,
+    background: { top: '#5a8fb8', bottom: '#88a8c8' },
+    difficulty: 'medium'
   },
-  // Rang 8: STRATÈGE DES NUÉES - Maître Tactique (901-1125 nuages)
+  // Niveau 5: VÉTÉRAN - Forgé par les Tempêtes (701-1000 nuages)
   {
-    id: 8,
-    title: "STRATÈGE DES NUÉES - Maître Tactique",
-    icon: "🎲",
-    threshold: 901,
-    cloudsToPass: 225,
-    cloudSpeed: { min: 0.4, max: 1.16 },
-    cloudSpawnRate: 0.011,
-    shootingClouds: 0.77,
-    rainSpeed: { min: 4.8, max: 6.3 },
-    powerUpRate: 0.0051,
-    background: { top: '#4a7f98', bottom: '#7888a8' },
-    difficulty: 'hard'
-  },
-  // Rang 9: VÉTÉRAN - Forgé par les Tempêtes (1126-1375 nuages)
-  {
-    id: 9,
+    id: 5,
     title: "VÉTÉRAN - Forgé par les Tempêtes",
     icon: "🎖️",
-    threshold: 1126,
-    cloudsToPass: 250,
-    cloudSpeed: { min: 0.4, max: 1.19 },
+    threshold: 701,
+    cloudsToPass: 300,
+    message: "Tu as traversé mille orages ! Chaque cicatrice raconte une victoire. Tu es une légende vivante des cieux.",
+    verse: { text: "Je t'ai appelé par ton nom, tu es à moi", reference: "Ésaïe 43:1" },
+    cloudSpeed: { min: 1.5, max: 3.2 },
     cloudSpawnRate: 0.012,
-    shootingClouds: 0.80,
-    rainSpeed: { min: 5, max: 6.5 },
-    powerUpRate: 0.0054,
-    background: { top: '#437788', bottom: '#7080a0' },
+    shootingClouds: 0.78,
+    rainSpeed: { min: 8, max: 10 },
+    powerUpRate: 0.0018,
+    background: { top: '#4a7fa8', bottom: '#7898b8' },
     difficulty: 'hard'
   },
-  // Rang 10: HÉROS CÉLESTE - Champion Reconnu (1376-1650 nuages)
+  // Niveau 6: LÉGENDE - Mythe Incarné (1001-1400 nuages)
   {
-    id: 10,
-    title: "HÉROS CÉLESTE - Champion Reconnu",
-    icon: "🌟",
-    threshold: 1376,
-    cloudsToPass: 275,
-    cloudSpeed: { min: 0.4, max: 1.21 },
-    cloudSpawnRate: 0.013,
-    shootingClouds: 0.83,
-    rainSpeed: { min: 5.2, max: 6.8 },
-    powerUpRate: 0.0054,
-    background: { top: '#3c6f78', bottom: '#687898' },
-    difficulty: 'expert'
-  },
-  // Rang 11: LÉGENDE - Mythe Incarné (1651-1975 nuages)
-  {
-    id: 11,
+    id: 6,
     title: "LÉGENDE - Mythe Incarné",
     icon: "🏆",
-    threshold: 1651,
-    cloudsToPass: 325,
-    cloudSpeed: { min: 0.4, max: 1.24 },
+    threshold: 1001,
+    cloudsToPass: 400,
+    message: "Ton nom résonne dans tous les cieux ! Les cadets rêvent de devenir comme toi. Tu incarnes l'excellence et la grâce.",
+    verse: { text: "Je peux tout par celui qui me fortifie", reference: "Philippiens 4:13" },
+    cloudSpeed: { min: 1.7, max: 3.6 },
     cloudSpawnRate: 0.014,
-    shootingClouds: 0.86,
-    rainSpeed: { min: 5.5, max: 7 },
-    powerUpRate: 0.0057,
-    background: { top: '#356778', bottom: '#607090' },
-    difficulty: 'expert'
+    shootingClouds: 0.85,
+    rainSpeed: { min: 9, max: 11 },
+    powerUpRate: 0.0019,
+    background: { top: '#3a6f98', bottom: '#6888a8' },
+    difficulty: 'hard'
   },
-  // Rang 12: CHAMPION ÉTERNEL - Gloire Immortelle (1976-2350 nuages)
+  // Niveau 7: MAÎTRE PILOTE - Symphonie Aérienne (1401-1900 nuages)
   {
-    id: 12,
-    title: "CHAMPION ÉTERNEL - Gloire Immortelle",
-    icon: "💫",
-    threshold: 1976,
-    cloudsToPass: 375,
-    cloudSpeed: { min: 0.4, max: 1.26 },
-    cloudSpawnRate: 0.015,
-    shootingClouds: 0.88,
-    rainSpeed: { min: 5.8, max: 7.3 },
-    powerUpRate: 0.0057,
-    background: { top: '#2e5f68', bottom: '#586888' },
-    difficulty: 'expert'
-  },
-  // Rang 13: MAÎTRE PILOTE - Symphonie Aérienne (2351-2800 nuages)
-  {
-    id: 13,
+    id: 7,
     title: "MAÎTRE PILOTE - Symphonie Aérienne",
     icon: "👑",
-    threshold: 2351,
-    cloudsToPass: 450,
-    cloudSpeed: { min: 0.4, max: 1.28 },
+    threshold: 1401,
+    cloudsToPass: 500,
+    message: "Tu ne voles plus, tu composes une symphonie céleste ! Chaque mouvement est perfection, chaque mission un chef-d'œuvre.",
+    verse: { text: "Après la pluie vient le beau temps", reference: "Job 37:11" },
+    cloudSpeed: { min: 1.9, max: 4.0 },
     cloudSpawnRate: 0.016,
-    shootingClouds: 0.91,
-    rainSpeed: { min: 6, max: 7.5 },
-    powerUpRate: 0.0060,
-    background: { top: '#275758', bottom: '#506080' },
-    difficulty: 'legendary'
+    shootingClouds: 0.90,
+    rainSpeed: { min: 10, max: 12 },
+    powerUpRate: 0.0020,
+    background: { top: '#2a5f88', bottom: '#587898' },
+    difficulty: 'expert'
   },
-  // Rang 14: AILE DU CIEL - Gardien Éternel (2801+ nuages)
+  // Niveau 8: AILE DU CIEL - Gardien Éternel (1901+ nuages)
   {
-    id: 14,
+    id: 8,
     title: "AILE DU CIEL - Gardien Éternel",
-    icon: "🕊️",
-    threshold: 2801,
+    icon: "�️",
+    threshold: 1901,
     cloudsToPass: 999,
-    cloudSpeed: { min: 0.4, max: 1.30 },
+    message: "Tu as transcendé la mortalité ! Gardien céleste, protecteur des cieux, ton vol est désormais éternel. L'infini t'appartient !",
+    verse: { text: "L'amour ne périt jamais", reference: "1 Corinthiens 13:8" },
+    cloudSpeed: { min: 2.0, max: 4.5 },
     cloudSpawnRate: 0.018,
     shootingClouds: 0.95,
-    rainSpeed: { min: 6.5, max: 8 },
-    powerUpRate: 0.0063,
-    background: { top: '#1a4f58', bottom: '#485878' },
+    rainSpeed: { min: 11, max: 13 },
+    powerUpRate: 0.0021,
+    background: { top: '#1a4f78', bottom: '#486888' },
     difficulty: 'legendary'
   }
 ];
 
-// Variables globales du système de rangs de maîtrise
+// Variables globales du système de niveaux
 let currentLevelIndex = 0;
 let currentLevelConfig = LEVELS_CONFIG[0];
 let totalScore = 0;
 let cloudsInLevel = 0;
-// isInfiniteMode est fourni par progression-system.js
+let infiniteModeActive = false; // Mode infini activé après le niveau 14
 let infiniteCloudsCleared = 0; // Compteur de nuages en mode infini
-let bossSpawnedThisLevel = false; // Flag pour éviter le spawn multiple du boss dans un niveau
-let bossDefeatRewardsGiven = false; // Flag pour éviter de donner plusieurs fois les récompenses du boss
-let levelBeforeBoss = 1; // Niveau avant le spawn du boss pour éviter de sauter des niveaux
 
 function updateLevelBackground() {
   const bg = currentLevelConfig.background;
   document.getElementById('gameContainer').style.background = 
     `linear-gradient(180deg, ${bg.top} 0%, ${bg.bottom} 100%)`;
-}
-
-/**
- * Applique un fond de nuit étoilée avec lune pleine pour les niveaux 13 et 14
- */
-function applyNightSkyBackground(levelId) {
-  const gameContainer = document.getElementById('gameContainer');
-  const sun = document.getElementById('sun');
-  
-  if(levelId === 13) {
-    // Niveau 13: Nuit étoilée avec début de lune
-    gameContainer.style.background = 'linear-gradient(180deg, #0a0e27 0%, #1a1f3a 100%)';
-    
-    // Masquer le soleil
-    if(sun) sun.style.display = 'none';
-    
-    // Créer des étoiles si pas déjà créées
-    if(!document.getElementById('starfield')) {
-      createStarfield();
-    }
-  } else if(levelId === 14) {
-    // Niveau 14: Nuit profonde avec lune pleine
-    gameContainer.style.background = 'linear-gradient(180deg, #050818 0%, #0f1429 100%)';
-    
-    // Masquer le soleil
-    if(sun) sun.style.display = 'none';
-    
-    // Créer des étoiles si pas déjà créées
-    if(!document.getElementById('starfield')) {
-      createStarfield();
-    }
-    
-    // Ajouter la lune pleine si pas déjà créée
-    if(!document.getElementById('fullMoon')) {
-      createFullMoon();
-    }
-  }
-}
-
-/**
- * Crée un champ d'étoiles en arrière-plan
- */
-function createStarfield() {
-  const starfield = document.createElement('div');
-  starfield.id = 'starfield';
-  starfield.style.cssText = `
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1;
-  `;
-  
-  // Créer 100 étoiles aléatoires
-  for(let i = 0; i < 100; i++) {
-    const star = document.createElement('div');
-    star.style.cssText = `
-      position: absolute;
-      width: ${Math.random() * 3 + 1}px;
-      height: ${Math.random() * 3 + 1}px;
-      background: white;
-      border-radius: 50%;
-      top: ${Math.random() * 100}%;
-      left: ${Math.random() * 100}%;
-      opacity: ${Math.random() * 0.8 + 0.2};
-      animation: twinkle ${Math.random() * 3 + 2}s infinite alternate;
-    `;
-    starfield.appendChild(star);
-  }
-  
-  // Ajouter l'animation de scintillement
-  if(!document.getElementById('starAnimation')) {
-    const style = document.createElement('style');
-    style.id = 'starAnimation';
-    style.textContent = `
-      @keyframes twinkle {
-        0% { opacity: 0.2; }
-        100% { opacity: 1; }
-      }
-    `;
-    document.head.appendChild(style);
-  }
-  
-  document.getElementById('gameContainer').appendChild(starfield);
-}
-
-/**
- * Crée une lune pleine dans le ciel
- */
-function createFullMoon() {
-  const moon = document.createElement('div');
-  moon.id = 'fullMoon';
-  moon.style.cssText = `
-    position: absolute;
-    top: 80px;
-    right: 100px;
-    width: 80px;
-    height: 80px;
-    background: radial-gradient(circle at 30% 30%, #fff9e6 0%, #f0e68c 40%, #daa520 100%);
-    border-radius: 50%;
-    box-shadow: 
-      0 0 40px rgba(255,249,230,0.8),
-      0 0 80px rgba(240,230,140,0.6),
-      inset -10px -10px 20px rgba(0,0,0,0.1);
-    pointer-events: none;
-    z-index: 2;
-  `;
-  
-  document.getElementById('gameContainer').appendChild(moon);
-}
-
-/**
- * Restaure le fond de jour normal et supprime les éléments de nuit
- */
-function restoreDayBackground() {
-  const gameContainer = document.getElementById('gameContainer');
-  const sun = document.getElementById('sun');
-  
-  // Restaurer le fond bleu ciel normal
-  gameContainer.style.background = 'linear-gradient(180deg, #87ceeb 0%, #b8d8f8 100%)';
-  
-  // Réafficher le soleil
-  if(sun) sun.style.display = 'block';
-  
-  // Supprimer les étoiles
-  const starfield = document.getElementById('starfield');
-  if(starfield) {
-    starfield.remove();
-  }
-  
-  // Supprimer la lune
-  const moon = document.getElementById('fullMoon');
-  if(moon) {
-    moon.remove();
-  }
-  
-  console.log('☀️ Fond de jour restauré pour le mode infini');
 }
 
 function startLevel(levelIndex) {
@@ -4986,14 +3543,13 @@ function startLevel(levelIndex) {
   // Mode infini : on reste sur le dernier niveau (14)
   if (levelIndex >= LEVELS_CONFIG.length) {
     currentLevelConfig = LEVELS_CONFIG[LEVELS_CONFIG.length - 1];
-    // Mode infini détecté automatiquement par isInfiniteMode(gameData.totalCloudsDestroyed)
+    infiniteModeActive = true;
   } else {
     currentLevelConfig = LEVELS_CONFIG[levelIndex];
   }
   
   cloudsInLevel = 0;
-  bossSpawnedThisLevel = false; // Permettre le spawn du boss pour ce niveau
-
+  
   // Mettre à jour l'arrière-plan
   updateLevelBackground();
   
@@ -5006,10 +3562,9 @@ function startLevel(levelIndex) {
   hearts = [];
   fallingPowerUps = [];
   cloudKillCount = 0;
-  bossShootCount = 0;
   collectedStar = false;
   shockwaves = [];
-  // umbrella, electric, multi restent actifs pour le niveau suivant
+  // umbrella, speed, multi restent actifs pour le niveau suivant
   
   // Activer la pluie décorative pour le niveau 7
   if (currentLevelConfig.id === 7) {
@@ -5024,17 +3579,10 @@ function startLevel(levelIndex) {
   // Mettre à jour le niveau affiché dans l'UI
   level = currentLevelConfig.id;
   
-  // Afficher l'écran d'introduction pour le niveau 1 OU si c'est une nouvelle partie
-  const isFirstGame = gameData.totalCloudsDestroyed === 0;
-  console.log('🎯 startLevel - Index:', levelIndex, 'Première partie:', isFirstGame, 'Nuages total:', gameData.totalCloudsDestroyed);
-  
+  // Afficher l'écran d'introduction pour le niveau 1 (index 0)
   if (levelIndex === 0) {
     state = 'levelComplete';
     setTimeout(() => {
-      // Récupérer message et verset depuis le système de traduction
-      const levelMessage = getLevelMessage(currentLevelConfig.id);
-      const levelVerse = getLevelVerse(currentLevelConfig.id);
-
       const levelUpDiv = document.createElement('div');
       levelUpDiv.id = 'levelUpScreen';
       levelUpDiv.style.cssText = `
@@ -5043,7 +3591,8 @@ function startLevel(levelIndex) {
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0);
+        background: linear-gradient(135deg, rgba(240,242,245,0.98) 0%, rgba(255,255,255,0.95) 100%);
+        backdrop-filter: blur(20px);
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -5054,143 +3603,63 @@ function startLevel(levelIndex) {
         animation: fadeIn 0.5s ease-in;
       `;
       levelUpDiv.innerHTML = `
-        <div onclick="this.parentElement.remove(); state = 'playing'; autoHideMenuOnStart(); setSun('happy');" style="
-          width: 320px;
-          min-height: 420px;
-          background: linear-gradient(145deg, #ffffff 0%, #fafafa 100%);
-          border: 1px solid rgba(0,0,0,0.08);
-          border-radius: 32px;
-          box-shadow: 
-            0 20px 60px rgba(0,0,0,0.08),
-            0 8px 20px rgba(0,0,0,0.04),
-            inset 0 1px 0 rgba(255,255,255,0.9);
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          padding: 42px 32px;
-          box-sizing: border-box;
-          gap: 22px;
-          cursor: pointer;
-          transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-          position: relative;
-        " onmouseover="
-          this.style.transform='translateY(-4px)';
-          this.style.boxShadow='0 25px 70px rgba(0,0,0,0.1), 0 10px 25px rgba(0,0,0,0.05), inset 0 1px 0 rgba(255,255,255,0.9)';
-        " onmouseout="
-          this.style.transform='translateY(0)';
-          this.style.boxShadow='0 20px 60px rgba(0,0,0,0.08), 0 8px 20px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.9)';
-        ">
-          <!-- Icône Colombe -->
-          <div style="
-            font-size: 64px;
-            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.08));
-          ">🕊️</div>
-          
-          <!-- Titre Bienvenue -->
-          <h2 style="
-            color: #1a1a1a;
-            font-size: 26px;
-            margin: 0;
-            font-weight: 300;
-            letter-spacing: -0.5px;
-            text-align: center;
-            line-height: 1.3;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            text-wrap: balance;
-            max-width: 100%;
-          ">
-            ${t('messages.welcome')}
-          </h2>
-          
-          <!-- Badge Niveau -->
-          <div style="
-            background: linear-gradient(135deg, #f8f8f8 0%, #f0f0f0 100%);
-            color: #333;
-            padding: 10px 28px;
-            border-radius: 24px;
-            font-weight: 600;
-            font-size: 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-            letter-spacing: 0.5px;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            border: 1px solid rgba(0,0,0,0.06);
-          ">
-            ${currentLevelConfig.icon} ${t('ui.level').toUpperCase()} ${currentLevelConfig.id}
+        <div style="max-width: 550px; text-align: center; background: rgba(255,255,255,0.8); padding: 40px 30px; border-radius: 30px; box-shadow: 0 20px 60px rgba(0,0,0,0.1), 0 0 0 1px rgba(255,255,255,0.5) inset; border: 2px solid rgba(255,255,255,0.8);">
+          <div style="margin-bottom: 25px;">
+            <div style="font-size: 50px; margin-bottom: 15px;">🕊️</div>
+            <h2 style="color: #667eea; font-size: 26px; margin: 0 0 15px 0; font-weight: 800; letter-spacing: 1px;">
+              ${t('messages.welcome')}
+            </h2>
           </div>
-          
-          <!-- Section Message -->
-          <div style="display: flex; flex-direction: column; gap: 14px; width: 100%;">
-            <h4 style="
-              color: #2a2a2a;
-              font-size: 18px;
-              margin: 0;
-              font-weight: 500;
-              text-align: center;
-              line-height: 1.4;
-              letter-spacing: -0.2px;
-              font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-              text-wrap: balance;
-              max-width: 100%;
-            ">
+          <div style="display: inline-block; padding: 10px 25px; background: linear-gradient(135deg, #e0e0e0 0%, #bdbdbd 100%); border-radius: 25px; margin-bottom: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.15);">
+            <h3 style="color: #424242; font-size: 20px; margin: 0; font-weight: 800; letter-spacing: 1.5px; text-shadow: 0 1px 2px rgba(255,255,255,0.5);">
+              ${currentLevelConfig.icon} NIVEAU ${currentLevelConfig.id}
+            </h3>
+          </div>
+          <div style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); padding: 20px; border-radius: 20px; margin-bottom: 20px;">
+            <h4 style="color: #2c3e50; font-size: 18px; margin: 0 0 15px 0; font-weight: 700;">
               ${t('level_titles.' + currentLevelConfig.id)}
             </h4>
-            <p style="
-              color: #666;
-              font-size: 14px;
-              line-height: 1.7;
-              margin: 0;
-              text-align: center;
-              font-weight: 400;
-              letter-spacing: 0;
-              word-wrap: break-word;
-              white-space: normal;
-              font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-              text-wrap: balance;
-              max-width: 100%;
-            ">
-              ${levelMessage}
+            <p style="color: #4a5568; font-size: 14px; line-height: 1.7; margin: 0;">
+              ${currentLevelConfig.message}
             </p>
           </div>
-          
-          <!-- Verset -->
-          <div style="
-            background: #fafafa;
-            padding: 20px;
-            border-radius: 20px;
-            border: 1px solid rgba(0,0,0,0.06);
-            width: 100%;
-            box-sizing: border-box;
-          ">
-            <p style="
-              color: #444;
-              font-size: 13px;
-              font-style: italic;
-              margin: 0 0 12px 0;
-              line-height: 1.7;
-              text-align: center;
-              font-weight: 400;
-              font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-              text-wrap: pretty;
-              max-width: 100%;
-            ">
-              ${levelVerse.text}
+          <div style="background: rgba(102,126,234,0.08); padding: 20px; border-radius: 20px; margin-bottom: 25px; border-left: 4px solid #667eea;">
+            <p style="color: #2c3e50; font-size: 13px; font-style: italic; margin: 0; line-height: 1.7;">
+              « ${currentLevelConfig.verse.text} »
             </p>
-            <p style="
-              color: #888;
-              font-size: 11px;
-              margin: 0;
-              font-weight: 500;
-              text-align: center;
-              letter-spacing: 0.3px;
-              font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            ">
-              — ${levelVerse.reference}
+            <p style="color: #667eea; font-size: 12px; margin: 10px 0 0 0; font-weight: 600;">
+              — ${currentLevelConfig.verse.reference}
             </p>
           </div>
+          <button id="continueBtn" style="
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            padding: 16px 50px;
+            border-radius: 50px;
+            color: #ffffff;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(102,126,234,0.4);
+            transition: all 0.3s;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+          " onmouseover="this.style.transform='translateY(-3px) scale(1.02)'; this.style.boxShadow='0 12px 30px rgba(102,126,234,0.5)';"
+             onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 8px 25px rgba(102,126,234,0.4)';">
+            ▶ Commencer
+          </button>
         </div>
       `;
       document.getElementById('gameContainer').appendChild(levelUpDiv);
+      
+      // Continuer au clic
+      document.getElementById('continueBtn').addEventListener('click', () => {
+        levelUpDiv.remove();
+        state = 'playing';
+        autoHideMenuOnStart();
+        setSun('happy');
+      });
     }, 500);
   } else {
     state = 'playing';
@@ -5265,7 +3734,7 @@ function completeLevel() {
             text-transform: uppercase;
           " onmouseover="this.style.transform='translateY(-3px) scale(1.02)'; this.style.boxShadow='0 12px 30px rgba(102,126,234,0.5)';"
              onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 8px 25px rgba(102,126,234,0.4)';">
-            🎮 ${t('buttons.infinite_mode') || 'Mode Infini'}
+            🎮 Mode Infini
           </button>
         </div>
       `;
@@ -5274,21 +3743,17 @@ function completeLevel() {
       // Continuer en mode infini au clic
       document.getElementById('victoryBtn').addEventListener('click', () => {
         victoryDiv.remove();
-        // Mode infini sera détecté automatiquement par isInfiniteMode(cloudCount)
+        infiniteModeActive = true;
         infiniteCloudsCleared = 0;
         currentLevelIndex = LEVELS_CONFIG.length; // Chapitre 15+
         state = 'playing';
-        msg(t('powerups.infinite_mode'));
+        msg('🔄 Mode Infini activé ! Versets tous les 50 nuages ☁️');
       });
     }, 2000);
   } else {
     // Passage au niveau suivant
     const nextConfig = LEVELS_CONFIG[nextLevelIndex];
-
-    // Récupérer message et verset depuis le système de traduction
-    const nextMessage = getLevelMessage(nextConfig.id);
-    const nextVerse = getLevelVerse(nextConfig.id);
-
+    
     // Afficher le message et le verset du nouveau niveau
     setTimeout(() => {
       const levelUpDiv = document.createElement('div');
@@ -5299,7 +3764,8 @@ function completeLevel() {
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0);
+        background: linear-gradient(135deg, rgba(240,242,245,0.98) 0%, rgba(255,255,255,0.95) 100%);
+        backdrop-filter: blur(20px);
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -5310,229 +3776,60 @@ function completeLevel() {
         animation: fadeIn 0.5s ease-in;
       `;
       levelUpDiv.innerHTML = `
-        <div onclick="this.parentElement.remove(); playSound('levelup'); startLevel(${nextLevelIndex});" style="
-          width: 300px;
-          min-height: 400px;
-          background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-          border: 3px solid #9e9e9e;
-          border-bottom: 5px solid #9e9e9e;
-          border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-          box-shadow: 0 15px 40px rgba(158,158,158,0.3), inset 0 2px 10px rgba(255,255,255,0.8);
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: space-between;
-          padding: 38px 24px 32px 24px;
-          box-sizing: border-box;
-          cursor: pointer;
-          transition: all 0.3s ease;
-        " onmouseover="
-          this.style.transform='scale(1.02)';
-          this.style.boxShadow='0 20px 50px rgba(158,158,158,0.4), inset 0 2px 10px rgba(255,255,255,0.8)';
-        " onmouseout="
-          this.style.transform='scale(1)';
-          this.style.boxShadow='0 15px 40px rgba(158,158,158,0.3), inset 0 2px 10px rgba(255,255,255,0.8)';
-        ">
-          <div style="
-            background: linear-gradient(135deg, #e0e0e0 0%, #bdbdbd 100%);
-            color: #424242;
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 15px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            text-shadow: 0 1px 2px rgba(255,255,255,0.5);
-            letter-spacing: 1px;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-          ">
-            ${nextConfig.icon} ${t('ui.level').toUpperCase()} ${nextConfig.id}
+        <div style="max-width: 500px; text-align: center; background: rgba(255,255,255,0.8); padding: 40px 30px; border-radius: 30px; box-shadow: 0 20px 60px rgba(0,0,0,0.1), 0 0 0 1px rgba(255,255,255,0.5) inset; border: 2px solid rgba(255,255,255,0.8);">
+          <div style="display: inline-block; padding: 10px 25px; background: linear-gradient(135deg, #e0e0e0 0%, #bdbdbd 100%); border-radius: 25px; margin-bottom: 25px; box-shadow: 0 8px 20px rgba(0,0,0,0.15);">
+            <h2 style="color: #424242; font-size: 22px; margin: 0; font-weight: 800; letter-spacing: 1.5px; text-shadow: 0 1px 2px rgba(255,255,255,0.5);">
+              ${nextConfig.icon} NIVEAU ${nextConfig.id}
+            </h2>
           </div>
-          <div style="display: flex; flex-direction: column; gap: 12px; width: 100%;">
-            <h3 style="color: #2c3e50; font-size: 17px; margin: 0; font-weight: 500; text-align: center; line-height: 1.4; letter-spacing: 0.3px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
+          <div style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); padding: 20px; border-radius: 20px; margin-bottom: 20px;">
+            <h3 style="color: #2c3e50; font-size: 18px; margin: 0 0 15px 0; font-weight: 700;">
               ${t('level_titles.' + nextConfig.id)}
             </h3>
-            <p style="color: #5a6c7d; font-size: 14px; line-height: 1.6; margin: 0; text-align: center; font-weight: 400; letter-spacing: 0.2px; word-wrap: break-word; white-space: normal; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
-              ${nextMessage}
+            <p style="color: #4a5568; font-size: 14px; line-height: 1.7; margin: 0;">
+              ${nextConfig.message}
             </p>
           </div>
-          <div style="background: rgba(102,126,234,0.08); padding: 16px; border-radius: 14px; border-left: 3px solid #667eea; width: 100%; box-sizing: border-box;">
-            <p style="color: #2c3e50; font-size: 13px; font-style: italic; margin: 0 0 8px 0; line-height: 1.6; text-align: left; font-weight: 400; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
-              « ${nextVerse.text} »
+          <div style="background: rgba(102,126,234,0.08); padding: 20px; border-radius: 20px; margin-bottom: 25px; border-left: 4px solid #667eea;">
+            <p style="color: #2c3e50; font-size: 13px; font-style: italic; margin: 0; line-height: 1.7;">
+              « ${nextConfig.verse.text} »
             </p>
-            <p style="color: #667eea; font-size: 11px; margin: 0; font-weight: 600; text-align: left; letter-spacing: 0.3px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
-              — ${nextVerse.reference}
+            <p style="color: #667eea; font-size: 12px; margin: 10px 0 0 0; font-weight: 600;">
+              — ${nextConfig.verse.reference}
             </p>
           </div>
+          <button id="continueBtn" style="
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            padding: 16px 50px;
+            border-radius: 50px;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(102,126,234,0.4);
+            transition: all 0.3s;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+          " onmouseover="this.style.transform='translateY(-3px) scale(1.02)'; this.style.boxShadow='0 12px 30px rgba(102,126,234,0.5)';"
+             onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 8px 25px rgba(102,126,234,0.4)';">
+            ✨ Suivant
+          </button>
         </div>
       `;
       document.getElementById('gameContainer').appendChild(levelUpDiv);
+      
+      // Attendre le clic du joueur
+      document.getElementById('continueBtn').addEventListener('click', () => {
+        levelUpDiv.remove();
+        playSound('levelup');
+        startLevel(nextLevelIndex);
+      });
     }, 1000);
   }
 }
 
-// ============================================
-// 🎯 BOUCLIER DE PROGRESSION (CHAPITRES 1-14)
-// Bord GRIS - 300px - Affiché aux seuils de niveau
-// ============================================
-function showLevelUpMessage(levelInfo, previousState = 'playing') {
-  console.log('🎯 BOUCLIER PROGRESSION - Niveau:', levelInfo.id, '- Titre:', levelInfo.title);
-  
-  // Utiliser le verset traduit depuis verses.rank au lieu du verset hardcodé
-  const rankVerse = t('verses.rank.' + levelInfo.id);
-  const verse = rankVerse && rankVerse.text ? rankVerse : levelInfo.verse;
-  
-  const levelUpDiv = document.createElement('div');
-  levelUpDiv.id = 'levelUpScreen';
-  levelUpDiv.style.cssText = `
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 400;
-    padding: 20px;
-    box-sizing: border-box;
-    animation: fadeIn 0.5s ease-in;
-  `;
-  levelUpDiv.innerHTML = `
-    <div onclick="this.parentElement.remove(); state = '${previousState}'; if(state === 'playing') { lastTime = Date.now(); requestAnimationFrame(loop); }" style="
-      width: 320px;
-      min-height: 420px;
-      background: linear-gradient(145deg, #ffffff 0%, #fafafa 100%);
-      border: 2px solid #c0c0c0;
-      border-radius: 32px;
-      box-shadow: 
-        0 20px 60px rgba(192,192,192,0.25),
-        0 8px 20px rgba(0,0,0,0.06),
-        inset 0 1px 0 rgba(255,255,255,0.9);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 42px 32px;
-      box-sizing: border-box;
-      gap: 22px;
-      cursor: pointer;
-      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-    " onmouseover="
-      this.style.transform='translateY(-4px)';
-      this.style.boxShadow='0 25px 70px rgba(192,192,192,0.35), 0 10px 25px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.9)';
-    " onmouseout="
-      this.style.transform='translateY(0)';
-      this.style.boxShadow='0 20px 60px rgba(192,192,192,0.25), 0 8px 20px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.9)';
-    ">
-      <!-- Badge Niveau -->
-      <div style="
-        background: linear-gradient(135deg, #e8e8e8 0%, #d0d0d0 100%);
-        color: #333;
-        padding: 10px 28px;
-        border-radius: 24px;
-        font-weight: 600;
-        font-size: 15px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        letter-spacing: 0.5px;
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-        border: 1px solid #c0c0c0;
-      ">
-        ${levelInfo.icon} ${t('ui.level').toUpperCase()} ${levelInfo.id}
-      </div>
-      
-      <!-- Titre -->
-      <h3 style="
-        color: #2a2a2a;
-        font-size: 18px;
-        margin: 0;
-        font-weight: 500;
-        text-align: center;
-        line-height: 1.4;
-        letter-spacing: -0.2px;
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-        text-wrap: balance;
-        max-width: 100%;
-      ">
-        ${levelInfo.title}
-      </h3>
-      
-      <!-- Message -->
-      <p style="
-        color: #666;
-        font-size: 14px;
-        line-height: 1.7;
-        margin: 0;
-        text-align: center;
-        font-weight: 400;
-        letter-spacing: 0;
-        word-wrap: break-word;
-        white-space: normal;
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-        text-wrap: balance;
-        max-width: 100%;
-      ">
-        ${levelInfo.message}
-      </p>
-      
-      <!-- Verset -->
-      <div style="
-        background: #fafafa;
-        padding: 20px;
-        border-radius: 20px;
-        border: 1px solid rgba(192,192,192,0.3);
-        width: 100%;
-        box-sizing: border-box;
-      ">
-        <p style="
-          color: #444;
-          font-size: 13px;
-          font-style: italic;
-          margin: 0 0 12px 0;
-          line-height: 1.7;
-          text-align: center;
-          font-weight: 400;
-          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-          word-wrap: break-word;
-          overflow-wrap: break-word;
-          text-wrap: pretty;
-          max-width: 100%;
-        ">
-          ${verse.text}
-        </p>
-        <p style="
-          color: #888;
-          font-size: 11px;
-          margin: 0;
-          font-weight: 500;
-          text-align: center;
-          letter-spacing: 0.3px;
-          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-        ">
-          — ${verse.reference}
-        </p>
-      </div>
-    </div>
-  `;
-  document.getElementById('gameContainer').appendChild(levelUpDiv);
-  
-  // Jouer un son de récompense si disponible
-  if (typeof playSound === 'function') {
-    playSound('levelup');
-  }
-  
-  console.log('📋 Bouclier de progression affiché pour le niveau:', levelInfo.id);
-}
-
-// ============================================
-// ♾️ BOUCLIER INFINI (CHAPITRES 15+)
-// Bord DORÉ - 280px - Affiché tous les 100 nuages
-// ============================================
 function showInfiniteVerse(previousState = 'playing') {
-  console.log('♾️ BOUCLIER INFINI - Chapitre:', 15 + Math.floor(infiniteCloudsCleared / 100));
-  
   // Vérifier que getRandomVerse existe
   if (typeof getRandomVerse !== 'function') {
     console.error('❌ getRandomVerse non disponible');
@@ -5549,79 +3846,55 @@ function showInfiniteVerse(previousState = 'playing') {
     return;
   }
   
-  // Calculer le numéro du chapitre infini (tous les 100 nuages)
-  const infiniteChapter = Math.floor(infiniteCloudsCleared / 100);
+  // Calculer le numéro du chapitre infini
+  const infiniteChapter = Math.floor(infiniteCloudsCleared / 50);
   
   const verseDiv = document.createElement('div');
   verseDiv.id = 'infiniteVerseDisplay';
   verseDiv.style.cssText = `
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 500px;
+    background: linear-gradient(135deg, rgba(155,89,182,0.95) 0%, rgba(142,68,173,0.95) 100%);
+    color: white;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
     z-index: 450;
-    padding: 20px;
-    box-sizing: border-box;
+    box-shadow: 0 10px 40px rgba(155,89,182,0.5);
     animation: fadeIn 0.5s ease-in;
   `;
   verseDiv.innerHTML = `
-    <div onclick="this.parentElement.remove(); state = '${previousState || 'playing'}';" style="
-      width: 280px;
-      height: 320px;
-      background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-      border: 4px solid #d4af37;
-      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-      box-shadow: 0 15px 40px rgba(212,175,55,0.3), inset 0 2px 10px rgba(255,255,255,0.8);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 30px 20px;
-      box-sizing: border-box;
-      gap: 15px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    " onmouseover="
-      this.style.transform='scale(1.02)';
-      this.style.boxShadow='0 20px 50px rgba(212,175,55,0.4), inset 0 2px 10px rgba(255,255,255,0.8)';
-    " onmouseout="
-      this.style.transform='scale(1)';
-      this.style.boxShadow='0 15px 40px rgba(212,175,55,0.3), inset 0 2px 10px rgba(255,255,255,0.8)';
-    ">
-      <div style="font-size: 48px; margin-bottom: 5px;">♾️</div>
-      <div style="
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        padding: 6px 16px;
-        border-radius: 20px;
+    <div style="max-width: 450px; margin: 0 auto;">
+      <h2 style="color: #fff; font-size: 28px; margin-bottom: 20px; text-shadow: 0 0 10px rgba(255,255,255,0.5);">
+        🔄 Chapitre ${15 + infiniteChapter} (Mode Infini)
+      </h2>
+      <p style="color: #f1c40f; font-size: 20px; margin-bottom: 25px; font-weight: bold;">
+        ${infiniteCloudsCleared} nuages dissipés !
+      </p>
+      <p style="font-size: 18px; line-height: 1.8; margin-bottom: 20px; font-style: italic;">
+        « ${randomVerse.text} »<br>
+        <span style="color: #ecf0f1; margin-top: 10px; display: inline-block;">— ${randomVerse.ref || randomVerse.reference}</span>
+      </p>
+      <button id="verseBtn" style="
+        background: linear-gradient(135deg, #f1c40f 0%, #f39c12 100%);
+        border: none;
+        padding: 12px 40px;
+        border-radius: 25px;
+        color: #2c3e50;
+        font-size: 18px;
         font-weight: bold;
-        font-size: 14px;
-        box-shadow: 0 4px 12px rgba(102,126,234,0.4);
-      ">
-        ${t('treasure.infinite_chapter', {number: 15 + infiniteChapter})}
-      </div>
-      <p style="
-        font-size: 15px;
-        line-height: 1.5;
-        color: #2d3748;
-        margin: 10px 0;
-        font-style: italic;
-        text-align: center;
-        text-wrap: pretty;
-        max-width: 100%;
-      ">${randomVerse.text}</p>
-      <p style="
-        font-size: 12px;
-        color: #4a5568;
-        margin: 0;
-        font-weight: 500;
-      ">— ${randomVerse.reference}</p>
+        cursor: pointer;
+        box-shadow: 0 5px 15px rgba(241,196,15,0.4);
+        transition: all 0.3s;
+        margin-top: 15px;
+      " onmouseover="this.style.transform='translateY(-2px) scale(1.05)'; this.style.boxShadow='0 7px 20px rgba(241,196,15,0.6)';"
+         onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 5px 15px rgba(241,196,15,0.4)';">
+        ✨ Continuer
+      </button>
     </div>
   `;
   document.getElementById('gameContainer').appendChild(verseDiv);
@@ -5631,31 +3904,23 @@ function showInfiniteVerse(previousState = 'playing') {
     playSound('powerup');
   }
   
-  console.log('📚 Verset affiché:', randomVerse.reference);
+  console.log('📚 Verset affiché:', randomVerse.ref || randomVerse.reference);
+  
+  // Attendre le clic du joueur
+  document.getElementById('verseBtn').addEventListener('click', () => {
+    verseDiv.remove();
+    state = previousState || 'playing';
+    console.log('✅ Verset fermé - Reprise du jeu');
+  });
 }
 
 function initGame() {
-  // Vérifier si on est en mode test (niveau déjà défini manuellement)
-  const isTestMode = level > 1 && score > 0;
+  // Restaurer les données sauvegardées
+  score = gameData.score || gameData.highScore || 0;
+  level = gameData.level || gameData.highestLevelReached || 1;
+  starCount = gameData.starStock || 0;
   
-  if (!isTestMode) {
-    // Mode normal : restaurer les données sauvegardées
-    if (gameData.highScore > 0) {
-      score = gameData.highScore;
-    }
-    
-    // Restaurer le niveau actuel basé sur le nombre de nuages
-    level = getCurrentLevel(gameData.totalCloudsDestroyed);
-    
-    // Restaurer les étoiles
-    if (gameData.starStock) {
-      starCount = gameData.starStock;
-    }
-  } else {
-    console.log('🧪 Mode test détecté - Conservation des valeurs actuelles');
-  }
-  
-  // Démarrer au niveau sauvegardé (ou niveau 1 si c'est la première fois)
+  // Démarrer au niveau sauvegardé
   const savedLevelIndex = Math.max(0, level - 1);
   // Vérifier que l'index est valide
   const startLevelIndex = Math.min(savedLevelIndex, LEVELS_CONFIG.length - 1);
@@ -5665,14 +3930,12 @@ function initGame() {
   const scoreEl = document.getElementById('score');
   const levelEl = document.getElementById('level');
   const starsEl = document.getElementById('stars');
-  const cloudsEl = document.getElementById('clouds');
   
   if (scoreEl) scoreEl.textContent = score;
   if (levelEl) levelEl.textContent = level;
   if (starsEl) starsEl.textContent = starCount;
-  if (cloudsEl) cloudsEl.textContent = gameData.totalCloudsDestroyed;
   
-  console.log('🎮 Jeu initialisé - Score:', score, 'Niveau:', level, '⭐️ Étoiles:', starCount, '☁️ Nuages:', gameData.totalCloudsDestroyed);
+  console.log('🎮 Jeu initialisé - Score:', score, 'Niveau:', level, '⭐️ Étoiles:', starCount);
 }
 
 // Initialiser le drapeau de langue au chargement
