@@ -373,6 +373,33 @@ const fr = {
   },
 
   bosses: {
+    spider: {
+      name: '🕷️ L\'Araignée des Ténèbres',
+      intro: 'Une araignée géante tisse sa toile de peur... Mais "Dieu ne nous a pas donné un esprit de timidité" !',
+      phase_1: '🕸️ "Car Dieu ne nous a pas donné un esprit de timidité, mais un esprit de force, d\'amour et de sagesse." (2 Timothée 1:7)\n\nLa PEUR D\'AVOIR MAL, la PEUR DE SE FAIRE MORDRE... Ces peurs te paralysent !',
+      phase_2: '✨ "Ne crains rien, car je suis avec toi ; ne promène pas des regards inquiets, car je suis ton Dieu." (Ésaïe 41:10)\n\nLes PEURS ILLOGIQUES et les PHOBIES n\'ont pas de pouvoir sur ceux qui marchent dans la foi !',
+      phase_3: '🛡️ "Même quand je marche dans la vallée de l\'ombre de la mort, je ne crains aucun mal, car tu es avec moi." (Psaume 23:4)\n\nLa peur est un MÉCANISME DE PROTECTION, mais elle ne doit pas te DOMINER !',
+      defeated: '🦋 VICTOIRE SUR LA PEUR !\n\n"L\'amour parfait bannit la crainte." (1 Jean 4:18)\n\nTu as vaincu la peur paralysante ! La foi transforme la peur en courage.',
+      wisdom: 'L\'araignée symbolise toutes nos peurs : la peur d\'avoir mal, de se faire mordre, les phobies illogiques. Ces peurs sont souvent des mécanismes de protection normaux qui nous sauvegardent du danger. Mais quand elles deviennent excessives, elles nous paralysent. La Bible dit : "Dieu ne nous a pas donné un esprit de timidité, mais de force, d\'amour et de sagesse." La foi ne nie pas le danger, mais elle nous donne le courage de l\'affronter. En Christ, nous apprenons à distinguer entre la prudence saine et la peur paralysante. L\'amour parfait de Dieu bannit la crainte !'
+    },
+    flying_snake: {
+      name: '🐍 Le Serpent Volant',
+      intro: 'Le serpent ancien, symbole de la tentation, s\'élève devant toi... Mais "résistez au diable, et il fuira loin de vous" !',
+      phase_1: '🔥 "Veillez et priez, afin que vous ne tombiez pas dans la tentation." (Matthieu 26:41)\n\nLa TENTATION, le MENSONGE ORIGINEL, le DOUTE qui murmure : "Dieu a-t-il réellement dit...?"',
+      phase_2: '⚔️ "Résistez au diable, et il fuira loin de vous. Approchez-vous de Dieu, et il s\'approchera de vous." (Jacques 4:7-8)\n\nLe venin du COMPROMIS et de la DÉSOBÉISSANCE ne peut atteindre celui qui reste près de Dieu !',
+      phase_3: '✝️ "Comme Moïse éleva le serpent dans le désert, il faut que le Fils de l\'homme soit élevé." (Jean 3:14)\n\nLe Christ a ÉCRASÉ la tête du serpent ! Sa victoire est ta victoire !',
+      defeated: '🌟 VICTOIRE SUR LA TENTATION !\n\n"Il écrasera ta tête, et tu lui blesseras le talon." (Genèse 3:15)\n\nTu as vaincu la tentation ! En Christ, le serpent ancien est vaincu.',
+      wisdom: 'Le serpent volant représente la tentation et le mensonge originel du jardin d\'Éden : "Vous ne mourrez point... vous serez comme Dieu." C\'est la voix qui sème le doute sur la bonté de Dieu, qui nous pousse au compromis et à la désobéissance. Mais la Bible nous enseigne : "Résistez au diable, et il fuira." La tentation n\'est pas le péché - c\'est l\'invitation à pécher. Jésus lui-même a été tenté, mais il a résisté par la Parole de Dieu. À la Croix, Christ a écrasé la tête du serpent. Par sa victoire, nous avons le pouvoir de résister et de vaincre toute tentation. Approchons-nous de Dieu, et Il s\'approchera de nous !'
+    },
+    crazy_chicken: {
+      name: '🐔 Le Poulet Fou',
+      intro: 'Un poulet désorienté vole frénétiquement dans tous les sens... Parfois, nos vies ressemblent à ça !',
+      phase_1: '🌪️ "Vous ne vous appartenez point à vous-mêmes... Glorifiez donc Dieu dans votre corps." (1 Corinthiens 6:19-20)\n\nL\'AGITATION CONSTANTE, le STRESS, l\'ÉPUISEMENT... Tu cours partout sans but !',
+      phase_2: '🎯 "Car Dieu n\'est pas un Dieu de désordre, mais de paix." (1 Corinthiens 14:33)\n\nLa DÉSORGANISATION et le CHAOS ne viennent pas de Dieu !',
+      phase_3: '🕊️ "Venez à moi, vous tous qui êtes fatigués et chargés, et je vous donnerai du repos." (Matthieu 11:28)\n\nTrouve ton CENTRE en Christ ! Arrête de courir en cercles !',
+      defeated: '☮️ VICTOIRE SUR LE CHAOS !\n\n"Il y a un temps pour tout... un temps pour chercher, et un temps pour perdre." (Ecclésiaste 3:1-6)\n\nTu as trouvé la paix ! L\'ordre de Dieu remplace le chaos.',
+      wisdom: 'Le poulet fou symbolise nos vies quand nous courons frénétiquement sans direction : stress constant, agitation, épuisement, désorganisation. Nous nous agitons comme des poulets sans tête, occupés mais pas productifs, fatigués mais pas accomplis. La Bible dit : "Dieu n\'est pas un Dieu de désordre, mais de paix." Jésus nous invite : "Venez à moi, vous tous qui êtes fatigués et chargés, et je vous donnerai du repos." La vraie paix ne vient pas d\'une vie moins remplie, mais d\'une vie centrée sur Christ. Quand nous trouvons notre centre en Lui, le chaos se transforme en ordre, l\'agitation en paix, la confusion en clarté. "Cherchez premièrement le royaume de Dieu, et tout le reste vous sera donné par-dessus."'
+    },
     grim_reaper: {
       name: '💀 La Faucheuse',
       intro: 'La mort elle-même se dresse devant toi... Mais rappelle-toi : Christ a vaincu la mort !',

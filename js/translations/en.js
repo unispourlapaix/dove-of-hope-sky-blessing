@@ -372,6 +372,33 @@ const en = {
   },
 
   bosses: {
+    spider: {
+      name: '🕷️ The Spider of Darkness',
+      intro: 'A giant spider weaves its web of fear... But "God has not given us a spirit of fear"!',
+      phase_1: '🕸️ "For God has not given us a spirit of fear, but of power and of love and of a sound mind." (2 Timothy 1:7)\n\nThe FEAR OF PAIN, the FEAR OF BEING BITTEN... These fears paralyze you!',
+      phase_2: '✨ "Fear not, for I am with you; be not dismayed, for I am your God." (Isaiah 41:10)\n\nILLOGICAL FEARS and PHOBIAS have no power over those who walk in faith!',
+      phase_3: '🛡️ "Even though I walk through the valley of the shadow of death, I will fear no evil, for you are with me." (Psalm 23:4)\n\nFear is a PROTECTIVE MECHANISM, but it must not DOMINATE you!',
+      defeated: '🦋 VICTORY OVER FEAR!\n\n"Perfect love casts out fear." (1 John 4:18)\n\nYou have conquered paralyzing fear! Faith transforms fear into courage.',
+      wisdom: 'The spider symbolizes all our fears: the fear of pain, of being bitten, illogical phobias. These fears are often normal protective mechanisms that keep us safe from danger. But when they become excessive, they paralyze us. The Bible says: "God has not given us a spirit of fear, but of power, love, and a sound mind." Faith doesn\'t deny danger, but it gives us the courage to face it. In Christ, we learn to distinguish between healthy caution and paralyzing fear. God\'s perfect love casts out fear!'
+    },
+    flying_snake: {
+      name: '🐍 The Flying Serpent',
+      intro: 'The ancient serpent, symbol of temptation, rises before you... But "resist the devil, and he will flee from you"!',
+      phase_1: '🔥 "Watch and pray so that you will not fall into temptation." (Matthew 26:41)\n\nTEMPTATION, the ORIGINAL LIE, the DOUBT that whispers: "Did God really say...?"',
+      phase_2: '⚔️ "Resist the devil, and he will flee from you. Draw near to God, and he will draw near to you." (James 4:7-8)\n\nThe venom of COMPROMISE and DISOBEDIENCE cannot reach those who stay close to God!',
+      phase_3: '✝️ "Just as Moses lifted up the snake in the wilderness, so the Son of Man must be lifted up." (John 3:14)\n\nChrist has CRUSHED the serpent\'s head! His victory is your victory!',
+      defeated: '🌟 VICTORY OVER TEMPTATION!\n\n"He will crush your head, and you will strike his heel." (Genesis 3:15)\n\nYou have conquered temptation! In Christ, the ancient serpent is defeated.',
+      wisdom: 'The flying serpent represents temptation and the original lie from the Garden of Eden: "You will not surely die... you will be like God." It\'s the voice that sows doubt about God\'s goodness, pushing us toward compromise and disobedience. But the Bible teaches: "Resist the devil, and he will flee." Temptation is not sin - it\'s the invitation to sin. Jesus himself was tempted, but he resisted through God\'s Word. At the Cross, Christ crushed the serpent\'s head. Through his victory, we have the power to resist and overcome all temptation. Draw near to God, and He will draw near to us!'
+    },
+    crazy_chicken: {
+      name: '🐔 The Crazy Chicken',
+      intro: 'A disoriented chicken frantically flies in all directions... Sometimes our lives look like that!',
+      phase_1: '🌪️ "You are not your own; you were bought at a price. Therefore honor God with your bodies." (1 Corinthians 6:19-20)\n\nCONSTANT AGITATION, STRESS, EXHAUSTION... You run everywhere without purpose!',
+      phase_2: '🎯 "For God is not a God of disorder but of peace." (1 Corinthians 14:33)\n\nDISORGANIZATION and CHAOS do not come from God!',
+      phase_3: '🕊️ "Come to me, all you who are weary and burdened, and I will give you rest." (Matthew 11:28)\n\nFind your CENTER in Christ! Stop running in circles!',
+      defeated: '☮️ VICTORY OVER CHAOS!\n\n"There is a time for everything... a time to search and a time to give up." (Ecclesiastes 3:1-6)\n\nYou have found peace! God\'s order replaces chaos.',
+      wisdom: 'The crazy chicken symbolizes our lives when we run frantically without direction: constant stress, agitation, exhaustion, disorganization. We flap around like headless chickens, busy but not productive, tired but not fulfilled. The Bible says: "God is not a God of disorder, but of peace." Jesus invites us: "Come to me, all you who are weary and burdened, and I will give you rest." True peace doesn\'t come from a less full life, but from a life centered on Christ. When we find our center in Him, chaos transforms into order, agitation into peace, confusion into clarity. "Seek first the kingdom of God, and all these things will be added to you."'
+    },
     grim_reaper: {
       name: '💀 The Grim Reaper',
       intro: 'Death itself stands before you... But remember: Christ has conquered death!',

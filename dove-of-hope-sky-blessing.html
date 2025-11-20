@@ -2343,6 +2343,17 @@ function restart(){
     msg(t('bosses.dark_cloud.intro'));
     playSound('levelup');
     bossSpawnedThisLevel = true;
+    
+    // 🌧️ Déclencher la tempête au restart
+    for(let i = 0; i < 30; i++) {
+      rain.push({
+        x: Math.random() * c.width,
+        y: -Math.random() * c.height,
+        l: 15 + Math.random() * 15,
+        s: (currentLevelConfig.rainSpeed || 1.0) * 2 * (1 + Math.random() * 0.5)
+      });
+    }
+    playRainMusic();
   }
   // Boss Black Raven niveau 12
   else if(level === 12 && cloudsInLevel >= bossSpawnThreshold) {
@@ -2560,6 +2571,19 @@ const dtFactor = dt / 16.67;
 // Mettre à jour le boss s'il est actif
 if(bossManager.isBossActive()) {
   bossManager.update(dt, player.x + player.w/2, player.y + player.h/2);
+
+  // 🌧️ Maintenir la tempête pendant le combat du Dark Cloud (Nuage Sombre)
+  if(bossManager.bossType === 'dark_cloud') {
+    // Ajouter constamment de nouvelles gouttes pour maintenir une tempête intense
+    if(rain.length < 35 && Math.random() < 0.3) {
+      rain.push({
+        x: Math.random() * c.width,
+        y: -20 - Math.random() * 50,
+        l: 15 + Math.random() * 15,
+        s: (currentLevelConfig.rainSpeed || 1.0) * 2 * (1 + Math.random() * 0.5)
+      });
+    }
+  }
 
   // Vérifier collision joueur-toiles d'araignée
   if(bossManager.checkPlayerCollision(player.x, player.y, player.w, player.h) && !umbrella) {
@@ -2950,6 +2974,18 @@ for(let bi = bullets.length - 1; bi >= 0; bi--){
           msg(t('bosses.dark_cloud.intro'));
           playSound('levelup');
           bossSpawnedThisLevel = true;
+          
+          // 🌧️ Déclencher la tempête pendant le combat du Dark Cloud
+          // Créer une tempête intense pendant tout le combat
+          for(let i = 0; i < 30; i++) {
+            rain.push({
+              x: Math.random() * c.width,
+              y: -Math.random() * c.height,
+              l: 15 + Math.random() * 15, // Gouttes plus longues
+              s: (currentLevelConfig.rainSpeed || 1.0) * 2 * (1 + Math.random() * 0.5) // Pluie plus rapide
+            });
+          }
+          playRainMusic(); // Musique de pluie
         }
       }
 
@@ -3030,6 +3066,13 @@ for(let bi = bullets.length - 1; bi >= 0; bi--){
           gameData.bossesDefeated[bossManager.bossType] = true;
           saveGameData();
           console.log(`📚 Sagesse débloquée: ${bossManager.bossType}`);
+        }
+
+        // 🌧️ Arrêter la tempête après la victoire sur le Dark Cloud
+        if(bossManager.bossType === 'dark_cloud') {
+          rain.length = 0; // Vider toute la pluie
+          stopRainMusic(); // Arrêter la musique de pluie
+          msg('🌈 La tempête se dissipe ! L\'espoir brille de nouveau !');
         }
 
         const rewards = bossManager.getBossRewards();
