@@ -1491,21 +1491,23 @@ function playRainMusic() {
 }
 
 // Fonction pour arrêter la musique de pluie et reprendre la normale
-function stopRainMusic() {
+function stopRainMusic(resumeNormalMusic = true) {
   if (rainMusicAudio) {
     rainMusicAudio.pause();
     rainMusicAudio.currentTime = 0;
     rainMusicAudio = null;
   }
   
-  // Reprendre la musique normale
-  normalMusicPaused = false;
-  if (musicEnabled && musicAudio && musicAudio.paused) {
-    musicAudio.play().catch(err => {
-      // Ignorer silencieusement les erreurs d'autoplay (restrictions navigateur)
-    });
-  } else if (musicEnabled && !musicAudio) {
-    playRandomMusic();
+  // Reprendre la musique normale seulement si demandé
+  if (resumeNormalMusic) {
+    normalMusicPaused = false;
+    if (musicEnabled && musicAudio && musicAudio.paused) {
+      musicAudio.play().catch(err => {
+        // Ignorer silencieusement les erreurs d'autoplay (restrictions navigateur)
+      });
+    } else if (musicEnabled && !musicAudio) {
+      playRandomMusic();
+    }
   }
 }
 
@@ -3071,8 +3073,10 @@ for(let bi = bullets.length - 1; bi >= 0; bi--){
         // 🌧️ Arrêter la tempête après la victoire sur le Dark Cloud
         if(bossManager.bossType === 'dark_cloud') {
           rain.length = 0; // Vider toute la pluie
-          stopRainMusic(); // Arrêter la musique de pluie
+          stopRainMusic(false); // Arrêter la musique de pluie SANS reprendre la playlist
           msg('🌈 La tempête se dissipe ! L\'espoir brille de nouveau !');
+          
+          // La musique normale reprendra automatiquement au prochain changement de niveau
         }
 
         const rewards = bossManager.getBossRewards();
@@ -3124,6 +3128,13 @@ for(let bi = bullets.length - 1; bi >= 0; bi--){
 
             // Afficher le message de niveau avec les informations du module
             msg(t('powerups.level_up', {level: level, title: newLevelInfo.title}));
+
+            // 🎵 Reprendre la musique normale après victoire sur Dark Cloud
+            if(bossManager.bossType === 'dark_cloud' || !musicAudio || musicAudio.paused) {
+              if(musicEnabled) {
+                playRandomMusic();
+              }
+            }
 
             // Ajouter des coeurs
             for(let i=0;i<3;i++)setTimeout(()=>hearts.push(heart()),i*150);
