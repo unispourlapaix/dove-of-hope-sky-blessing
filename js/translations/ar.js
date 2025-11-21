@@ -14,7 +14,13 @@ const ar = {
     lives: 'الحياة',
     language: 'اللغة',
     choose_language: 'اختر اللغة',
-    language_changed: 'تم تغيير اللغة'
+    language_changed: 'تم تغيير اللغة',
+    install: 'تثبيت',
+    tap_share: 'انقر على',
+    add_home: 'إضافة إلى الشاشة الرئيسية',
+    confirm: 'تأكيد',
+    install_app: 'تثبيت التطبيق',
+    install_desktop: 'افتح في Chrome/Edge للتثبيت'
   },
   
   buttons: {

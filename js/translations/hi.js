@@ -14,7 +14,13 @@ const hi = {
     lives: 'जीवन',
     language: 'भाषा',
     choose_language: 'भाषा चुनें',
-    language_changed: 'भाषा बदली गई'
+    language_changed: 'भाषा बदल गई',
+    install: 'इंस्टॉल करें',
+    tap_share: 'टैप करें',
+    add_home: 'होम स्क्रीन पर जोड़ें',
+    confirm: 'पुष्टि करें',
+    install_app: 'ऐप इंस्टॉल करें',
+    install_desktop: 'इंस्टॉल करने के लिए Chrome/Edge में खोलें'
   },
   
   buttons: {

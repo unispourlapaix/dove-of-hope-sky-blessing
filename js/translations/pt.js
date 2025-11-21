@@ -14,7 +14,13 @@ const pt = {
     lives: 'Vida',
     language: 'Idioma',
     choose_language: 'Escolher idioma',
-    language_changed: 'Idioma alterado'
+    language_changed: 'Idioma alterado',
+    install: 'INSTALAR',
+    tap_share: 'Toque em',
+    add_home: 'Adicionar à tela inicial',
+    confirm: 'Confirmar',
+    install_app: 'Instalar aplicativo',
+    install_desktop: 'Abra no Chrome/Edge para instalar'
   },
   
   buttons: {

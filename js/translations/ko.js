@@ -14,7 +14,13 @@ const ko = {
     lives: '생명',
     language: '언어',
     choose_language: '언어 선택',
-    language_changed: '언어 변경됨'
+    language_changed: '언어 변경됨',
+    install: '설치',
+    tap_share: '탭하기',
+    add_home: '홈 화면에 추가',
+    confirm: '확인',
+    install_app: '앱 설치',
+    install_desktop: 'Chrome/Edge에서 열어 설치'
   },
   
   buttons: {

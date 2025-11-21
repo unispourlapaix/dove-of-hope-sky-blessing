@@ -14,7 +14,13 @@ const ru = {
     lives: 'Жизнь',
     language: 'Язык',
     choose_language: 'Выбрать язык',
-    language_changed: 'Язык изменён'
+    language_changed: 'Язык изменён',
+    install: 'УСТАНОВИТЬ',
+    tap_share: 'Нажмите',
+    add_home: 'Добавить на главный экран',
+    confirm: 'Подтвердить',
+    install_app: 'Установить приложение',
+    install_desktop: 'Откройте в Chrome/Edge для установки'
   },
   
   buttons: {
