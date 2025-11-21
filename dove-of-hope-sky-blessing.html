@@ -155,35 +155,41 @@ body{margin:0;padding:0;background:linear-gradient(135deg,#e8eef2 0%,#d4dce3 50%
 <div class="sun neutral" id="sun"></div>
 
 <!-- Menu Pause -->
-<div id="pauseMenu" style="position:absolute;top:70px;left:10px;background:rgba(255,255,255,0.95);border-radius:15px;box-shadow:0 4px 15px rgba(0,0,0,0.3);padding:10px;z-index:150;display:none;">
-  <button onclick="document.getElementById('pauseMenu').style.display='none'; document.getElementById('pauseMenuOverlay').style.display='none'" style="width:40px;height:40px;border-radius:50%;background:rgba(231,76,60,0.9);border:2px solid rgba(255,255,255,0.3);font-size:18px;font-weight:bold;cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,0.2);transition:all 0.2s;margin-bottom:8px;display:block;color:white;" onmouseover="this.style.background='rgba(231,76,60,1)'; this.style.transform='scale(1.1)'" onmouseout="this.style.background='rgba(231,76,60,0.9)'; this.style.transform='scale(1)'" title="Fermer le menu">✕</button>
+<div id="pauseMenu" style="position:absolute;top:70px;left:10px;background:rgba(255,255,255,0.95);border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.3);padding:6px;z-index:10000;display:none;width:45px;">
+  
+  <!-- Icônes en colonne compacte -->
+  <div style="display:flex;flex-direction:column;gap:4px;">
+    <!-- Fermer -->
+    <div onclick="document.getElementById('pauseMenu').style.display='none'; document.getElementById('pauseMenuOverlay').style.display='none'" style="cursor:pointer;font-size:18px;padding:6px;border-radius:8px;transition:all 0.2s;background:rgba(231,76,60,0.1);text-align:center;display:flex;align-items:center;justify-content:center;" onmouseover="this.style.background='rgba(231,76,60,0.3)'" onmouseout="this.style.background='rgba(231,76,60,0.1)'" title="Fermer">✕</div>
+    
+    <!-- Pause -->
+    <div onclick="togglePause(); document.getElementById('pauseMenu').style.display='none'; document.getElementById('pauseMenuOverlay').style.display='none';" style="cursor:pointer;font-size:18px;padding:6px;border-radius:8px;transition:all 0.2s;background:rgba(231,76,60,0.1);text-align:center;display:flex;align-items:center;justify-content:center;" onmouseover="this.style.background='rgba(231,76,60,0.2)'" onmouseout="this.style.background='rgba(231,76,60,0.1)'" title="Pause">⏸</div>
 
-  <div style="display:flex;flex-direction:column;gap:8px;">
-    <div onclick="togglePause(); document.getElementById('pauseMenu').style.display='none'; document.getElementById('pauseMenuOverlay').style.display='none';" style="cursor:pointer;font-size:20px;padding:8px;border-radius:8px;transition:all 0.2s;background:rgba(231,76,60,0.1);text-align:center;" onmouseover="this.style.background='rgba(231,76,60,0.2)'" onmouseout="this.style.background='rgba(231,76,60,0.1)'" title="Pause / Reprendre">⏸️</div>
+    <!-- Musique -->
+    <div class="audio-btn" id="musicBtn" onclick="document.getElementById('pauseMenu').style.display='none'; document.getElementById('pauseMenuOverlay').style.display='none';" style="cursor:pointer;font-size:18px;padding:6px;border-radius:8px;transition:all 0.2s;background:rgba(155,89,182,0.1);text-align:center;display:flex;align-items:center;justify-content:center;" onmouseover="this.style.background='rgba(155,89,182,0.2)'" onmouseout="this.style.background='rgba(155,89,182,0.1)'" title="Musique">🎵</div>
+    
+    <!-- SFX -->
+    <div class="audio-btn" id="sfxBtn" onclick="document.getElementById('pauseMenu').style.display='none'; document.getElementById('pauseMenuOverlay').style.display='none';" style="cursor:pointer;font-size:18px;padding:6px;border-radius:8px;transition:all 0.2s;background:rgba(155,89,182,0.1);text-align:center;display:flex;align-items:center;justify-content:center;" onmouseover="this.style.background='rgba(155,89,182,0.2)'" onmouseout="this.style.background='rgba(155,89,182,0.1)'" title="Effets">🔊</div>
 
-    <div class="audio-btn" id="musicBtn" onclick="document.getElementById('pauseMenu').style.display='none'; document.getElementById('pauseMenuOverlay').style.display='none';" style="cursor:pointer;font-size:20px;padding:8px;border-radius:8px;transition:all 0.2s;background:rgba(155,89,182,0.1);text-align:center;" onmouseover="this.style.background='rgba(155,89,182,0.2)'" onmouseout="this.style.background='rgba(155,89,182,0.1)'" title="Musique">♫</div>    <div class="audio-btn" id="sfxBtn" onclick="document.getElementById('pauseMenu').style.display='none'; document.getElementById('pauseMenuOverlay').style.display='none';" style="cursor:pointer;font-size:20px;padding:8px;border-radius:8px;transition:all 0.2s;background:rgba(155,89,182,0.1);text-align:center;" onmouseover="this.style.background='rgba(155,89,182,0.2)'" onmouseout="this.style.background='rgba(155,89,182,0.1)'" title="Effets sonores">♪</div>
+    <!-- Installer PWA -->
+    <div id="installBtnMenu" onclick="triggerPWAInstall()" style="cursor:pointer;font-size:18px;padding:6px;border-radius:8px;transition:all 0.2s;background:rgba(102,126,234,0.15);text-align:center;display:flex;align-items:center;justify-content:center;" onmouseover="this.style.background='rgba(102,126,234,0.3)'" onmouseout="this.style.background='rgba(102,126,234,0.15)'" title="Installer">📲</div>
 
-    <!-- Bouton Installer PWA -->
-    <div id="installBtnMenu" onclick="triggerPWAInstall()" style="cursor:pointer;font-size:13px;padding:10px 8px;border-radius:8px;transition:all 0.2s;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);text-align:center;color:white;font-weight:600;box-shadow:0 2px 8px rgba(102,126,234,0.3);" onmouseover="this.style.transform='scale(1.05)';this.style.boxShadow='0 4px 12px rgba(102,126,234,0.4)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 2px 8px rgba(102,126,234,0.3)'" title="">
-      <div style="font-size:18px;margin-bottom:2px;">📲</div>
-      <div id="installBtnText">INSTALLER</div>
-    </div>
+    <!-- Séparateur -->
+    <div style="height:1px;background:rgba(0,0,0,0.1);margin:2px 0;"></div>
 
-    <!-- Sélection de difficulté -->
-    <div style="margin-top:8px;padding-top:8px;border-top:1px solid rgba(0,0,0,0.1);">
-      <div id="difficultyLabel" style="font-size:11px;font-weight:600;text-align:center;margin-bottom:6px;color:#34495e;">DIFFICULTÉ</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;">
-        <div id="diffBtn_easy" onclick="changeDifficulty('easy')" style="cursor:pointer;font-size:10px;padding:6px 4px;border-radius:6px;transition:all 0.2s;background:rgba(46,204,113,0.2);text-align:center;font-weight:600;color:#27ae60;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">FACILE</div>
-        <div id="diffBtn_normal" onclick="changeDifficulty('normal')" style="cursor:pointer;font-size:10px;padding:6px 4px;border-radius:6px;transition:all 0.2s;background:rgba(52,152,219,0.2);text-align:center;font-weight:600;color:#2980b9;border:2px solid #3498db;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">NORMAL</div>
-        <div id="diffBtn_hard" onclick="changeDifficulty('hard')" style="cursor:pointer;font-size:10px;padding:6px 4px;border-radius:6px;transition:all 0.2s;background:rgba(230,126,34,0.2);text-align:center;font-weight:600;color:#d35400;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">DIFFICILE</div>
-        <div id="diffBtn_legendary" onclick="changeDifficulty('legendary')" style="cursor:pointer;font-size:10px;padding:6px 4px;border-radius:8px;transition:all 0.2s;background:rgba(142,68,173,0.2);text-align:center;font-weight:600;color:#8e44ad;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">LÉGENDAIRE</div>
-      </div>
-    </div>
+    <!-- Difficulté icônes -->
+    <div id="diffBtn_easy" onclick="changeDifficulty('easy')" style="cursor:pointer;font-size:18px;padding:6px;border-radius:8px;transition:all 0.2s;background:rgba(46,204,113,0.15);text-align:center;display:flex;align-items:center;justify-content:center;" onmouseover="this.style.background='rgba(46,204,113,0.3)'" onmouseout="this.style.background='rgba(46,204,113,0.15)'" title="Facile">😊</div>
+    
+    <div id="diffBtn_normal" onclick="changeDifficulty('normal')" style="cursor:pointer;font-size:18px;padding:6px;border-radius:8px;transition:all 0.2s;background:rgba(52,152,219,0.15);text-align:center;border:2px solid rgba(52,152,219,0.5);display:flex;align-items:center;justify-content:center;" onmouseover="this.style.background='rgba(52,152,219,0.3)'" onmouseout="this.style.background='rgba(52,152,219,0.15)'" title="Normal">🙂</div>
+    
+    <div id="diffBtn_hard" onclick="changeDifficulty('hard')" style="cursor:pointer;font-size:18px;padding:6px;border-radius:8px;transition:all 0.2s;background:rgba(230,126,34,0.15);text-align:center;display:flex;align-items:center;justify-content:center;" onmouseover="this.style.background='rgba(230,126,34,0.3)'" onmouseout="this.style.background='rgba(230,126,34,0.15)'" title="Difficile">😤</div>
+    
+    <div id="diffBtn_legendary" onclick="changeDifficulty('legendary')" style="cursor:pointer;font-size:18px;padding:6px;border-radius:8px;transition:all 0.2s;background:rgba(142,68,173,0.15);text-align:center;display:flex;align-items:center;justify-content:center;" onmouseover="this.style.background='rgba(142,68,173,0.3)'" onmouseout="this.style.background='rgba(142,68,173,0.15)'" title="Légendaire">🔥</div>
   </div>
 </div>
 
 <!-- Overlay pour fermer le menu en cliquant dehors -->
-<div id="pauseMenuOverlay" onclick="document.getElementById('pauseMenu').style.display='none'; this.style.display='none'" style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:145;display:none;"></div>
+<div id="pauseMenuOverlay" onclick="document.getElementById('pauseMenu').style.display='none'; this.style.display='none'" style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:9999;display:none;"></div>
 
 <!-- Bouton pour ouvrir le menu -->
 <button onclick="document.getElementById('pauseMenu').style.display='block'; document.getElementById('pauseMenuOverlay').style.display='block'" style="position:absolute;top:70px;left:10px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.95);border:2px solid rgba(0,0,0,0.1);font-size:11px;font-weight:bold;cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,0.2);z-index:140;transition:all 0.3s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'" title="Menu">O/I</button>
@@ -350,35 +356,20 @@ function updateDifficultyButtons() {
     const btn = document.getElementById('diffBtn_' + diff);
     if (btn) {
       if (diff === currentDifficulty) {
-        btn.style.border = '2px solid #3498db';
-        btn.style.fontWeight = '700';
+        btn.style.border = '2px solid rgba(52,152,219,0.8)';
+        btn.style.transform = 'scale(1.1)';
       } else {
         btn.style.border = 'none';
-        btn.style.fontWeight = '600';
+        btn.style.transform = 'scale(1)';
       }
     }
   });
-
-  // Mettre à jour le texte des boutons selon la langue
-  updateDifficultyTexts();
 }
 
 // Fonction pour mettre à jour les textes de difficulté selon la langue
 function updateDifficultyTexts() {
-  const diffLabel = document.getElementById('difficultyLabel');
-  if (diffLabel) diffLabel.textContent = t('ui.difficulty').toUpperCase();
-
-  const btnEasy = document.getElementById('diffBtn_easy');
-  if (btnEasy) btnEasy.textContent = t('ui.easy').toUpperCase();
-
-  const btnNormal = document.getElementById('diffBtn_normal');
-  if (btnNormal) btnNormal.textContent = t('ui.normal').toUpperCase();
-
-  const btnHard = document.getElementById('diffBtn_hard');
-  if (btnHard) btnHard.textContent = t('ui.hard').toUpperCase();
-
-  const btnLegendary = document.getElementById('diffBtn_legendary');
-  if (btnLegendary) btnLegendary.textContent = t('ui.legendary').toUpperCase();
+  // Ne plus modifier les boutons de difficulté car ils utilisent des icônes
+  // Les icônes sont: 🟢 Facile, 🔵 Normal, 🟠 Difficile, 🟣 Légendaire
 }
 
 // Fonction pour obtenir une valeur ajustée selon la difficulté
@@ -1008,24 +999,68 @@ function promptPlayerInfo() {
 
 // Exporter le profil pour la base de données
 function exportProfileData() {
-  const data = {
-    nickname: playerProfile.nickname,
-    email: playerProfile.email,
-    score: playerProfile.bestScore,
-    level: playerProfile.highestLevel,
-    date: playerProfile.lastPlayed
-  };
+  // Créer un canvas pour générer l'image
+  const canvas = document.createElement('canvas');
+  canvas.width = 800;
+  canvas.height = 600;
+  const ctx = canvas.getContext('2d');
   
-  const jsonData = JSON.stringify(data, null, 2);
-  const blob = new Blob([jsonData], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `dove-score-${playerProfile.nickname}-${Date.now()}.json`;
-  a.click();
-  URL.revokeObjectURL(url);
+  // Fond dégradé
+  const gradient = ctx.createLinearGradient(0, 0, 0, 600);
+  gradient.addColorStop(0, '#667eea');
+  gradient.addColorStop(1, '#764ba2');
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, 800, 600);
   
-  showPopup('\u2705 Score export\u00e9 !\n\nPartage ce fichier pour le classement global.', '\ud83c\udfc6', 'success');
+  // Titre du jeu
+  ctx.fillStyle = '#ffffff';
+  ctx.font = 'bold 48px Arial';
+  ctx.textAlign = 'center';
+  ctx.fillText('🕊️ Dove of Hope', 400, 80);
+  ctx.font = '24px Arial';
+  ctx.fillText('Sky Blessing', 400, 120);
+  
+  // Cadre blanc pour les scores
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+  ctx.roundRect(80, 160, 640, 360, 20);
+  ctx.fill();
+  
+  // Informations du joueur
+  ctx.fillStyle = '#2c3e50';
+  ctx.font = 'bold 36px Arial';
+  ctx.fillText(`${playerProfile.nickname || 'Joueur'}`, 400, 230);
+  
+  ctx.font = '28px Arial';
+  ctx.fillStyle = '#667eea';
+  ctx.fillText(`🏆 Score: ${playerProfile.bestScore || 0}`, 400, 290);
+  
+  ctx.fillStyle = '#9b59b6';
+  ctx.fillText(`📖 Niveau: ${playerProfile.highestLevel || 1}`, 400, 340);
+  
+  ctx.fillStyle = '#3498db';
+  ctx.fillText(`⭐ Étoiles: ${gameData.starStock || 0}`, 400, 390);
+  
+  ctx.fillStyle = '#e74c3c';
+  const totalClouds = Object.values(gameData.cloudsPerLevel || {}).reduce((a, b) => a + b, 0);
+  ctx.fillText(`☁️ Nuages dissipés: ${totalClouds}`, 400, 440);
+  
+  // Date
+  ctx.fillStyle = '#95a5a6';
+  ctx.font = '18px Arial';
+  const date = new Date().toLocaleDateString('fr-FR');
+  ctx.fillText(`📅 ${date}`, 400, 490);
+  
+  // Convertir en image JPG et télécharger
+  canvas.toBlob((blob) => {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `dove-score-${playerProfile.nickname || 'joueur'}-${Date.now()}.jpg`;
+    a.click();
+    URL.revokeObjectURL(url);
+    
+    showPopup('✅ Score exporté en image !\n\nPartage cette image sur les réseaux sociaux ! 📸', '🏆', 'success');
+  }, 'image/jpeg', 0.95);
 }
 
 // Afficher les conseils de vie dans les onglets
@@ -1642,7 +1677,7 @@ const sfxBtn = document.getElementById('sfxBtn');
 musicBtn.addEventListener('click', () => {
   musicEnabled = !musicEnabled;
   musicBtn.classList.toggle('muted', !musicEnabled);
-  musicBtn.textContent = musicEnabled ? '♫' : '✕';
+  musicBtn.textContent = musicEnabled ? '🎵' : '🔇';
   if (musicEnabled && state === 'playing') {
     playRandomMusic();
   } else {
@@ -1653,7 +1688,7 @@ musicBtn.addEventListener('click', () => {
 sfxBtn.addEventListener('click', () => {
   sfxEnabled = !sfxEnabled;
   sfxBtn.classList.toggle('muted', !sfxEnabled);
-  sfxBtn.textContent = sfxEnabled ? '♪' : '✕';
+  sfxBtn.textContent = sfxEnabled ? '🔊' : '🔇';
 });
 
 // Fonction pour jouer un son simple avec Web Audio API
