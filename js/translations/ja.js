@@ -124,7 +124,14 @@ const ja = {
     read_testimonies: '証言を読む',
     save_cloud: 'クラウドに保存',
     share_score: 'スコアを共有',
-    not_set: '未設定'
+    not_set: '未設定',
+    boss_wisdom_title: 'ボスの知恵',
+    boss_wisdom_subtitle: 'ボスを倒して深い教えを解放しましょう',
+    boss_wisdom_collected: '知恵が解放されました',
+    boss_wisdom_locked: 'この知恵はまだロックされています。このボスを倒して解放しましょう！',
+    boss_wisdom_philosophy: '哲学と教え',
+    boss_wisdom_victory: '勝利のメッセージ',
+    boss_wisdom_close: '閉じる'
   },
   
   intro: '人生は長い戦いであることが多く、悪い日々を乗り越えるには勇気と力が必要です。勇敢な英雄よ、立ち上がり、神の愛で灰色の雲を善に変えてください。',

@@ -127,7 +127,14 @@ const de = {
     read_testimonies: 'Zeugnisse lesen',
     save_cloud: 'In Cloud speichern',
     share_score: 'Meine Punktzahl teilen',
-    not_set: 'Nicht festgelegt'
+    not_set: 'Nicht festgelegt',
+    boss_wisdom_title: 'Boss-Weisheiten',
+    boss_wisdom_subtitle: 'Besiege Bosse, um ihre tiefen Lehren freizuschalten',
+    boss_wisdom_collected: 'Weisheiten freigeschaltet',
+    boss_wisdom_locked: 'Diese Weisheit ist noch gesperrt. Besiege diesen Boss, um sie freizuschalten!',
+    boss_wisdom_philosophy: 'Philosophie & Lehre',
+    boss_wisdom_victory: 'Siegesbotschaft',
+    boss_wisdom_close: 'Schließen'
   },
   
   intro: 'Das Leben ist oft ein langer Kampf, es braucht Mut und Kraft, um in den schlechten Tagen durchzuhalten. Tapferer Held, erhebe dich, und verwandle mit Gottes Liebe die grauen Wolken in Gutes.',

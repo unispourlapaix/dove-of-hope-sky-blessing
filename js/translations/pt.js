@@ -126,8 +126,15 @@ const pt = {
     testimonies_description: 'Descubra histórias de coragem e cura',
     read_testimonies: 'Ler testemunhos',
     save_cloud: 'Salvar na Nuvem',
-    share_score: 'Compartilhar minha pontuação',
-    not_set: 'Não definido'
+    share_score: 'Partilhar a minha pontuação',
+    not_set: 'Não definido',
+    boss_wisdom_title: 'Sabedoria dos Chefes',
+    boss_wisdom_subtitle: 'Derrote os chefes para desbloquear os seus ensinamentos profundos',
+    boss_wisdom_collected: 'sabedoria desbloqueada',
+    boss_wisdom_locked: 'Esta sabedoria ainda está bloqueada. Derrote este chefe para desbloqueá-la!',
+    boss_wisdom_philosophy: 'Filosofia e Ensinamento',
+    boss_wisdom_victory: 'Mensagem de Vitória',
+    boss_wisdom_close: 'Fechar'
   },
   
   intro: 'A vida é muitas vezes uma longa batalha, é preciso coragem e força para aguentar nos dias maus. Valente herói, levanta-te, e com o amor de Deus transforma as nuvens cinzentas em bem.',

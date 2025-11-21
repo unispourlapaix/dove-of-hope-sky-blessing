@@ -127,7 +127,14 @@ const pl = {
     read_testimonies: 'Czytaj świadectwa',
     save_cloud: 'Zapisz w Chmurze',
     share_score: 'Udostępnij mój wynik',
-    not_set: 'Nie ustawiono'
+    not_set: 'Nie ustawiono',
+    boss_wisdom_title: 'Mądrość Bossów',
+    boss_wisdom_subtitle: 'Pokonaj bossów, aby odblokować ich głębokie nauki',
+    boss_wisdom_collected: 'mądrość odblokowana',
+    boss_wisdom_locked: 'Ta mądrość jest jeszcze zablokowana. Pokonaj tego bossa, aby ją odblokować!',
+    boss_wisdom_philosophy: 'Filozofia i Nauka',
+    boss_wisdom_victory: 'Wiadomość o Zwycięstwie',
+    boss_wisdom_close: 'Zamknij'
   },
   
   intro: 'Życie jest często długą bitwą, potrzeba odwagi i siły, aby przetrwać złe dni. Dzielny bohaterze, powstań i miłością Bożą przemień szare chmury w dobro.',

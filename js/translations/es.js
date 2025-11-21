@@ -127,7 +127,14 @@ const es = {
     read_testimonies: 'Leer testimonios',
     save_cloud: 'Guardar en la Nube',
     share_score: 'Compartir mi puntuación',
-    not_set: 'No definido'
+    not_set: 'No definido',
+    boss_wisdom_title: 'Sabiduría de los Jefes',
+    boss_wisdom_subtitle: 'Derrota a los jefes para desbloquear sus enseñanzas profundas',
+    boss_wisdom_collected: 'sabiduría desbloqueada',
+    boss_wisdom_locked: '¡Esta sabiduría todavía está bloqueada. ¡Derrota a este jefe para desbloquearla!',
+    boss_wisdom_philosophy: 'Filosofía y Enseñanza',
+    boss_wisdom_victory: 'Mensaje de Victoria',
+    boss_wisdom_close: 'Cerrar'
   },
   
   intro: 'La vida es a menudo una larga batalla, se necesita coraje y fuerza para resistir en los días malos. Valiente héroe, levántate, y con el amor de Dios transforma las nubes grises en bien.',
