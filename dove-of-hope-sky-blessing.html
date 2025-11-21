@@ -158,6 +158,9 @@ body{margin:0;padding:0;background:linear-gradient(135deg,#e8eef2 0%,#d4dce3 50%
 
     <div class="audio-btn" id="musicBtn" onclick="document.getElementById('pauseMenu').style.display='none'; document.getElementById('pauseMenuOverlay').style.display='none';" style="cursor:pointer;font-size:20px;padding:8px;border-radius:8px;transition:all 0.2s;background:rgba(155,89,182,0.1);text-align:center;" onmouseover="this.style.background='rgba(155,89,182,0.2)'" onmouseout="this.style.background='rgba(155,89,182,0.1)'" title="Musique">♫</div>    <div class="audio-btn" id="sfxBtn" onclick="document.getElementById('pauseMenu').style.display='none'; document.getElementById('pauseMenuOverlay').style.display='none';" style="cursor:pointer;font-size:20px;padding:8px;border-radius:8px;transition:all 0.2s;background:rgba(155,89,182,0.1);text-align:center;" onmouseover="this.style.background='rgba(155,89,182,0.2)'" onmouseout="this.style.background='rgba(155,89,182,0.1)'" title="Effets sonores">♪</div>
 
+    <!-- Bouton Installer PWA -->
+    <div id="installBtnMenu" onclick="triggerPWAInstall()" style="cursor:pointer;font-size:20px;padding:8px;border-radius:8px;transition:all 0.2s;background:rgba(102,126,234,0.1);text-align:center;" onmouseover="this.style.background='rgba(102,126,234,0.2)'" onmouseout="this.style.background='rgba(102,126,234,0.1)'" title="Installer l'app">📲</div>
+
     <!-- Sélection de difficulté -->
     <div style="margin-top:8px;padding-top:8px;border-top:1px solid rgba(0,0,0,0.1);">
       <div id="difficultyLabel" style="font-size:11px;font-weight:600;text-align:center;margin-bottom:6px;color:#34495e;">DIFFICULTÉ</div>
@@ -165,7 +168,7 @@ body{margin:0;padding:0;background:linear-gradient(135deg,#e8eef2 0%,#d4dce3 50%
         <div id="diffBtn_easy" onclick="changeDifficulty('easy')" style="cursor:pointer;font-size:10px;padding:6px 4px;border-radius:6px;transition:all 0.2s;background:rgba(46,204,113,0.2);text-align:center;font-weight:600;color:#27ae60;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">FACILE</div>
         <div id="diffBtn_normal" onclick="changeDifficulty('normal')" style="cursor:pointer;font-size:10px;padding:6px 4px;border-radius:6px;transition:all 0.2s;background:rgba(52,152,219,0.2);text-align:center;font-weight:600;color:#2980b9;border:2px solid #3498db;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">NORMAL</div>
         <div id="diffBtn_hard" onclick="changeDifficulty('hard')" style="cursor:pointer;font-size:10px;padding:6px 4px;border-radius:6px;transition:all 0.2s;background:rgba(230,126,34,0.2);text-align:center;font-weight:600;color:#d35400;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">DIFFICILE</div>
-        <div id="diffBtn_legendary" onclick="changeDifficulty('legendary')" style="cursor:pointer;font-size:10px;padding:6px 4px;border-radius:6px;transition:all 0.2s;background:rgba(142,68,173,0.2);text-align:center;font-weight:600;color:#8e44ad;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">LÉGENDAIRE</div>
+        <div id="diffBtn_legendary" onclick="changeDifficulty('legendary')" style="cursor:pointer;font-size:10px;padding:6px 4px;border-radius:8px;transition:all 0.2s;background:rgba(142,68,173,0.2);text-align:center;font-weight:600;color:#8e44ad;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">LÉGENDAIRE</div>
       </div>
     </div>
   </div>
@@ -6880,7 +6883,6 @@ updateLanguageFlag();
 // ============================================
 
 let deferredPrompt;
-let installButton;
 
 // Enregistrer le Service Worker
 if ('serviceWorker' in navigator) {
@@ -6895,60 +6897,28 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-// Créer le bouton d'installation permanent (toujours visible)
-function createInstallButton() {
-  installButton = document.createElement('button');
-  installButton.innerHTML = '📲';
-  installButton.title = 'Install app';
-  installButton.style.cssText = `
-    position: fixed;
-    top: 10px;
-    right: 55px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border: none;
-    border-radius: 12px;
-    width: 45px;
-    height: 45px;
-    font-size: 24px;
-    cursor: pointer;
-    z-index: 9998;
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  `;
+// Fonction pour déclencher l'installation PWA (appelée depuis le menu)
+function triggerPWAInstall() {
+  // Fermer le menu
+  document.getElementById('pauseMenu').style.display='none';
+  document.getElementById('pauseMenuOverlay').style.display='none';
   
-  installButton.onmouseover = () => {
-    installButton.style.transform = 'scale(1.1)';
-    installButton.style.boxShadow = '0 6px 20px rgba(102, 126, 234, 0.6)';
-  };
-  
-  installButton.onmouseout = () => {
-    installButton.style.transform = 'scale(1)';
-    installButton.style.boxShadow = '0 4px 15px rgba(102, 126, 234, 0.4)';
-  };
-  
-  installButton.onclick = async () => {
-    if (deferredPrompt) {
-      // Chrome/Edge: utiliser l'API
-      deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
-      
-      if (outcome === 'accepted') {
+  if (deferredPrompt) {
+    // Chrome/Edge: utiliser l'API
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then(result => {
+      if (result.outcome === 'accepted') {
         console.log('✅ App installée');
-        installButton.style.display = 'none';
+        // Cacher le bouton du menu après installation
+        const menuBtn = document.getElementById('installBtnMenu');
+        if (menuBtn) menuBtn.style.display = 'none';
       }
-      
       deferredPrompt = null;
-    } else {
-      // Autre navigateur: afficher les instructions
-      showInstallInstructions();
-    }
-  };
-  
-  document.body.appendChild(installButton);
+    });
+  } else {
+    // Autre navigateur: afficher les instructions
+    showInstallInstructions();
+  }
 }
 
 // Afficher les instructions d'installation
@@ -7030,23 +7000,19 @@ function showInstallInstructions() {
   document.body.appendChild(popup);
 }
 
-// Créer le bouton au chargement
-createInstallButton();
-
 // Détecter quand l'installation native est possible
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   deferredPrompt = e;
-  // Le bouton est déjà visible, juste stocker le prompt
+  // Le bouton est dans le menu O/I, rien à faire ici
 });
 
-// Cacher le bouton après installation
+// Cacher le bouton du menu après installation
 window.addEventListener('appinstalled', () => {
   console.log('✅ App installée avec succès');
   deferredPrompt = null;
-  if (installButton) {
-    installButton.style.display = 'none';
-  }
+  const menuBtn = document.getElementById('installBtnMenu');
+  if (menuBtn) menuBtn.style.display = 'none';
 });
 
 requestAnimationFrame(loop);
