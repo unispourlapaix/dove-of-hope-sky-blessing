@@ -35,6 +35,12 @@ const es = {
     divine_light: 'en luz divina'
   },
   
+  bonus: {
+    completed_title: '🎉 BONUS COMPLETADO',
+    items_collected: 'Objetos recogidos',
+    bonus_score: 'PUNTOS BONUS'
+  },
+  
   buttons: {
     start: '¡Enciende!',
     play: 'JUGAR',
@@ -392,6 +398,8 @@ const es = {
   },
 
   bosses: {
+    victory_title: '🏆 VICTORIA 🏆',
+    spiritual_victory: '🌟 Victoria Espiritual 🌟',
     spider: {
       name: '🕷️ La Araña de la Oscuridad',
       intro: 'Una araña gigante teje su red de miedo... ¡Pero "Dios no nos ha dado espíritu de cobardía"!',

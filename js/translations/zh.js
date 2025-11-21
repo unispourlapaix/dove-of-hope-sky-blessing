@@ -41,6 +41,12 @@ const zh = {
     divine_light: '化为神圣之光'
   },
   
+  bonus: {
+    completed_title: '🎉 奖励完成',
+    items_collected: '收集物品',
+    bonus_score: '奖励分数'
+  },
+  
   buttons: {
     start: '点亮！',
     play: '开始',
@@ -415,6 +421,8 @@ const zh = {
   },
 
   bosses: {
+    victory_title: '🏆 胜利 🏆',
+    spiritual_victory: '🌟 精神胜利 🌟',
     spider: {
       name: '🕷️ 黑暗之蛛',
       intro: '一只巨大的蜘蛛编织恐惧之网...但"神赐给我们不是胆怯的心"！',

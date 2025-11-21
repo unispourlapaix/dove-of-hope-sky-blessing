@@ -35,6 +35,12 @@ const de = {
     divine_light: 'in göttliches Licht'
   },
   
+  bonus: {
+    completed_title: '🎉 BONUS ABGESCHLOSSEN',
+    items_collected: 'Gesammelte Objekte',
+    bonus_score: 'BONUSPUNKTE'
+  },
+  
   buttons: {
     start: 'Anzünden!',
     play: 'SPIELEN',
@@ -392,6 +398,8 @@ const de = {
   },
 
   bosses: {
+    victory_title: '🏆 SIEG 🏆',
+    spiritual_victory: '🌟 Spiritueller Sieg 🌟',
     spider: {
       name: '🕷️ Die Spinne der Finsternis',
       intro: 'Eine riesige Spinne webt ihr Netz der Angst... Aber "Gott hat uns nicht einen Geist der Furcht gegeben"!',

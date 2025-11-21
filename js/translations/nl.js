@@ -41,6 +41,12 @@ const nl = {
     divine_light: 'in goddelijk licht'
   },
   
+  bonus: {
+    completed_title: '🎉 BONUS VOLTOOID',
+    items_collected: 'Verzamelde items',
+    bonus_score: 'BONUSSCORE'
+  },
+  
   buttons: {
     start: 'Aansteken!',
     play: 'SPELEN',
@@ -283,6 +289,8 @@ const nl = {
   },
 
   bosses: {
+    victory_title: '🏆 OVERWINNING 🏆',
+    spiritual_victory: '🌟 Spirituele Overwinning 🌟',
     spider: {
       name: '🕷️ De Spin van Duisternis',
       intro: 'Een reusachtige spin weeft zijn web van angst...',

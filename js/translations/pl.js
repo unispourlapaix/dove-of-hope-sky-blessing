@@ -41,6 +41,12 @@ const pl = {
     divine_light: 'w boże światło'
   },
   
+  bonus: {
+    completed_title: '🎉 BONUS UKOŃCZONY',
+    items_collected: 'Zebrane przedmioty',
+    bonus_score: 'PUNKTY BONUSOWE'
+  },
+  
   buttons: {
     start: 'Zapal!',
     play: 'GRAJ',
@@ -400,6 +406,8 @@ const pl = {
   },
 
   bosses: {
+    victory_title: '🏆 ZWYCIęSTWO 🏆',
+    spiritual_victory: '🌟 Duchowe Zwycięstwo 🌟',
     spider: {
       name: '🕷️ Pająk Ciemności',
       intro: 'Gigantyczny pająk tka pajęczynę strachu... Ale "Bóg nie dał nam ducha bojaźni"!',

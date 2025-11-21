@@ -41,6 +41,12 @@ const en = {
     divine_light: 'into divine light'
   },
   
+  bonus: {
+    completed_title: '🎉 BONUS COMPLETED',
+    items_collected: 'Items collected',
+    bonus_score: 'BONUS SCORE'
+  },
+  
   buttons: {
     start: 'Light it!',
     play: 'PLAY',
@@ -397,6 +403,8 @@ const en = {
   },
 
   bosses: {
+    victory_title: '🏆 VICTORY 🏆',
+    spiritual_victory: '🌟 Spiritual Victory 🌟',
     spider: {
       name: '🕷️ The Spider of Darkness',
       intro: 'A giant spider weaves its web of fear... But "God has not given us a spirit of fear"!',

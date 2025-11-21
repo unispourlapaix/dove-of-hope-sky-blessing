@@ -41,6 +41,12 @@ const sw = {
     divine_light: 'katika mwanga wa kimungu'
   },
   
+  bonus: {
+    completed_title: '🎉 BONUS IMEKAMILIKA',
+    items_collected: 'Vitu vilivyokusanywa',
+    bonus_score: 'ALAMA ZA BONUS'
+  },
+  
   buttons: {
     start: 'Washa!',
     play: 'CHEZA',
@@ -415,6 +421,8 @@ const sw = {
   },
 
   bosses: {
+    victory_title: '🏆 USHINDI 🏆',
+    spiritual_victory: '🌟 Ushindi wa Kiroho 🌟',
     spider: {
       name: '🕷️ Buibui wa Giza',
       intro: 'Buibui mkubwa anafuma utando wa hofu... Lakini "Mungu hakutupa roho ya hofu"!',

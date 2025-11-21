@@ -35,6 +35,12 @@ const pt = {
     divine_light: 'em luz divina'
   },
   
+  bonus: {
+    completed_title: '🎉 BÔNUS COMPLETO',
+    items_collected: 'Itens coletados',
+    bonus_score: 'PONTOS BÔNUS'
+  },
+  
   buttons: {
     start: 'Acenda!',
     play: 'JOGAR',
@@ -392,6 +398,8 @@ const pt = {
   },
 
   bosses: {
+    victory_title: '🏆 VITÓRIA 🏆',
+    spiritual_victory: '🌟 Vitória Espiritual 🌟',
     spider: {
       name: '🕷️ A Aranha das Trevas',
       intro: 'Uma aranha gigante tece sua teia de medo... Mas "Deus não nos deu espírito de medo"!',

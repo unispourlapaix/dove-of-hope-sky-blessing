@@ -35,6 +35,12 @@ const it = {
     divine_light: 'in luce divina'
   },
   
+  bonus: {
+    completed_title: '🎉 BONUS COMPLETATO',
+    items_collected: 'Oggetti raccolti',
+    bonus_score: 'PUNTEGGIO BONUS'
+  },
+  
   buttons: {
     start: 'Accendilo!',
     play: 'GIOCA',
@@ -392,6 +398,8 @@ const it = {
   },
 
   bosses: {
+    victory_title: '🏆 VITTORIA 🏆',
+    spiritual_victory: '🌟 Vittoria Spirituale 🌟',
     spider: {
       name: '🕷️ Il Ragno dell\'Oscurità',
       intro: 'Un ragno gigante tesse la sua rete di paura... Ma "Dio non ci ha dato uno spirito di paura"!',

@@ -41,6 +41,12 @@ const fr = {
     divine_light: 'en lumière divine'
   },
   
+  bonus: {
+    completed_title: '🎉 BONUS TERMINÉ',
+    items_collected: 'Objets collectés',
+    bonus_score: 'SCORE BONUS'
+  },
+  
   buttons: {
     start: 'Rallume !',
     play: 'JOUER',
@@ -398,6 +404,8 @@ const fr = {
   },
 
   bosses: {
+    victory_title: '🏆 VICTOIRE 🏆',
+    spiritual_victory: '🌟 Victoire Spirituelle 🌟',
     spider: {
       name: '🕷️ L\'Araignée des Ténèbres',
       intro: 'Une araignée géante tisse sa toile de peur... Mais "Dieu ne nous a pas donné un esprit de timidité" !',
