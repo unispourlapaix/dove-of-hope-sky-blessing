@@ -6895,7 +6895,7 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-// Créer le bouton d'installation (icône uniquement)
+// Créer le bouton d'installation permanent (toujours visible)
 function createInstallButton() {
   installButton = document.createElement('button');
   installButton.innerHTML = '📲';
@@ -6915,7 +6915,7 @@ function createInstallButton() {
     z-index: 9998;
     box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
     transition: all 0.3s ease;
-    display: none;
+    display: flex;
     align-items: center;
     justify-content: center;
   `;
@@ -6931,31 +6931,113 @@ function createInstallButton() {
   };
   
   installButton.onclick = async () => {
-    if (!deferredPrompt) return;
-    
-    deferredPrompt.prompt();
-    const { outcome } = await deferredPrompt.userChoice;
-    
-    if (outcome === 'accepted') {
-      console.log('✅ App installée');
+    if (deferredPrompt) {
+      // Chrome/Edge: utiliser l'API
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      
+      if (outcome === 'accepted') {
+        console.log('✅ App installée');
+        installButton.style.display = 'none';
+      }
+      
+      deferredPrompt = null;
+    } else {
+      // Autre navigateur: afficher les instructions
+      showInstallInstructions();
     }
-    
-    deferredPrompt = null;
-    installButton.style.display = 'none';
   };
   
   document.body.appendChild(installButton);
 }
 
-// Détecter quand l'installation est possible
+// Afficher les instructions d'installation
+function showInstallInstructions() {
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  const isAndroid = /Android/.test(navigator.userAgent);
+  
+  let instructions = '';
+  
+  if (isIOS) {
+    instructions = `
+      <div style="text-align:center;padding:20px;">
+        <div style="font-size:48px;margin-bottom:15px;">📲</div>
+        <div style="font-size:18px;margin-bottom:10px;font-weight:bold;">iOS</div>
+        <div style="font-size:14px;line-height:1.6;">
+          1️⃣ ${t('ui.tap_share') || 'Appuyez sur'} <span style="font-size:20px;">⬆️</span><br>
+          2️⃣ ${t('ui.add_home') || 'Ajouter à l\'écran d\'accueil'}<br>
+          3️⃣ ${t('ui.confirm') || 'Confirmer'}
+        </div>
+      </div>
+    `;
+  } else if (isAndroid) {
+    instructions = `
+      <div style="text-align:center;padding:20px;">
+        <div style="font-size:48px;margin-bottom:15px;">📲</div>
+        <div style="font-size:18px;margin-bottom:10px;font-weight:bold;">Android</div>
+        <div style="font-size:14px;line-height:1.6;">
+          1️⃣ Menu <span style="font-size:20px;">⋮</span><br>
+          2️⃣ ${t('ui.install_app') || 'Installer l\'application'}<br>
+          3️⃣ ${t('ui.confirm') || 'Confirmer'}
+        </div>
+      </div>
+    `;
+  } else {
+    instructions = `
+      <div style="text-align:center;padding:20px;">
+        <div style="font-size:48px;margin-bottom:15px;">🖥️</div>
+        <div style="font-size:18px;margin-bottom:10px;font-weight:bold;">Desktop</div>
+        <div style="font-size:14px;line-height:1.6;">
+          ${t('ui.install_desktop') || 'Ouvrez dans Chrome/Edge pour installer'}<br>
+          <span style="font-size:20px;">⋮</span> → ${t('ui.install_app') || 'Installer'}
+        </div>
+      </div>
+    `;
+  }
+  
+  const popup = document.createElement('div');
+  popup.style.cssText = `
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    z-index: 10000;
+    max-width: 90%;
+    width: 350px;
+  `;
+  
+  popup.innerHTML = `
+    <button onclick="this.parentElement.remove()" style="
+      position:absolute;
+      top:10px;
+      right:10px;
+      background:rgba(0,0,0,0.1);
+      color:#333;
+      border:none;
+      border-radius:50%;
+      width:35px;
+      height:35px;
+      font-size:20px;
+      cursor:pointer;
+      font-weight:bold;
+    ">✕</button>
+    ${instructions}
+  `;
+  
+  document.body.appendChild(popup);
+}
+
+// Créer le bouton au chargement
+createInstallButton();
+
+// Détecter quand l'installation native est possible
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   deferredPrompt = e;
-  
-  if (!installButton) {
-    createInstallButton();
-  }
-  installButton.style.display = 'flex';
+  // Le bouton est déjà visible, juste stocker le prompt
 });
 
 // Cacher le bouton après installation
@@ -6966,14 +7048,6 @@ window.addEventListener('appinstalled', () => {
     installButton.style.display = 'none';
   }
 });
-
-// Support iOS (Add to Home Screen)
-if (navigator.standalone !== undefined) {
-  if (!navigator.standalone && !window.matchMedia('(display-mode: standalone)').matches) {
-    // iOS: l'utilisateur peut ajouter à l'écran d'accueil via le menu Safari
-    console.log('💡 iOS: Utiliser Partager > Ajouter à l\'écran d\'accueil');
-  }
-}
 
 requestAnimationFrame(loop);
 </script>
