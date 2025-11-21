@@ -2689,6 +2689,9 @@ function resizeCanvas() {
   const MIN_HEIGHT = 480;
   const MAX_WIDTH = 480;  // Limite haute pour performances
   
+  // Ratio aspect idéal (9:16 portrait)
+  const ASPECT_RATIO = 9 / 16;
+  
   if(isMobile || containerWidth < containerHeight) {
     // Mode portrait mobile : adapter à la résolution de l'écran
     const screenWidth = window.innerWidth || screen.width;
@@ -2719,11 +2722,28 @@ function resizeCanvas() {
     c.style.height = '100%';
     c.style.imageRendering = screenWidth < 375 ? 'pixelated' : 'auto';
   } else {
-    // Mode desktop : utiliser les dimensions du conteneur
-    c.width = Math.min(containerWidth, MAX_WIDTH);
-    c.height = containerHeight;
-    c.style.width = '';
-    c.style.height = '';
+    // Mode desktop : maintenir le ratio aspect pour éviter l'étirement
+    const containerRatio = containerWidth / containerHeight;
+    
+    let targetWidth, targetHeight;
+    
+    if (containerRatio > ASPECT_RATIO) {
+      // Container plus large : limiter par la hauteur
+      targetHeight = Math.min(containerHeight, 800);
+      targetWidth = Math.round(targetHeight * ASPECT_RATIO);
+    } else {
+      // Container plus haut : limiter par la largeur
+      targetWidth = Math.min(containerWidth, MAX_WIDTH);
+      targetHeight = Math.round(targetWidth / ASPECT_RATIO);
+    }
+    
+    c.width = targetWidth;
+    c.height = targetHeight;
+    
+    // Centrer le canvas sans étirement
+    c.style.width = targetWidth + 'px';
+    c.style.height = targetHeight + 'px';
+    c.style.imageRendering = 'auto';
   }
   
   player.x = c.width / 2;
