@@ -3290,6 +3290,7 @@ function restart(){
 }
 
 function startBonusLevel(){
+  console.log('🎁 startBonusLevel appelée, bonusLevelNumber:', bonusLevelNumber);
   // Supprimer tous les anciens menus de bonus qui pourraient traîner
   const oldMenus = document.querySelectorAll('[data-bonus-menu]');
   oldMenus.forEach(menu => menu.remove());
@@ -3829,16 +3830,32 @@ for(let bi = bullets.length - 1; bi >= 0; bi--){
           let onLevelUpClose = null;
           if(level === 3) {
             bonusLevelNumber = 1;
-            onLevelUpClose = () => startBonusLevel();
+            console.log('🎁 Bonus 1 préparé pour niveau 3');
+            onLevelUpClose = () => {
+              console.log('🎁 Déclenchement Bonus 1');
+              startBonusLevel();
+            };
           } else if(level === 7) {
             bonusLevelNumber = 2;
-            onLevelUpClose = () => startBonusLevel();
+            console.log('🎁 Bonus 2 préparé pour niveau 7');
+            onLevelUpClose = () => {
+              console.log('🎁 Déclenchement Bonus 2');
+              startBonusLevel();
+            };
           } else if(level === 11) {
             bonusLevelNumber = 3;
-            onLevelUpClose = () => startBonusLevel();
+            console.log('🎁 Bonus 3 préparé pour niveau 11');
+            onLevelUpClose = () => {
+              console.log('🎁 Déclenchement Bonus 3');
+              startBonusLevel();
+            };
           } else if(level === 13) {
             bonusLevelNumber = 4;
-            onLevelUpClose = () => startBonusLevel();
+            console.log('🎁 Bonus 4 préparé pour niveau 13');
+            onLevelUpClose = () => {
+              console.log('🎁 Déclenchement Bonus 4');
+              startBonusLevel();
+            };
           }
           
           showLevelUpMessage(newLevelInfo, previousState, onLevelUpClose);
@@ -6769,6 +6786,7 @@ function showLevelUpMessage(levelInfo, previousState = 'playing', onClose = null
   const levelUpCard = levelUpDiv.querySelector('div');
   if (levelUpCard) {
     levelUpCard.addEventListener('click', function() {
+      console.log('🖱️ Click sur écran de niveau, onClose:', onClose ? 'défini' : 'null');
       levelUpDiv.remove();
       state = previousState;
       if(state === 'playing') {
@@ -6777,6 +6795,7 @@ function showLevelUpMessage(levelInfo, previousState = 'playing', onClose = null
       }
       // Exécuter la callback si elle existe (pour les niveaux bonus)
       if (onClose && typeof onClose === 'function') {
+        console.log('🎁 Exécution callback niveau bonus dans 300ms...');
         setTimeout(onClose, 300); // Petit délai pour une transition fluide
       }
     });
