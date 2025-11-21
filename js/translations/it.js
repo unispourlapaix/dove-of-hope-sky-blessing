@@ -15,6 +15,7 @@ const it = {
     language: 'Lingua',
     choose_language: 'Scegli lingua',
     language_changed: 'Lingua cambiata',
+    install: 'INSTALLA',
     tap_share: 'Tocca su',
     add_home: 'Aggiungi alla schermata Home',
     confirm: 'Conferma',

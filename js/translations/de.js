@@ -15,6 +15,7 @@ const de = {
     language: 'Sprache',
     choose_language: 'Sprache wählen',
     language_changed: 'Sprache geändert',
+    install: 'INSTALLIEREN',
     tap_share: 'Tippen Sie auf',
     add_home: 'Zum Startbildschirm hinzufügen',
     confirm: 'Bestätigen',

@@ -15,6 +15,7 @@ const pl = {
     language: 'Język',
     choose_language: 'Wybierz język',
     language_changed: 'Język zmieniony',
+    install: 'ZAINSTALUJ',
     tap_share: 'Dotknij',
     add_home: 'Dodaj do ekranu głównego',
     confirm: 'Potwierdź',

@@ -15,6 +15,7 @@ const es = {
     language: 'Idioma',
     choose_language: 'Elegir idioma',
     language_changed: 'Idioma cambiado',
+    install: 'INSTALAR',
     tap_share: 'Toca en',
     add_home: 'Añadir a pantalla de inicio',
     confirm: 'Confirmar',

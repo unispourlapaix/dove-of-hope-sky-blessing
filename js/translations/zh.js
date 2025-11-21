@@ -15,6 +15,7 @@ const zh = {
     language: '语言',
     choose_language: '选择语言',
     language_changed: '语言已更改',
+    install: '安装',
     tap_share: '点击',
     add_home: '添加到主屏幕',
     confirm: '确认',

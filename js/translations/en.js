@@ -21,6 +21,7 @@ const en = {
     hard: 'Hard',
     legendary: 'Legendary',
     difficulty_changed: 'Difficulty changed',
+    install: 'INSTALL',
     tap_share: 'Tap on',
     add_home: 'Add to Home Screen',
     confirm: 'Confirm',

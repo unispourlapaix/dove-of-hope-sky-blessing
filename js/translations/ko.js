@@ -15,6 +15,7 @@ const ko = {
     language: '언어',
     choose_language: '언어 선택',
     language_changed: '언어 변경됨',
+    install: '설치',
     tap_share: '탭하기',
     add_home: '홈 화면에 추가',
     confirm: '확인',

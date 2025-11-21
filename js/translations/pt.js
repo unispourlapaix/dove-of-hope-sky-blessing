@@ -15,6 +15,7 @@ const pt = {
     language: 'Idioma',
     choose_language: 'Escolher idioma',
     language_changed: 'Idioma alterado',
+    install: 'INSTALAR',
     tap_share: 'Toque em',
     add_home: 'Adicionar à tela inicial',
     confirm: 'Confirmar',

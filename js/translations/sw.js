@@ -15,6 +15,7 @@ const sw = {
     language: 'Lugha',
     choose_language: 'Chagua lugha',
     language_changed: 'Lugha imebadilishwa',
+    install: 'SAKINISHA',
     tap_share: 'Gusa',
     add_home: 'Ongeza kwenye skrini ya nyumbani',
     confirm: 'Thibitisha',
