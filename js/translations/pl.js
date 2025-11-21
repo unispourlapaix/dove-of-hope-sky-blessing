@@ -14,7 +14,12 @@ const pl = {
     lives: 'Życie',
     language: 'Język',
     choose_language: 'Wybierz język',
-    language_changed: 'Język zmieniony'
+    language_changed: 'Język zmieniony',
+    tap_share: 'Dotknij',
+    add_home: 'Dodaj do ekranu głównego',
+    confirm: 'Potwierdź',
+    install_app: 'Zainstaluj aplikację',
+    install_desktop: 'Otwórz w Chrome/Edge, aby zainstalować'
   },
   
   buttons: {

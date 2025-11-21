@@ -14,7 +14,12 @@ const de = {
     lives: 'Leben',
     language: 'Sprache',
     choose_language: 'Sprache wählen',
-    language_changed: 'Sprache geändert'
+    language_changed: 'Sprache geändert',
+    tap_share: 'Tippen Sie auf',
+    add_home: 'Zum Startbildschirm hinzufügen',
+    confirm: 'Bestätigen',
+    install_app: 'App installieren',
+    install_desktop: 'In Chrome/Edge öffnen zum Installieren'
   },
   
   buttons: {

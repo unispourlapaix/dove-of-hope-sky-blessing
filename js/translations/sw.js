@@ -14,7 +14,12 @@ const sw = {
     lives: 'Maisha',
     language: 'Lugha',
     choose_language: 'Chagua lugha',
-    language_changed: 'Lugha imebadilishwa'
+    language_changed: 'Lugha imebadilishwa',
+    tap_share: 'Gusa',
+    add_home: 'Ongeza kwenye skrini ya nyumbani',
+    confirm: 'Thibitisha',
+    install_app: 'Sakinisha programu',
+    install_desktop: 'Fungua katika Chrome/Edge ili kusakinisha'
   },
   
   buttons: {

@@ -11,7 +11,12 @@ const ja = {
     score: 'スコア',
     clouds: '雲',
     level: 'チャプター',
-    lives: 'ライフ'
+    lives: 'ライフ',
+    tap_share: 'タップ',
+    add_home: 'ホーム画面に追加',
+    confirm: '確認',
+    install_app: 'アプリをインストール',
+    install_desktop: 'Chrome/Edgeで開いてインストール'
   },
   
   buttons: {

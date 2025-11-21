@@ -14,7 +14,12 @@ const zh = {
     lives: '生命',
     language: '语言',
     choose_language: '选择语言',
-    language_changed: '语言已更改'
+    language_changed: '语言已更改',
+    tap_share: '点击',
+    add_home: '添加到主屏幕',
+    confirm: '确认',
+    install_app: '安装应用',
+    install_desktop: '在Chrome/Edge中打开以安装'
   },
   
   buttons: {
