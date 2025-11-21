@@ -66,7 +66,12 @@ const sw = {
     new_record_popup: '🎉 Rekodi mpya!\n\nAlama: {score}\n\nAlama yako imehifadhiwa.\nBonyeza Hamisha katika menyu ya Hazina kuishiriki.',
     infinite_mode: '🔄 Hali ya Milele imeamilishwa! Mistari kila mawingu 100 ☁️',
     record_saved: '☁️ Rekodi imehifadhiwa!',
-    heart: '💖 +1 Maisha! Neema ya Mungu inakuhifadhi!'
+    heart: '💖 +1 Maisha! Neema ya Mungu inakuhifadhi!',
+    try_again: 'Lakini katika shida, unaangaza zaidi!',
+    boss_defeated: '🏆 Boss ameshindwa! +{score} pts',
+    storm_cleared: '🌈 Dhoruba imetoweka! Tumaini linaangaza tena!',
+    continue: '✨ Endelea',
+    save_system: '✨ Mfumo wa kuhifadhi'
   },
   
   bonus: {
@@ -186,7 +191,10 @@ const sw = {
     invalid_email: '❌ Barua pepe si sahihi!',
     connected_local_saved: '✅ Imeunganishwa!\n\nData ya ndani imehifadhiwa kwenye wingu.',
     connected_cloud_restored: '✅ Imeunganishwa!\n\nData ya wingu imerejeeshwa.',
-    connected_success: '✅ Imeunganishwa kwa mafanikio!\n\nMaendeleo yako yatahifadhiwa kiotomatiki mtandaoni.'
+    connected_success: '✅ Imeunganishwa kwa mafanikio!\n\nMaendeleo yako yatahifadhiwa kiotomatiki mtandaoni.',
+    reset_confirm: '⚠️ Je, una uhakika unataka kuseti upya data yako yote?',
+    data_conflict: '⚠️ Mgongano wa data umegunduliwa!\n\nData ya ndani: Alama {localScore}, Kiwango {localLevel}\nData ya wingu: Alama {cloudScore}, Kiwango {cloudLevel}\n\nToleo lipi la kuhifadhi?',
+    connection_error: '❌ Kosa la muunganisho:\n{error}'
   },
 
   testimony: {
@@ -366,6 +374,72 @@ const sw = {
       { text: 'Yote myafanyeni kwa upendo', reference: '1 Wakorintho 16:14' },
       { text: 'Neema ya Bwana iwe pamoja nanyi', reference: '1 Wakorintho 16:23' }
     ]
+  },
+
+  bosses: {
+    spider: {
+      name: '🕷️ Buibui wa Giza',
+      intro: 'Buibui mkubwa anafuma utando wa hofu... Lakini "Mungu hakutupa roho ya hofu"!',
+      phase_1: '🕸️ "Kwa maana Mungu hakutupa roho ya hofu, bali ya nguvu, na ya upendo, na ya kiasi." (2 Timotheo 1:7)\n\nHOFU YA MAUMIVU, HOFU YA KUUMWA... Hofu hizi zinakufanya usiende mbele!',
+      phase_2: '✨ "Usiogope, kwa kuwa mimi niko pamoja nawe; usitetemeke, kwa kuwa mimi ndimi Mungu wako." (Isaya 41:10)\n\nHOFU ZISIZO NA MANTIKI na PHOBIA hazina nguvu juu ya wanaotembea kwa imani!',
+      phase_3: '🛡️ "Hata nikienda katika bonde la uvuli wa mauti, sitaogopa mabaya, kwa kuwa wewe u pamoja nami." (Zaburi 23:4)\n\nHofu ni ULINZI, lakini haipaswi KUKUTAWALA!',
+      defeated: '🦋 USHINDI JUU YA HOFU!\n\n"Katika upendo hakuna hofu, lakini upendo kamilifu hufukuza hofu nje." (1 Yohana 4:18)\n\nUmeshinda hofu inayofanya usiende mbele! Imani hubadilisha hofu kuwa ujasiri.',
+      wisdom: 'Buibui anaashiria hofu zetu zote: hofu ya maumivu, ya kuumwa, phobia zisizo na mantiki. Hofu hizi mara nyingi ni ulinzi wa kawaida unaotulinda na hatari. Lakini zinapokuwa nyingi sana, zinatufanya tusiende mbele. Biblia inasema: "Mungu hakutupa roho ya hofu, bali ya nguvu, upendo, na kiasi." Imani haikanushi hatari, lakini inatupa ujasiri wa kuikabili. Katika Kristo, tunajifunza kutofautisha uangalifu mzuri na hofu inayofanya tusiende mbele. Upendo kamilifu wa Mungu hufukuza hofu!'
+    },
+    flying_snake: {
+      name: '🐍 Nyoka wa Kuruka',
+      intro: 'Nyoka wa kale, ishara ya majaribu, anainuka mbele yako... Lakini "mpingeni shetani, naye atawakimbieni"!',
+      phase_1: '🔥 "Kesheni na kusali, ili msije mkaingia katika majaribu." (Mathayo 26:41)\n\nMAJARIBU, UONGO WA KWANZA, SHAKA inasema: "Je, kweli Mungu alisema...?"',
+      phase_2: '⚔️ "Mpingeni shetani, naye atawakimbieni. Mkaribie Mungu, naye atawakaribieni." (Yakobo 4:7-8)\n\nSUMU YA MPATANISHO na KUTOTII haiwezi kuwafikia wanaokaa karibu na Mungu!',
+      phase_3: '✝️ "Na kama vile Musa alivyomwinua yule nyoka jangwani, ndivyo Mwana wa Adamu apasavyo kuinuliwa." (Yohana 3:14)\n\nKristo ALIPONDA kichwa cha nyoka! Ushindi wake ni ushindi wako!',
+      defeated: '🌟 USHINDI JUU YA MAJARIBU!\n\n"Naye atakuponda kichwa, nawe utamponda kisigino." (Mwanzo 3:15)\n\nUmeshinda majaribu! Katika Kristo, nyoka wa kale ameshindwa.',
+      wisdom: 'Nyoka wa kuruka anawakilisha majaribu na uongo wa kwanza kutoka Bustani ya Edeni: "Hamtakufa... mtakuwa kama Mungu." Hii ni sauti inayopanda shaka katika wema wa Mungu, inayotusukuma kwa mpatanisho na kutotii. Lakini Biblia inafundisha: "Mpingeni shetani, naye atakimbilia mbali." Majaribu si dhambi - ni mwaliko wa dhambi. Yesu mwenyewe alijaribiwa, lakini alipinga kwa Neno la Mungu. Msalabani, Kristo aliponda kichwa cha nyoka. Kwa ushindi wake, tuna nguvu ya kupinga na kushinda kila jaribu. Mkaribie Mungu, naye atawakaribieni!'
+    },
+    crazy_chicken: {
+      name: '🐔 Kuku wa Wazimu',
+      intro: 'Kuku anayepiga kelele anakimbia kila mahali... Hofu za uongo zinakufanya wazimu na kukufanya usiende mbele!',
+      phase_1: '😰 "Kwa maana Mungu hakutupa roho ya hofu, bali ya nguvu, na ya upendo, na ya kiasi." (2 Timotheo 1:7)\n\nHOFU ZA UONGO ZA KIBINAFSI: "Je, kama...?", "Labda...", "Ninaogopa kwamba..." - hofu za KUFIKIRIKA zinazokuzuia!',
+      phase_2: '🧠 "Msihangaike kwa jambo lolote, bali katika kila jambo kwa sala na dua pamoja na shukrani, ombi lenu lifahamike kwa Mungu." (Wafilipi 4:6)\n\nMITAZAMO YA MAJANGA akilini, HOFU ZISIZO NA MANTIKI zinazofanya wazimu! SIMAMA!',
+      phase_3: '✨ "Kwa kuwa Mungu ndiye afanyaye ndani yenu kuwataka na kufanya kadiri ya mpendezapo." (Wafilipi 2:13)\n\nHofu hizi za kibinafsi SI UKWELI! Mungu alikupa HEKIMA, si WAZIMU!',
+      defeated: '🦅 USHINDI JUU YA HOFU ZA UONGO!\n\n"Usiogope, kwa kuwa mimi niko pamoja nawe." (Isaya 41:10)\n\nUmeshinda hofu za kufikirika! Sasa unatembea katika hekima, si wazimu.',
+      wisdom: 'Kuku wa wazimu anawakilisha hofu za uongo za kibinafsi zinazotufanya wazimu: "Je, kama nitashindwa?", "Je, kama watu watanihukumu?", "Je, kama si mzuri vya kutosha?". Hofu hizi za kufikirika, mitazamo hii ya majanga katika vichwa vyetu inatufanya tusiende mbele na kutuzuia. Tunapiga kelele kama kuku anayeogopa mambo ambayo labda hayatatokea kamwe! Biblia inasema: "Mungu hakutupa roho ya hofu, bali ya nguvu, upendo, na kiasi." 95% ya hofu zetu hazitokei kamwe. Hofu hizi za kibinafsi si ukweli - ni uongo wa adui kuzuia maendeleo yetu. "Msihangaike kwa jambo lolote" - Mungu anatuita kubadilisha hofu za uongo kwa imani, wasiwasi kwa amani, mitazamo ya majanga kwa kutumaini katika ulinzi wake.'
+    },
+    grim_reaper: {
+      name: '💀 Mvunaji wa Mauti',
+      intro: 'Mauti yenyewe inasimama mbele yako... Lakini kumbuka: Kristo ameshinda mauti!',
+      phase_1: '🕊️ "Ee mauti, ushindi wako u wapi? Ee mauti, mshale wako u wapi?" (1 Wakorintho 15:55)\n\nHofu ya mauti haina nguvu juu ya wanaosadiki uzima wa milele!',
+      phase_2: '✝️ "Yesu akamwambia: Mimi ndimi ufufuo na uzima; yeye aniaminiye mimi, hata akifa, ataishi." (Yohana 11:25)\n\nUzima daima unashinda giza! Kila wakati ni USHINDI!',
+      phase_3: '🌟 "Utufundishe kuhesabu siku zetu, ili tujipatie moyo wa hekima." (Zaburi 90:12)\n\nHaijalishi muda uliobaki - ISHI KIKAMILIFU! Kila siku ni ZAWADI!',
+      defeated: '🙏 USHINDI JUU YA MAUTI!\n\n"Basi, sasa hakuna hukumu kwa wale walio ndani ya Kristo Yesu." (Warumi 8:1)\n\nUmeshinda hofu! Uzima wa milele ni wako kwa neema ya Mungu.',
+      wisdom: 'Mauti si mwisho, bali mabadiliko. Kwa njia ya Kristo, tunapita kutoka uzima wa dunia hadi uzima wa milele. Haijalishi muda tuliobaki au jinsi tunavyoishi - bora zaidi ni kuishi kila wakati kama ushindi, kila mwaka kama zawadi. Hata katika ugonjwa, hata katika majaribu, TUMAINI na MATUMAINI MAZURI yanatupa mabawa na kufanya yasiyowezekana mara nyingi yawezekane! Biblia inasema: "Utufundishe kuhesabu siku zetu, ili tujipatie moyo wa hekima." Kila siku ni ya thamani. Kila pumzi ni neema. Imani ya Kikristo inatufundisha kwamba mauti ilishindwa Msalabani, na tumaini la ufufuo linaangaza njia yetu. Kwa hiyo, tuishi kikamilifu, kwa furaha na shukrani, kwa kuwa "Hii ndiyo siku aliyoifanya Bwana; na tufurahi na kushangilia katika siku hiyo!" (Zaburi 118:24)'
+    },
+    wall: {
+      name: '🧱 Ukuta wa Minyororo',
+      intro: 'Ukuta wa hofu na mashaka unasimama mbele yako... Lakini "mahali alipo Roho wa Bwana, papo uhuru"!',
+      phase_1: '⛓️ "Simameni basi katika uhuru ambao Kristo alitufunguliao, wala msirudi tena kufungwa katika nira ya utumwa." (Wagalatia 5:1)\n\nMINYORORO YA HOFU, MASHAKA na AIBU haina nguvu juu yako!',
+      phase_2: '🔓 "Kwa hiyo, Mwana akiwaacheni huru, mtakuwa huru kweli." (Yohana 8:36)\n\nKila mnyororo uliovunjika ni ushindi juu ya uongo wa adui!',
+      phase_3: '✨ "Naweza kufanya mambo yote kwa yeye anitiaye nguvu." (Wafilipi 4:13)\n\nUkweli wa Mungu unabomoa ngome na kuta zinazokufunga!',
+      defeated: '🎉 UHURU KATIKA KRISTO!\n\n"Nanyi mtaitambua kweli, na kweli itawafanya huru." (Yohana 8:32)\n\nUmevunja minyororo! Uko huru kwa nguvu ya upendo wa Mungu.',
+      wisdom: 'Hofu ni kama minyororo isiyoonekana inayotuzuia kusonga mbele. Biblia inatufundisha: "Mungu hakutupa roho ya hofu, bali ya nguvu, upendo, na kiasi." Kila hofu iliyoshindwa kwa imani ni mnyororo uliov unjwa. Katika Kristo, tumeamriwa kuishi katika uhuru, wamefunguliwa kutoka kwa uongo unaotufunga. Ukweli unatufanya huru!'
+    },
+    dark_cloud: {
+      name: '☁️ Wingu Jeusi',
+      intro: 'Wingu la dhoruba linatishia kumeza kila kitu... Lakini "Mungu ni kimbilio letu na nguvu yetu, msaada katika shida"!',
+      phase_1: '⚡ "Bwana yu karibu na wale wenye moyo uliovunjika, na huwaokoa walio na roho iliyopondeka." (Zaburi 34:18)\n\nKatika huzuni kuu zaidi, linda TUMAINI, IMANI na UPENDO wako!',
+      phase_2: '🌩️ "Tunasononwa pande zote, lakini hatuonewi; tunashangaa, lakini hatukatishwi tamaa." (2 Wakorintho 4:8)\n\nUMEME WA MATESO hauwezi kuzima nuru ya Mungu ndani yako!',
+      phase_3: '⛈️ "Mambo haya nimewaambia ninyi, ili mpate kuwa na amani ndani yangu. Ulimwenguni mtakuwa na dhiki; lakini jipeni moyo, mimi nimeiushinda dunia." (Yohana 16:33)\n\nHata katika dhoruba kubwa zaidi, Kristo ni nanga yako!',
+      defeated: '🌈 USHINDI JUU YA DHORUBA!\n\n"Baada ya mvua huja jua. Anatawanya mawingu kwa nuru yake." (Ayubu 37:11-15)\n\nUmepita dhoruba! Tumaini linaangaza tena, nguvu zaidi kuliko hapo awali.',
+      wisdom: 'Huzuni kuu, hasara kubwa na hofu za ghafula ni kama dhoruba zinazofanya anga yetu ya ndani kuwa giza. Lakini Biblia inatukumbusha: "Yeye akaaye katika sitara ya Yeye Aliye juu sana, atakaa chini ya kivuli cha Mwenyezi." Katika nyakati za giza zaidi, tumaini, imani na upendo ni mianga tunayohitaji kulinda. Mungu kamwe hawachi watoto wake katika dhoruba - Yeye ni kimbilio letu, nguvu yetu, na baada ya kila dhoruba, Yeye huangaza upinde wa ahadi zake.'
+    },
+    black_raven: {
+      name: '🐦‍⬛ Kunguru wa Uongo',
+      intro: 'Kunguru mweusi anatema uongo kuhusu utambulisho wako... Lakini "wewe ni wa thamani machoni pangu, na mimi nimekupenda"!',
+      phase_1: '🪶 "Nitakusifu, kwa kuwa nimeumbwa kwa njia ya ajabu na ya kustaajabisha. Kazi zako ni za ajabu." (Zaburi 139:14)\n\nUongo unasema: SI MZURI VYA KUTOSHA, SI TAJIRI VYA KUTOSHA, SI WA KAWAIDA...\nLakini UKWELI wa Mungu unasema: UNA THAMANI!',
+      phase_2: '✝️ "Tazameni upendo wa namna gani Baba aliotupa, ili tuitwe watoto wa Mungu, nasi ni hao." (1 Yohana 3:1)\n\nUongo unapiga kelele: HUNA THAMANI, TOFAUTI SANA, MWENYE DHAMBI SANA...\nLakini Mungu anasema: WEWE NI MTOTO WANGU MPENDWA!',
+      phase_3: '👑 "Lakini ninyi ni taifa liliochaguliwa, ukuhani wa kimfalme, taifa takatifu, watu wa Mungu mwenyewe." (1 Petro 2:9)\n\nUongo unapiga mayowe: MBAYA SANA, USIYE STAHILI, UMEKATALIWA...\nLakini Kristo anatangaza: UMECHAGULIWA, UNA HESHIMA YA KIFALME, UMEPENDWA!',
+      defeated: '🌟 USHINDI JUU YA UONGO!\n\n"Nanyi mtaitambua kweli, na kweli itawafanya huru." (Yohana 8:32)\n\nUmeshinda uongo! Sasa unajua utambulisho wako wa kweli katika Kristo.',
+      wisdom: 'Kunguru wa uongo anawakilisha mashtaka yote na imani za uongo ambazo adui anatumia kuharibu utambulisho wetu: "si mzuri vya kutosha", "si tajiri vya kutosha", "tofauti sana", "mwenye dhambi sana". Uongo huu ni mishale yenye sumu inayoelekezwa mioyoni mwetu. Lakini Biblia inatufunulia UKWELI: tumeumbwa katika mfano wa Mungu, tumekombolewa kwa damu ya Kristo, tumekubalika kama watoto wa Mungu. Thamani yetu haitegemei sura yetu, utajiri au makosa - inatoka kwa upendo wa Mungu usio na masharti. Katika Kristo, tuna thamani, tunapendwa, tumechaguliwa, tuna heshima ya kifalme. Huu ndio utambulisho wetu wa kweli!'
+    }
   }
 };
 

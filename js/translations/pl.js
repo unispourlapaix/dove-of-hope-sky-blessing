@@ -66,7 +66,12 @@ const pl = {
     new_record_popup: '🎉 Nowy rekord!\n\nWynik: {score}\n\nTwój wynik został zapisany.\nKliknij Eksportuj w menu Skarb, aby się nim podzielić.',
     infinite_mode: '🔄 Tryb niekonczący się włączony! Wersety co 100 chmur ☁️',
     record_saved: '☁️ Rekord zapisany!',
-    heart: '💖 +1 Życie! Łaska Boża chroni cię!'
+    heart: '💖 +1 Życie! Łaska Boża chroni cię!',
+    try_again: 'Ale w przeciwnościach błyszczy jeszcze jaśniej!',
+    boss_defeated: '🏆 Boss pokonany! +{score} pkt',
+    storm_cleared: '🌈 Burza się rozwiała! Nadzieja znów świeci!',
+    continue: '✨ Kontynuuj',
+    save_system: '✨ System zapisu'
   },
   
   bonus: {
@@ -171,7 +176,10 @@ const pl = {
     invalid_email: '❌ Nieprawidłowy email!',
     connected_local_saved: '✅ Połączono!\n\nDane lokalne zapisane w chmurze.',
     connected_cloud_restored: '✅ Połączono!\n\nDane z chmury przywrócone.',
-    connected_success: '✅ Pomyślnie połączono!\n\nTwój postęp będzie automatycznie zapisywany online.'
+    connected_success: '✅ Pomyślnie połączono!\n\nTwój postęp będzie automatycznie zapisywany online.',
+    reset_confirm: '⚠️ Czy na pewno chcesz zresetować wszystkie dane?',
+    data_conflict: '⚠️ Wykryto konflikt danych!\n\nDane lokalne: Wynik {localScore}, Poziom {localLevel}\nDane w chmurze: Wynik {cloudScore}, Poziom {cloudLevel}\n\nKtórą wersję zachować?',
+    connection_error: '❌ Błąd połączenia:\n{error}'
   },
 
   testimony: {
@@ -351,6 +359,72 @@ const pl = {
       { text: 'Wszystko czynimy w miłości', reference: '1 Koryntian 16:14' },
       { text: 'Łaska Pana niech będzie z wami', reference: '1 Koryntian 16:23' }
     ]
+  },
+
+  bosses: {
+    spider: {
+      name: '🕷️ Pająk Ciemności',
+      intro: 'Gigantyczny pająk tka pajęczynę strachu... Ale "Bóg nie dał nam ducha bojaźni"!',
+      phase_1: '🕸️ "Albowiem nie dał nam Bóg ducha bojaźni, ale mocy i miłości, i trzeźwego myślenia." (2 Tymoteusza 1:7)\n\nSTRACH PRZED BÓLEM, STRACH PRZED UKĄSZENIEM... Te strachy cię paraliżują!',
+      phase_2: '✨ "Nie bój się, bo Ja jestem z tobą; nie lękaj się, bo Ja jestem twoim Bogiem." (Izajasza 41:10)\n\nNIELOGICZNE LĘKI i FOBIE nie mają mocy nad kroczącymi w wierze!',
+      phase_3: '🛡️ "Choćbym chodził ciemną doliną, zła się nie ulęknę, bo Ty jesteś ze mną." (Psalm 23:4)\n\nStrach to MECHANIZM OBRONNY, ale nie powinien tobą WŁADAĆ!',
+      defeated: '🦋 ZWYCIĘSTWO NAD STRACHEM!\n\n"W miłości nie ma bojaźni, lecz doskonała miłość usuwa bojaźń." (1 Jana 4:18)\n\nPokonałeś paraliżujący strach! Wiara zamienia strach w odwagę.',
+      wisdom: 'Pająk symbolizuje wszystkie nasze lęki: strach przed bólem, przed ukąszeniem, nielogiczne fobie. Te lęki są często normalnymi mechanizmami obronnymi, które chronią nas przed niebezpieczeństwem. Ale gdy stają się nadmierne, nas paraliżują. Biblia mówi: "Bóg nie dał nam ducha bojaźni, ale mocy, miłości i trzeźwego myślenia." Wiara nie przeczy niebezpieczeństwu, ale daje nam odwagę, by mu stawić czoła. W Chrystusie uczymy się odróżniać zdrową ostrożność od paraliżującego strachu. Doskonała miłość Boga usuwa bojaźń!'
+    },
+    flying_snake: {
+      name: '🐍 Latający Wąż',
+      intro: 'Starodawny wąż, symbol pokusy, podnosi się przed tobą... Ale "przeciwstawcie się diabłu, a ucieknie od was"!',
+      phase_1: '🔥 "Czuwajcie i módlcie się, abyście nie popadli w pokusę." (Mateusza 26:41)\n\nPOKUSA, PIERWOTNE KŁAMSTWO, WĄTPLIWOŚĆ szepcze: "Czy rzeczywiście Bóg powiedział...?"',
+      phase_2: '⚔️ "Przeciwstawcie się diabłu, a ucieknie od was. Zbliżcie się do Boga, a zbliży się do was." (Jakuba 4:7-8)\n\nJad KOMPROMISU i NIEPOSŁUSZEŃSTWA nie może dosięgnąć tych, którzy pozostają blisko Boga!',
+      phase_3: '✝️ "A jak Mojżesz wywyższył węża na pustyni, tak musi być wywyższony Syn Człowieczy." (Jana 3:14)\n\nChrystus ZMIAŻDŻYŁ głowę węża! Jego zwycięstwo jest twoim zwycięstwem!',
+      defeated: '🌟 ZWYCIĘSTWO NAD POKUSĄ!\n\n"Ono zmiażdży ci głowę, a ty ukąsisz je w piętę." (Rodzaju 3:15)\n\nPokonałeś pokusę! W Chrystusie starodawny wąż został pokonany.',
+      wisdom: 'Latający wąż reprezentuje pokusę i pierwotne kłamstwo z Ogrodu Eden: "Na pewno nie umrzecie... będziecie jak Bóg." To głos, który sieje wątpliwość w dobroć Boga, pcha nas ku kompromisowi i nieposłuszeństwu. Ale Biblia uczy: "Przeciwstawcie się diabłu, a ucieknie." Pokusa nie jest grzechem - to zaproszenie do grzechu. Sam Jezus był kuszony, ale opierał się przez Słowo Boże. Na Krzyżu Chrystus zmiażdżył głowę węża. Przez Jego zwycięstwo mamy moc opierać się i pokonywać każdą pokusę. Zbliżcie się do Boga, a On zbliży się do nas!'
+    },
+    crazy_chicken: {
+      name: '🐔 Szalony Kurczak',
+      intro: 'Spanikowany kurczak biega na wszystkie strony... Fałszywe lęki doprowadzają cię do szaleństwa i paraliżują!',
+      phase_1: '😰 "Albowiem nie dał nam Bóg ducha bojaźni, ale mocy i miłości, i trzeźwego myślenia." (2 Tymoteusza 1:7)\n\nFAŁSZYWE SUBIEKTYWNE LĘKI: "A co jeśli...?", "Może...", "Boję się, że..." - WYIMAGINOWANE lęki, które cię POWSTRZYMUJĄ!',
+      phase_2: '🧠 "Nie martwcie się o nic, ale w każdej sprawie w modlitwie i błaganiach z dziękczynieniem zanoście swoje prośby do Boga." (Filipian 4:6)\n\nKATASTROFICZNE SCENARIUSZE w głowie, IRRACJONALNE LĘKI doprowadzające do szaleństwa! STOP!',
+      phase_3: '✨ "Albowiem to Bóg sprawia w was i chcenie, i wykonanie według swego upodobania." (Filipian 2:13)\n\nTe SUBIEKTYWNE lęki to NIE RZECZYWISTOŚĆ! Bóg dał ci MĄDROŚĆ, nie SZALEŃSTWO!',
+      defeated: '🦅 ZWYCIĘSTWO NAD FAŁSZYWYMI LĘKAMI!\n\n"Nie bój się, bo Ja jestem z tobą." (Izajasza 41:10)\n\nPokonałeś wyimaginowane lęki! Teraz kroczysz w mądrości, nie w szaleństwie.',
+      wisdom: 'Szalony kurczak reprezentuje fałszywe subiektywne lęki, które doprowadzają nas do szaleństwa: "A co jeśli zawiodę?", "A co jeśli ludzie mnie osądzą?", "A co jeśli nie jestem wystarczająco dobry?". Te wyimaginowane lęki, te katastroficzne scenariusze w naszych głowach nas paraliżują i powstrzymują. Panikujemy jak przestraszony kurczak z powodu rzeczy, które prawdopodobnie nigdy się nie wydarzą! Biblia mówi: "Bóg nie dał nam ducha bojaźni, ale mocy, miłości i trzeźwego myślenia." 95% naszych lęków nigdy się nie spełnia. Te subiektywne lęki to nie rzeczywistość - to kłamstwa wroga, by zatrzymać nasz postęp. "Nie martwcie się o nic" - Bóg wzywa nas, by zastąpić fałszywe lęki wiarą, panikę pokojem, katastroficzne scenariusze zaufaniem do Jego opatrzności.'
+    },
+    grim_reaper: {
+      name: '💀 Żniwiarz',
+      intro: 'Sama śmierć stoi przed tobą... Ale pamiętaj: Chrystus zwyciężył śmierć!',
+      phase_1: '🕊️ "Gdzież jest, o śmierci, twoje zwycięstwo? Gdzież jest, o śmierci, twój oścień?" (1 Koryntian 15:55)\n\nStrach przed śmiercią nie ma mocy nad wierzącymi w życie wieczne!',
+      phase_2: '✝️ "Rzekł jej Jezus: Ja jestem zmartwychwstaniem i życiem. Kto we Mnie wierzy, choćby i umarł, żyć będzie." (Jana 11:25)\n\nŻycie zawsze triumfuje nad ciemnością! Każda chwila to ZWYCIĘSTWO!',
+      phase_3: '🌟 "Naucz nas rachować nasze dni, abyśmy uzyskali mądre serce." (Psalm 90:12)\n\nNiezależnie od tego, ile czasu pozostało - ŻYJ PEŁNIĄ! Każdy dzień to DAR!',
+      defeated: '🙏 ZWYCIĘSTWO NAD ŚMIERCIĄ!\n\n"Nie ma więc teraz żadnego potępienia dla tych, którzy są w Chrystusie Jezusie." (Rzymian 8:1)\n\nPokonałeś strach! Życie wieczne jest twoje przez łaskę Bożą.',
+      wisdom: 'Śmierć nie jest końcem, ale przemianą. Przez Chrystusa przechodzimy z życia ziemskiego do życia wiecznego. Nieważne, ile czasu nam zostało lub jak żyjemy - najlepiej jest żyć każdą chwilę jako zwycięstwo, każdy rok jako dar. Nawet w chorobie, nawet w próbach, NADZIEJA i OPTYMIZM dają nam skrzydła i sprawiają, że niemożliwe często staje się możliwe! Biblia mówi: "Naucz nas rachować nasze dni, abyśmy uzyskali mądre serce." Każdy dzień jest cenny. Każdy oddech to łaska. Wiara chrześcijańska uczy nas, że śmierć została pokonana na Krzyżu, a nadzieja zmartwychwstania oświetla naszą drogę. Dlatego żyjmy pełnią życia, z radością i wdzięcznością, bo "To jest dzień, który uczynił Pan, radujmy się i weselmy w nim!" (Psalm 118:24)'
+    },
+    wall: {
+      name: '🧱 Mur Łańcuchów',
+      intro: 'Mur strachu i wątpliwości stoi przed tobą... Ale "gdzie jest Duch Pański, tam jest wolność"!',
+      phase_1: '⛓️ "Do wolności wyzwolił nas Chrystus. Stójcie więc mocno i nie dajcie się znowu zaprzęgać w jarzmo niewoli." (Galatów 5:1)\n\nŁańcuchy STRACHU, WĄTPLIWOŚCI i WSTYDU nie mają nad tobą mocy!',
+      phase_2: '🔓 "Jeśli więc Syn was wyzwoli, prawdziwie wolni będziecie." (Jana 8:36)\n\nKażdy zerwany łańcuch to zwycięstwo nad kłamstwami wroga!',
+      phase_3: '✨ "Wszystko mogę w tym, który mnie wzmacnia." (Filipian 4:13)\n\nPrawda Boża burzy twierdze i mury, które cię więzią!',
+      defeated: '🎉 WOLNOŚĆ W CHRYSTUSIE!\n\n"A poznacie prawdę, a prawda was wyzwoli." (Jana 8:32)\n\nZerwałeś łańcuchy! Jesteś wolny mocą miłości Bożej.',
+      wisdom: 'Lęki są jak niewidzialne łańcuchy, które powstrzymują nas przed postępem. Biblia uczy nas: "Bóg nie dał nam ducha bojaźni, ale mocy, miłości i trzeźwego myślenia." Każdy lęk pokonany przez wiarę to zerwany łańcuch. W Chrystusie jesteśmy wezwani do życia w wolności, uwolnieni od kłamstw, które nas zniewolą. Prawda nas wyzwala!'
+    },
+    dark_cloud: {
+      name: '☁️ Ciemna Chmura',
+      intro: 'Burzowa chmura grozi pochłonięciem wszystkiego... Ale "Bóg jest dla nas ucieczką i siłą, pomocą w utrapieniach"!',
+      phase_1: '⚡ "Pan jest bliski tym, którzy mają złamane serce, i zbawia skruszonych na duchu." (Psalm 34:18)\n\nW najgłębszej depresji chroń swoją NADZIEJĘ, WIARĘ i MIŁOŚĆ!',
+      phase_2: '🌩️ "Zewsząd uciskani, ale nie pozbawieni wyjścia; zakłopotani, ale nie zrozpaczeni." (2 Koryntian 4:8)\n\nBłyskawice cierpienia nie mogą zgasić światła Bożego w tobie!',
+      phase_3: '⛈️ "To wam powiedziałem, abyście we Mnie mieli pokój. Na świecie doznajecie ucisku, ale miejcie odwagę: Ja zwyciężyłem świat." (Jana 16:33)\n\nNawet w najciemniejszej burzy Chrystus jest twoją kotwicą!',
+      defeated: '🌈 ZWYCIĘSTWO NAD BURZĄ!\n\n"Po deszczu przychodzi słońce. Rozprasza chmury swoim światłem." (Hioba 37:11-15)\n\nPrzetrwałeś burzę! Nadzieja znów świeci, mocniejsza niż przedtem.',
+      wisdom: 'Depresje, ciężkie straty i nagłe lęki są jak burze, które zaciemniają nasze wewnętrzne niebo. Ale Biblia przypomina nam: "Kto mieszka w ukryciu Najwyższego, w cieniu Wszechmocnego przebywa." W najciemniejszych chwilach nadzieja, wiara i miłość to światła, które musimy chronić. Bóg nigdy nie opuszcza swoich dzieci w burzy - On jest naszą ucieczką, naszą siłą, a po każdej burzy sprawia, że błyszczy tęcza Jego obietnic.'
+    },
+    black_raven: {
+      name: '🐦‍⬛ Kruk Kłamstw',
+      intro: 'Czarny kruk wyrzuca kłamstwa o twojej tożsamości... Ale "jesteś drogi w moich oczach, cenny, i Ja cię umiłowałem"!',
+      phase_1: '🪶 "Wysławiam cię, żem w sposób zadziwiający cudownie stworzony został. Cudowne są twoje dzieła." (Psalm 139:14)\n\nKłamstwo mówi: NIEWYSTARCZAJĄCO PIĘKNY, NIEWYSTARCZAJĄCO BOGATY, NIENORMALNY...\nAle PRAWDA Boża mówi: JESTEŚ CENNY!',
+      phase_2: '✝️ "Patrzcie, jaką miłością obdarzył nas Ojciec, abyśmy byli nazwani dziećmi Bożymi, i nimi jesteśmy." (1 Jana 3:1)\n\nKłamstwo krzyczy: BEZWARTOŚCIOWY, ZBYT INNY, ZBYT GRZESZNY...\nAle Bóg mówi: JESTEŚ MOIM UKOCHANYM DZIECKIEM!',
+      phase_3: '👑 "Ale wy jesteście wybranym plemieniem, królewskim kapłaństwem, narodem świętym, ludem nabytym." (1 Piotra 2:9)\n\nKłamstwo wyje: ZBYT ZŁY, NIEGODNY, ODRZUCONY...\nAle Chrystus ogłasza: JESTEŚ WYBRANY, JESTEŚ KRÓLEWSKI, JESTEŚ UKOCHANY!',
+      defeated: '🌟 ZWYCIĘSTWO NAD KŁAMSTWAMI!\n\n"A poznacie prawdę, a prawda was wyzwoli." (Jana 8:32)\n\nPokonałeś kłamstwa! Teraz znasz swoją prawdziwą tożsamość w Chrystusie.',
+      wisdom: 'Kruk kłamstw reprezentuje wszystkie oskarżenia i fałszywe przekonania, których wróg używa do zniszczenia naszej tożsamości: "niewystarczająco piękny", "niewystarczająco bogaty", "zbyt inny", "zbyt grzeszny". Te kłamstwa to zatrute strzały wymierzone w nasze serca. Ale Biblia objawia nam PRAWDĘ: jesteśmy stworzeni na obraz Boży, odkupieni krwią Chrystusa, adoptowani jako dzieci Boże. Nasza wartość nie zależy od wyglądu, bogactwa czy błędów - pochodzi z bezwarunkowej miłości Boga. W Chrystusie jesteśmy cenni, ukochani, wybrani, królewscy. To nasza prawdziwa tożsamość!'
+    }
   }
 };
 

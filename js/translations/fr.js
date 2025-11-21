@@ -80,7 +80,11 @@ const fr = {
     new_record_popup: '🎉 Nouveau record !\n\nScore: {score}\n\nTon score a été sauvegardé.\nClique sur Exporter dans le menu Trésor pour le partager.',
     infinite_mode: '🔄 Mode Infini activé ! Versets tous les 100 nuages ☁️',
     record_saved: '☁️ Record sauvegardé !',
-    heart: '💖 +1 Vie ! La grâce de Dieu te protège !'
+    heart: '💖 +1 Vie ! La grâce de Dieu te protège !',
+    boss_defeated: '🏆 BOSS VAINCU ! +{score} pts',
+    storm_cleared: '🌈 La tempête se dissipe ! L\'espoir brille de nouveau !',
+    continue: '✨ Continuer',
+    save_system: '✨ Système de sauvegarde'
   },
   
   bonus: {
@@ -207,7 +211,10 @@ const fr = {
     invalid_email: '❌ Email invalide !',
     connected_local_saved: '✅ Connecté !\n\nDonnées locales sauvegardées dans le cloud.',
     connected_cloud_restored: '✅ Connecté !\n\nDonnées cloud restaurées.',
-    connected_success: '✅ Connecté avec succès !\n\nTa progression sera automatiquement sauvegardée en ligne.'
+    connected_success: '✅ Connecté avec succès !\n\nTa progression sera automatiquement sauvegardée en ligne.',
+    reset_confirm: '⚠️ Voulez-vous vraiment réinitialiser toutes vos données ?',
+    data_conflict: '⚠️ Conflit de données détecté !',
+    connection_error: '❌ Erreur de connexion'
   },
 
   testimony: {

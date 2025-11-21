@@ -56,6 +56,7 @@ const de = {
   ],
   
   powerups: {
+    try_again: 'Aber in der Not glänzt du noch heller!',
     umbrella: 'Regenschirm aktiviert! Tanze mit den Elementen!',
     speed: 'Göttliche Geschwindigkeit! Deine Flügel sind frei!',
     multishot: 'Dreifaches Licht! Dein Herz strahlt!',
@@ -66,7 +67,11 @@ const de = {
     new_record_popup: '🎉 Neuer Rekord!\n\nPunktzahl: {score}\n\nDeine Punktzahl wurde gespeichert.\nKlicke auf Exportieren im Schatzmenu, um sie zu teilen.',
     infinite_mode: '🔄 Unendlicher Modus aktiviert! Verse alle 100 Wolken ☁️',
     record_saved: '☁️ Rekord gespeichert!',
-    heart: '💖 +1 Leben! Gottes Gnade beschützt dich!'
+    heart: '💖 +1 Leben! Gottes Gnade beschützt dich!',
+    boss_defeated: '🏆 BOSS BESIEGT! +{score} Pkte',
+    storm_cleared: '🌈 Der Sturm lichtet sich! Die Hoffnung strahlt wieder!',
+    continue: '✨ Weiter',
+    save_system: '✨ Speichersystem'
   },
   
   bonus: {
@@ -177,16 +182,19 @@ const de = {
   popups: {
     not_connected: '⚠️ Nicht verbunden!\n\nVerbinde dich zuerst über das Schatzmenu.',
     no_data_to_save: '⚠️ Keine Daten zum Speichern\n\nSpiele zuerst, um Daten zu erstellen!',
-    saving: '⏳ Speichern...',
+    saving: '⏳ Speichere...',
     save_failed: '❌ Speichern fehlgeschlagen!\n\n{error}',
     save_error: '❌ Speicherfehler!\n\n{error}',
     data_imported: '✅ Daten erfolgreich importiert!',
     invalid_file: '❌ Ungültige Datei',
-    enter_nickname_email: '❌ Bitte Spitzname UND E-Mail eingeben!',
-    invalid_email: '❌ Ungültige E-Mail!',
+    enter_nickname_email: '❌ Bitte Nickname UND Email eingeben!',
+    invalid_email: '❌ Ungültige Email!',
     connected_local_saved: '✅ Verbunden!\n\nLokale Daten in der Cloud gespeichert.',
     connected_cloud_restored: '✅ Verbunden!\n\nCloud-Daten wiederhergestellt.',
-    connected_success: '✅ Erfolgreich verbunden!\n\nDein Fortschritt wird automatisch online gespeichert.'
+    connected_success: '✅ Erfolgreich verbunden!\n\nDein Fortschritt wird automatisch online gespeichert.',
+    reset_confirm: '⚠️ Möchtest du wirklich alle deine Daten zurücksetzen?',
+    data_conflict: '⚠️ Datenkonflikt erkannt!',
+    connection_error: '❌ Verbindungsfehler'
   },
 
   testimony: {
@@ -349,6 +357,72 @@ const de = {
       { text: 'Tut alles in Liebe', reference: '1. Korinther 16:14' },
       { text: 'Die Gnade des Herrn sei mit euch', reference: '1. Korinther 16:23' }
     ]
+  },
+
+  bosses: {
+    spider: {
+      name: '🕷️ Die Spinne der Finsternis',
+      intro: 'Eine riesige Spinne webt ihr Netz der Angst... Aber "Gott hat uns nicht einen Geist der Furcht gegeben"!',
+      phase_1: '🕸️ "Denn Gott hat uns nicht gegeben den Geist der Furcht, sondern der Kraft und der Liebe und der Besonnenheit." (2. Timotheus 1:7)\n\nDie ANGST VOR SCHMERZ, die ANGST GEBISSEN ZU WERDEN... Diese Ängste lähmen dich!',
+      phase_2: '✨ "Fürchte dich nicht, ich bin mit dir; weiche nicht, denn ich bin dein Gott." (Jesaja 41:10)\n\nILLOGISCHE ÄNGSTE und PHOBIEN haben keine Macht über die, die im Glauben wandeln!',
+      phase_3: '🛡️ "Und ob ich schon wanderte im finstern Tal, fürchte ich kein Unglück; denn du bist bei mir." (Psalm 23:4)\n\nAngst ist ein SCHUTZMECHANISMUS, aber sie darf dich nicht BEHERRSCHEN!',
+      defeated: '🦋 SIEG ÜBER DIE ANGST!\n\n"Die vollkommene Liebe treibt die Furcht aus." (1. Johannes 4:18)\n\nDu hast die lähmende Angst besiegt! Der Glaube verwandelt Angst in Mut.',
+      wisdom: 'Die Spinne symbolisiert all unsere Ängste: die Angst vor Schmerz, gebissen zu werden, unlogische Phobien. Diese Ängste sind oft normale Schutzmechanismen, die uns vor Gefahr bewahren. Aber wenn sie übermäßig werden, lähmen sie uns. Die Bibel sagt: "Gott hat uns nicht einen Geist der Furcht gegeben, sondern der Kraft, der Liebe und der Besonnenheit." Der Glaube leugnet die Gefahr nicht, aber er gibt uns den Mut, ihr zu begegnen. In Christus lernen wir, zwischen gesunder Vorsicht und lähmender Angst zu unterscheiden. Gottes vollkommene Liebe vertreibt die Furcht!'
+    },
+    flying_snake: {
+      name: '🐍 Die Fliegende Schlange',
+      intro: 'Die alte Schlange, Symbol der Versuchung, erhebt sich vor dir... Aber "widersteht dem Teufel, so flieht er von euch"!',
+      phase_1: '🔥 "Wachet und betet, dass ihr nicht in Versuchung fallet." (Matthäus 26:41)\n\nVERSUCHUNG, die URSPRÜNGLICHE LÜGE, der ZWEIFEL, der flüstert: "Sollte Gott gesagt haben...?"',
+      phase_2: '⚔️ "So widersteht dem Teufel, so flieht er von euch. Naht euch zu Gott, so naht er sich zu euch." (Jakobus 4:7-8)\n\nDas Gift des KOMPROMISSES und UNGEHORSAMS kann die nicht erreichen, die Gott nahe bleiben!',
+      phase_3: '✝️ "Und wie Mose in der Wüste die Schlange erhöht hat, so muss der Menschensohn erhöht werden." (Johannes 3:14)\n\nChristus hat der Schlange den Kopf ZERTRETEN! Sein Sieg ist dein Sieg!',
+      defeated: '🌟 SIEG ÜBER DIE VERSUCHUNG!\n\n"Er wird dir den Kopf zertreten, und du wirst ihn in die Ferse stechen." (1. Mose 3:15)\n\nDu hast die Versuchung besiegt! In Christus ist die alte Schlange besiegt.',
+      wisdom: 'Die fliegende Schlange repräsentiert die Versuchung und die ursprüngliche Lüge aus dem Garten Eden: "Ihr werdet keineswegs sterben... ihr werdet sein wie Gott." Es ist die Stimme, die Zweifel an Gottes Güte sät und uns zu Kompromiss und Ungehorsam drängt. Aber die Bibel lehrt: "Widersteht dem Teufel, so flieht er." Versuchung ist keine Sünde - sie ist die Einladung zur Sünde. Jesus selbst wurde versucht, aber er widerstand durch Gottes Wort. Am Kreuz hat Christus der Schlange den Kopf zertreten. Durch seinen Sieg haben wir die Kraft, jeder Versuchung zu widerstehen und sie zu überwinden. Naht euch Gott, und Er wird sich euch nahen!'
+    },
+    crazy_chicken: {
+      name: '🐔 Das Verrückte Huhn',
+      intro: 'Ein panisches Huhn rennt in alle Richtungen... Falsche Ängste machen dich verrückt und lähmen dich!',
+      phase_1: '😰 "Denn Gott hat uns nicht gegeben den Geist der Furcht, sondern der Kraft und der Liebe und der Besonnenheit." (2. Timotheus 1:7)\n\nFALSCHE SUBJEKTIVE ÄNGSTE: "Was wenn...?", "Vielleicht...", "Ich habe Angst, dass..." - EINGEBILDETE Ängste, die dich ZURÜCKHALTEN!',
+      phase_2: '🧠 "Sorgt euch um nichts, sondern in allen Dingen lasst eure Bitten im Gebet und Flehen mit Danksagung vor Gott kundwerden." (Philipper 4:6)\n\nKATASTROPHENSZENARIEN in deinem Kopf, IRRATIONALE ÄNGSTE, die dich verrückt machen! STOPP!',
+      phase_3: '✨ "Denn Gott ist es, der in euch wirkt beides, das Wollen und das Vollbringen, nach seinem Wohlgefallen." (Philipper 2:13)\n\nDiese SUBJEKTIVEN Ängste sind NICHT DIE REALITÄT! Gott gab dir WEISHEIT, nicht WAHNSINN!',
+      defeated: '🦅 SIEG ÜBER DIE FALSCHEN ÄNGSTE!\n\n"Fürchte dich nicht, denn ich bin mit dir." (Jesaja 41:10)\n\nDu hast die eingebildeten Ängste besiegt! Du wandelst jetzt in Weisheit, nicht in Wahnsinn.',
+      wisdom: 'Das verrückte Huhn repräsentiert die falschen subjektiven Ängste, die uns verrückt machen: "Was wenn ich versage?", "Was wenn Leute mich verurteilen?", "Was wenn ich nicht gut genug bin?". Diese eingebildeten Ängste, diese Katastrophenszenarien in unseren Köpfen lähmen uns und halten uns zurück. Wir geraten in Panik wie ein verängstigtes Huhn über Dinge, die vielleicht nie passieren! Die Bibel sagt: "Gott hat uns nicht einen Geist der Furcht gegeben, sondern der Kraft, Liebe und Besonnenheit." 95% unserer Ängste werden nie wahr. Diese subjektiven Ängste sind nicht die Realität - sie sind Lügen des Feindes, um uns am Vorankommen zu hindern. "Sorgt euch um nichts" - Gott ruft uns auf, falsche Ängste durch Glauben zu ersetzen, Panik durch Frieden, Katastrophenszenarien durch Vertrauen in Seine Vorsehung.'
+    },
+    grim_reaper: {
+      name: '💀 Der Sensenmann',
+      intro: 'Der Tod selbst steht vor dir... Aber erinnere dich: Christus hat den Tod besiegt!',
+      phase_1: '🕊️ "Tod, wo ist dein Stachel? Hölle, wo ist dein Sieg?" (1. Korinther 15:55)\n\nDie Angst vor dem Tod hat keine Macht über die, die an das ewige Leben glauben!',
+      phase_2: '✝️ "Jesus sprach zu ihr: Ich bin die Auferstehung und das Leben. Wer an mich glaubt, wird leben, auch wenn er stirbt." (Johannes 11:25)\n\nDas Leben triumphiert immer über die Finsternis! Jeder Moment ist ein SIEG!',
+      phase_3: '🌟 "Lehre uns bedenken, dass wir sterben müssen, auf dass wir klug werden." (Psalm 90:12)\n\nEgal wie viel Zeit bleibt - LEBE VOLL! Jeder Tag ist ein GESCHENK!',
+      defeated: '🙏 SIEG ÜBER DEN TOD!\n\n"So gibt es nun keine Verdammnis für die, die in Christus Jesus sind." (Römer 8:1)\n\nDu hast die Angst besiegt! Das ewige Leben ist dein durch Gottes Gnade.',
+      wisdom: 'Der Tod ist kein Ende, sondern eine Verwandlung. Durch Christus gehen wir vom irdischen Leben zum ewigen Leben über. Egal wie viel Zeit uns bleibt oder wie wir leben - das Beste ist, jeden Moment als Sieg zu leben, jedes neue Jahr als Geschenk. Selbst in Krankheit, selbst in Prüfungen geben HOFFNUNG und OPTIMISMUS uns Flügel und machen das Unmögliche oft möglich! Die Bibel sagt: "Lehre uns zu zählen unsere Tage, damit wir ein weises Herz erlangen." Jeder Tag ist kostbar. Jeder Atemzug ist Gnade. Der christliche Glaube lehrt uns, dass der Tod am Kreuz besiegt wurde und dass die Hoffnung auf die Auferstehung unseren Weg erleuchtet. Lasst uns daher voll leben, mit Freude und Dankbarkeit, denn "Dies ist der Tag, den der Herr gemacht hat; lasst uns freuen und fröhlich sein!" (Psalm 118:24)'
+    },
+    wall: {
+      name: '🧱 Die Mauer der Ketten',
+      intro: 'Eine Mauer aus Ängsten und Zweifeln steht vor dir... Aber "wo der Geist des Herrn ist, da ist Freiheit"!',
+      phase_1: '⛓️ "Zur Freiheit hat uns Christus befreit! So steht nun fest und lasst euch nicht wieder das Joch der Knechtschaft auflegen." (Galater 5:1)\n\nDie Ketten der ANGST, des ZWEIFELS und der SCHAM haben keine Macht über dich!',
+      phase_2: '🔓 "Wenn euch nun der Sohn frei macht, so seid ihr wirklich frei." (Johannes 8:36)\n\nJede gebrochene Kette ist ein Sieg über die Lügen des Feindes!',
+      phase_3: '✨ "Ich vermag alles durch den, der mich mächtig macht." (Philipper 4:13)\n\nGottes Wahrheit zerstört die Festungen und Mauern, die dich gefangen halten!',
+      defeated: '🎉 FREIHEIT IN CHRISTUS!\n\n"Ihr werdet die Wahrheit erkennen, und die Wahrheit wird euch frei machen." (Johannes 8:32)\n\nDu hast die Ketten gebrochen! Du bist frei durch die Kraft von Gottes Liebe.',
+      wisdom: 'Ängste sind wie unsichtbare Ketten, die uns daran hindern voranzukommen. Die Bibel lehrt uns, dass "Gott uns nicht einen Geist der Furcht gegeben hat, sondern der Kraft, Liebe und Besonnenheit." Jede durch Glauben überwundene Angst ist eine gebrochene Kette. In Christus sind wir berufen, in Freiheit zu leben, befreit von den Lügen, die uns gefangen halten. Die Wahrheit macht uns frei!'
+    },
+    dark_cloud: {
+      name: '☁️ Die Dunkle Wolke',
+      intro: 'Eine Gewitterwolke droht alles zu verschlingen... Aber "Gott ist unsere Zuversicht und Stärke, eine Hilfe in den großen Nöten"!',
+      phase_1: '⚡ "Der Herr ist nahe denen, die zerbrochenen Herzens sind, und hilft denen, die ein zerschlagenes Gemüt haben." (Psalm 34:18)\n\nIn der tiefsten Depression, beschütze deine HOFFNUNG, deinen GLAUBEN und deine LIEBE!',
+      phase_2: '🌩️ "Wir sind von allen Seiten bedrängt, aber wir ängstigen uns nicht. Uns ist bange, aber wir verzagen nicht." (2. Korinther 4:8)\n\nDie Blitze des Leidens können Gottes Licht in dir nicht auslöschen!',
+      phase_3: '⛈️ "Dies habe ich mit euch geredet, damit ihr in mir Frieden habt. In der Welt habt ihr Angst; aber seid getrost, ich habe die Welt überwunden." (Johannes 16:33)\n\nSelbst im dunkelsten Sturm ist Christus dein Anker!',
+      defeated: '🌈 SIEG ÜBER DEN STURM!\n\n"Nach dem Regen kommt Sonnenschein. Er vertreibt die Wolken mit seinem Licht." (Hiob 37:11-15)\n\nDu hast den Sturm überstanden! Die Hoffnung erstrahlt wieder, stärker als zuvor.',
+      wisdom: 'Depressionen, schwere Verluste und plötzliche Ängste sind wie Stürme, die unseren inneren Himmel verdunkeln. Aber die Bibel erinnert uns daran, dass "wer unter dem Schirm des Höchsten sitzt und unter dem Schatten des Allmächtigen bleibt". In den dunkelsten Momenten sind Hoffnung, Glaube und Liebe Lichter, die wir schützen müssen. Gott verlässt seine Kinder niemals im Sturm - Er ist unsere Zuflucht, unsere Stärke, und nach jedem Unwetter lässt Er seinen Regenbogen der Verheißungen erstrahlen.'
+    },
+    black_raven: {
+      name: '🐦‍⬛ Der Rabe der Lügen',
+      intro: 'Ein schwarzer Rabe speit Lügen über deine Identität... Aber "du bist kostbar in meinen Augen, du bist wertgeachtet, und ich habe dich lieb"!',
+      phase_1: '🪶 "Ich danke dir dafür, dass ich wunderbar gemacht bin; wunderbar sind deine Werke." (Psalm 139:14)\n\nDie Lügen sagen: NICHT SCHÖN GENUG, NICHT REICH GENUG, NICHT NORMAL...\nAber Gottes WAHRHEIT sagt: DU BIST KOSTBAR!',
+      phase_2: '✝️ "Seht, welch eine Liebe hat uns der Vater erwiesen, dass wir Gottes Kinder heißen sollen - und wir sind es auch!" (1. Johannes 3:1)\n\nDie Lügen schreien: WERTLOS, ZU ANDERS, ZU SÜNDIG...\nAber Gott sagt: DU BIST MEIN GELIEBTES KIND!',
+      phase_3: '👑 "Ihr aber seid ein auserwähltes Geschlecht, eine königliche Priesterschaft, ein heiliges Volk, ein Volk zum Eigentum." (1. Petrus 2:9)\n\nDie Lügen heulen: ZU SCHLECHT, UNWÜRDIG, ABGELEHNT...\nAber Christus verkündet: DU BIST ERWÄHLT, DU BIST KÖNIGLICH, DU BIST GELIEBT!',
+      defeated: '🌟 SIEG ÜBER DIE LÜGEN!\n\n"Ihr werdet die Wahrheit erkennen, und die Wahrheit wird euch frei machen." (Johannes 8:32)\n\nDu hast die Lügen besiegt! Du kennst jetzt deine wahre Identität in Christus.',
+      wisdom: 'Der Rabe der Lügen repräsentiert alle Anklagen und falschen Überzeugungen, die der Feind benutzt, um unsere Identität zu zerstören: "nicht schön genug", "nicht reich genug", "zu anders", "zu sündig". Diese Lügen sind vergiftete Pfeile, die auf unsere Herzen zielen. Aber die Bibel offenbart uns die WAHRHEIT: Wir sind nach Gottes Bild geschaffen, durch Christi Blut erlöst, als Gottes Kinder adoptiert. Unser Wert hängt nicht von unserem Aussehen, Reichtum oder Fehlern ab - er kommt von Gottes bedingungsloser Liebe. In Christus sind wir kostbar, geliebt, erwählt, königlich. Das ist unsere wahre Identität!'
+    }
   }
 };
 

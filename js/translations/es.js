@@ -56,6 +56,7 @@ const es = {
   ],
   
   powerups: {
+    try_again: '¡Pero en la adversidad, brillas aún más!',
     umbrella: '¡Paraguas activado! ¡Baila con los elementos!',
     speed: '¡Velocidad divina! ¡Tus alas son libres!',
     multishot: '¡Triple luz! ¡Tu corazón brilla!',
@@ -66,7 +67,11 @@ const es = {
     new_record_popup: '🎉 ¡Nuevo récord!\n\nPuntuación: {score}\n\nTu puntuación ha sido guardada.\nHaz clic en Exportar en el menú Tesoro para compartirla.',
     infinite_mode: '🔄 ¡Modo Infinito activado! Versículos cada 100 nubes ☁️',
     record_saved: '☁️ ¡Récord guardado!',
-    heart: '💖 ¡+1 Vida! ¡La gracia de Dios te protege!'
+    heart: '💖 ¡+1 Vida! ¡La gracia de Dios te protege!',
+    boss_defeated: '🏆 ¡JEFE DERROTADO! +{score} pts',
+    storm_cleared: '🌈 ¡La tormenta se disipa! ¡La esperanza brilla de nuevo!',
+    continue: '✨ Continuar',
+    save_system: '✨ Sistema de guardado'
   },
   
   bonus: {
@@ -178,15 +183,18 @@ const es = {
     not_connected: '⚠️ ¡No conectado!\n\nConéctate primero a través del menú Tesoro.',
     no_data_to_save: '⚠️ No hay datos para guardar\n\n¡Juega primero para crear datos!',
     saving: '⏳ Guardando...',
-    save_failed: '❌ ¡Fallo al guardar!\n\n{error}',
-    save_error: '❌ ¡Error al guardar!\n\n{error}',
-    data_imported: '✅ ¡Datos importados con éxito!',
+    save_failed: '❌ ¡Error al guardar!\n\n{error}',
+    save_error: '❌ ¡Error de guardado!\n\n{error}',
+    data_imported: '✅ ¡Datos importados exitosamente!',
     invalid_file: '❌ Archivo inválido',
     enter_nickname_email: '❌ ¡Por favor ingresa apodo Y correo!',
     invalid_email: '❌ ¡Correo inválido!',
     connected_local_saved: '✅ ¡Conectado!\n\nDatos locales guardados en la nube.',
     connected_cloud_restored: '✅ ¡Conectado!\n\nDatos de la nube restaurados.',
-    connected_success: '✅ ¡Conectado con éxito!\n\nTu progreso se guardará automáticamente en línea.'
+    connected_success: '✅ ¡Conectado exitosamente!\n\nTu progreso se guardará automáticamente en línea.',
+    reset_confirm: '⚠️ ¿Realmente quieres restablecer todos tus datos?',
+    data_conflict: '⚠️ ¡Conflicto de datos detectado!',
+    connection_error: '❌ Error de conexión'
   },
 
   testimony: {
@@ -349,6 +357,72 @@ const es = {
       { text: 'Haced todo con amor', reference: '1 Corintios 16:14' },
       { text: 'La gracia del Señor sea con vosotros', reference: '1 Corintios 16:23' }
     ]
+  },
+
+  bosses: {
+    spider: {
+      name: '🕷️ La Araña de la Oscuridad',
+      intro: 'Una araña gigante teje su red de miedo... ¡Pero "Dios no nos ha dado espíritu de cobardía"!',
+      phase_1: '🕸️ "Porque no nos ha dado Dios espíritu de cobardía, sino de poder, de amor y de dominio propio." (2 Timoteo 1:7)\n\n¡El MIEDO AL DOLOR, el MIEDO A SER PICADO... Estos miedos te paralizan!',
+      phase_2: '✨ "No temas, porque yo estoy contigo; no desmayes, porque yo soy tu Dios." (Isaías 41:10)\n\n¡Los MIEDOS ILÓGICOS y las FOBIAS no tienen poder sobre quienes caminan en fe!',
+      phase_3: '🛡️ "Aunque ande en valle de sombra de muerte, no temeré mal alguno, porque tú estarás conmigo." (Salmo 23:4)\n\n¡El miedo es un MECANISMO PROTECTOR, pero no debe DOMINARTE!',
+      defeated: '🦋 ¡VICTORIA SOBRE EL MIEDO!\n\n"El perfecto amor echa fuera el temor." (1 Juan 4:18)\n\n¡Has conquistado el miedo paralizante! La fe transforma el miedo en coraje.',
+      wisdom: 'La araña simboliza todos nuestros miedos: el miedo al dolor, a ser picados, las fobias ilógicas. Estos miedos son a menudo mecanismos protectores normales que nos mantienen a salvo del peligro. Pero cuando se vuelven excesivos, nos paralizan. La Biblia dice: "Dios no nos ha dado espíritu de cobardía, sino de poder, amor y dominio propio." La fe no niega el peligro, pero nos da el coraje para enfrentarlo. En Cristo, aprendemos a distinguir entre la precaución saludable y el miedo paralizante. ¡El perfecto amor de Dios echa fuera el temor!'
+    },
+    flying_snake: {
+      name: '🐍 La Serpiente Voladora',
+      intro: 'La serpiente antigua, símbolo de tentación, se levanta ante ti... ¡Pero "resistid al diablo, y huirá de vosotros"!',
+      phase_1: '🔥 "Velad y orad, para que no entréis en tentación." (Mateo 26:41)\n\n¡TENTACIÓN, la MENTIRA ORIGINAL, la DUDA que susurra: "¿Conque Dios os ha dicho...?"',
+      phase_2: '⚔️ "Resistid al diablo, y huirá de vosotros. Acercaos a Dios, y él se acercará a vosotros." (Santiago 4:7-8)\n\n¡El veneno del COMPROMISO y la DESOBEDIENCIA no puede alcanzar a quienes permanecen cerca de Dios!',
+      phase_3: '✝️ "Y como Moisés levantó la serpiente en el desierto, así es necesario que el Hijo del Hombre sea levantado." (Juan 3:14)\n\n¡Cristo ha APLASTADO la cabeza de la serpiente! ¡Su victoria es tu victoria!',
+      defeated: '🌟 ¡VICTORIA SOBRE LA TENTACIÓN!\n\n"Ésta te herirá en la cabeza, y tú le herirás en el calcañar." (Génesis 3:15)\n\n¡Has conquistado la tentación! En Cristo, la serpiente antigua está derrotada.',
+      wisdom: 'La serpiente voladora representa la tentación y la mentira original del Jardín del Edén: "No moriréis... seréis como Dios." Es la voz que siembra duda sobre la bondad de Dios, empujándonos hacia el compromiso y la desobediencia. Pero la Biblia enseña: "Resistid al diablo, y huirá." La tentación no es pecado - es la invitación al pecado. Jesús mismo fue tentado, pero resistió a través de la Palabra de Dios. En la Cruz, Cristo aplastó la cabeza de la serpiente. A través de su victoria, tenemos el poder de resistir y vencer toda tentación. ¡Acercaos a Dios, y Él se acercará a nosotros!'
+    },
+    crazy_chicken: {
+      name: '🐔 El Pollo Loco',
+      intro: 'Un pollo que entra en pánico corriendo en todas direcciones... ¡Los falsos miedos te vuelven loco y te paralizan!',
+      phase_1: '😰 "Porque no nos ha dado Dios espíritu de cobardía, sino de poder, de amor y de dominio propio." (2 Timoteo 1:7)\n\n¡FALSOS MIEDOS SUBJETIVOS: "¿Y si...?", "Tal vez...", "Tengo miedo de que..." - ¡Miedos IMAGINARIOS que te FRENAN!',
+      phase_2: '🧠 "Por nada estéis afanosos, sino sean conocidas vuestras peticiones delante de Dios en toda oración." (Filipenses 4:6)\n\n¡ESCENARIOS CATASTRÓFICOS en tu cabeza, MIEDOS IRRACIONALES que te vuelven loco! ¡BASTA!',
+      phase_3: '✨ "Porque Dios es el que en vosotros produce así el querer como el hacer, por su buena voluntad." (Filipenses 2:13)\n\n¡Estos miedos SUBJETIVOS NO SON LA REALIDAD! ¡Dios te dio SABIDURÍA, no LOCURA!',
+      defeated: '🦅 ¡VICTORIA SOBRE LOS FALSOS MIEDOS!\n\n"No temas, porque yo estoy contigo." (Isaías 41:10)\n\n¡Has conquistado los miedos imaginarios! Ahora caminas en sabiduría, no en locura.',
+      wisdom: 'El pollo loco representa los falsos miedos subjetivos que nos vuelven locos: "¿Y si fracaso?", "¿Y si la gente me juzga?", "¿Y si no soy suficientemente bueno?". Estos miedos imaginarios, estos escenarios catastróficos en nuestras cabezas nos paralizan y nos frenan. ¡Entramos en pánico como un pollo asustado por cosas que tal vez nunca sucedan! La Biblia dice: "Dios no nos ha dado espíritu de cobardía, sino de poder, amor y dominio propio." El 95% de nuestros miedos nunca se hacen realidad. Estos miedos subjetivos no son la realidad - son mentiras del enemigo para impedirnos avanzar. "Por nada estéis afanosos" - Dios nos llama a reemplazar los falsos miedos con fe, el pánico con paz, los escenarios catastróficos con confianza en Su providencia.'
+    },
+    grim_reaper: {
+      name: '💀 La Parca',
+      intro: 'La muerte misma se levanta ante ti... ¡Pero recuerda: Cristo ha vencido la muerte!',
+      phase_1: '🕊️ "¿Dónde está, oh muerte, tu aguijón? ¿Dónde, oh sepulcro, tu victoria?" (1 Corintios 15:55)\n\n¡El miedo a la muerte no tiene poder sobre quienes creen en la vida eterna!',
+      phase_2: '✝️ "Le dijo Jesús: Yo soy la resurrección y la vida; el que cree en mí, aunque esté muerto, vivirá." (Juan 11:25)\n\n¡La vida siempre triunfa sobre las tinieblas! ¡Cada momento es una VICTORIA!',
+      phase_3: '🌟 "Enséñanos de tal modo a contar nuestros días, que traigamos al corazón sabiduría." (Salmo 90:12)\n\n¡No importa el tiempo que quede - VIVE PLENAMENTE! ¡Cada día es un REGALO!',
+      defeated: '🙏 ¡VICTORIA SOBRE LA MUERTE!\n\n"Ahora, pues, ninguna condenación hay para los que están en Cristo Jesús." (Romanos 8:1)\n\n¡Has conquistado el miedo! La vida eterna es tuya por la gracia de Dios.',
+      wisdom: 'La muerte no es un final, sino una transformación. A través de Cristo, pasamos de la vida terrenal a la vida eterna. No importa cuánto tiempo nos quede o cómo vivamos - lo mejor es vivir cada momento como una victoria, cada nuevo año como un regalo. ¡Incluso en la enfermedad, incluso en las pruebas, la ESPERANZA y el OPTIMISMO nos dan alas y hacen que lo imposible a menudo sea posible! La Biblia dice: "Enséñanos a contar nuestros días, para que traigamos sabiduría al corazón." Cada día es precioso. Cada aliento es gracia. La fe cristiana nos enseña que la muerte fue derrotada en la Cruz, y que la esperanza de la resurrección ilumina nuestro camino. Vivamos pues plenamente, con alegría y gratitud, porque "¡Este es el día que hizo el Señor; regocijémonos y alegrémonos en él!" (Salmo 118:24)'
+    },
+    wall: {
+      name: '🧱 La Muralla de Cadenas',
+      intro: 'Un muro de miedos y dudas se levanta ante ti... ¡Pero "donde está el Espíritu del Señor, allí hay libertad"!',
+      phase_1: '⛓️ "Para libertad fue que Cristo nos hizo libres; permaneced, pues, firmes, y no os sometáis otra vez al yugo de esclavitud." (Gálatas 5:1)\n\n¡Las cadenas del MIEDO, la DUDA y la VERGÜENZA no tienen poder sobre ti!',
+      phase_2: '🔓 "Así que, si el Hijo os libertare, seréis verdaderamente libres." (Juan 8:36)\n\n¡Cada cadena rota es una victoria sobre las mentiras del enemigo!',
+      phase_3: '✨ "Todo lo puedo en Cristo que me fortalece." (Filipenses 4:13)\n\n¡La verdad de Dios destruye las fortalezas y murallas que te aprisionan!',
+      defeated: '🎉 ¡LIBERTAD EN CRISTO!\n\n"Y conoceréis la verdad, y la verdad os hará libres." (Juan 8:32)\n\n¡Has roto las cadenas! Eres libre por el poder del amor de Dios.',
+      wisdom: 'Los miedos son como cadenas invisibles que nos impiden avanzar. La Biblia nos enseña que "Dios no nos ha dado espíritu de cobardía, sino de poder, amor y dominio propio." Cada miedo conquistado a través de la fe es una cadena rota. En Cristo, estamos llamados a vivir en libertad, liberados de las mentiras que nos mantienen cautivos. ¡La verdad nos hace libres!'
+    },
+    dark_cloud: {
+      name: '☁️ La Nube Oscura',
+      intro: 'Una nube de tormenta amenaza con tragarlo todo... ¡Pero "Dios es nuestro amparo y fortaleza, nuestro pronto auxilio en las tribulaciones"!',
+      phase_1: '⚡ "Cercano está Jehová a los quebrantados de corazón; y salva a los contritos de espíritu." (Salmo 34:18)\n\n¡En la depresión más profunda, protege tu ESPERANZA, tu FE y tu AMOR!',
+      phase_2: '🌩️ "Estamos atribulados en todo, mas no angustiados; en apuros, mas no desesperados." (2 Corintios 4:8)\n\n¡Los relámpagos del sufrimiento no pueden apagar la luz de Dios en ti!',
+      phase_3: '⛈️ "Estas cosas os he hablado para que en mí tengáis paz. En el mundo tendréis aflicción; pero confiad, yo he vencido al mundo." (Juan 16:33)\n\n¡Incluso en la tormenta más oscura, Cristo es tu ancla!',
+      defeated: '🌈 ¡VICTORIA SOBRE LA TORMENTA!\n\n"Después de la lluvia viene el sol. Él disipa las nubes con su luz." (Job 37:11-15)\n\n¡Has atravesado la tormenta! La esperanza brilla de nuevo, más fuerte que antes.',
+      wisdom: 'Las depresiones, las pérdidas graves y los miedos repentinos son como tormentas que oscurecen nuestro cielo interior. Pero la Biblia nos recuerda que "El que habita al abrigo del Altísimo morará bajo la sombra del Omnipotente." En los momentos más oscuros, la esperanza, la fe y el amor son luces que debemos proteger. Dios nunca abandona a sus hijos en la tormenta - Él es nuestro refugio, nuestra fuerza, y después de cada tempestad, Él hace brillar Su arco iris de promesas.'
+    },
+    black_raven: {
+      name: '🐦‍⬛ El Cuervo de las Mentiras',
+      intro: 'Un cuervo negro escupe mentiras sobre tu identidad... ¡Pero "eres precioso a mis ojos, eres honorable, y yo te amo"!',
+      phase_1: '🪶 "Te alabaré; porque formidables, maravillosas son tus obras." (Salmo 139:14)\n\nLas mentiras dicen: NO SUFICIENTEMENTE HERMOSO, NO SUFICIENTEMENTE RICO, NO NORMAL...\n¡Pero la VERDAD de Dios dice: ERES PRECIOSO!',
+      phase_2: '✝️ "Mirad cuál amor nos ha dado el Padre, para que seamos llamados hijos de Dios; y lo somos." (1 Juan 3:1)\n\nLas mentiras gritan: SIN VALOR, DEMASIADO DIFERENTE, DEMASIADO PECADOR...\n¡Pero Dios dice: ERES MI HIJO AMADO!',
+      phase_3: '👑 "Vosotros sois linaje escogido, real sacerdocio, nación santa, pueblo adquirido por Dios." (1 Pedro 2:9)\n\nLas mentiras aúllan: DEMASIADO MALO, INDIGNO, RECHAZADO...\n¡Pero Cristo proclama: ERES ELEGIDO, ERES REY, ERES AMADO!',
+      defeated: '🌟 ¡VICTORIA SOBRE LAS MENTIRAS!\n\n"Y conoceréis la verdad, y la verdad os hará libres." (Juan 8:32)\n\n¡Has conquistado las mentiras! Ahora conoces tu verdadera identidad en Cristo.',
+      wisdom: 'El cuervo de las mentiras representa todas las acusaciones y falsas creencias que el enemigo usa para destruir nuestra identidad: "no suficientemente hermoso", "no suficientemente rico", "demasiado diferente", "demasiado pecador". Estas mentiras son flechas envenenadas dirigidas a nuestros corazones. Pero la Biblia nos revela la VERDAD: fuimos creados a imagen de Dios, redimidos por la sangre de Cristo, adoptados como hijos de Dios. Nuestro valor no depende de nuestra apariencia, riqueza o errores - viene del amor incondicional de Dios. En Cristo, somos preciosos, amados, elegidos, reales. ¡Esta es nuestra verdadera identidad!'
+    }
   }
 };
 

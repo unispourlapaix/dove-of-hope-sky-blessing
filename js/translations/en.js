@@ -76,10 +76,14 @@ const en = {
     star_collected: '⭐ Star collected! ({count} in stock) - Double-click for shockwave!',
     level_up: '✨ Level {level}: {title}',
     new_record: '🏆 NEW RECORD! Score: {score}',
-    new_record_popup: '🎉 New record!\n\nScore: {score}\n\nYour score has been saved.\nClick Export in the Treasure menu to share it.',
+    new_record_popup: '🎉 New record!\n\nScore: {score}\n\nYour score has been saved.\nClick Export in the Treasure menu to share.',
     infinite_mode: '🔄 Infinite Mode activated! Verses every 100 clouds ☁️',
     record_saved: '☁️ Record saved!',
-    heart: '💖 +1 Life! God\'s grace protects you!'
+    heart: '💖 +1 Life! God\'s grace protects you!',
+    boss_defeated: '🏆 BOSS DEFEATED! +{score} pts',
+    storm_cleared: '🌈 The storm clears! Hope shines again!',
+    continue: '✨ Continue',
+    save_system: '✨ Save System'
   },
   
   bonus: {
@@ -206,7 +210,10 @@ const en = {
     invalid_email: '❌ Invalid email!',
     connected_local_saved: '✅ Connected!\n\nLocal data saved to cloud.',
     connected_cloud_restored: '✅ Connected!\n\nCloud data restored.',
-    connected_success: '✅ Connected successfully!\n\nYour progress will be automatically saved online.'
+    connected_success: '✅ Connected successfully!\n\nYour progress will be automatically saved online.',
+    reset_confirm: '⚠️ Do you really want to reset all your data?',
+    data_conflict: '⚠️ Data conflict detected!',
+    connection_error: '❌ Connection error'
   },
 
   testimony: {
