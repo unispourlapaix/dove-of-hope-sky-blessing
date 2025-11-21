@@ -26,7 +26,12 @@ const fr = {
     add_home: 'Ajouter à l\'écran d\'accueil',
     confirm: 'Confirmer',
     install_app: 'Installer l\'application',
-    install_desktop: 'Ouvrez dans Chrome/Edge pour installer'
+    install_desktop: 'Ouvrez dans Chrome/Edge pour installer',
+    close: 'Fermer',
+    pause: 'Pause',
+    music: 'Musique',
+    sfx: 'Effets sonores',
+    menu: 'Menu'
   },
   
   buttons: {

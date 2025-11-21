@@ -20,7 +20,12 @@ const ru = {
     add_home: 'Добавить на главный экран',
     confirm: 'Подтвердить',
     install_app: 'Установить приложение',
-    install_desktop: 'Откройте в Chrome/Edge для установки'
+    install_desktop: 'Откройте в Chrome/Edge для установки',
+    close: 'Закрыть',
+    pause: 'Пауза',
+    music: 'Музыка',
+    sfx: 'Эффекты',
+    menu: 'Меню'
   },
   
   buttons: {

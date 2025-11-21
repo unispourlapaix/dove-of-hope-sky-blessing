@@ -20,7 +20,12 @@ const it = {
     add_home: 'Aggiungi alla schermata Home',
     confirm: 'Conferma',
     install_app: 'Installa app',
-    install_desktop: 'Apri in Chrome/Edge per installare'
+    install_desktop: 'Apri in Chrome/Edge per installare',
+    close: 'Chiudi',
+    pause: 'Pausa',
+    music: 'Musica',
+    sfx: 'Effetti',
+    menu: 'Menu'
   },
   
   buttons: {

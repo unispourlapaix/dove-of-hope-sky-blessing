@@ -20,7 +20,12 @@ const zh = {
     add_home: '添加到主屏幕',
     confirm: '确认',
     install_app: '安装应用',
-    install_desktop: '在Chrome/Edge中打开以安装'
+    install_desktop: '在Chrome/Edge中打开以安装',
+    close: '关闭',
+    pause: '暂停',
+    music: '音乐',
+    sfx: '音效',
+    menu: '菜单'
   },
   
   buttons: {

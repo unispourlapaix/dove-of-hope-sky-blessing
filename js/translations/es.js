@@ -20,7 +20,12 @@ const es = {
     add_home: 'Añadir a pantalla de inicio',
     confirm: 'Confirmar',
     install_app: 'Instalar aplicación',
-    install_desktop: 'Abrir en Chrome/Edge para instalar'
+    install_desktop: 'Abrir en Chrome/Edge para instalar',
+    close: 'Cerrar',
+    pause: 'Pausa',
+    music: 'Música',
+    sfx: 'Efectos',
+    menu: 'Menú'
   },
   
   buttons: {

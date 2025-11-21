@@ -26,7 +26,12 @@ const en = {
     add_home: 'Add to Home Screen',
     confirm: 'Confirm',
     install_app: 'Install app',
-    install_desktop: 'Open in Chrome/Edge to install'
+    install_desktop: 'Open in Chrome/Edge to install',
+    close: 'Close',
+    pause: 'Pause',
+    music: 'Music',
+    sfx: 'Sound effects',
+    menu: 'Menu'
   },
   
   buttons: {

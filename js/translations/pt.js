@@ -20,7 +20,12 @@ const pt = {
     add_home: 'Adicionar à tela inicial',
     confirm: 'Confirmar',
     install_app: 'Instalar aplicativo',
-    install_desktop: 'Abra no Chrome/Edge para instalar'
+    install_desktop: 'Abrir no Chrome/Edge para instalar',
+    close: 'Fechar',
+    pause: 'Pausar',
+    music: 'Música',
+    sfx: 'Efeitos',
+    menu: 'Menu'
   },
   
   buttons: {

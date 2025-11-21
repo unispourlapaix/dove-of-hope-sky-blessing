@@ -439,10 +439,38 @@ function updateUILanguage() {
     installBtnText.textContent = t('ui.install') || 'INSTALLER';
   }
 
+  // Mettre à jour les tooltips du menu O/I
+  updateMenuTooltips();
+
   // Mettre à jour les textes de l'UI si nécessaire
   if (state === 'start' || state === 'gameOver') {
     // Recharger l'écran
   }
+}
+
+// Fonction pour mettre à jour les tooltips du menu
+function updateMenuTooltips() {
+  const pauseMenu = document.getElementById('pauseMenu');
+  if (pauseMenu) {
+    const buttons = pauseMenu.querySelectorAll('[title]');
+    buttons.forEach(btn => {
+      const currentTitle = btn.getAttribute('title');
+      // Identifier le bouton et mettre à jour son tooltip
+      if (btn.textContent.includes('✕')) btn.setAttribute('title', t('ui.close') || 'Fermer');
+      else if (btn.textContent.includes('⏸')) btn.setAttribute('title', t('ui.pause') || 'Pause');
+      else if (btn.id === 'musicBtn') btn.setAttribute('title', t('ui.music') || 'Musique');
+      else if (btn.id === 'sfxBtn') btn.setAttribute('title', t('ui.sfx') || 'Effets');
+      else if (btn.id === 'installBtnMenu') btn.setAttribute('title', t('ui.install_app') || 'Installer');
+      else if (btn.id === 'diffBtn_easy') btn.setAttribute('title', t('ui.easy') || 'Facile');
+      else if (btn.id === 'diffBtn_normal') btn.setAttribute('title', t('ui.normal') || 'Normal');
+      else if (btn.id === 'diffBtn_hard') btn.setAttribute('title', t('ui.hard') || 'Difficile');
+      else if (btn.id === 'diffBtn_legendary') btn.setAttribute('title', t('ui.legendary') || 'Légendaire');
+    });
+  }
+  
+  // Mettre à jour le bouton O/I
+  const menuBtn = document.querySelector('[title="Menu"]');
+  if (menuBtn) menuBtn.setAttribute('title', t('ui.menu') || 'Menu');
 }
 
 // Charger la langue sauvegardée
