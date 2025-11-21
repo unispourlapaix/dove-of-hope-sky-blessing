@@ -998,71 +998,6 @@ function promptPlayerInfo() {
 }
 
 // Exporter le profil pour la base de données
-function exportProfileData() {
-  // Créer un canvas pour générer l'image
-  const canvas = document.createElement('canvas');
-  canvas.width = 800;
-  canvas.height = 600;
-  const ctx = canvas.getContext('2d');
-  
-  // Fond dégradé
-  const gradient = ctx.createLinearGradient(0, 0, 0, 600);
-  gradient.addColorStop(0, '#667eea');
-  gradient.addColorStop(1, '#764ba2');
-  ctx.fillStyle = gradient;
-  ctx.fillRect(0, 0, 800, 600);
-  
-  // Titre du jeu
-  ctx.fillStyle = '#ffffff';
-  ctx.font = 'bold 48px Arial';
-  ctx.textAlign = 'center';
-  ctx.fillText('🕊️ Dove of Hope', 400, 80);
-  ctx.font = '24px Arial';
-  ctx.fillText('Sky Blessing', 400, 120);
-  
-  // Cadre blanc pour les scores
-  ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
-  ctx.roundRect(80, 160, 640, 360, 20);
-  ctx.fill();
-  
-  // Informations du joueur
-  ctx.fillStyle = '#2c3e50';
-  ctx.font = 'bold 36px Arial';
-  ctx.fillText(`${playerProfile.nickname || 'Joueur'}`, 400, 230);
-  
-  ctx.font = '28px Arial';
-  ctx.fillStyle = '#667eea';
-  ctx.fillText(`🏆 Score: ${playerProfile.bestScore || 0}`, 400, 290);
-  
-  ctx.fillStyle = '#9b59b6';
-  ctx.fillText(`📖 Niveau: ${playerProfile.highestLevel || 1}`, 400, 340);
-  
-  ctx.fillStyle = '#3498db';
-  ctx.fillText(`⭐ Étoiles: ${gameData.starStock || 0}`, 400, 390);
-  
-  ctx.fillStyle = '#e74c3c';
-  const totalClouds = Object.values(gameData.cloudsPerLevel || {}).reduce((a, b) => a + b, 0);
-  ctx.fillText(`☁️ Nuages dissipés: ${totalClouds}`, 400, 440);
-  
-  // Date
-  ctx.fillStyle = '#95a5a6';
-  ctx.font = '18px Arial';
-  const date = new Date().toLocaleDateString('fr-FR');
-  ctx.fillText(`📅 ${date}`, 400, 490);
-  
-  // Convertir en image JPG et télécharger
-  canvas.toBlob((blob) => {
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `dove-score-${playerProfile.nickname || 'joueur'}-${Date.now()}.jpg`;
-    a.click();
-    URL.revokeObjectURL(url);
-    
-    showPopup('✅ Score exporté en image !\n\nPartage cette image sur les réseaux sociaux ! 📸', '🏆', 'success');
-  }, 'image/jpeg', 0.95);
-}
-
 // Afficher les conseils de vie dans les onglets
 function showLifeTip(category) {
   if (typeof t !== 'function') return;
@@ -1468,15 +1403,15 @@ function exportGameData() {
   ctx.fillText(t('transform_clouds'), 540, 830);
   ctx.fillText('en lumière divine', 540, 870);
   
-  // Télécharger l'image
+  // Télécharger l'image en JPG
   canvas.toBlob((blob) => {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = `dove-of-hope-score-${gameData.highScore}.png`;
+    link.download = `dove-of-hope-score-${gameData.highScore}.jpg`;
     link.click();
     URL.revokeObjectURL(url);
-    });
+    }, 'image/jpeg', 0.95);
 }
 
 // Importer les données (pour restore)
@@ -4980,7 +4915,7 @@ function showStats() {
         cursor:pointer;
       ">☁️ ${t('treasure.save_cloud')}</button>
       
-      <button onclick="exportProfileData()" style="
+      <button onclick="exportGameData()" style="
         padding:12px 24px;
         background:#e74c3c;
         color:white;
