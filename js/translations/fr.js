@@ -20,7 +20,12 @@ const fr = {
     normal: 'Normal',
     hard: 'Difficile',
     legendary: 'Légendaire',
-    difficulty_changed: 'Difficulté changée'
+    difficulty_changed: 'Difficulté changée',
+    tap_share: 'Appuyez sur',
+    add_home: 'Ajouter à l\'écran d\'accueil',
+    confirm: 'Confirmer',
+    install_app: 'Installer l\'application',
+    install_desktop: 'Ouvrez dans Chrome/Edge pour installer'
   },
   
   buttons: {
