@@ -1,20 +1,14 @@
 // ============================================
-// 🕊️ DOVE OF HOPE - SERVICE WORKER
+// 🕊️ DOVE OF HOPE - SERVICE WORKER v1.5.0
 // ============================================
 
-const CACHE_NAME = 'dove-hope-v1';
+const CACHE_NAME = 'dove-hope-v1.5.0';
 const urlsToCache = [
   '/dove-of-hope-sky-blessing/',
   '/dove-of-hope-sky-blessing/index.html',
   '/dove-of-hope-sky-blessing/manifest.json',
-  '/dove-of-hope-sky-blessing/js/config.js',
-  '/dove-of-hope-sky-blessing/js/translations-index.js',
-  '/dove-of-hope-sky-blessing/js/verses.js',
+  '/dove-of-hope-sky-blessing/bible-verses.js',
   '/dove-of-hope-sky-blessing/js/testimonies.js',
-  '/dove-of-hope-sky-blessing/js/scoring.js',
-  '/dove-of-hope-sky-blessing/js/scoring-ui.js',
-  '/dove-of-hope-sky-blessing/js/levels-index.js',
-  '/dove-of-hope-sky-blessing/js/game.js',
   '/dove-of-hope-sky-blessing/js/translations/fr.js',
   '/dove-of-hope-sky-blessing/js/translations/en.js',
   '/dove-of-hope-sky-blessing/js/translations/es.js',
@@ -28,7 +22,14 @@ const urlsToCache = [
   '/dove-of-hope-sky-blessing/js/translations/ar.js',
   '/dove-of-hope-sky-blessing/js/translations/hi.js',
   '/dove-of-hope-sky-blessing/js/translations/pl.js',
-  '/dove-of-hope-sky-blessing/js/translations/sw.js'
+  '/dove-of-hope-sky-blessing/js/translations/sw.js',
+  '/dove-of-hope-sky-blessing/js/translations/nl.js',
+  '/dove-of-hope-sky-blessing/js/translations/tr.js',
+  '/dove-of-hope-sky-blessing/js/levels/level-definitions.js',
+  '/dove-of-hope-sky-blessing/js/levels/level-messages.js',
+  '/dove-of-hope-sky-blessing/js/levels/bible-verses.js',
+  '/dove-of-hope-sky-blessing/js/levels/progression-system.js',
+  '/dove-of-hope-sky-blessing/js/bosses/boss-system.js'
 ];
 
 // Installation
