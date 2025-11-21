@@ -3409,6 +3409,15 @@ if(bossManager.isBossActive()) {
       state = 'gameOver';
       setSun('sad');
       stopMusic();
+      
+      // 🔴 Si le joueur meurt pendant un combat de boss, réinitialiser le boss
+      if(bossManager.isBossActive()) {
+        bossManager.reset();
+        bossDefeatRewardsGiven = false;
+        bossShootCount = 0;
+        bossSpawnedThisLevel = false; // Permettre de réaffronter le boss
+      }
+      
       const survivalTime = Date.now() - gameStartTime;
       saveGameEnd(score, level, cloudsCleared, survivalTime);
     }
@@ -3874,7 +3883,7 @@ for(let bi = bullets.length - 1; bi >= 0; bi--){
         if(bossManager.bossType && gameData.bossesDefeated) {
           gameData.bossesDefeated[bossManager.bossType] = true;
           saveGameData();
-                }
+        }
 
         // 🌧️ Arrêter la tempête après la victoire sur le Dark Cloud
         if(bossManager.bossType === 'dark_cloud') {
@@ -3887,8 +3896,14 @@ for(let bi = bullets.length - 1; bi >= 0; bi--){
         const rewards = bossManager.getBossRewards();
         score += rewards.score;
         totalScore += rewards.score;
-        msg(t('powerups.boss_defeated', {score: rewards.score}));
         playSound('levelup');
+
+        // 🏆 Afficher l'écran de victoire avec le message defeated
+        const currentBossType = bossManager.bossType;
+        showBossVictoryScreen(currentBossType, () => {
+          // Après fermeture de l'écran de victoire, afficher le message de points
+          msg(t('powerups.boss_defeated', {score: rewards.score}));
+        });
 
         // Distribuer les power-ups
         setTimeout(() => {
@@ -5198,6 +5213,7 @@ document.addEventListener('keydown', (e) => {
     showStats();
   }
   
+  /* TOUCHES TEST DÉSACTIVÉES
   // Test : T pour tester le chapitre 14
   if (e.key === 't' || e.key === 'T') {
     testChapter14();
@@ -5223,10 +5239,16 @@ document.addEventListener('keydown', (e) => {
     testLevelChange();
   }
   
+  // Test : + pour tester le menu victoire boss
+  if (e.key === '+' || e.key === '=') {
+    testBossVictoryMenu();
+  }
+  
   // Retour : R pour restaurer
   if (e.key === 'r' || e.key === 'R') {
     restoreBeforeTest();
   }
+  */
 });
 
 // 🧪 Fonction de test pour changement de niveau
@@ -5242,6 +5264,20 @@ function testLevelChange() {
   if(document.getElementById('level')) document.getElementById('level').textContent = level;
   
   msg('🧪 Test: 50 nuages - Détruisez 1 nuage pour niveau 2!');
+}
+
+// 🧪 Fonction de test pour le menu victoire boss
+function testBossVictoryMenu() {
+  // Liste des boss disponibles
+  const bosses = ['spider', 'flying_snake', 'crazy_chicken', 'grim_reaper', 'wall', 'dark_cloud', 'black_raven'];
+  const randomBoss = bosses[Math.floor(Math.random() * bosses.length)];
+  
+  msg('🧪 Test: Menu victoire - ' + randomBoss);
+  
+  // Afficher le menu de victoire avec un boss aléatoire
+  showBossVictoryScreen(randomBoss, () => {
+    msg('✅ Menu fermé - Test terminé');
+  });
 }
 
 // 🧪 Fonction de test pour le verset mode infini
@@ -6193,6 +6229,264 @@ function completeLevel() {
 // 🎯 BOUCLIER DE PROGRESSION (CHAPITRES 1-14)
 // Bord GRIS - 300px - Affiché aux seuils de niveau
 // ============================================
+// Afficher l'écran de victoire du boss avec le message defeated
+function showBossVictoryScreen(bossType, onClose) {
+  const bossTranslations = t(`bosses.${bossType}`);
+  const phase1 = bossTranslations.phase_1 || '';
+  const phase2 = bossTranslations.phase_2 || '';
+  const phase3 = bossTranslations.phase_3 || '';
+  const defeatedMessage = bossTranslations.defeated || '';
+  
+  const victoryDiv = document.createElement('div');
+  victoryDiv.id = 'bossVictoryScreen';
+  victoryDiv.style.cssText = `
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 450;
+    padding: 15px;
+    box-sizing: border-box;
+    animation: fadeIn 0.4s ease-in;
+    overflow-y: auto;
+  `;
+  
+  victoryDiv.innerHTML = `
+    <div style="
+      width: 95%;
+      max-width: 520px;
+      background: linear-gradient(to bottom, #ffffff 0%, #f8f9fa 100%);
+      border-radius: 20px;
+      box-shadow: 
+        0 10px 40px rgba(0, 0, 0, 0.15),
+        0 0 0 1px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+      margin: 15px 0;
+    ">
+      <!-- En-tête -->
+      <div style="
+        background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+        padding: 24px 20px;
+        text-align: center;
+        border-bottom: 3px solid #f0c800;
+      ">
+        <div style="
+          font-size: 32px;
+          font-weight: 700;
+          color: #1a1a1a;
+          letter-spacing: 0.5px;
+          margin-bottom: 8px;
+        ">
+          🏆 VICTOIRE 🏆
+        </div>
+        <div style="
+          font-size: 16px;
+          color: #2a2a2a;
+          font-weight: 600;
+        ">
+          ${bossTranslations.name || ''}
+        </div>
+      </div>
+      
+      <!-- Corps du contenu -->
+      <div style="
+        padding: 20px;
+        max-height: 60vh;
+        overflow-y: auto;
+      ">
+        <!-- Phase 1 -->
+        <div style="
+          margin-bottom: 14px;
+          border-left: 3px solid #e74c3c;
+          padding: 12px 14px;
+          background: #fff5f5;
+          border-radius: 6px;
+        ">
+          <div style="
+            font-size: 11px;
+            font-weight: 700;
+            color: #c0392b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+          ">
+            ⚔️ Phase 1
+          </div>
+          <div style="
+            font-size: 12px;
+            line-height: 1.6;
+            color: #2c3e50;
+            white-space: pre-wrap;
+          ">
+            ${phase1}
+          </div>
+        </div>
+        
+        <!-- Phase 2 -->
+        <div style="
+          margin-bottom: 14px;
+          border-left: 3px solid #f39c12;
+          padding: 12px 14px;
+          background: #fffaf0;
+          border-radius: 6px;
+        ">
+          <div style="
+            font-size: 11px;
+            font-weight: 700;
+            color: #d68910;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+          ">
+            ⚔️ Phase 2
+          </div>
+          <div style="
+            font-size: 12px;
+            line-height: 1.6;
+            color: #2c3e50;
+            white-space: pre-wrap;
+          ">
+            ${phase2}
+          </div>
+        </div>
+        
+        <!-- Phase 3 -->
+        <div style="
+          margin-bottom: 14px;
+          border-left: 3px solid #9b59b6;
+          padding: 12px 14px;
+          background: #f9f5ff;
+          border-radius: 6px;
+        ">
+          <div style="
+            font-size: 11px;
+            font-weight: 700;
+            color: #7d3c98;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+          ">
+            ⚔️ Phase 3
+          </div>
+          <div style="
+            font-size: 12px;
+            line-height: 1.6;
+            color: #2c3e50;
+            white-space: pre-wrap;
+          ">
+            ${phase3}
+          </div>
+        </div>
+        
+        <!-- Message de Victoire -->
+        <div style="
+          margin-top: 18px;
+          padding: 16px;
+          background: linear-gradient(135deg, #fff9e6 0%, #fffef7 100%);
+          border: 2px solid #ffd700;
+          border-radius: 10px;
+          box-shadow: 0 2px 8px rgba(255, 215, 0, 0.15);
+        ">
+          <div style="
+            font-size: 12px;
+            font-weight: 700;
+            color: #b8860b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            text-align: center;
+          ">
+            🌟 Victoire Spirituelle 🌟
+          </div>
+          <div style="
+            font-size: 13px;
+            line-height: 1.7;
+            color: #2c3e50;
+            text-align: center;
+            white-space: pre-wrap;
+          ">
+            ${defeatedMessage}
+          </div>
+        </div>
+      </div>
+      
+      <!-- Pied avec bouton -->
+      <div style="
+        padding: 16px 20px;
+        background: #f8f9fa;
+        border-top: 1px solid #e9ecef;
+        text-align: center;
+      ">
+        <button id="bossVictoryContinue" style="
+          background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+          color: #1a1a1a;
+          border: none;
+          padding: 14px 40px;
+          border-radius: 25px;
+          font-size: 15px;
+          font-weight: 700;
+          cursor: pointer;
+          box-shadow: 0 3px 12px rgba(255, 215, 0, 0.3);
+          transition: all 0.25s ease;
+          letter-spacing: 0.5px;
+        " onmouseover="
+          this.style.transform='translateY(-2px)';
+          this.style.boxShadow='0 5px 18px rgba(255, 215, 0, 0.4)';
+        " onmouseout="
+          this.style.transform='translateY(0)';
+          this.style.boxShadow='0 3px 12px rgba(255, 215, 0, 0.3)';
+        ">
+          ✨ ${t('powerups.continue') || 'Continuer'}
+        </button>
+      </div>
+    </div>
+  `;
+  
+  document.body.appendChild(victoryDiv);
+  
+  // Gérer le clic sur le bouton
+  const continueBtn = document.getElementById('bossVictoryContinue');
+  if(continueBtn) {
+    continueBtn.onclick = () => {
+      victoryDiv.remove();
+      if(onClose) onClose();
+    };
+  }
+  
+  // Ajouter les animations CSS si elles n'existent pas déjà
+  if(!document.getElementById('bossVictoryAnimations')) {
+    const style = document.createElement('style');
+    style.id = 'bossVictoryAnimations';
+    style.textContent = `
+      @keyframes bossVictoryPulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.02); }
+      }
+      @keyframes glowPulse {
+        0%, 100% { 
+          text-shadow: 
+            0 0 20px rgba(255, 215, 0, 0.8),
+            0 0 40px rgba(255, 215, 0, 0.6),
+            2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+        50% { 
+          text-shadow: 
+            0 0 30px rgba(255, 215, 0, 1),
+            0 0 60px rgba(255, 215, 0, 0.8),
+            2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+}
+
 function showLevelUpMessage(levelInfo, previousState = 'playing') {
   
   // Utiliser le verset traduit depuis verses.rank au lieu du verset hardcodé
