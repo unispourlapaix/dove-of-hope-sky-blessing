@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Sons Boss - Dove of Hope</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    
+    .container {
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 900px;
+      width: 100%;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 10px;
+      font-size: 2.5em;
+    }
+    
+    .subtitle {
+      text-align: center;
+      color: #666;
+      margin-bottom: 40px;
+      font-size: 1.1em;
+    }
+    
+    .boss-section {
+      margin-bottom: 30px;
+      padding: 20px;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      border-radius: 15px;
+      border-left: 5px solid;
+    }
+    
+    .boss-section h2 {
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.5em;
+    }
+    
+    .boss-icon {
+      font-size: 1.8em;
+    }
+    
+    .sound-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    
+    button {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1em;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    }
+    
+    button:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    button::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+    
+    button:active::after {
+      width: 300px;
+      height: 300px;
+    }
+    
+    .btn-spawn {
+      background: linear-gradient(135deg, #ff6b6b 0%, #c92a2a 100%);
+      color: white;
+    }
+    
+    .btn-hiss {
+      background: linear-gradient(135deg, #51cf66 0%, #2b8a3e 100%);
+      color: white;
+    }
+    
+    .btn-flip {
+      background: linear-gradient(135deg, #74c0fc 0%, #1971c2 100%);
+      color: white;
+    }
+    
+    .btn-spit {
+      background: linear-gradient(135deg, #ffd43b 0%, #f59f00 100%);
+      color: white;
+    }
+    
+    .btn-thunder {
+      background: linear-gradient(135deg, #845ef7 0%, #5f3dc4 100%);
+      color: white;
+    }
+    
+    .btn-cluck {
+      background: linear-gradient(135deg, #ff922b 0%, #d9480f 100%);
+      color: white;
+    }
+    
+    .btn-egg {
+      background: linear-gradient(135deg, #fcc2d7 0%, #f06595 100%);
+      color: white;
+    }
+    
+    .btn-walk {
+      background: linear-gradient(135deg, #a9e34b 0%, #74b816 100%);
+      color: white;
+    }
+    
+    .btn-all {
+      background: linear-gradient(135deg, #da77f2 0%, #9c36b5 100%);
+      color: white;
+      width: 100%;
+      margin-top: 10px;
+      font-size: 1.1em;
+    }
+    
+    #status {
+      text-align: center;
+      margin-top: 20px;
+      padding: 15px;
+      background: #fff3bf;
+      border-radius: 10px;
+      border: 2px solid #ffd43b;
+      font-weight: bold;
+      color: #744210;
+    }
+    
+    .playing {
+      animation: pulse 0.5s ease-in-out;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    
+    /* Couleurs spécifiques par boss */
+    .boss-spider { border-color: #8b4513; }
+    .boss-reaper { border-color: #000000; }
+    .boss-chicken { border-color: #ff922b; }
+    .boss-wall { border-color: #868e96; }
+    .boss-cloud { border-color: #495057; }
+    .boss-raven { border-color: #1a1a1a; }
+    .boss-snake { border-color: #51cf66; }
+    
+    .info-box {
+      background: #e7f5ff;
+      border-left: 4px solid #1971c2;
+      padding: 15px;
+      margin-bottom: 30px;
+      border-radius: 8px;
+    }
+    
+    .info-box p {
+      margin: 5px 0;
+      color: #1864ab;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎵 Test Sons Boss</h1>
+    <p class="subtitle">Testez tous les sons des boss du jeu</p>
+    
+    <div class="info-box">
+      <p><strong>💡 Instructions :</strong></p>
+      <p>• Cliquez sur les boutons pour tester chaque son individuellement</p>
+      <p>• Le bouton "Tout jouer" lance tous les sons du boss en séquence</p>
+      <p>• Le son "Boss Spawn" est commun à tous les boss</p>
+    </div>
+    
+    <!-- Boss commun -->
+    <div class="boss-section">
+      <h2><span class="boss-icon">👹</span> Tous les Boss</h2>
+      <div class="sound-buttons">
+        <button class="btn-spawn" onclick="testSound('boss_spawn')">
+          🔊 Boss Spawn (Horror)
+        </button>
+      </div>
+    </div>
+    
+    <!-- Boss Araignée -->
+    <div class="boss-section boss-spider">
+      <h2><span class="boss-icon">🕷️</span> Boss Araignée (Niveau 2)</h2>
+      <div class="sound-buttons">
+        <button class="btn-flip" onclick="testSound('spider_skitter')">
+          🐾 Skitter (Déplacement)
+        </button>
+        <button class="btn-spit" onclick="testSound('spider_web')">
+          🕸️ Web (Toile)
+        </button>
+        <button class="btn-hiss" onclick="testSound('spider_hiss')">
+          🐍 Hiss (Sifflement)
+        </button>
+        <button class="btn-all" onclick="playAllSpider()">
+          ▶️ Tout jouer en séquence
+        </button>
+      </div>
+    </div>
+    
+    <!-- Boss Grim Reaper -->
+    <div class="boss-section boss-reaper">
+      <h2><span class="boss-icon">💀</span> Boss Faucheuse (Niveau 4)</h2>
+      <div class="sound-buttons">
+        <button class="btn-spawn" onclick="testSound('reaper_laugh')">
+          😈 Laugh (Rire sinistre)
+        </button>
+        <button class="btn-egg" onclick="testSound('reaper_bone')">
+          🦴 Bone (Ossements)
+        </button>
+        <button class="btn-thunder" onclick="testSound('reaper_coffin')">
+          ⚰️ Coffin (Cercueil)
+        </button>
+        <button class="btn-all" onclick="playAllReaper()">
+          ▶️ Tout jouer en séquence
+        </button>
+      </div>
+    </div>
+    
+    <!-- Boss Serpent -->
+    <div class="boss-section boss-snake">
+      <h2><span class="boss-icon">🐍</span> Boss Serpent à Sonnette (Niveau 14)</h2>
+      <div class="sound-buttons">
+        <button class="btn-hiss" onclick="testSound('snake_hiss')">
+          🎵 Hiss (Crécelle)
+        </button>
+        <button class="btn-flip" onclick="testSound('snake_flip')">
+          🌊 Flip (Glissement)
+        </button>
+        <button class="btn-spit" onclick="testSound('snake_spit')">
+          💦 Spit (Crachat)
+        </button>
+        <button class="btn-all" onclick="playAllSnake()">
+          ▶️ Tout jouer en séquence
+        </button>
+      </div>
+    </div>
+    
+    <!-- Boss Nuage Sombre -->
+    <div class="boss-section boss-cloud">
+      <h2><span class="boss-icon">⛈️</span> Boss Nuage Sombre (Niveau 10)</h2>
+      <div class="sound-buttons">
+        <button class="btn-thunder" onclick="testSound('thunder')">
+          ⚡ Thunder (Éclair)
+        </button>
+      </div>
+    </div>
+    
+    <!-- Boss Mur -->
+    <div class="boss-section boss-wall">
+      <h2><span class="boss-icon">🧱</span> Boss Muraille (Niveau 8)</h2>
+      <div class="sound-buttons">
+        <button class="btn-spawn" onclick="testSound('wall_break')">
+          💥 Break (Pierre brisée)
+        </button>
+        <button class="btn-thunder" onclick="testSound('wall_chain')">
+          ⛓️ Chain (Chaînes)
+        </button>
+        <button class="btn-hiss" onclick="testSound('wall_rumble')">
+          📳 Rumble (Tremblement)
+        </button>
+        <button class="btn-all" onclick="playAllWall()">
+          ▶️ Tout jouer en séquence
+        </button>
+      </div>
+    </div>
+    
+    <!-- Boss Corbeau Noir -->
+    <div class="boss-section boss-raven">
+      <h2><span class="boss-icon">🐦‍⬛</span> Boss Corbeau Noir (Niveau 12)</h2>
+      <div class="sound-buttons">
+        <button class="btn-spawn" onclick="testSound('raven_caw')">
+          🦅 Caw (Croassement)
+        </button>
+        <button class="btn-flip" onclick="testSound('raven_flap')">
+          🪶 Flap (Battement ailes)
+        </button>
+        <button class="btn-spit" onclick="testSound('raven_feather')">
+          🪶 Feather (Plumes)
+        </button>
+        <button class="btn-all" onclick="playAllRaven()">
+          ▶️ Tout jouer en séquence
+        </button>
+      </div>
+    </div>
+    
+    <!-- Boss Poulet -->
+    <div class="boss-section boss-chicken">
+      <h2><span class="boss-icon">🐔</span> Boss Poulet Géant (Niveau 6)</h2>
+      <div class="sound-buttons">
+        <button class="btn-cluck" onclick="testSound('chicken_cluck')">
+          🐓 Cluck (Cotcot kaket)
+        </button>
+        <button class="btn-egg" onclick="testSound('egg_drop')">
+          🥚 Egg Drop (Shouuup!)
+        </button>
+        <button class="btn-walk" onclick="testSound('chicken_walk')">
+          👣 Walk (Plouplou)
+        </button>
+        <button class="btn-all" onclick="playAllChicken()">
+          ▶️ Tout jouer en séquence
+        </button>
+      </div>
+    </div>
+    
+    <div id="status">Prêt à tester les sons !</div>
+  </div>
+
+  <script>
+    // Copie du système audio du jeu principal
+    let audioContext;
+    let audioInitialized = false;
+
+    function initAudioContext() {
+      if (!audioInitialized) {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        audioInitialized = true;
+        console.log('✅ AudioContext initialisé');
+      }
+    }
+
+    function updateStatus(message) {
+      const status = document.getElementById('status');
+      status.textContent = message;
+      status.classList.add('playing');
+      setTimeout(() => status.classList.remove('playing'), 500);
+    }
+
+    function testSound(soundName) {
+      initAudioContext();
+      playSound(soundName);
+      
+      const soundNames = {
+        'boss_spawn': 'Boss Spawn (Horror)',
+        'spider_skitter': 'Araignée - Skitter (Déplacement)',
+        'spider_web': 'Araignée - Web (Toile)',
+        'spider_hiss': 'Araignée - Hiss (Sifflement)',
+        'reaper_laugh': 'Faucheuse - Laugh (Rire)',
+        'reaper_bone': 'Faucheuse - Bone (Ossements)',
+        'reaper_coffin': 'Faucheuse - Coffin (Cercueil)',
+        'snake_hiss': 'Serpent - Hiss (Crécelle)',
+        'snake_flip': 'Serpent - Flip (Glissement)',
+        'snake_spit': 'Serpent - Spit (Crachat)',
+        'thunder': 'Nuage Sombre - Thunder',
+        'wall_break': 'Muraille - Break (Pierre)',
+        'wall_chain': 'Muraille - Chain (Chaînes)',
+        'wall_rumble': 'Muraille - Rumble (Tremblement)',
+        'raven_caw': 'Corbeau - Caw (Croassement)',
+        'raven_flap': 'Corbeau - Flap (Battement)',
+        'raven_feather': 'Corbeau - Feather (Plumes)',
+        'chicken_cluck': 'Poulet - Cluck',
+        'egg_drop': 'Poulet - Egg Drop',
+        'chicken_walk': 'Poulet - Walk'
+      };
+      
+      updateStatus('▶️ Lecture : ' + soundNames[soundName]);
+    }
+
+    function playAllSnake() {
+      initAudioContext();
+      updateStatus('🐍 Séquence complète du Serpent...');
+      
+      testSound('boss_spawn');
+      setTimeout(() => testSound('snake_hiss'), 2500);
+      setTimeout(() => testSound('snake_flip'), 3500);
+      setTimeout(() => testSound('snake_spit'), 4000);
+      setTimeout(() => testSound('snake_hiss'), 4500);
+      setTimeout(() => testSound('snake_flip'), 5500);
+      setTimeout(() => updateStatus('✅ Séquence Serpent terminée !'), 6000);
+    }
+
+    function playAllSpider() {
+      initAudioContext();
+      updateStatus('🕷️ Séquence complète de l\'Araignée...');
+      
+      testSound('boss_spawn');
+      setTimeout(() => testSound('spider_skitter'), 2500);
+      setTimeout(() => testSound('spider_web'), 3000);
+      setTimeout(() => testSound('spider_hiss'), 3500);
+      setTimeout(() => testSound('spider_skitter'), 4000);
+      setTimeout(() => testSound('spider_web'), 4500);
+      setTimeout(() => updateStatus('✅ Séquence Araignée terminée !'), 5500);
+    }
+
+    function playAllReaper() {
+      initAudioContext();
+      updateStatus('💀 Séquence complète de la Faucheuse...');
+      
+      testSound('boss_spawn');
+      setTimeout(() => testSound('reaper_laugh'), 2500);
+      setTimeout(() => testSound('reaper_bone'), 3500);
+      setTimeout(() => testSound('reaper_laugh'), 4000);
+      setTimeout(() => testSound('reaper_coffin'), 4800);
+      setTimeout(() => testSound('reaper_bone'), 5500);
+      setTimeout(() => updateStatus('✅ Séquence Faucheuse terminée !'), 6500);
+    }
+
+    function playAllChicken() {
+      initAudioContext();
+      updateStatus('🐔 Séquence complète du Poulet...');
+      
+      testSound('boss_spawn');
+      setTimeout(() => testSound('chicken_walk'), 2500);
+      setTimeout(() => testSound('chicken_cluck'), 3000);
+      setTimeout(() => testSound('egg_drop'), 3500);
+      setTimeout(() => testSound('chicken_walk'), 4500);
+      setTimeout(() => updateStatus('✅ Séquence Poulet terminée !'), 5000);
+    }
+
+    function playAllWall() {
+      initAudioContext();
+      updateStatus('🧱 Séquence complète de la Muraille...');
+      
+      testSound('boss_spawn');
+      setTimeout(() => testSound('wall_chain'), 2500);
+      setTimeout(() => testSound('wall_rumble'), 3500);
+      setTimeout(() => testSound('wall_break'), 4000);
+      setTimeout(() => testSound('wall_chain'), 5000);
+      setTimeout(() => testSound('wall_break'), 5500);
+      setTimeout(() => updateStatus('✅ Séquence Muraille terminée !'), 6500);
+    }
+
+    function playAllRaven() {
+      initAudioContext();
+      updateStatus('🐦‍⬛ Séquence complète du Corbeau...');
+      
+      testSound('boss_spawn');
+      setTimeout(() => testSound('raven_flap'), 2500);
+      setTimeout(() => testSound('raven_caw'), 3000);
+      setTimeout(() => testSound('raven_feather'), 3500);
+      setTimeout(() => testSound('raven_flap'), 4000);
+      setTimeout(() => testSound('raven_caw'), 4500);
+      setTimeout(() => testSound('raven_feather'), 5000);
+      setTimeout(() => updateStatus('✅ Séquence Corbeau terminée !'), 6000);
+    }
+
+    // ============================================
+    // FONCTION playSound - COPIE DU JEU PRINCIPAL
+    // ============================================
+    function playSound(type) {
+      if (!audioContext) return;
+      
+      const now = audioContext.currentTime;
+
+      switch(type) {
+        case 'boss_spawn': // Son d'horreur pour apparition de boss
+          {
+            // Drone bass profond (40-30Hz)
+            const bass = audioContext.createOscillator();
+            const bassGain = audioContext.createGain();
+            bass.type = 'sine';
+            bass.frequency.setValueAtTime(40, now);
+            bass.frequency.exponentialRampToValueAtTime(30, now + 2);
+            bassGain.gain.setValueAtTime(0.3, now);
+            bassGain.gain.exponentialRampToValueAtTime(0.01, now + 2);
+            bass.connect(bassGain);
+            bassGain.connect(audioContext.destination);
+            bass.start(now);
+            bass.stop(now + 2);
+
+            // Cri strident descendant (1200Hz → 200Hz)
+            const shriek = audioContext.createOscillator();
+            const shriekGain = audioContext.createGain();
+            shriek.type = 'sawtooth';
+            shriek.frequency.setValueAtTime(1200, now + 0.2);
+            shriek.frequency.exponentialRampToValueAtTime(200, now + 1.5);
+            shriekGain.gain.setValueAtTime(0, now + 0.2);
+            shriekGain.gain.linearRampToValueAtTime(0.2, now + 0.4);
+            shriekGain.gain.exponentialRampToValueAtTime(0.01, now + 1.5);
+            shriek.connect(shriekGain);
+            shriekGain.connect(audioContext.destination);
+            shriek.start(now + 0.2);
+            shriek.stop(now + 1.5);
+
+            // Bruit blanc d'ambiance
+            const bufferSize = audioContext.sampleRate * 2;
+            const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+            const output = buffer.getChannelData(0);
+            for (let i = 0; i < bufferSize; i++) {
+              output[i] = Math.random() * 2 - 1;
+            }
+            const whiteNoise = audioContext.createBufferSource();
+            whiteNoise.buffer = buffer;
+            const noiseFilter = audioContext.createBiquadFilter();
+            noiseFilter.type = 'lowpass';
+            noiseFilter.frequency.value = 400;
+            const noiseGain = audioContext.createGain();
+            noiseGain.gain.setValueAtTime(0.1, now);
+            noiseGain.gain.exponentialRampToValueAtTime(0.01, now + 2);
+            whiteNoise.connect(noiseFilter);
+            noiseFilter.connect(noiseGain);
+            noiseGain.connect(audioContext.destination);
+            whiteNoise.start(now);
+          }
+          break;
+
+        case 'thunder': // Son de tonnerre pour les éclairs
+          {
+            // Crack initial du tonnerre
+            const crack = audioContext.createOscillator();
+            const crackGain = audioContext.createGain();
+            crack.type = 'square';
+            crack.frequency.setValueAtTime(2000, now);
+            crack.frequency.exponentialRampToValueAtTime(100, now + 0.05);
+            crackGain.gain.setValueAtTime(0.4, now);
+            crackGain.gain.exponentialRampToValueAtTime(0.01, now + 0.05);
+            crack.connect(crackGain);
+            crackGain.connect(audioContext.destination);
+            crack.start(now);
+            crack.stop(now + 0.05);
+
+            // Grondement profond qui suit
+            const rumble = audioContext.createOscillator();
+            const rumbleGain = audioContext.createGain();
+            rumble.type = 'sine';
+            rumble.frequency.setValueAtTime(60, now + 0.05);
+            rumble.frequency.exponentialRampToValueAtTime(30, now + 1.2);
+            rumbleGain.gain.setValueAtTime(0.3, now + 0.05);
+            rumbleGain.gain.exponentialRampToValueAtTime(0.01, now + 1.2);
+            rumble.connect(rumbleGain);
+            rumbleGain.connect(audioContext.destination);
+            rumble.start(now + 0.05);
+            rumble.stop(now + 1.2);
+
+            // Bruit filtré pour réalisme
+            const bufferSize = audioContext.sampleRate * 1.2;
+            const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+            const output = buffer.getChannelData(0);
+            for (let i = 0; i < bufferSize; i++) {
+              output[i] = (Math.random() * 2 - 1) * 0.5;
+            }
+            const noise = audioContext.createBufferSource();
+            noise.buffer = buffer;
+            const filter = audioContext.createBiquadFilter();
+            filter.type = 'lowpass';
+            filter.frequency.value = 300;
+            const gain = audioContext.createGain();
+            gain.gain.setValueAtTime(0.2, now);
+            gain.gain.exponentialRampToValueAtTime(0.01, now + 1.2);
+            noise.connect(filter);
+            filter.connect(gain);
+            gain.connect(audioContext.destination);
+            noise.start(now);
+          }
+          break;
+
+        case 'chicken_cluck': // Cotcot kaket
+          {
+            // Trois petits clucks rapides
+            for (let i = 0; i < 3; i++) {
+              const osc = audioContext.createOscillator();
+              const gain = audioContext.createGain();
+              osc.type = 'square';
+              const startTime = now + i * 0.08;
+              osc.frequency.setValueAtTime(800 + i * 50, startTime);
+              gain.gain.setValueAtTime(0.15, startTime);
+              gain.gain.exponentialRampToValueAtTime(0.01, startTime + 0.06);
+              osc.connect(gain);
+              gain.connect(audioContext.destination);
+              osc.start(startTime);
+              osc.stop(startTime + 0.06);
+            }
+            // "kaket" final - son descendant
+            const osc2 = audioContext.createOscillator();
+            const gain2 = audioContext.createGain();
+            osc2.type = 'sawtooth';
+            osc2.frequency.setValueAtTime(900, now + 0.25);
+            osc2.frequency.exponentialRampToValueAtTime(650, now + 0.45);
+            gain2.gain.setValueAtTime(0.2, now + 0.25);
+            gain2.gain.exponentialRampToValueAtTime(0.01, now + 0.45);
+            osc2.connect(gain2);
+            gain2.connect(audioContext.destination);
+            osc2.start(now + 0.25);
+            osc2.stop(now + 0.45);
+          }
+          break;
+
+        case 'egg_drop': // Shouuup!
+          {
+            // Balayage de fréquence descendant
+            const osc = audioContext.createOscillator();
+            const gain = audioContext.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(1200, now);
+            osc.frequency.exponentialRampToValueAtTime(200, now + 0.4);
+            gain.gain.setValueAtTime(0.2, now);
+            gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
+            osc.connect(gain);
+            gain.connect(audioContext.destination);
+            osc.start(now);
+            osc.stop(now + 0.4);
+
+            // Bruit pour le "sh" du début
+            const bufferSize = audioContext.sampleRate * 0.1;
+            const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+            const output = buffer.getChannelData(0);
+            for (let i = 0; i < bufferSize; i++) {
+              output[i] = Math.random() * 2 - 1;
+            }
+            const noise = audioContext.createBufferSource();
+            noise.buffer = buffer;
+            const filter = audioContext.createBiquadFilter();
+            filter.type = 'highpass';
+            filter.frequency.value = 2000;
+            const noiseGain = audioContext.createGain();
+            noiseGain.gain.setValueAtTime(0.15, now);
+            noiseGain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
+            noise.connect(filter);
+            filter.connect(noiseGain);
+            noiseGain.connect(audioContext.destination);
+            noise.start(now);
+          }
+          break;
+
+        case 'chicken_walk': // Plouplou
+          {
+            // Premier "plou"
+            const osc1 = audioContext.createOscillator();
+            const gain1 = audioContext.createGain();
+            osc1.type = 'sine';
+            osc1.frequency.setValueAtTime(400, now);
+            osc1.frequency.linearRampToValueAtTime(550, now + 0.08);
+            gain1.gain.setValueAtTime(0.12, now);
+            gain1.gain.exponentialRampToValueAtTime(0.01, now + 0.08);
+            osc1.connect(gain1);
+            gain1.connect(audioContext.destination);
+            osc1.start(now);
+            osc1.stop(now + 0.08);
+
+            // Deuxième "plou"
+            const osc2 = audioContext.createOscillator();
+            const gain2 = audioContext.createGain();
+            osc2.type = 'sine';
+            osc2.frequency.setValueAtTime(500, now + 0.1);
+            osc2.frequency.linearRampToValueAtTime(650, now + 0.18);
+            gain2.gain.setValueAtTime(0.12, now + 0.1);
+            gain2.gain.exponentialRampToValueAtTime(0.01, now + 0.18);
+            osc2.connect(gain2);
+            gain2.connect(audioContext.destination);
+            osc2.start(now + 0.1);
+            osc2.stop(now + 0.18);
+          }
+          break;
+      
+        case 'reaper_laugh': // Rire sinistre de la Faucheuse
+          {
+            const duration = 0.8;
+            const bufferSize = audioContext.sampleRate * duration;
+            const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+            const data = buffer.getChannelData(0);
+            
+            for (let i = 0; i < bufferSize; i++) {
+              const t = i / audioContext.sampleRate;
+              const laughFreq = 150 + Math.sin(t * 12 * Math.PI) * 50;
+              const laugh = Math.sin(t * Math.PI * 2 * laughFreq);
+              const spectral = Math.sin(t * Math.PI * 2 * laughFreq * 3) * 0.3;
+              const darkness = (Math.random() * 2 - 1) * 0.2;
+              const envelope = Math.sin(t / duration * Math.PI) * 0.9;
+              data[i] = (laugh * 0.6 + spectral + darkness) * envelope;
+            }
+            
+            const source = audioContext.createBufferSource();
+            source.buffer = buffer;
+            const filter = audioContext.createBiquadFilter();
+            filter.type = 'lowpass';
+            filter.frequency.value = 500;
+            filter.Q.value = 2;
+            const gain = audioContext.createGain();
+            gain.gain.value = 0.28;
+            source.connect(filter);
+            filter.connect(gain);
+            gain.connect(audioContext.destination);
+            source.start(now);
+          }
+          break;
+          
+        case 'reaper_bone': // Ossements qui tombent
+          {
+            const duration = 0.4;
+            const bufferSize = audioContext.sampleRate * duration;
+            const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+            const data = buffer.getChannelData(0);
+            
+            for (let i = 0; i < bufferSize; i++) {
+              const t = i / audioContext.sampleRate;
+              const click1 = Math.sin(t * Math.PI * 2 * 800) * Math.exp(-t * 15);
+              const click2 = Math.sin(t * Math.PI * 2 * 1200) * Math.exp(-t * 12) * 0.5;
+              const rattle = (Math.random() > 0.7 ? Math.random() * 0.4 : 0);
+              data[i] = (click1 + click2 + rattle) * 0.8;
+            }
+            
+            const source = audioContext.createBufferSource();
+            source.buffer = buffer;
+            const filter = audioContext.createBiquadFilter();
+            filter.type = 'highpass';
+            filter.frequency.value = 400;
+            const gain = audioContext.createGain();
+            gain.gain.value = 0.22;
+            source.connect(filter);
+            filter.connect(gain);
+            gain.connect(audioContext.destination);
+            source.start(now);
+          }
+          break;
+          
+        case 'reaper_coffin': // Cercueil lourd
+          {
+            const duration = 0.6;
+            const bufferSize = audioContext.sampleRate * duration;
+            const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+            const data = buffer.getChannelData(0);
+            
+            for (let i = 0; i < bufferSize; i++) {
+              const t = i / audioContext.sampleRate;
+              const thud = Math.sin(t * Math.PI * 2 * (80 - t * 30));
+              const creak = Math.sin(t * Math.PI * 2 * 200) * Math.exp(-t * 5) * 0.4;
+              const rumble = Math.sin(t * Math.PI * 2 * 40) * 0.3;
+              const envelope = Math.exp(-t * 3);
+              data[i] = (thud * 0.7 + creak + rumble) * envelope;
+            }
+            
+            const source = audioContext.createBufferSource();
+            source.buffer = buffer;
+            const filter = audioContext.createBiquadFilter();
+            filter.type = 'lowpass';
+            filter.frequency.value = 350;
+            const gain = audioContext.createGain();
+            gain.gain.value = 0.3;
+            source.connect(filter);
+            filter.connect(gain);
+            gain.connect(audioContext.destination);
+            source.start(now);
+          }
+          break;
+
+        case 'spider_skitter': // Déplacement rapide de l'araignée
+          {
+            const duration = 0.2;
+            const bufferSize = audioContext.sampleRate * duration;
+            const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+            const data = buffer.getChannelData(0);
+            
+            for (let i = 0; i < bufferSize; i++) {
+              const t = i / audioContext.sampleRate;
+              const clicks = (Math.random() > 0.5 ? Math.random() * 0.6 : 0);
+              const scratch = Math.sin(t * Math.PI * 2 * (800 + Math.random() * 400)) * 0.3;
+              const envelope = Math.exp(-t * 12);
+              data[i] = (clicks + scratch) * envelope;
+            }
+            
+            const source = audioContext.createBufferSource();
+            source.buffer = buffer;
+            const filter = audioContext.createBiquadFilter();
+            filter.type = 'highpass';
+            filter.frequency.value = 600;
+            const gain = audioContext.createGain();
+            gain.gain.value = 0.15;
+            source.connect(filter);
+            filter.connect(gain);
+            gain.connect(audioContext.destination);
+            source.start(now);
+          }
+          break;
+          
+        case 'spider_web': // Lancer de toile
+          {
+            const duration = 0.35;
+            const bufferSize = audioContext.sampleRate * duration;
+            const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+            const data = buffer.getChannelData(0);
+            
+            for (let i = 0; i < bufferSize; i++) {
+              const t = i / audioContext.sampleRate;
+              const whistle = Math.sin(t * Math.PI * 2 * (1500 - t * 800));
+              const sticky = (Math.random() * 2 - 1) * 0.3;
+              const envelope = Math.exp(-t * 6);
+              data[i] = (whistle * 0.5 + sticky) * envelope;
+            }
+            
+            const source = audioContext.createBufferSource();
+            source.buffer = buffer;
+            const filter = audioContext.createBiquadFilter();
+            filter.type = 'bandpass';
+            filter.frequency.value = 1000;
+            filter.Q.value = 1.5;
+            const gain = audioContext.createGain();
+            gain.gain.value = 0.2;
+            source.connect(filter);
+            filter.connect(gain);
+            gain.connect(audioContext.destination);
+            source.start(now);
+          }
+          break;
+          
+        case 'spider_hiss': // Sifflement agressif de l'araignée
+          {
+            const duration = 0.4;
+            const bufferSize = audioContext.sampleRate * duration;
+            const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+            const data = buffer.getChannelData(0);
+            
+            for (let i = 0; i < bufferSize; i++) {
+              const t = i / audioContext.sampleRate;
+              const hiss = (Math.random() * 2 - 1);
+              const modulation = Math.sin(t * 150 * Math.PI) * 0.3;
+              const envelope = 1 - Math.pow(t / duration, 2);
+              data[i] = (hiss * 0.7 + modulation) * envelope;
+            }
+            
+            const source = audioContext.createBufferSource();
+            source.buffer = buffer;
+            const filter = audioContext.createBiquadFilter();
+            filter.type = 'highpass';
+            filter.frequency.value = 3000;
+            const gain = audioContext.createGain();
+            gain.gain.value = 0.25;
+            source.connect(filter);
+            filter.connect(gain);
+            gain.connect(audioContext.destination);
+            source.start(now);
+          }
+          break;
+
+        case 'raven_caw': // Croassement sinistre du corbeau
+          {
+            const duration = 0.5;
+            const bufferSize = audioContext.sampleRate * duration;
+            const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+            const data = buffer.getChannelData(0);
+            
+            for (let i = 0; i < bufferSize; i++) {
+              const t = i / audioContext.sampleRate;
+              const freq = 400 + Math.sin(t * 30) * 150;
+              const caw = Math.sin(t * Math.PI * 2 * freq);
+              const noise = (Math.random() * 2 - 1) * 0.4;
+              const dark = Math.sin(t * Math.PI * 2 * freq * 0.5) * 0.3;
+              const envelope = Math.exp(-t * 5) * (1 + Math.sin(t * 20) * 0.2);
+              data[i] = (caw * 0.5 + noise + dark) * envelope;
+            }
+            
+            const source = audioContext.createBufferSource();
+            source.buffer = buffer;
+            const filter = audioContext.createBiquadFilter();
+            filter.type = 'bandpass';
+            filter.frequency.value = 600;
+            filter.Q.value = 2;
+            const gain = audioContext.createGain();
+            gain.gain.value = 0.32;
+            source.connect(filter);
+            filter.connect(gain);
+            gain.connect(audioContext.destination);
+            source.start(now);
+          }
+          break;
+          
+        case 'raven_flap': // Battement d'ailes puissant
+          {
+            const duration = 0.25;
+            const bufferSize = audioContext.sampleRate * duration;
+            const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+            const data = buffer.getChannelData(0);
+            
+            for (let i = 0; i < bufferSize; i++) {
+              const t = i / audioContext.sampleRate;
+              const whoosh = (Math.random() * 2 - 1) * Math.exp(-t * 15);
+              const flap = Math.sin(t * Math.PI * 2 * 80) * Math.exp(-t * 10);
+              data[i] = whoosh * 0.7 + flap * 0.5;
+            }
+            
+            const source = audioContext.createBufferSource();
+            source.buffer = buffer;
+            const filter = audioContext.createBiquadFilter();
+            filter.type = 'lowpass';
+            filter.frequency.value = 1200;
+            const gain = audioContext.createGain();
+            gain.gain.value = 0.18;
+            source.connect(filter);
+            filter.connect(gain);
+            gain.connect(audioContext.destination);
+            source.start(now);
+          }
+          break;
+          
+        case 'raven_feather': // Plumes empoisonnées lancées
+          {
+            const duration = 0.3;
+            const bufferSize = audioContext.sampleRate * duration;
+            const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+            const data = buffer.getChannelData(0);
+            
+            for (let i = 0; i < bufferSize; i++) {
+              const t = i / audioContext.sampleRate;
+              const whistle = Math.sin(t * Math.PI * 2 * (2000 - t * 1000));
+              const rustle = (Math.random() * 2 - 1) * 0.5;
+              const envelope = Math.exp(-t * 8);
+              data[i] = (whistle * 0.4 + rustle) * envelope;
+            }
+            
+            const source = audioContext.createBufferSource();
+            source.buffer = buffer;
+            const filter = audioContext.createBiquadFilter();
+            filter.type = 'highpass';
+            filter.frequency.value = 1000;
+            const gain = audioContext.createGain();
+            gain.gain.value = 0.22;
+            source.connect(filter);
+            filter.connect(gain);
+            gain.connect(audioContext.destination);
+            source.start(now);
+          }
+          break;
+
+        case 'wall_break': // Pierre qui se brise
+          {
+            // Impact initial fort
+            const impact = audioContext.createOscillator();
+            const impactGain = audioContext.createGain();
+            impact.type = 'triangle';
+            impact.frequency.setValueAtTime(120, now);
+            impact.frequency.exponentialRampToValueAtTime(40, now + 0.15);
+            impactGain.gain.setValueAtTime(0.4, now);
+            impactGain.gain.exponentialRampToValueAtTime(0.01, now + 0.15);
+            impact.connect(impactGain);
+            impactGain.connect(audioContext.destination);
+            impact.start(now);
+            impact.stop(now + 0.15);
+            
+            // Bruit de débris/gravats
+            const bufferSize = audioContext.sampleRate * 0.6;
+            const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+            const data = buffer.getChannelData(0);
+            
+            for (let i = 0; i < bufferSize; i++) {
+              const t = i / audioContext.sampleRate;
+              const debris = (Math.random() * 2 - 1);
+              const crack = (Math.random() > 0.85 ? Math.random() * 0.5 : 0);
+              const envelope = Math.exp(-t * 4);
+              data[i] = (debris * 0.7 + crack) * envelope;
+            }
+            
+            const source = audioContext.createBufferSource();
+            source.buffer = buffer;
+            const filter = audioContext.createBiquadFilter();
+            filter.type = 'bandpass';
+            filter.frequency.value = 800;
+            filter.Q.value = 1;
+            const gain = audioContext.createGain();
+            gain.gain.value = 0.3;
+            source.connect(filter);
+            filter.connect(gain);
+            gain.connect(audioContext.destination);
+            source.start(now);
+          }
+          break;
+          
+        case 'wall_chain': // Chaînes qui tombent
+          {
+            const duration = 0.8;
+            const bufferSize = audioContext.sampleRate * duration;
+            const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+            const data = buffer.getChannelData(0);
+            
+            for (let i = 0; i < bufferSize; i++) {
+              const t = i / audioContext.sampleRate;
+              const metalFreq = 800 + Math.sin(t * 40) * 200;
+              const metal = Math.sin(t * Math.PI * 2 * metalFreq) * 0.3;
+              const rattle = (Math.random() > 0.6 ? Math.random() * 0.4 : 0);
+              const fall = Math.sin(t * Math.PI * 2 * (500 - t * 200)) * 0.2;
+              const envelope = 1 - Math.pow(t / duration, 1.5);
+              data[i] = (metal + rattle + fall) * envelope;
+            }
+            
+            const source = audioContext.createBufferSource();
+            source.buffer = buffer;
+            const filter = audioContext.createBiquadFilter();
+            filter.type = 'highpass';
+            filter.frequency.value = 400;
+            const gain = audioContext.createGain();
+            gain.gain.value = 0.25;
+            source.connect(filter);
+            filter.connect(gain);
+            gain.connect(audioContext.destination);
+            source.start(now);
+          }
+          break;
+          
+        case 'wall_rumble': // Tremblement du mur
+          {
+            // Grondement sourd
+            const rumble = audioContext.createOscillator();
+            const rumbleGain = audioContext.createGain();
+            rumble.type = 'sawtooth';
+            rumble.frequency.setValueAtTime(50, now);
+            rumble.frequency.exponentialRampToValueAtTime(35, now + 0.4);
+            rumbleGain.gain.setValueAtTime(0.25, now);
+            rumbleGain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
+            rumble.connect(rumbleGain);
+            rumbleGain.connect(audioContext.destination);
+            rumble.start(now);
+            rumble.stop(now + 0.4);
+            
+            // Vibrations
+            const bufferSize = audioContext.sampleRate * 0.3;
+            const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+            const data = buffer.getChannelData(0);
+            
+            for (let i = 0; i < bufferSize; i++) {
+              const t = i / audioContext.sampleRate;
+              const vibration = Math.sin(t * Math.PI * 2 * 80) * Math.sin(t * Math.PI * 2 * 15);
+              const noise = (Math.random() * 2 - 1) * 0.2;
+              data[i] = (vibration * 0.6 + noise) * (1 - t / 0.3);
+            }
+            
+            const source = audioContext.createBufferSource();
+            source.buffer = buffer;
+            const filter = audioContext.createBiquadFilter();
+            filter.type = 'lowpass';
+            filter.frequency.value = 300;
+            const gain = audioContext.createGain();
+            gain.gain.value = 0.2;
+            source.connect(filter);
+            filter.connect(gain);
+            gain.connect(audioContext.destination);
+            source.start(now);
+          }
+          break;
+
+        case 'snake_hiss': // Sifflement réaliste de serpent à sonnette
+          {
+            const duration = 0.8;
+            const bufferSize = audioContext.sampleRate * duration;
+            const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+            const data = buffer.getChannelData(0);
+            
+            for (let i = 0; i < bufferSize; i++) {
+              const t = i / audioContext.sampleRate;
+              const baseFreq = 80 + Math.sin(t * 10) * 20;
+              const rattle = Math.sin(t * Math.PI * 2 * 90) * 0.5;
+              const noise = (Math.random() * 2 - 1) * 0.3;
+              const envelope = Math.sin(t / duration * Math.PI) * 0.8;
+              data[i] = (Math.sin(t * Math.PI * 2 * baseFreq) * 0.4 + rattle + noise) * envelope;
+            }
+            
+            const source = audioContext.createBufferSource();
+            source.buffer = buffer;
+            const filter = audioContext.createBiquadFilter();
+            filter.type = 'bandpass';
+            filter.frequency.value = 3000;
+            filter.Q.value = 2;
+            const gain = audioContext.createGain();
+            gain.gain.setValueAtTime(0.35, now);
+            gain.gain.exponentialRampToValueAtTime(0.01, now + duration);
+            source.connect(filter);
+            filter.connect(gain);
+            gain.connect(audioContext.destination);
+            source.start(now);
+          }
+          break;
+          
+        case 'snake_flip': // Frottement gras du serpent "croh greee"
+          {
+            const duration = 0.45;
+            const bufferSize = audioContext.sampleRate * duration;
+            const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+            const data = buffer.getChannelData(0);
+            
+            // Son de frottement gras et rugueux "croh greee"
+            for (let i = 0; i < bufferSize; i++) {
+              const t = i / audioContext.sampleRate;
+              // Bruit très gras et dominant
+              const noise = (Math.random() * 2 - 1);
+              // Fréquence basse pour son gras "croh"
+              const freq = 120 - t * 40;
+              const rumble = Math.sin(t * Math.PI * 2 * freq);
+              // Grondement grave pour texture épaisse
+              const lowGrowl = Math.sin(t * Math.PI * 2 * 60) * 0.6;
+              // Modulation lente pour effet rugueux "greee"
+              const grind = Math.sin(t * 80 * Math.PI) * 0.5;
+              // Crachotement pour texture
+              const crackle = (Math.random() > 0.7 ? Math.random() * 0.4 : 0);
+              const envelope = 1 - Math.pow(t / duration, 2);
+              data[i] = (noise * 0.6 + rumble * 0.8 + lowGrowl + grind + crackle) * envelope;
+            }
+            
+            const source = audioContext.createBufferSource();
+            source.buffer = buffer;
+            
+            // Filtre pour son gras (fréquences basses-moyennes)
+            const filter = audioContext.createBiquadFilter();
+            filter.type = 'lowpass';
+            filter.frequency.value = 450; // Plus bas pour son plus gras
+            filter.Q.value = 2;
+            
+            const gain = audioContext.createGain();
+            gain.gain.value = 0.45; // Volume encore plus fort
+            
+            source.connect(filter);
+            filter.connect(gain);
+            gain.connect(audioContext.destination);
+            source.start(now);
+          }
+          break;
+          
+        case 'snake_spit': // Attaque agressive avec sifflement
+          {
+            const duration = 0.25;
+            const bufferSize = audioContext.sampleRate * duration;
+            const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+            const data = buffer.getChannelData(0);
+            
+            for (let i = 0; i < bufferSize; i++) {
+              const t = i / audioContext.sampleRate;
+              const freq = 8000 - t * 6000;
+              const hiss = Math.sin(t * Math.PI * 2 * freq);
+              const noise = (Math.random() * 2 - 1) * 0.7;
+              const envelope = Math.exp(-t * 12);
+              data[i] = (hiss * 0.3 + noise * 0.7) * envelope;
+            }
+            
+            const source = audioContext.createBufferSource();
+            source.buffer = buffer;
+            const filter = audioContext.createBiquadFilter();
+            filter.type = 'highpass';
+            filter.frequency.value = 2000;
+            const gain = audioContext.createGain();
+            gain.gain.value = 0.28;
+            source.connect(filter);
+            filter.connect(gain);
+            gain.connect(audioContext.destination);
+            source.start(now);
+          }
+          break;
+      }
+    }
+
+    // Initialiser au chargement
+    window.addEventListener('click', () => {
+      if (!audioInitialized) {
+        initAudioContext();
+      }
+    }, { once: true });
+  </script>
+</body>
+</html>

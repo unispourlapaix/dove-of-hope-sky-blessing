@@ -6,6 +6,16 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <title>Dove of Hope : Sky Blessing</title>
+<!-- PWA Icons -->
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192x192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/icon-512x512.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#667eea">
+<meta name="description" content="Vole petite colombe avec courage. Ton cœur est bon, persévère. N'abandonne jamais!">
 <script src="bible-verses.js"></script>
 <script src="js/translations/fr.js"></script>
 <script src="js/translations/en.js"></script>
@@ -44,7 +54,7 @@ body{margin:0;padding:0;background:linear-gradient(135deg,#e8eef2 0%,#d4dce3 50%
 #ui > div{display:flex;align-items:center;gap:3px;color:#34495e;white-space:nowrap}
 #ui > div span{font-weight:900;color:#2c3e50;font-size:13px}
 #ui .ui-section{display:flex;align-items:center;gap:8px}
-#message{position:absolute;top:20%;left:50%;transform:translate(-50%,-50%);color:#000000;font-size:18px;font-weight:bold;text-align:center;opacity:0;transition:opacity 0.5s;-webkit-text-stroke:2px white;text-stroke:2px white;paint-order:stroke fill;z-index:200;max-width:90%;padding:15px;word-wrap:break-word;overflow-wrap:break-word;white-space:normal;line-height:1.4}
+#message{position:absolute;top:20%;left:50%;transform:translate(-50%,-50%);color:#000000;font-size:18px;font-weight:bold;text-align:center;opacity:0;transition:opacity 0.5s;-webkit-text-stroke:2px white;paint-order:stroke fill;z-index:200;max-width:90%;padding:15px;word-wrap:break-word;overflow-wrap:break-word;white-space:normal;line-height:1.4}
 #startButton{position:absolute;bottom:80px;left:50%;transform:translateX(-50%);width:90px;height:110px;background:linear-gradient(180deg,transparent 0%,transparent 50%,#34495e 50%,#2c3e50 100%);border:3px solid #2c3e50;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;cursor:pointer;transition:all 0.5s;overflow:visible;z-index:300;box-shadow:0 5px 15px rgba(0,0,0,0.3)}
 #startButton.hidden{opacity:0;pointer-events:none;transform:translateX(-50%) scale(0.5)}
 #startButton::before{content:'💡';position:absolute;top:40%;left:50%;transform:translate(-50%,-50%);font-size:42px;animation:bulbGlow 2s infinite;filter:drop-shadow(0 0 10px rgba(255,235,59,0.6))}
@@ -81,7 +91,51 @@ body{margin:0;padding:0;background:linear-gradient(135deg,#e8eef2 0%,#d4dce3 50%
 
 @media (max-width: 480px) {
   #gameContainer{max-width:100vw}
+  #ui{font-size:10px;padding:3px 8px;gap:6px}
+  #ui > div span{font-size:12px}
+  #message{font-size:16px;padding:12px;max-width:92%}
+  .motivation{font-size:12px;padding:10px 16px;max-width:88%}
+  #startButton{width:80px;height:100px;bottom:70px}
+  #startButton::before{font-size:38px}
+  #startButton::after{font-size:12px;bottom:15px}
+  .sun{width:50px;height:50px;right:30px;top:12%}
 }
+
+@media (max-width: 360px) {
+  /* Optimisation pour iPhone SE et très petits écrans */
+  #ui{font-size:9px;padding:2px 6px;gap:4px;flex-wrap:wrap}
+  #ui > div{gap:2px}
+  #ui > div span{font-size:11px}
+  #message{font-size:14px;padding:10px;-webkit-text-stroke:1.5px white}
+  .motivation{font-size:11px;padding:8px 12px;max-width:90%}
+  #startButton{width:70px;height:90px;bottom:60px}
+  #startButton::before{font-size:32px}
+  #startButton::after{font-size:10px;bottom:12px}
+  .sun{width:45px;height:45px;right:25px;top:10%}
+  .audio-btn{width:18px;height:18px;font-size:10px}
+  button[onclick*="pauseMenu"]{width:35px;height:35px;font-size:10px;top:60px}
+  #pauseMenu{padding:8px;top:60px}
+}
+
+@media (max-width: 320px) {
+  /* Extrême optimisation pour très anciens appareils */
+  #ui{font-size:8px;padding:2px 4px;gap:3px}
+  #ui > div span{font-size:10px}
+  #message{font-size:13px;padding:8px;line-height:1.3}
+  .motivation{font-size:10px;padding:6px 10px}
+  #startButton{width:65px;height:85px;bottom:55px}
+  #startButton::before{font-size:28px}
+  #startButton::after{font-size:9px;bottom:10px;letter-spacing:1px}
+  .sun{width:40px;height:40px;right:20px}
+  .audio-btn{width:16px;height:16px;font-size:9px}
+  button[onclick*="pauseMenu"]{width:32px;height:32px;font-size:9px;top:55px;left:8px}
+  #pauseMenu{padding:6px;top:55px;left:8px}
+  #pauseMenu button{width:35px;height:35px;font-size:10px}
+  #pauseMenu > div > div{font-size:18px;padding:6px}
+  #pauseMenu #difficultyLabel{font-size:10px}
+  #pauseMenu [id^="diffBtn_"]{font-size:9px;padding:5px 3px}
+}
+
 </style>
 
 <!-- Bibliothèque Supabase pour sauvegarde en ligne -->
@@ -272,7 +326,6 @@ function changeDifficulty(difficulty) {
   // Afficher un message
   msg(t('ui.difficulty_changed') + ' : ' + t('ui.' + difficulty));
 
-  console.log('Difficulté changée:', difficulty);
 }
 
 // Fonction pour mettre à jour l'affichage des boutons de difficulté
@@ -452,8 +505,7 @@ function showTestimonies() {
 
   // Vérifier si les fonctions sont disponibles
   if (typeof getTestimonies !== 'function' || typeof getTestimonyTitle !== 'function') {
-    console.error('Les fonctions de témoignages ne sont pas chargées');
-    alert('Erreur: Le module de témoignages n\'est pas chargé. Veuillez recharger la page.');
+      alert('Erreur: Le module de témoignages n\'est pas chargé. Veuillez recharger la page.');
     return;
   }
 
@@ -686,13 +738,10 @@ function loadGameData() {
       if (typeof gameData.starStock !== 'undefined') {
         starCount = gameData.starStock;
       }
-      console.log('💾 Données chargées:', gameData);
-      console.log('⭐ Stock d\'étoiles restauré:', starCount);
-      return true;
+              return true;
     }
   } catch (error) {
-    console.error('❌ Erreur lors du chargement:', error);
-  }
+    }
   return false;
 }
 
@@ -716,12 +765,10 @@ function loadPlayerProfile() {
     const saved = localStorage.getItem(DB_KEY);
     if (saved) {
       playerProfile = JSON.parse(saved);
-      console.log('💾 Profil chargé:', playerProfile);
-      return true;
+          return true;
     }
   } catch (error) {
-    console.error('❌ Erreur chargement profil:', error);
-  }
+    }
   return false;
 }
 
@@ -730,11 +777,9 @@ function savePlayerProfile() {
   try {
     playerProfile.lastPlayed = new Date().toISOString();
     localStorage.setItem(DB_KEY, JSON.stringify(playerProfile));
-    console.log('💾 Profil sauvegardé:', playerProfile);
-    return true;
+      return true;
   } catch (error) {
-    console.error('❌ Erreur sauvegarde profil:', error);
-    return false;
+      return false;
   }
 }
 
@@ -760,8 +805,7 @@ function updateHighestLevel(newLevel) {
     // Sauvegarde automatique cloud (si connecté)
     autoSaveToCloud();
     
-    console.log('🎯 Nouveau niveau débloqué:', newLevel, '💾 Sauvegarde auto OK');
-    return true; // Nouveau niveau !
+      return true; // Nouveau niveau !
   }
   return false;
 }
@@ -911,7 +955,6 @@ function exportProfileData() {
   a.click();
   URL.revokeObjectURL(url);
   
-  console.log('📤 Profil exporté:', data);
   showPopup('\u2705 Score export\u00e9 !\n\nPartage ce fichier pour le classement global.', '\ud83c\udfc6', 'success');
 }
 
@@ -951,11 +994,9 @@ function saveGameData() {
     // Sauvegarder le stock d'étoiles actuel
     gameData.starStock = starCount;
     localStorage.setItem(SAVE_KEY, JSON.stringify(gameData));
-    console.log('💾 Données sauvegardées (⭐ étoiles:', starCount + ')');
     return true;
   } catch (error) {
-    console.error('❌ Erreur lors de la sauvegarde:', error);
-    return false;
+      return false;
   }
 }
 
@@ -995,7 +1036,6 @@ function saveProgress(level, score, totalClouds) {
   // Sauvegarder localement tous les 100 nuages
   if (gameData.totalCloudsDestroyed % 100 === 0) {
     saveGameData();
-    console.log('💾 Sauvegarde locale (100 nuages)');
   } else {
     saveGameData();
   }
@@ -1006,8 +1046,7 @@ function saveProgress(level, score, totalClouds) {
     const email = localStorage.getItem('dovePlayerEmail');
     
     if (nickname && email) {
-      console.log('🏆 Nouveau record + 200 nuages - Sauvegarde cloud...');
-      setTimeout(() => {
+          setTimeout(() => {
         autoSaveToCloud();
       }, 1000);
     }
@@ -1028,7 +1067,7 @@ function saveGameEnd(finalScore, finalLevel, finalClouds, survivalTime) {
 
 // Réinitialiser toutes les données (pour debug ou reset complet)
 function resetGameData() {
-  if (confirm('⚠️ Voulez-vous vraiment réinitialiser toutes vos données ?')) {
+  if (confirm(t('popups.reset_confirm'))) {
     localStorage.removeItem(SAVE_KEY);
     gameData = {
       highestLevelReached: 1,
@@ -1057,8 +1096,7 @@ function resetGameData() {
       lastScore: 0,
       lastLevel: 1
     };
-    console.log('🔄 Données réinitialisées');
-    return true;
+      return true;
   }
   return false;
 }
@@ -1333,8 +1371,7 @@ function exportGameData() {
     link.download = `dove-of-hope-score-${gameData.highScore}.png`;
     link.click();
     URL.revokeObjectURL(url);
-    console.log('📤 Image exportée');
-  });
+    });
 }
 
 // Importer les données (pour restore)
@@ -1347,11 +1384,9 @@ function importGameData(fileInput) {
         const imported = JSON.parse(e.target.result);
         gameData = { ...gameData, ...imported };
         saveGameData();
-        console.log('📥 Données importées');
-        showPopup(t('popups.data_imported'), '💾', 'success');
+              showPopup(t('popups.data_imported'), '💾', 'success');
       } catch (error) {
-        console.error('❌ Erreur lors de l\'import:', error);
-        showPopup(t('popups.invalid_file'), '⚠️', 'error');
+              showPopup(t('popups.invalid_file'), '⚠️', 'error');
       }
     };
     reader.readAsText(file);
@@ -1370,8 +1405,7 @@ let sfxEnabled = true;
 function initAudioContext() {
   if (!audioInitialized) {
     audioInitialized = true;
-    console.log('✅ AudioContext prêt');
-  }
+    }
 }
 
 // Playlist de musiques gospel
@@ -1403,8 +1437,8 @@ const gospelPlaylist = [
   'public/gospel/que-je-vive.mp3',
   'public/gospel/tiens-bon-tiens-bon.mp3',
   'public/gospel/tu-es-appele-a-porte-la-paix.mp3',
-  'public/gospel/tu-mas-tendue-la-main.mp3',
-  'public/gospel/un-sos-sur-les-flots.mp3'
+  'public/gospel/tu-mas-tendue-la-main.mp3'
+  // 'public/gospel/un-sos-sur-les-flots.mp3' - RÉSERVÉ au boss Dark Cloud uniquement
 ];
 
 let currentTrackIndex = 0;
@@ -1443,13 +1477,11 @@ function playRandomMusic() {
   
   // Gestion d'erreur améliorée pour fichiers manquants
   musicAudio.addEventListener('error', (e) => {
-    console.warn('⚠️ Impossible de charger:', gospelPlaylist[currentTrackIndex]);
-    // Passer à la chanson suivante
+      // Passer à la chanson suivante
     playRandomMusic();
   });
   
   musicAudio.play().catch(err => {
-    console.log('ℹ️ Lecture musique différée (interaction requise)');
   });
   
   // Quand la musique se termine, jouer la suivante
@@ -1488,8 +1520,7 @@ function playRainMusic() {
   
   // Quand la chanson de pluie se termine, reprendre la playlist aléatoire
   rainMusicAudio.addEventListener('ended', () => {
-    console.log('🎵 Musique de pluie terminée, reprise de la playlist aléatoire');
-    rainMusicAudio = null;
+      rainMusicAudio = null;
     normalMusicPaused = false;
     if (musicEnabled) {
       playRandomMusic();
@@ -1773,6 +1804,742 @@ function playSound(type) {
         osc2.stop(now + 0.15);
       }
       break;
+      
+    case 'boss_spawn': // Apparition d'un boss - son d'horreur sinistre
+      {
+        // Drone bass sombre et oppressant
+        const bass = audioContext.createOscillator();
+        const bassGain = audioContext.createGain();
+        bass.type = 'sawtooth';
+        bass.frequency.setValueAtTime(40, now);
+        bass.frequency.exponentialRampToValueAtTime(30, now + 2);
+        bassGain.gain.setValueAtTime(0.3, now);
+        bassGain.gain.exponentialRampToValueAtTime(0.01, now + 2);
+        bass.connect(bassGain);
+        bassGain.connect(audioContext.destination);
+        bass.start(now);
+        bass.stop(now + 2);
+        
+        // Son strident qui descend (cri d'horreur)
+        const shriek = audioContext.createOscillator();
+        const shriekGain = audioContext.createGain();
+        shriek.type = 'square';
+        shriek.frequency.setValueAtTime(1200, now + 0.2);
+        shriek.frequency.exponentialRampToValueAtTime(200, now + 1.5);
+        shriekGain.gain.setValueAtTime(0, now + 0.2);
+        shriekGain.gain.linearRampToValueAtTime(0.2, now + 0.3);
+        shriekGain.gain.exponentialRampToValueAtTime(0.01, now + 1.5);
+        shriek.connect(shriekGain);
+        shriekGain.connect(audioContext.destination);
+        shriek.start(now + 0.2);
+        shriek.stop(now + 1.5);
+        
+        // Bruit blanc pour ambiance d'horreur
+        const bufferSize = audioContext.sampleRate * 2;
+        const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+        const output = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          output[i] = (Math.random() * 2 - 1) * 0.1;
+        }
+        const noise = audioContext.createBufferSource();
+        noise.buffer = buffer;
+        const noiseGain = audioContext.createGain();
+        noiseGain.gain.setValueAtTime(0.15, now);
+        noiseGain.gain.exponentialRampToValueAtTime(0.01, now + 2);
+        noise.connect(noiseGain);
+        noiseGain.connect(audioContext.destination);
+        noise.start(now);
+      }
+      break;
+      
+    case 'thunder': // Éclair / Tonnerre pour le boss Dark Cloud
+      {
+        // Crack initial très court et aigu (éclair)
+        const crack = audioContext.createOscillator();
+        const crackGain = audioContext.createGain();
+        crack.type = 'square';
+        crack.frequency.setValueAtTime(2000, now);
+        crack.frequency.exponentialRampToValueAtTime(100, now + 0.05);
+        crackGain.gain.setValueAtTime(0.4, now);
+        crackGain.gain.exponentialRampToValueAtTime(0.01, now + 0.05);
+        crack.connect(crackGain);
+        crackGain.connect(audioContext.destination);
+        crack.start(now);
+        crack.stop(now + 0.05);
+        
+        // Grondement du tonnerre (bass qui roule)
+        const rumble = audioContext.createOscillator();
+        const rumbleGain = audioContext.createGain();
+        rumble.type = 'sawtooth';
+        rumble.frequency.setValueAtTime(60, now + 0.05);
+        rumble.frequency.exponentialRampToValueAtTime(30, now + 1.2);
+        rumbleGain.gain.setValueAtTime(0, now + 0.05);
+        rumbleGain.gain.linearRampToValueAtTime(0.35, now + 0.15);
+        rumbleGain.gain.exponentialRampToValueAtTime(0.01, now + 1.2);
+        rumble.connect(rumbleGain);
+        rumbleGain.connect(audioContext.destination);
+        rumble.start(now + 0.05);
+        rumble.stop(now + 1.2);
+        
+        // Bruit blanc pour le grondement
+        const bufferSize = audioContext.sampleRate * 1.2;
+        const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+        const output = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          output[i] = (Math.random() * 2 - 1) * 0.2 * (1 - i / bufferSize);
+        }
+        const noise = audioContext.createBufferSource();
+        noise.buffer = buffer;
+        const noiseFilter = audioContext.createBiquadFilter();
+        noiseFilter.type = 'lowpass';
+        noiseFilter.frequency.value = 200;
+        const noiseGain = audioContext.createGain();
+        noiseGain.gain.setValueAtTime(0.3, now + 0.05);
+        noiseGain.gain.exponentialRampToValueAtTime(0.01, now + 1.2);
+        noise.connect(noiseFilter);
+        noiseFilter.connect(noiseGain);
+        noiseGain.connect(audioContext.destination);
+        noise.start(now + 0.05);
+      }
+      break;
+      
+    case 'chicken_cluck': // Caquètement de la poule (cotcot kaket)
+      {
+        // Son aigu et rapide qui monte et descend (cot-cot-cot-kaket)
+        const osc = audioContext.createOscillator();
+        const gain = audioContext.createGain();
+        
+        osc.type = 'square';
+        osc.connect(gain);
+        gain.connect(audioContext.destination);
+        
+        // Premier "cot" (court et aigu)
+        osc.frequency.setValueAtTime(800, now);
+        gain.gain.setValueAtTime(0.15, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.08);
+        
+        // Deuxième "cot" 
+        osc.frequency.setValueAtTime(850, now + 0.12);
+        gain.gain.setValueAtTime(0.15, now + 0.12);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.20);
+        
+        // "kaket" final (un peu plus long et descendant)
+        osc.frequency.setValueAtTime(900, now + 0.28);
+        osc.frequency.exponentialRampToValueAtTime(650, now + 0.45);
+        gain.gain.setValueAtTime(0.18, now + 0.28);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.45);
+        
+        osc.start(now);
+        osc.stop(now + 0.45);
+      }
+      break;
+      
+    case 'egg_drop': // Œuf qui tombe (shouuup!)
+      {
+        // Son qui descend rapidement (whoosh descendant)
+        const osc = audioContext.createOscillator();
+        const gain = audioContext.createGain();
+        
+        osc.type = 'sine';
+        osc.connect(gain);
+        gain.connect(audioContext.destination);
+        
+        // Descente rapide de fréquence (shouuup!)
+        osc.frequency.setValueAtTime(1200, now);
+        osc.frequency.exponentialRampToValueAtTime(200, now + 0.4);
+        
+        gain.gain.setValueAtTime(0.25, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
+        
+        osc.start(now);
+        osc.stop(now + 0.4);
+        
+        // Ajouter un bruit blanc court pour le "sh"
+        const bufferSize = audioContext.sampleRate * 0.15;
+        const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+        const output = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          output[i] = (Math.random() * 2 - 1) * 0.3 * (1 - i / bufferSize);
+        }
+        const noise = audioContext.createBufferSource();
+        noise.buffer = buffer;
+        const noiseFilter = audioContext.createBiquadFilter();
+        noiseFilter.type = 'highpass';
+        noiseFilter.frequency.value = 2000;
+        const noiseGain = audioContext.createGain();
+        noiseGain.gain.setValueAtTime(0.2, now);
+        noiseGain.gain.exponentialRampToValueAtTime(0.01, now + 0.15);
+        noise.connect(noiseFilter);
+        noiseFilter.connect(noiseGain);
+        noiseGain.connect(audioContext.destination);
+        noise.start(now);
+      }
+      break;
+      
+    case 'chicken_walk': // Plouplou - déplacement de la poule
+      {
+        // Premier "plou" (montant, léger)
+        const osc1 = audioContext.createOscillator();
+        const gain1 = audioContext.createGain();
+        
+        osc1.type = 'sine';
+        osc1.frequency.setValueAtTime(400, now);
+        osc1.frequency.exponentialRampToValueAtTime(550, now + 0.08);
+        gain1.gain.setValueAtTime(0.12, now);
+        gain1.gain.exponentialRampToValueAtTime(0.01, now + 0.08);
+        
+        osc1.connect(gain1);
+        gain1.connect(audioContext.destination);
+        osc1.start(now);
+        osc1.stop(now + 0.08);
+        
+        // Deuxième "plou" (montant, un peu plus aigu)
+        const osc2 = audioContext.createOscillator();
+        const gain2 = audioContext.createGain();
+        
+        osc2.type = 'sine';
+        osc2.frequency.setValueAtTime(500, now + 0.1);
+        osc2.frequency.exponentialRampToValueAtTime(650, now + 0.18);
+        gain2.gain.setValueAtTime(0.12, now + 0.1);
+        gain2.gain.exponentialRampToValueAtTime(0.01, now + 0.18);
+        
+        osc2.connect(gain2);
+        gain2.connect(audioContext.destination);
+        osc2.start(now + 0.1);
+        osc2.stop(now + 0.18);
+      }
+      break;
+      
+    case 'snake_hiss': // Sifflement réaliste de serpent à sonnette
+      {
+        // Créer un son de crécelle caractéristique du serpent à sonnette
+        const duration = 0.8;
+        const bufferSize = audioContext.sampleRate * duration;
+        const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+        const data = buffer.getChannelData(0);
+        
+        // Générer un son de crécelle rapide (60-100 Hz de tremblement)
+        for (let i = 0; i < bufferSize; i++) {
+          const t = i / audioContext.sampleRate;
+          // Fréquence de base basse (serpent gros)
+          const baseFreq = 80 + Math.sin(t * 10) * 20;
+          // Modulation rapide pour effet crécelle
+          const rattle = Math.sin(t * Math.PI * 2 * 90) * 0.5;
+          // Bruit pour texture réaliste
+          const noise = (Math.random() * 2 - 1) * 0.3;
+          // Combinaison avec enveloppe
+          const envelope = Math.sin(t / duration * Math.PI) * 0.8;
+          data[i] = (Math.sin(t * Math.PI * 2 * baseFreq) * 0.4 + rattle + noise) * envelope;
+        }
+        
+        const source = audioContext.createBufferSource();
+        source.buffer = buffer;
+        
+        // Filtre pour donner un son plus naturel
+        const filter = audioContext.createBiquadFilter();
+        filter.type = 'bandpass';
+        filter.frequency.value = 3000;
+        filter.Q.value = 2;
+        
+        const gain = audioContext.createGain();
+        gain.gain.setValueAtTime(0.35, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + duration);
+        
+        source.connect(filter);
+        filter.connect(gain);
+        gain.connect(audioContext.destination);
+        source.start(now);
+      }
+      break;
+      
+    case 'snake_flip': // Frottement gras du serpent "croh greee"
+      {
+        const duration = 0.45;
+        const bufferSize = audioContext.sampleRate * duration;
+        const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+        const data = buffer.getChannelData(0);
+        
+        // Son de frottement gras et rugueux "croh greee"
+        for (let i = 0; i < bufferSize; i++) {
+          const t = i / audioContext.sampleRate;
+          // Bruit très gras et dominant
+          const noise = (Math.random() * 2 - 1);
+          // Fréquence basse pour son gras "croh"
+          const freq = 120 - t * 40;
+          const rumble = Math.sin(t * Math.PI * 2 * freq);
+          // Grondement grave pour texture épaisse
+          const lowGrowl = Math.sin(t * Math.PI * 2 * 60) * 0.6;
+          // Modulation lente pour effet rugueux "greee"
+          const grind = Math.sin(t * 80 * Math.PI) * 0.5;
+          // Crachotement pour texture
+          const crackle = (Math.random() > 0.7 ? Math.random() * 0.4 : 0);
+          const envelope = 1 - Math.pow(t / duration, 2);
+          data[i] = (noise * 0.6 + rumble * 0.8 + lowGrowl + grind + crackle) * envelope;
+        }
+        
+        const source = audioContext.createBufferSource();
+        source.buffer = buffer;
+        
+        // Filtre pour son gras (fréquences basses-moyennes)
+        const filter = audioContext.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.value = 450; // Plus bas pour son plus gras
+        filter.Q.value = 2;
+        
+        const gain = audioContext.createGain();
+        gain.gain.value = 0.45; // Volume encore plus fort
+        
+        source.connect(filter);
+        filter.connect(gain);
+        gain.connect(audioContext.destination);
+        source.start(now);
+      }
+      break;
+      
+    case 'snake_spit': // Attaque agressive avec sifflement
+      {
+        // Sifflement agressif court
+        const duration = 0.25;
+        const bufferSize = audioContext.sampleRate * duration;
+        const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+        const data = buffer.getChannelData(0);
+        
+        for (let i = 0; i < bufferSize; i++) {
+          const t = i / audioContext.sampleRate;
+          // Sifflement aigu descendant
+          const freq = 8000 - t * 6000;
+          const hiss = Math.sin(t * Math.PI * 2 * freq);
+          // Bruit pour effet "crachat"
+          const noise = (Math.random() * 2 - 1) * 0.7;
+          const envelope = Math.exp(-t * 12);
+          data[i] = (hiss * 0.3 + noise * 0.7) * envelope;
+        }
+        
+        const source = audioContext.createBufferSource();
+        source.buffer = buffer;
+        
+        const filter = audioContext.createBiquadFilter();
+        filter.type = 'highpass';
+        filter.frequency.value = 2000;
+        
+        const gain = audioContext.createGain();
+        gain.gain.value = 0.28;
+        
+        source.connect(filter);
+        filter.connect(gain);
+        gain.connect(audioContext.destination);
+        source.start(now);
+      }
+      break;
+      
+    case 'wall_break': // Pierre qui se brise
+      {
+        // Impact initial fort
+        const impact = audioContext.createOscillator();
+        const impactGain = audioContext.createGain();
+        impact.type = 'triangle';
+        impact.frequency.setValueAtTime(120, now);
+        impact.frequency.exponentialRampToValueAtTime(40, now + 0.15);
+        impactGain.gain.setValueAtTime(0.4, now);
+        impactGain.gain.exponentialRampToValueAtTime(0.01, now + 0.15);
+        impact.connect(impactGain);
+        impactGain.connect(audioContext.destination);
+        impact.start(now);
+        impact.stop(now + 0.15);
+        
+        // Bruit de débris/gravats
+        const bufferSize = audioContext.sampleRate * 0.6;
+        const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+        const data = buffer.getChannelData(0);
+        
+        for (let i = 0; i < bufferSize; i++) {
+          const t = i / audioContext.sampleRate;
+          // Bruit granuleux pour les débris
+          const debris = (Math.random() * 2 - 1);
+          // Craquements
+          const crack = (Math.random() > 0.85 ? Math.random() * 0.5 : 0);
+          const envelope = Math.exp(-t * 4);
+          data[i] = (debris * 0.7 + crack) * envelope;
+        }
+        
+        const source = audioContext.createBufferSource();
+        source.buffer = buffer;
+        const filter = audioContext.createBiquadFilter();
+        filter.type = 'bandpass';
+        filter.frequency.value = 800;
+        filter.Q.value = 1;
+        const gain = audioContext.createGain();
+        gain.gain.value = 0.3;
+        source.connect(filter);
+        filter.connect(gain);
+        gain.connect(audioContext.destination);
+        source.start(now);
+      }
+      break;
+      
+    case 'wall_chain': // Chaînes qui tombent
+      {
+        const duration = 0.8;
+        const bufferSize = audioContext.sampleRate * duration;
+        const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+        const data = buffer.getChannelData(0);
+        
+        for (let i = 0; i < bufferSize; i++) {
+          const t = i / audioContext.sampleRate;
+          // Son métallique des maillons
+          const metalFreq = 800 + Math.sin(t * 40) * 200;
+          const metal = Math.sin(t * Math.PI * 2 * metalFreq) * 0.3;
+          // Cliquetis des chaînes
+          const rattle = (Math.random() > 0.6 ? Math.random() * 0.4 : 0);
+          // Descente pour chute
+          const fall = Math.sin(t * Math.PI * 2 * (500 - t * 200)) * 0.2;
+          const envelope = 1 - Math.pow(t / duration, 1.5);
+          data[i] = (metal + rattle + fall) * envelope;
+        }
+        
+        const source = audioContext.createBufferSource();
+        source.buffer = buffer;
+        const filter = audioContext.createBiquadFilter();
+        filter.type = 'highpass';
+        filter.frequency.value = 400;
+        const gain = audioContext.createGain();
+        gain.gain.value = 0.25;
+        source.connect(filter);
+        filter.connect(gain);
+        gain.connect(audioContext.destination);
+        source.start(now);
+      }
+      break;
+      
+    case 'wall_rumble': // Tremblement du mur
+      {
+        // Grondement sourd
+        const rumble = audioContext.createOscillator();
+        const rumbleGain = audioContext.createGain();
+        rumble.type = 'sawtooth';
+        rumble.frequency.setValueAtTime(50, now);
+        rumble.frequency.exponentialRampToValueAtTime(35, now + 0.4);
+        rumbleGain.gain.setValueAtTime(0.25, now);
+        rumbleGain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
+        rumble.connect(rumbleGain);
+        rumbleGain.connect(audioContext.destination);
+        rumble.start(now);
+        rumble.stop(now + 0.4);
+        
+        // Vibrations
+        const bufferSize = audioContext.sampleRate * 0.3;
+        const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+        const data = buffer.getChannelData(0);
+        
+        for (let i = 0; i < bufferSize; i++) {
+          const t = i / audioContext.sampleRate;
+          const vibration = Math.sin(t * Math.PI * 2 * 80) * Math.sin(t * Math.PI * 2 * 15);
+          const noise = (Math.random() * 2 - 1) * 0.2;
+          data[i] = (vibration * 0.6 + noise) * (1 - t / 0.3);
+        }
+        
+        const source = audioContext.createBufferSource();
+        source.buffer = buffer;
+        const filter = audioContext.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.value = 300;
+        const gain = audioContext.createGain();
+        gain.gain.value = 0.2;
+        source.connect(filter);
+        filter.connect(gain);
+        gain.connect(audioContext.destination);
+        source.start(now);
+      }
+      break;
+      
+    case 'raven_caw': // Croassement sinistre du corbeau
+      {
+        const duration = 0.5;
+        const bufferSize = audioContext.sampleRate * duration;
+        const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+        const data = buffer.getChannelData(0);
+        
+        for (let i = 0; i < bufferSize; i++) {
+          const t = i / audioContext.sampleRate;
+          // Croassement rauque "CRAW"
+          const freq = 400 + Math.sin(t * 30) * 150; // Modulation irrégulière
+          const caw = Math.sin(t * Math.PI * 2 * freq);
+          // Texture rauque avec bruit
+          const noise = (Math.random() * 2 - 1) * 0.4;
+          // Harmoniques sombres
+          const dark = Math.sin(t * Math.PI * 2 * freq * 0.5) * 0.3;
+          const envelope = Math.exp(-t * 5) * (1 + Math.sin(t * 20) * 0.2);
+          data[i] = (caw * 0.5 + noise + dark) * envelope;
+        }
+        
+        const source = audioContext.createBufferSource();
+        source.buffer = buffer;
+        const filter = audioContext.createBiquadFilter();
+        filter.type = 'bandpass';
+        filter.frequency.value = 600;
+        filter.Q.value = 2;
+        const gain = audioContext.createGain();
+        gain.gain.value = 0.32;
+        source.connect(filter);
+        filter.connect(gain);
+        gain.connect(audioContext.destination);
+        source.start(now);
+      }
+      break;
+      
+    case 'raven_flap': // Battement d'ailes puissant
+      {
+        const duration = 0.25;
+        const bufferSize = audioContext.sampleRate * duration;
+        const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+        const data = buffer.getChannelData(0);
+        
+        for (let i = 0; i < bufferSize; i++) {
+          const t = i / audioContext.sampleRate;
+          // Whoosh d'air
+          const whoosh = (Math.random() * 2 - 1) * Math.exp(-t * 15);
+          // Battement grave
+          const flap = Math.sin(t * Math.PI * 2 * 80) * Math.exp(-t * 10);
+          data[i] = whoosh * 0.7 + flap * 0.5;
+        }
+        
+        const source = audioContext.createBufferSource();
+        source.buffer = buffer;
+        const filter = audioContext.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.value = 1200;
+        const gain = audioContext.createGain();
+        gain.gain.value = 0.18;
+        source.connect(filter);
+        filter.connect(gain);
+        gain.connect(audioContext.destination);
+        source.start(now);
+      }
+      break;
+      
+    case 'raven_feather': // Plumes empoisonnées lancées
+      {
+        const duration = 0.3;
+        const bufferSize = audioContext.sampleRate * duration;
+        const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+        const data = buffer.getChannelData(0);
+        
+        for (let i = 0; i < bufferSize; i++) {
+          const t = i / audioContext.sampleRate;
+          // Sifflement aigu des plumes
+          const whistle = Math.sin(t * Math.PI * 2 * (2000 - t * 1000));
+          // Bruissement
+          const rustle = (Math.random() * 2 - 1) * 0.5;
+          const envelope = Math.exp(-t * 8);
+          data[i] = (whistle * 0.4 + rustle) * envelope;
+        }
+        
+        const source = audioContext.createBufferSource();
+        source.buffer = buffer;
+        const filter = audioContext.createBiquadFilter();
+        filter.type = 'highpass';
+        filter.frequency.value = 1000;
+        const gain = audioContext.createGain();
+        gain.gain.value = 0.22;
+        source.connect(filter);
+        filter.connect(gain);
+        gain.connect(audioContext.destination);
+        source.start(now);
+      }
+      break;
+      
+    case 'spider_skitter': // Déplacement rapide de l'araignée
+      {
+        const duration = 0.2;
+        const bufferSize = audioContext.sampleRate * duration;
+        const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+        const data = buffer.getChannelData(0);
+        
+        for (let i = 0; i < bufferSize; i++) {
+          const t = i / audioContext.sampleRate;
+          // Cliquetis rapides des pattes
+          const clicks = (Math.random() > 0.5 ? Math.random() * 0.6 : 0);
+          // Grattement aigu
+          const scratch = Math.sin(t * Math.PI * 2 * (800 + Math.random() * 400)) * 0.3;
+          const envelope = Math.exp(-t * 12);
+          data[i] = (clicks + scratch) * envelope;
+        }
+        
+        const source = audioContext.createBufferSource();
+        source.buffer = buffer;
+        const filter = audioContext.createBiquadFilter();
+        filter.type = 'highpass';
+        filter.frequency.value = 600;
+        const gain = audioContext.createGain();
+        gain.gain.value = 0.15;
+        source.connect(filter);
+        filter.connect(gain);
+        gain.connect(audioContext.destination);
+        source.start(now);
+      }
+      break;
+      
+    case 'spider_web': // Lancer de toile
+      {
+        const duration = 0.35;
+        const bufferSize = audioContext.sampleRate * duration;
+        const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+        const data = buffer.getChannelData(0);
+        
+        for (let i = 0; i < bufferSize; i++) {
+          const t = i / audioContext.sampleRate;
+          // Sifflement de la toile lancée
+          const whistle = Math.sin(t * Math.PI * 2 * (1500 - t * 800));
+          // Texture collante
+          const sticky = (Math.random() * 2 - 1) * 0.3;
+          const envelope = Math.exp(-t * 6);
+          data[i] = (whistle * 0.5 + sticky) * envelope;
+        }
+        
+        const source = audioContext.createBufferSource();
+        source.buffer = buffer;
+        const filter = audioContext.createBiquadFilter();
+        filter.type = 'bandpass';
+        filter.frequency.value = 1000;
+        filter.Q.value = 1.5;
+        const gain = audioContext.createGain();
+        gain.gain.value = 0.2;
+        source.connect(filter);
+        filter.connect(gain);
+        gain.connect(audioContext.destination);
+        source.start(now);
+      }
+      break;
+      
+    case 'spider_hiss': // Sifflement agressif de l'araignée
+      {
+        const duration = 0.4;
+        const bufferSize = audioContext.sampleRate * duration;
+        const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+        const data = buffer.getChannelData(0);
+        
+        for (let i = 0; i < bufferSize; i++) {
+          const t = i / audioContext.sampleRate;
+          // Sifflement aigu et menaçant
+          const hiss = (Math.random() * 2 - 1);
+          // Modulation pour effet crépu
+          const modulation = Math.sin(t * 150 * Math.PI) * 0.3;
+          const envelope = 1 - Math.pow(t / duration, 2);
+          data[i] = (hiss * 0.7 + modulation) * envelope;
+        }
+        
+        const source = audioContext.createBufferSource();
+        source.buffer = buffer;
+        const filter = audioContext.createBiquadFilter();
+        filter.type = 'highpass';
+        filter.frequency.value = 3000;
+        const gain = audioContext.createGain();
+        gain.gain.value = 0.25;
+        source.connect(filter);
+        filter.connect(gain);
+        gain.connect(audioContext.destination);
+        source.start(now);
+      }
+      break;
+      
+    case 'reaper_laugh': // Rire sinistre de la Faucheuse
+      {
+        const duration = 0.8;
+        const bufferSize = audioContext.sampleRate * duration;
+        const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+        const data = buffer.getChannelData(0);
+        
+        for (let i = 0; i < bufferSize; i++) {
+          const t = i / audioContext.sampleRate;
+          // Rire grave et sinistre avec modulation
+          const laughFreq = 150 + Math.sin(t * 12 * Math.PI) * 50;
+          const laugh = Math.sin(t * Math.PI * 2 * laughFreq);
+          // Texture spectrale
+          const spectral = Math.sin(t * Math.PI * 2 * laughFreq * 3) * 0.3;
+          // Bruit d'outre-tombe
+          const darkness = (Math.random() * 2 - 1) * 0.2;
+          const envelope = Math.sin(t / duration * Math.PI) * 0.9;
+          data[i] = (laugh * 0.6 + spectral + darkness) * envelope;
+        }
+        
+        const source = audioContext.createBufferSource();
+        source.buffer = buffer;
+        const filter = audioContext.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.value = 500;
+        filter.Q.value = 2;
+        const gain = audioContext.createGain();
+        gain.gain.value = 0.28;
+        source.connect(filter);
+        filter.connect(gain);
+        gain.connect(audioContext.destination);
+        source.start(now);
+      }
+      break;
+      
+    case 'reaper_bone': // Ossements qui tombent et s'entrechoquent
+      {
+        const duration = 0.4;
+        const bufferSize = audioContext.sampleRate * duration;
+        const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+        const data = buffer.getChannelData(0);
+        
+        for (let i = 0; i < bufferSize; i++) {
+          const t = i / audioContext.sampleRate;
+          // Cliquetis d'os secs
+          const click1 = Math.sin(t * Math.PI * 2 * 800) * Math.exp(-t * 15);
+          const click2 = Math.sin(t * Math.PI * 2 * 1200) * Math.exp(-t * 12) * 0.5;
+          // Chocs multiples
+          const rattle = (Math.random() > 0.7 ? Math.random() * 0.4 : 0);
+          data[i] = (click1 + click2 + rattle) * 0.8;
+        }
+        
+        const source = audioContext.createBufferSource();
+        source.buffer = buffer;
+        const filter = audioContext.createBiquadFilter();
+        filter.type = 'highpass';
+        filter.frequency.value = 400;
+        const gain = audioContext.createGain();
+        gain.gain.value = 0.22;
+        source.connect(filter);
+        filter.connect(gain);
+        gain.connect(audioContext.destination);
+        source.start(now);
+      }
+      break;
+      
+    case 'reaper_coffin': // Cercueil lourd qui tombe
+      {
+        const duration = 0.6;
+        const bufferSize = audioContext.sampleRate * duration;
+        const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+        const data = buffer.getChannelData(0);
+        
+        for (let i = 0; i < bufferSize; i++) {
+          const t = i / audioContext.sampleRate;
+          // Impact sourd et grave
+          const thud = Math.sin(t * Math.PI * 2 * (80 - t * 30));
+          // Bois qui craque
+          const creak = Math.sin(t * Math.PI * 2 * 200) * Math.exp(-t * 5) * 0.4;
+          // Résonance funèbre
+          const rumble = Math.sin(t * Math.PI * 2 * 40) * 0.3;
+          const envelope = Math.exp(-t * 3);
+          data[i] = (thud * 0.7 + creak + rumble) * envelope;
+        }
+        
+        const source = audioContext.createBufferSource();
+        source.buffer = buffer;
+        const filter = audioContext.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.value = 350;
+        const gain = audioContext.createGain();
+        gain.gain.value = 0.3;
+        source.connect(filter);
+        filter.connect(gain);
+        gain.connect(audioContext.destination);
+        source.start(now);
+      }
+      break;
   }
 }
 
@@ -1914,20 +2681,49 @@ function resizeCanvas() {
   const containerWidth = container.clientWidth;
   const containerHeight = container.clientHeight;
   
-  // Format mobile HD portrait optimisé (9:16 ou similaire)
+  // Détecter les appareils mobiles
   const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   
+  // Résolution minimale garantie pour faibles mobiles
+  const MIN_WIDTH = 320;  // iPhone SE et anciens Android
+  const MIN_HEIGHT = 480;
+  const MAX_WIDTH = 480;  // Limite haute pour performances
+  
   if(isMobile || containerWidth < containerHeight) {
-    // Mode portrait mobile : utiliser tout l'écran disponible
-    const targetWidth = Math.min(containerWidth, 480);  // Max 480px de large
-    const targetHeight = containerHeight;
+    // Mode portrait mobile : adapter à la résolution de l'écran
+    const screenWidth = window.innerWidth || screen.width;
+    const screenHeight = window.innerHeight || screen.height;
+    
+    // Calculer les dimensions optimales
+    let targetWidth = Math.max(MIN_WIDTH, Math.min(screenWidth, containerWidth, MAX_WIDTH));
+    let targetHeight = Math.max(MIN_HEIGHT, Math.min(screenHeight, containerHeight));
+    
+    // Pour très petits écrans, réduire la résolution interne pour performances
+    if (screenWidth < 375 || screenHeight < 667) {
+      // Appareils comme iPhone SE, anciens Android
+      targetWidth = Math.min(targetWidth, 360);
+      targetHeight = Math.min(targetHeight, 640);
+      
+      // Activer le mode performance sur très faibles appareils
+      if (screenWidth < 340) {
+        targetWidth = MIN_WIDTH;
+        targetHeight = MIN_HEIGHT;
+      }
+    }
     
     c.width = targetWidth;
     c.height = targetHeight;
+    
+    // Ajuster la taille d'affichage via CSS pour remplir le conteneur
+    c.style.width = '100%';
+    c.style.height = '100%';
+    c.style.imageRendering = screenWidth < 375 ? 'pixelated' : 'auto';
   } else {
-    // Mode desktop : format 9:16
-    c.width = containerWidth;
+    // Mode desktop : utiliser les dimensions du conteneur
+    c.width = Math.min(containerWidth, MAX_WIDTH);
     c.height = containerHeight;
+    c.style.width = '';
+    c.style.height = '';
   }
   
   player.x = c.width / 2;
@@ -1951,6 +2747,12 @@ function createBackgroundCloud() {
 }
 
 resizeCanvas();
+
+// Adapter le canvas lors du redimensionnement ou changement d'orientation
+window.addEventListener('resize', resizeCanvas);
+window.addEventListener('orientationchange', () => {
+  setTimeout(resizeCanvas, 100);
+});
 
 
 function drawBackgroundCloud(bgCloud) {
@@ -1989,7 +2791,7 @@ function cloud(){
     c:shoot?'#7f8c8d':'#95a5a6',
     shoot:shoot,
     lastShot:Date.now(),
-    delay:2000+Math.random()*3000
+    delay:3000+Math.random()*3000 // OPTIMISATION: Délai augmenté pour réduire spam
   };
 }
 
@@ -2317,8 +3119,8 @@ function restart(){
     levelBeforeBoss = level;
     bossShootCount = 0;
     bossManager.spawnBoss('spider', c.width, c.height);
-    msg('⚠️ BOSS : L\'ARAIGNÉE DES TÉNÈBRES !');
-    playSound('levelup');
+    msg(t('bosses.spider.intro'));
+    playSound('boss_spawn');
     bossSpawnedThisLevel = true;
   }
   // Boss Grim Reaper niveau 4
@@ -2327,16 +3129,16 @@ function restart(){
     bossShootCount = 0;
     bossManager.spawnBoss('grim_reaper', c.width, c.height);
     msg(t('bosses.grim_reaper.intro'));
-    playSound('levelup');
+    playSound('boss_spawn');
     bossSpawnedThisLevel = true;
   }
   // Boss poule niveau 6
   else if(level === 6 && cloudsInLevel >= bossSpawnThreshold) {
     levelBeforeBoss = level;
     bossShootCount = 0;
-    bossManager.spawnBoss('chicken', c.width, c.height);
-    msg('⚠️ BOSS : LA POULE FOLLE !');
-    playSound('levelup');
+    bossManager.spawnBoss('crazy_chicken', c.width, c.height);
+    msg(t('bosses.crazy_chicken.intro'));
+    playSound('boss_spawn');
     bossSpawnedThisLevel = true;
   }
   // Boss Wall niveau 8
@@ -2345,7 +3147,7 @@ function restart(){
     bossShootCount = 0;
     bossManager.spawnBoss('wall', c.width, c.height);
     msg(t('bosses.wall.intro'));
-    playSound('levelup');
+    playSound('boss_spawn');
     bossSpawnedThisLevel = true;
   }
   // Boss Dark Cloud niveau 10
@@ -2354,7 +3156,7 @@ function restart(){
     bossShootCount = 0;
     bossManager.spawnBoss('dark_cloud', c.width, c.height);
     msg(t('bosses.dark_cloud.intro'));
-    playSound('levelup');
+    playSound('boss_spawn');
     bossSpawnedThisLevel = true;
     
     // 🌧️ Déclencher la tempête au restart
@@ -2366,7 +3168,7 @@ function restart(){
         s: (currentLevelConfig.rainSpeed || 1.0) * 2 * (1 + Math.random() * 0.5)
       });
     }
-    playRainMusic();
+    // Musique de pluie lancée uniquement au spawn initial
   }
   // Boss Black Raven niveau 12
   else if(level === 12 && cloudsInLevel >= bossSpawnThreshold) {
@@ -2374,16 +3176,16 @@ function restart(){
     bossShootCount = 0;
     bossManager.spawnBoss('black_raven', c.width, c.height);
     msg(t('bosses.black_raven.intro'));
-    playSound('levelup');
+    playSound('boss_spawn');
     bossSpawnedThisLevel = true;
   }
   // Boss serpent FINAL niveau 14
   else if(level === 14 && cloudsInLevel >= bossSpawnThreshold) {
     levelBeforeBoss = level;
     bossShootCount = 0;
-    bossManager.spawnBoss('snake', c.width, c.height);
-    msg('⚠️ BOSS FINAL : LE SERPENT VOLANT !');
-    playSound('levelup');
+    bossManager.spawnBoss('flying_snake', c.width, c.height);
+    msg(t('bosses.flying_snake.intro'));
+    playSound('boss_spawn');
     bossSpawnedThisLevel = true;
   }
 
@@ -2551,7 +3353,7 @@ function endBonusLevel(){
       transition:all 0.3s;
       letter-spacing:1px;
       text-transform:uppercase;
-    " onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 12px 25px rgba(17,153,142,0.5)'" onmouseout="this.style.transform='';this.style.boxShadow='0 8px 20px rgba(17,153,142,0.4)'">✨ Continuer</button>
+    " onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 12px 25px rgba(17,153,142,0.5)'" onmouseout="this.style.transform='';this.style.boxShadow='0 8px 20px rgba(17,153,142,0.4)'">${t('powerups.continue')}</button>
   `;
   
   document.getElementById('gameContainer').appendChild(endDiv);
@@ -2766,7 +3568,8 @@ bullets.forEach((b,i)=>{b.y-=b.s*dtFactor;if(b.y<0)bullets.splice(i,1);});
 
 clouds.forEach((cl,i)=>{
   cl.y+=cl.s*dtFactor;
-  if(cl.shoot&&Date.now()-cl.lastShot>cl.delay){
+  // OPTIMISATION: Limite de projectiles rain à 100 pour éviter le spam
+  if(cl.shoot&&Date.now()-cl.lastShot>cl.delay&&rain.length<100){
     rain.push(rainDrop(cl.x+cl.w/2,cl.y+cl.h));
     cl.lastShot=Date.now();
   }
@@ -2814,13 +3617,15 @@ const isNewRecord=updateBestScore(totalScore);
 if(isNewRecord){msg(t('powerups.new_record',{score:totalScore}));showPopup(t('powerups.new_record_popup',{score:totalScore}),'\ud83c\udfc6','success');}
 msg(t('messages.gameOver'));}else{setSun('neutral');setTimeout(()=>{if(state==='playing')setSun('happy');},2000);}}});
 
-// Gestion de la musique de pluie
-if (state === 'playing') {
-  if (rain.length > 5) {
+// Gestion de la musique de pluie - DÉSACTIVÉE (réservée au boss Dark Cloud uniquement)
+// La musique de pluie est lancée uniquement lors du spawn du boss Dark Cloud
+if (false) {
+  if (rain.length > 5 && bossManager.bossType !== 'dark_cloud') {
     // S'il y a beaucoup de pluie, jouer la musique de pluie
     playRainMusic();
-  } else if (rain.length === 0) {
+  } else if (rain.length === 0 && bossManager.bossType !== 'dark_cloud') {
     // S'il n'y a plus de pluie, arrêter la musique de pluie
+    // (Mais ne pas arrêter pendant/après le combat du Dark Cloud - la musique continue jusqu'à la fin)
     stopRainMusic();
   }
 }
@@ -2834,8 +3639,8 @@ for(let bi = bullets.length - 1; bi >= 0; bi--){
   for(let ci = clouds.length - 1; ci >= 0; ci--){
     const cl = clouds[ci];
     if(hitCloud(b,cl)){
-      // Effets visuels
-      for(let i=0;i<8;i++)particles.push(particle(cl.x+cl.w/2,cl.y+cl.h/2));
+      // Effets visuels - OPTIMISATION: Réduit de 8 à 4 particules
+      for(let i=0;i<4;i++)particles.push(particle(cl.x+cl.w/2,cl.y+cl.h/2));
       
       // Suppression sécurisée
       bullets.splice(bi,1);
@@ -2867,14 +3672,12 @@ for(let bi = bullets.length - 1; bi >= 0; bi--){
         
         // Restaurer le fond de jour et supprimer la nuit étoilée au passage en mode infini
         if(infiniteCloudsCleared === 1) {
-          console.log('♾️ [INFINI] Passage en mode infini - Restauration du fond de jour');
-          restoreDayBackground();
+                  restoreDayBackground();
         }
         
         // Afficher verset tous les 100 nuages (100, 200, 300, etc.)
         if(infiniteCloudsCleared % 100 === 0 && state === 'playing') {
-          console.log('♾️ [INFINI] Affichage verset - Nuages détruits:', infiniteCloudsCleared);
-          // Arrêter complètement le jeu
+                  // Arrêter complètement le jeu
           const previousState = state;
           state = 'paused';
           showInfiniteVerse(previousState);
@@ -2896,8 +3699,7 @@ for(let bi = bullets.length - 1; bi >= 0; bi--){
         bossSpawnedThisLevel = false; // Permettre le spawn du boss pour ce nouveau niveau
         updateLevelBackground(); // Mettre à jour le fond
 
-        console.log('🎯 [PROGRESSION] Changement de niveau! Niveau:', level, '- Nuages:', gameData.totalCloudsDestroyed, '- Titre:', newLevelInfo.title, '- Nouvelle difficulté:', currentLevelConfig.difficulty);
-
+      
         // Changer le fond pour les niveaux 13 et 14 (nuit étoilée avec lune)
         if(level === 13 || level === 14) {
           applyNightSkyBackground(level);
@@ -2929,8 +3731,8 @@ for(let bi = bullets.length - 1; bi >= 0; bi--){
           levelBeforeBoss = level; // Sauvegarder le niveau actuel
           bossShootCount = 0; // Réinitialiser le compteur de tirs pour ce boss
           bossManager.spawnBoss('spider', c.width, c.height);
-          msg('⚠️ BOSS : L\'ARAIGNÉE DES TÉNÈBRES !');
-          playSound('levelup');
+          msg(t('bosses.spider.intro'));
+          playSound('boss_spawn');
           bossSpawnedThisLevel = true;
         }
       }
@@ -2943,7 +3745,7 @@ for(let bi = bullets.length - 1; bi >= 0; bi--){
           bossShootCount = 0;
           bossManager.spawnBoss('grim_reaper', c.width, c.height);
           msg(t('bosses.grim_reaper.intro'));
-          playSound('levelup');
+          playSound('boss_spawn');
           bossSpawnedThisLevel = true;
         }
       }
@@ -2952,14 +3754,12 @@ for(let bi = bullets.length - 1; bi >= 0; bi--){
       if(level === 6 && !bossSpawnedThisLevel && !bossManager.isBossActive()) {
         const cloudsToPass = currentLevelConfig.cloudsToPass || 175;
         const spawnAt = Math.floor(cloudsToPass * 0.9);
-        console.log(`🐔 [BOSS DEBUG] Niveau 6 - cloudsInLevel: ${cloudsInLevel}/${spawnAt}, totalClouds: ${gameData.totalCloudsDestroyed}`);
-        if(cloudsInLevel >= spawnAt) {
-          console.log('🐔 [BOSS] SPAWN DU POULET!');
-          levelBeforeBoss = level; // Sauvegarder le niveau actuel
+              if(cloudsInLevel >= spawnAt) {
+                  levelBeforeBoss = level; // Sauvegarder le niveau actuel
           bossShootCount = 0; // Réinitialiser le compteur de tirs pour ce boss
-          bossManager.spawnBoss('chicken', c.width, c.height);
-          msg('⚠️ BOSS : LA POULE FOLLE !');
-          playSound('levelup');
+          bossManager.spawnBoss('crazy_chicken', c.width, c.height);
+          msg(t('bosses.crazy_chicken.intro'));
+          playSound('boss_spawn');
           bossSpawnedThisLevel = true;
         }
       }
@@ -2972,7 +3772,7 @@ for(let bi = bullets.length - 1; bi >= 0; bi--){
           bossShootCount = 0;
           bossManager.spawnBoss('wall', c.width, c.height);
           msg(t('bosses.wall.intro'));
-          playSound('levelup');
+          playSound('boss_spawn');
           bossSpawnedThisLevel = true;
         }
       }
@@ -2985,20 +3785,18 @@ for(let bi = bullets.length - 1; bi >= 0; bi--){
           bossShootCount = 0;
           bossManager.spawnBoss('dark_cloud', c.width, c.height);
           msg(t('bosses.dark_cloud.intro'));
-          playSound('levelup');
+          playSound('boss_spawn');
           bossSpawnedThisLevel = true;
           
-          // 🌧️ Déclencher la tempête pendant le combat du Dark Cloud
-          // Créer une tempête intense pendant tout le combat
+          // Déclencher la tempête
           for(let i = 0; i < 30; i++) {
             rain.push({
               x: Math.random() * c.width,
               y: -Math.random() * c.height,
-              l: 15 + Math.random() * 15, // Gouttes plus longues
-              s: (currentLevelConfig.rainSpeed || 1.0) * 2 * (1 + Math.random() * 0.5) // Pluie plus rapide
+              l: 15 + Math.random() * 15,
+              s: (currentLevelConfig.rainSpeed || 1.0) * 2 * (1 + Math.random() * 0.5)
             });
           }
-          playRainMusic(); // Musique de pluie
         }
       }
 
@@ -3010,23 +3808,21 @@ for(let bi = bullets.length - 1; bi >= 0; bi--){
           bossShootCount = 0;
           bossManager.spawnBoss('black_raven', c.width, c.height);
           msg(t('bosses.black_raven.intro'));
-          playSound('levelup');
+          playSound('boss_spawn');
           bossSpawnedThisLevel = true;
         }
       }
 
-      // Boss serpent FINAL: apparaît à 90% du niveau 14
+      // Boss Serpent Volant FINAL: apparaît à 90% du niveau 14
       if(level === 14 && !bossSpawnedThisLevel && !bossManager.isBossActive()) {
         const cloudsToPass = currentLevelConfig.cloudsToPass || 999;
         const spawnAt = Math.floor(cloudsToPass * 0.9);
-        console.log(`🐍 [BOSS DEBUG] Niveau 14 - cloudsInLevel: ${cloudsInLevel}/${spawnAt}, totalClouds: ${gameData.totalCloudsDestroyed}`);
-        if(cloudsInLevel >= spawnAt) {
-          console.log('🐍 [BOSS FINAL] SPAWN DU SERPENT!');
-          levelBeforeBoss = level; // Sauvegarder le niveau actuel
-          bossShootCount = 0; // Réinitialiser le compteur de tirs pour ce boss
-          bossManager.spawnBoss('snake', c.width, c.height);
-          msg('⚠️ BOSS FINAL : LE SERPENT VOLANT !');
-          playSound('levelup');
+              if(cloudsInLevel >= spawnAt) {
+                  levelBeforeBoss = level;
+          bossShootCount = 0;
+          bossManager.spawnBoss('flying_snake', c.width, c.height);
+          msg(t('bosses.flying_snake.intro'));
+          playSound('boss_spawn');
           bossSpawnedThisLevel = true;
         }
       }
@@ -3078,21 +3874,20 @@ for(let bi = bullets.length - 1; bi >= 0; bi--){
         if(bossManager.bossType && gameData.bossesDefeated) {
           gameData.bossesDefeated[bossManager.bossType] = true;
           saveGameData();
-          console.log(`📚 Sagesse débloquée: ${bossManager.bossType}`);
-        }
+                }
 
         // 🌧️ Arrêter la tempête après la victoire sur le Dark Cloud
         if(bossManager.bossType === 'dark_cloud') {
           rain.length = 0; // Vider toute la pluie
           // NE PAS arrêter la musique - elle continue jusqu'à la fin naturelle
           // puis reprendra automatiquement la playlist aléatoire
-          msg('🌈 La tempête se dissipe ! L\'espoir brille de nouveau !');
+          msg(t('powerups.storm_cleared'));
         }
 
         const rewards = bossManager.getBossRewards();
         score += rewards.score;
         totalScore += rewards.score;
-        msg(`🏆 BOSS VAINCU ! +${rewards.score} pts`);
+        msg(t('powerups.boss_defeated', {score: rewards.score}));
         playSound('levelup');
 
         // Distribuer les power-ups
@@ -3107,12 +3902,12 @@ for(let bi = bullets.length - 1; bi >= 0; bi--){
         }, 500);
 
         // Réinitialiser le boss après distribution des récompenses
+        // AUGMENTÉ: 7000ms (7 secondes) pour laisser le temps de récupérer les power-ups
         setTimeout(() => {
           bossManager.reset();
           bossDefeatRewardsGiven = false; // Réinitialiser pour le prochain boss
           bossShootCount = 0; // Réinitialiser le compteur de tirs pour le prochain boss
-          console.log('🎯 [BOSS] Boss désactivé après victoire');
-
+        
           // Vérifier si le joueur peut passer au niveau suivant après avoir vaincu le boss
           // IMPORTANT: Ne passer qu'au niveau suivant, pas sauter plusieurs niveaux
           const currentLevelFromClouds = getCurrentLevel(gameData.totalCloudsDestroyed);
@@ -3129,8 +3924,7 @@ for(let bi = bullets.length - 1; bi >= 0; bi--){
             bossSpawnedThisLevel = false; // Permettre le spawn du boss pour ce nouveau niveau
             updateLevelBackground(); // Mettre à jour le fond
 
-            console.log('🎯 [PROGRESSION] Changement de niveau après victoire boss! Niveau:', level, '- Nuages:', gameData.totalCloudsDestroyed);
-
+          
             // Changer le fond pour les niveaux 13 et 14 (nuit étoilée avec lune)
             if(level === 13 || level === 14) {
               applyNightSkyBackground(level);
@@ -3149,7 +3943,7 @@ for(let bi = bullets.length - 1; bi >= 0; bi--){
               showLevelUpMessage(newLevelInfo, previousState);
             }, 1000);
           }
-        }, 1500); // Attendre que les power-ups soient distribués
+        }, 7000); // Attendre 7 secondes pour laisser le temps de récupérer les power-ups
       }
     }
   }
@@ -3164,7 +3958,24 @@ hearts.forEach((h,i)=>{
   if(h.life<=0)hearts.splice(i,1);
 });
 
-particles.forEach((p,i)=>{p.x+=p.vx*dtFactor;p.y+=p.vy*dtFactor;p.life-=p.decay*dtFactor;if(p.life<=0)particles.splice(i,1);});
+// OPTIMISATION: Limiter le nombre de particules pour éviter les ralentissements
+const MAX_PARTICLES = 150; // Limite maximale de particules à l'écran
+
+// Mettre à jour les particules en boucle inverse pour éviter les problèmes de splice
+for(let i = particles.length - 1; i >= 0; i--) {
+  const p = particles[i];
+  p.x += p.vx * dtFactor;
+  p.y += p.vy * dtFactor;
+  p.life -= p.decay * dtFactor;
+  if(p.life <= 0) {
+    particles.splice(i, 1);
+  }
+}
+
+// Si trop de particules, supprimer les plus anciennes
+if(particles.length > MAX_PARTICLES) {
+  particles.splice(0, particles.length - MAX_PARTICLES);
+}
 
 // Mettre à jour les ondes de choc et détruire les nuages
 shockwaves.forEach((wave,i)=>{
@@ -3181,8 +3992,8 @@ shockwaves.forEach((wave,i)=>{
 
     // Si le nuage est dans le rayon de l'onde (avec une marge de 20px)
     if(distance <= wave.radius + 20 && distance >= wave.radius - 20) {
-      // Créer des particules
-      for(let pi = 0; pi < 8; pi++) particles.push(particle(cl.x + cl.w/2, cl.y + cl.h/2));
+      // Créer des particules - OPTIMISATION: Réduit de 8 à 3 particules
+      for(let pi = 0; pi < 3; pi++) particles.push(particle(cl.x + cl.w/2, cl.y + cl.h/2));
 
       // Supprimer le nuage
       clouds.splice(ci, 1);
@@ -3350,7 +4161,8 @@ c.addEventListener('touchstart',(e)=>{
       const numClouds = clouds.length;
       for(let j = 0; j < numClouds; j++) {
         const cl = clouds[j];
-        for(let k = 0; k < 8; k++) particles.push(particle(cl.x + cl.w/2, cl.y + cl.h/2));
+        // OPTIMISATION: Réduit de 8 à 3 particules par nuage pour performances
+        for(let k = 0; k < 3; k++) particles.push(particle(cl.x + cl.w/2, cl.y + cl.h/2));
         score += 100;
         totalScore += 100;
         cloudsCleared++;
@@ -3412,7 +4224,8 @@ c.addEventListener('mousedown',(e)=>{
       const numClouds = clouds.length;
       for(let j = 0; j < numClouds; j++) {
         const cl = clouds[j];
-        for(let k = 0; k < 8; k++) particles.push(particle(cl.x + cl.w/2, cl.y + cl.h/2));
+        // OPTIMISATION: Réduit de 8 à 3 particules par nuage pour performances
+        for(let k = 0; k < 3; k++) particles.push(particle(cl.x + cl.w/2, cl.y + cl.h/2));
         score += 100;
         totalScore += 100;
         cloudsCleared++;
@@ -3489,8 +4302,7 @@ async function restoreFromCloudIfNeeded() {
   
   // Vérifier si connecté
   if (nickname && email) {
-    console.log('📥 Vérification des données cloud pour:', nickname);
-    
+      
     try {
       // Initialiser Supabase
       if (typeof initSupabaseDove === 'function') {
@@ -3501,40 +4313,20 @@ async function restoreFromCloudIfNeeded() {
       if (typeof loadDovePlayerData === 'function') {
         const cloudData = await loadDovePlayerData(nickname);
         
-        console.log('📊 Données cloud reçues:', cloudData);
-        
+              
         if (cloudData.success && cloudData.progress) {
           const progress = cloudData.progress;
           
-          console.log('📊 Progress détails:', {
-            highScore: progress.highScore,
-            highestLevelReached: progress.highestLevelReached,
-            starStock: progress.starStock,
-            totalCloudsDestroyed: progress.totalCloudsDestroyed
-          });
-          
-          console.log('📊 Données locales actuelles:', {
-            highScore: gameData.highScore,
-            highestLevelReached: gameData.highestLevelReached,
-            starStock: gameData.starStock,
-            totalCloudsDestroyed: gameData.totalCloudsDestroyed
-          });
-          
+                  
+                  
           // Vérifier si le cloud a des données
           const cloudHasData = progress.highScore > 0 || progress.highestLevelReached > 1;
           const localHasData = gameData.highScore > 0 || gameData.highestLevelReached > 1;
           
-          console.log('🔍 Analyse des données:', {
-            cloudHasData,
-            localHasData,
-            cloudScore: progress.highScore,
-            localScore: gameData.highScore
-          });
-          
+                  
           // PRIORITÉ 1: Si le cloud a des données, les utiliser (peu importe le local)
           if (cloudHasData) {
-            console.log('🔄 Synchronisation depuis le cloud - Données cloud trouvées');
-            
+                      
             // Restaurer les données depuis le cloud
             gameData.highScore = progress.highScore || 0;
             gameData.highestLevelReached = progress.highestLevelReached || 1;
@@ -3548,8 +4340,7 @@ async function restoreFromCloudIfNeeded() {
             // Sauvegarder localement
             localStorage.setItem(SAVE_KEY, JSON.stringify(gameData));
             
-            console.log('✅ Données restaurées depuis le cloud:', progress);
-            
+                      
             // Mettre à jour l'affichage
             score = gameData.highScore;
             level = getCurrentLevel(gameData.totalCloudsDestroyed);
@@ -3569,32 +4360,25 @@ async function restoreFromCloudIfNeeded() {
           }
           // PRIORITÉ 2: Si le cloud est vide mais local a des données, envoyer vers le cloud
           else if (!cloudHasData && localHasData) {
-            console.log('📤 Cloud vide mais données locales détectées - Envoi vers le cloud...');
-            
+                      
             // Envoyer les données locales vers le cloud
             try {
               if (typeof syncDovePlayerData === 'function') {
                 const syncResult = await syncDovePlayerData(nickname, email, gameData);
                 if (syncResult.success) {
-                  console.log('✅ Données locales synchronisées vers le cloud');
-                } else {
-                  console.warn('⚠️ Échec synchronisation locale vers cloud:', syncResult.error);
-                }
+                                } else {
+                                }
               }
             } catch (error) {
-              console.error('❌ Erreur envoi vers cloud:', error);
-            }
+                        }
             return false;
           } else {
-            console.log('✅ Données locales à jour - Pas de synchronisation nécessaire');
-          }
+                    }
         } else {
-          console.log('ℹ️ Aucune donnée cloud trouvée pour ce joueur');
-        }
+                }
       }
     } catch (error) {
-      console.error('❌ Erreur restauration cloud:', error);
-    }
+        }
   }
   return false;
 }
@@ -3602,8 +4386,7 @@ async function restoreFromCloudIfNeeded() {
 // Exécuter la restauration cloud si nécessaire
 restoreFromCloudIfNeeded().then(restored => {
   if (!restored) {
-    console.log('🎮 Interface mise à jour - Score:', score, 'Niveau:', level, '⭐ Étoiles:', starCount, '☁️ Nuages:', gameData.totalCloudsDestroyed);
-  }
+    }
 });
 
 // Initialiser la langue au chargement
@@ -3643,6 +4426,8 @@ function generateChapterIcons() {
         align-items:center;
         justify-content:center;
         padding:10px 6px;
+        width:60px;
+        min-width:60px;
         background:${isCompleted ? 'linear-gradient(135deg, rgba(46,204,113,0.3), rgba(39,174,96,0.3))' : 'rgba(0,0,0,0.2)'};
         border-radius:12px;
         border:2px solid ${isCompleted ? 'rgba(46,204,113,0.6)' : 'rgba(255,255,255,0.1)'};
@@ -3687,6 +4472,8 @@ function generateBossWisdomIcons() {
         align-items:center;
         justify-content:center;
         padding:12px 8px;
+        width:70px;
+        min-width:70px;
         background:${isDefeated ? 'linear-gradient(135deg, rgba(241,196,15,0.3), rgba(243,156,18,0.3))' : 'rgba(0,0,0,0.3)'};
         border-radius:12px;
         border:2px solid ${isDefeated ? 'rgba(241,196,15,0.6)' : 'rgba(255,255,255,0.1)'};
@@ -3721,8 +4508,7 @@ function showBossWisdom(bossId) {
   
   const bossTranslations = t(`bosses.${bossId}`);
   if(!bossTranslations) {
-    console.error('Boss translation not found:', bossId);
-    return;
+      return;
   }
   
   const wisdomDiv = document.createElement('div');
@@ -3910,7 +4696,7 @@ function showStats() {
     <!-- Panneau des Chapitres Gagnés -->
     <div style="background:linear-gradient(135deg, rgba(102,126,234,0.2), rgba(118,75,162,0.2));padding:15px;border-radius:10px;margin-bottom:15px;border:2px solid rgba(102,126,234,0.3);">
       <h3 style="margin-top:0;text-align:center;">${t('treasure.chapters_conquered')}</h3>
-      <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:10px;margin-top:15px;">
+      <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:15px;justify-content:center;">
         ${generateChapterIcons()}
       </div>
       <p style="text-align:center;margin-top:15px;font-size:14px;opacity:0.9;">
@@ -3922,7 +4708,7 @@ function showStats() {
     <div style="background:linear-gradient(135deg, rgba(155,89,182,0.2), rgba(142,68,173,0.2));padding:15px;border-radius:10px;margin-bottom:15px;border:2px solid rgba(155,89,182,0.3);">
       <h3 style="margin-top:0;text-align:center;">📚 ${t('treasure.boss_wisdom_title')}</h3>
       <p style="text-align:center;font-size:12px;opacity:0.9;margin-bottom:15px;">${t('treasure.boss_wisdom_subtitle')}</p>
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:15px;">
+      <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:15px;justify-content:center;">
         ${generateBossWisdomIcons()}
       </div>
       <p style="text-align:center;margin-top:15px;font-size:14px;opacity:0.9;">
@@ -4068,7 +4854,6 @@ async function manualCloudSave() {
     return;
   }
   
-  console.log('📤 Sauvegarde manuelle vers le cloud...');
   showPopup(t('popups.saving'), '☁️', 'info');
   
   try {
@@ -4082,8 +4867,7 @@ async function manualCloudSave() {
       const result = await syncDovePlayerData(nickname, email, gameData);
       
       if (result.success) {
-        console.log('✅ Sauvegarde cloud réussie');
-        showPopup(
+              showPopup(
           '✅ Sauvegarde réussie !\n\n' +
           `Score: ${gameData.highScore}\n` +
           `Niveau: ${gameData.highestLevelReached}\n` +
@@ -4093,15 +4877,13 @@ async function manualCloudSave() {
           'success'
         );
       } else {
-        console.warn('⚠️ Échec sauvegarde cloud:', result.error);
-        showPopup(t('popups.save_failed').replace('{error}', result.error), '☁️', 'error');
+              showPopup(t('popups.save_failed').replace('{error}', result.error), '☁️', 'error');
       }
     } else {
       throw new Error('Fonction syncDovePlayerData non disponible');
     }
   } catch (error) {
-    console.error('❌ Erreur sauvegarde cloud:', error);
-    showPopup(t('popups.save_error').replace('{error}', error.message), '☁️', 'error');
+      showPopup(t('popups.save_error').replace('{error}', error.message), '☁️', 'error');
   }
 }
 
@@ -4112,7 +4894,6 @@ async function autoSaveToCloud() {
   
   if (!nickname || !email) return;
   
-  console.log('🏆 Sauvegarde automatique du nouveau record...');
   
   try {
     if (typeof initSupabaseDove === 'function') {
@@ -4123,14 +4904,12 @@ async function autoSaveToCloud() {
       const result = await syncDovePlayerData(nickname, email, gameData);
       
       if (result.success) {
-        console.log('✅ Record sauvegardé dans le cloud !');
-        // Afficher une notification discrète
+              // Afficher une notification discrète
         showMessage(t('powerups.record_saved'), 2000);
       }
     }
   } catch (error) {
-    console.warn('⚠️ Sauvegarde auto cloud échouée:', error);
-  }
+    }
 }
 
 // ============================================
@@ -4199,7 +4978,7 @@ function showSupabaseSave() {
       </div>
       
       <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 15px; margin-bottom: 20px; backdrop-filter: blur(10px);">
-        <h3 style="margin: 0 0 15px 0; font-size: 18px;">✨ Système de sauvegarde</h3>
+        <h3 style="margin: 0 0 15px 0; font-size: 18px;">${t('powerups.save_system')}</h3>
         <ul style="margin: 0; padding-left: 20px; line-height: 1.8; font-size: 14px;">
           <li>💾 <strong>Locale</strong> : Automatique à chaque niveau</li>
           <li>☁️ <strong>Cloud</strong> : ${isConnected ? 'Automatique si connecté' : 'Nécessite connexion'}</li>
@@ -4315,8 +5094,7 @@ async function connectCloudSave() {
     }
     
     // Charger les données cloud pour comparaison
-    console.log('🔄 Vérification des données cloud...');
-    if (typeof loadDovePlayerData === 'function') {
+      if (typeof loadDovePlayerData === 'function') {
       const cloudData = await loadDovePlayerData(tempNickname);
       
       if (cloudData.success && cloudData.progress) {
@@ -4332,7 +5110,7 @@ async function connectCloudSave() {
         // Si conflit : local et cloud ont tous les deux des données différentes
         if (cloudHasData && localHasData && localIsBetter) {
           const choice = confirm(
-            `⚠️ Conflit de données détecté !\n\n` +
+            `${t('popups.data_conflict')}\n\n` +
             `☁️ Cloud: Score ${cloudScore}, Niveau ${cloudLevel}\n` +
             `💾 Local: Score ${localScore}, Niveau ${localLevel}\n\n` +
             `Tes données locales sont meilleures !\n\n` +
@@ -4342,15 +5120,13 @@ async function connectCloudSave() {
           
           if (choice) {
             // Garder le local, envoyer au cloud
-            console.log('✅ Conservation des données locales');
-            localStorage.setItem('dovePlayerNickname', tempNickname);
+                      localStorage.setItem('dovePlayerNickname', tempNickname);
             localStorage.setItem('dovePlayerEmail', tempEmail);
             await autoSaveToCloud();
             showPopup(t('popups.connected_local_saved'), '☁️', 'success');
           } else {
             // Garder le cloud, écraser le local
-            console.log('✅ Conservation des données cloud');
-            localStorage.setItem('dovePlayerNickname', tempNickname);
+                      localStorage.setItem('dovePlayerNickname', tempNickname);
             localStorage.setItem('dovePlayerEmail', tempEmail);
             await restoreFromCloudIfNeeded();
             showPopup(t('popups.connected_cloud_restored'), '☁️', 'success');
@@ -4375,8 +5151,7 @@ async function connectCloudSave() {
     const modal = document.querySelector('[style*="position: fixed"]');
     if (modal) modal.remove();
   } catch (error) {
-    console.error('Erreur connexion cloud:', error);
-    showPopup(`❌ Erreur de connexion:\n${error.message}`, '⚠️', 'error');
+      showPopup(`${t('popups.connection_error')}:\n${error.message}`, '⚠️', 'error');
   }
 }
 
@@ -4397,7 +5172,6 @@ async function autoSaveToCloud() {
   
   // Vérifier si connecté
   if (!nickname || !email) {
-    console.log('ℹ️ Sauvegarde cloud désactivée (pas connecté)');
     return;
   }
   
@@ -4411,13 +5185,10 @@ async function autoSaveToCloud() {
     const result = await syncDovePlayerData(nickname, email, gameData);
     
     if (result.success) {
-      console.log('✅ Sauvegarde cloud réussie');
-    } else {
-      console.warn('⚠️ Échec sauvegarde cloud:', result.error);
-    }
+        } else {
+        }
   } catch (error) {
-    console.error('❌ Erreur sauvegarde cloud:', error);
-  }
+    }
 }
 
 // Raccourci clavier pour afficher les stats (Ctrl+S ou Cmd+S)
@@ -4460,7 +5231,6 @@ document.addEventListener('keydown', (e) => {
 
 // 🧪 Fonction de test pour changement de niveau
 function testLevelChange() {
-  console.log('🧪 Test changement de niveau');
   // Simuler qu'on est à 50 nuages (juste avant le niveau 2)
   gameData.totalCloudsDestroyed = 50;
   score = 5000;
@@ -4471,13 +5241,11 @@ function testLevelChange() {
   if(document.getElementById('score')) document.getElementById('score').textContent = score;
   if(document.getElementById('level')) document.getElementById('level').textContent = level;
   
-  console.log('🧪 Prêt: 50 nuages - Détruisez 1 nuage pour voir le niveau 2!');
   msg('🧪 Test: 50 nuages - Détruisez 1 nuage pour niveau 2!');
 }
 
 // 🧪 Fonction de test pour le verset mode infini
 function testInfiniteVerse() {
-  console.log('🧪 Test verset mode infini');
   // Simuler qu'on est en mode infini avec 100 nuages
   infiniteCloudsCleared = 100;
   showInfiniteVerse('playing');
@@ -4495,8 +5263,7 @@ function testChapter13() {
     level = getCurrentLevel(750); // Devrait retourner 12
     gameData.highestLevelReached = Math.max(gameData.highestLevelReached, level);
     
-    console.log('🧪 Niveau calculé depuis les nuages:', level);
-    
+      
     // Mettre à jour l'affichage
     document.getElementById('score').textContent = score;
     document.getElementById('level').textContent = level;
@@ -4526,8 +5293,7 @@ function testChapter14() {
       score: score,
       level: level
     };
-    console.log('💾 État sauvegardé:', savedState);
-    
+      
     // Téléporter au chapitre 14 (proche de la fin à 991)
     gameData.totalCloudsDestroyed = 980;
     score = 98000; // Score proportionnel
@@ -4537,8 +5303,7 @@ function testChapter14() {
     level = getCurrentLevel(980); // Devrait retourner 14
     gameData.highestLevelReached = Math.max(gameData.highestLevelReached, level);
     
-    console.log('🧪 Niveau calculé depuis les nuages:', level);
-    
+      
     // Mettre à jour l'affichage
     document.getElementById('score').textContent = score;
     document.getElementById('level').textContent = level;
@@ -4576,7 +5341,6 @@ function addTestClouds() {
     document.getElementById('clouds').textContent = gameData.totalCloudsDestroyed;
   }
   
-  console.log(`🧪 +47 nuages ajoutés : ${before} → ${gameData.totalCloudsDestroyed}`);
   msg(`🧪 +47 nuages : ${before} → ${gameData.totalCloudsDestroyed}`, 3000);
   
   // Sauvegarder
@@ -5034,7 +5798,6 @@ function restoreDayBackground() {
     moon.remove();
   }
   
-  console.log('☀️ Fond de jour restauré pour le mode infini');
 }
 
 function startLevel(levelIndex) {
@@ -5083,7 +5846,6 @@ function startLevel(levelIndex) {
   
   // Afficher l'écran d'introduction pour le niveau 1 OU si c'est une nouvelle partie
   const isFirstGame = gameData.totalCloudsDestroyed === 0;
-  console.log('🎯 startLevel - Index:', levelIndex, 'Première partie:', isFirstGame, 'Nuages total:', gameData.totalCloudsDestroyed);
   
   if (levelIndex === 0) {
     state = 'levelComplete';
@@ -5432,7 +6194,6 @@ function completeLevel() {
 // Bord GRIS - 300px - Affiché aux seuils de niveau
 // ============================================
 function showLevelUpMessage(levelInfo, previousState = 'playing') {
-  console.log('🎯 BOUCLIER PROGRESSION - Niveau:', levelInfo.id, '- Titre:', levelInfo.title);
   
   // Utiliser le verset traduit depuis verses.rank au lieu du verset hardcodé
   const rankVerse = t('verses.rank.' + levelInfo.id);
@@ -5580,7 +6341,6 @@ function showLevelUpMessage(levelInfo, previousState = 'playing') {
     playSound('levelup');
   }
   
-  console.log('📋 Bouclier de progression affiché pour le niveau:', levelInfo.id);
 }
 
 // ============================================
@@ -5588,12 +6348,10 @@ function showLevelUpMessage(levelInfo, previousState = 'playing') {
 // Bord DORÉ - 280px - Affiché tous les 100 nuages
 // ============================================
 function showInfiniteVerse(previousState = 'playing') {
-  console.log('♾️ BOUCLIER INFINI - Chapitre:', 15 + Math.floor(infiniteCloudsCleared / 100));
   
   // Vérifier que getRandomVerse existe
   if (typeof getRandomVerse !== 'function') {
-    console.error('❌ getRandomVerse non disponible');
-    state = previousState;
+      state = previousState;
     return;
   }
   
@@ -5601,8 +6359,7 @@ function showInfiniteVerse(previousState = 'playing') {
   const randomVerse = getRandomVerse();
   
   if (!randomVerse || !randomVerse.text) {
-    console.error('❌ Aucun verset disponible');
-    state = previousState;
+      state = previousState;
     return;
   }
   
@@ -5688,7 +6445,6 @@ function showInfiniteVerse(previousState = 'playing') {
     playSound('powerup');
   }
   
-  console.log('📚 Verset affiché:', randomVerse.reference);
 }
 
 function initGame() {
@@ -5709,8 +6465,7 @@ function initGame() {
       starCount = gameData.starStock;
     }
   } else {
-    console.log('🧪 Mode test détecté - Conservation des valeurs actuelles');
-  }
+    }
   
   // Démarrer au niveau sauvegardé (ou niveau 1 si c'est la première fois)
   const savedLevelIndex = Math.max(0, level - 1);
@@ -5729,7 +6484,6 @@ function initGame() {
   if (starsEl) starsEl.textContent = starCount;
   if (cloudsEl) cloudsEl.textContent = gameData.totalCloudsDestroyed;
   
-  console.log('🎮 Jeu initialisé - Score:', score, 'Niveau:', level, '⭐️ Étoiles:', starCount, '☁️ Nuages:', gameData.totalCloudsDestroyed);
 }
 
 // Initialiser le drapeau de langue au chargement

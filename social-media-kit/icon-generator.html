@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Générateur d'Icônes - Dove of Hope</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 32px;
+        }
+
+        .intro {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .icon-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .icon-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .icon-preview {
+            width: 100%;
+            aspect-ratio: 1;
+            background: white;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        canvas {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .icon-info {
+            font-size: 14px;
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+
+        .download-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .generate-all {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .generate-all-btn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .generate-all-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(245, 87, 108, 0.4);
+        }
+
+        .usage-guide {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 40px;
+        }
+
+        .usage-guide h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .usage-guide ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .usage-guide li {
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .usage-guide li:last-child {
+            border-bottom: none;
+        }
+
+        .code-block {
+            background: #2d3748;
+            color: #a0aec0;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 15px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+        }
+
+        .code-block code {
+            color: #68d391;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🕊️ Générateur d'Icônes Web App & Favicon</h1>
+        <div class="intro">
+            <p><strong>Dove of Hope: Sky Blessing</strong></p>
+            <p>Vole petite colombe avec courage. Ton cœur est bon, persévère. N'abandonne jamais !</p>
+        </div>
+
+        <div class="icon-grid" id="iconGrid"></div>
+
+        <div class="generate-all">
+            <button class="generate-all-btn" onclick="generateAllIcons()">
+                📦 Générer et Télécharger Toutes les Icônes
+            </button>
+        </div>
+
+        <div class="usage-guide">
+            <h2>📖 Guide d'Utilisation</h2>
+            <ul>
+                <li>✅ <strong>Favicon (16x16, 32x32, 48x48)</strong> - Pour l'onglet du navigateur</li>
+                <li>✅ <strong>Apple Touch Icon (180x180)</strong> - Pour iPhone/iPad</li>
+                <li>✅ <strong>Android Chrome (192x192, 512x512)</strong> - Pour PWA Android</li>
+                <li>✅ <strong>Microsoft Tiles (70x70 à 310x310)</strong> - Pour Windows 10/11</li>
+                <li>✅ <strong>Icônes génériques (72x72 à 384x384)</strong> - Pour tous les appareils</li>
+            </ul>
+
+            <h2 style="margin-top: 30px;">💻 Code HTML à intégrer</h2>
+            <div class="code-block">
+<code>&lt;!-- Favicon --&gt;
+&lt;link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png"&gt;
+&lt;link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png"&gt;
+
+&lt;!-- Apple Touch Icons --&gt;
+&lt;link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png"&gt;
+
+&lt;!-- Android/Chrome --&gt;
+&lt;link rel="manifest" href="/manifest.json"&gt;
+&lt;meta name="theme-color" content="#764ba2"&gt;
+
+&lt;!-- Microsoft --&gt;
+&lt;meta name="msapplication-TileColor" content="#764ba2"&gt;
+&lt;meta name="msapplication-config" content="/browserconfig.xml"&gt;</code>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const iconSizes = [
+            { size: 16, name: 'favicon-16x16', desc: 'Favicon Browser' },
+            { size: 32, name: 'favicon-32x32', desc: 'Favicon Browser' },
+            { size: 48, name: 'favicon-48x48', desc: 'Favicon Browser' },
+            { size: 72, name: 'icon-72x72', desc: 'Android Small' },
+            { size: 96, name: 'icon-96x96', desc: 'Android Medium' },
+            { size: 128, name: 'icon-128x128', desc: 'Android Large' },
+            { size: 144, name: 'icon-144x144', desc: 'Android XLarge' },
+            { size: 152, name: 'icon-152x152', desc: 'iPad' },
+            { size: 180, name: 'apple-touch-icon', desc: 'iPhone/iPad' },
+            { size: 192, name: 'icon-192x192', desc: 'Android Chrome' },
+            { size: 384, name: 'icon-384x384', desc: 'Android XXLarge' },
+            { size: 512, name: 'icon-512x512', desc: 'Android Splash' },
+            { size: 70, name: 'ms-icon-70x70', desc: 'Win Small Tile' },
+            { size: 150, name: 'ms-icon-150x150', desc: 'Win Medium Tile' },
+            { size: 310, name: 'ms-icon-310x310', desc: 'Win Large Tile' }
+        ];
+
+        function drawDoveLogo(ctx, size) {
+            // Fond transparent
+            ctx.clearRect(0, 0, size, size);
+
+            const scale = size / 60; // Échelle encore plus grande pour remplir l'icône
+            const s = (val) => val * scale;
+
+            // Position centrée pour la colombe (maximale)
+            const playerX = size/2 - s(20);
+            const playerY = size/2 - s(15);
+
+            // Halo doré réduit (exactement comme le jeu mais plus petit)
+            const glow = '#f1c40f';
+            const intensity = s(20);
+            const haloColor = 'rgba(241,196,15,0.3)';
+            const haloGlow = '#f1c40f';
+
+            ctx.shadowBlur = s(30);
+            ctx.shadowColor = haloGlow;
+            ctx.fillStyle = haloColor;
+            ctx.beginPath();
+            ctx.arc(playerX + s(20), playerY + s(15), s(25), 0, Math.PI * 2); // 40 -> 25
+            ctx.fill();
+
+            // Colombe du jeu - CODE EXACT
+            ctx.shadowBlur = intensity;
+            ctx.shadowColor = glow;
+            ctx.fillStyle = '#ffffff';
+            ctx.strokeStyle = '#2c3e50';
+            ctx.lineWidth = s(1);
+
+            const beat = Math.sin(Date.now() * 0.015) * s(2);
+
+            // Tête/bec
+            ctx.beginPath();
+            ctx.moveTo(playerX + s(20), playerY + s(8));
+            ctx.lineTo(playerX + s(15), playerY + s(22));
+            ctx.lineTo(playerX + s(25), playerY + s(22));
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            // Aile gauche
+            ctx.beginPath();
+            ctx.moveTo(playerX + s(15), playerY + s(12));
+            ctx.lineTo(playerX + s(2), playerY + s(8) + beat);
+            ctx.lineTo(playerX + s(18), playerY + s(25));
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            // Aile droite
+            ctx.beginPath();
+            ctx.moveTo(playerX + s(25), playerY + s(12));
+            ctx.lineTo(playerX + s(38), playerY + s(8) - beat);
+            ctx.lineTo(playerX + s(22), playerY + s(25));
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            // Queue
+            ctx.beginPath();
+            ctx.moveTo(playerX + s(20), playerY + s(22));
+            ctx.lineTo(playerX + s(18), playerY + s(30));
+            ctx.lineTo(playerX + s(22), playerY + s(30));
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            // Aura lumineuse externe réduite
+            ctx.shadowBlur = s(40);
+            ctx.shadowColor = 'rgba(241,196,15,0.4)';
+            ctx.fillStyle = 'rgba(255,255,255,0.1)';
+            ctx.beginPath();
+            ctx.arc(playerX + s(20), playerY + s(15), s(35), 0, Math.PI * 2); // 50 -> 35
+            ctx.fill();
+            ctx.shadowBlur = 0;
+
+            // Sparkles autour (seulement pour grandes icônes)
+            if (size >= 128) {
+                ctx.fillStyle = 'rgba(255, 215, 0, 0.9)';
+                const sparkles = [
+                    [playerX - s(15), playerY - s(10), 2],
+                    [playerX + s(55), playerY - s(5), 2],
+                    [playerX - s(5), playerY - s(20), 1.5],
+                    [playerX + s(45), playerY - s(15), 1.5],
+                    [playerX + s(10), playerY + s(45), 1.5],
+                    [playerX + s(30), playerY + s(45), 1.5]
+                ];
+
+                sparkles.forEach(([x, y, r]) => {
+                    ctx.beginPath();
+                    ctx.arc(x, y, s(r), 0, Math.PI * 2);
+                    ctx.fill();
+                    
+                    // Star points
+                    for (let i = 0; i < 4; i++) {
+                        const angle = (i * Math.PI) / 2;
+                        ctx.beginPath();
+                        ctx.moveTo(x, y);
+                        ctx.lineTo(x + Math.cos(angle) * s(r * 2), y + Math.sin(angle) * s(r * 2));
+                        ctx.strokeStyle = 'rgba(255, 215, 0, 0.7)';
+                        ctx.lineWidth = s(0.5);
+                        ctx.stroke();
+                    }
+                });
+            }
+        }
+
+        function createIconCard(iconConfig) {
+            const { size, name, desc } = iconConfig;
+
+            const card = document.createElement('div');
+            card.className = 'icon-card';
+
+            const preview = document.createElement('div');
+            preview.className = 'icon-preview';
+
+            const canvas = document.createElement('canvas');
+            canvas.width = size;
+            canvas.height = size;
+            canvas.id = `canvas-${size}`;
+            
+            const ctx = canvas.getContext('2d');
+            drawDoveLogo(ctx, size);
+
+            preview.appendChild(canvas);
+
+            const info = document.createElement('div');
+            info.className = 'icon-info';
+            info.textContent = `${size}x${size}px`;
+
+            const desc_elem = document.createElement('div');
+            desc_elem.style.fontSize = '12px';
+            desc_elem.style.color = '#666';
+            desc_elem.style.marginBottom = '10px';
+            desc_elem.textContent = desc;
+
+            const btn = document.createElement('button');
+            btn.className = 'download-btn';
+            btn.textContent = '⬇️ Télécharger';
+            btn.onclick = () => downloadIcon(canvas, name);
+
+            card.appendChild(preview);
+            card.appendChild(info);
+            card.appendChild(desc_elem);
+            card.appendChild(btn);
+
+            return card;
+        }
+
+        function downloadIcon(canvas, filename) {
+            canvas.toBlob(blob => {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${filename}.png`;
+                a.click();
+                URL.revokeObjectURL(url);
+            });
+        }
+
+        function generateAllIcons() {
+            iconSizes.forEach(iconConfig => {
+                const canvas = document.getElementById(`canvas-${iconConfig.size}`);
+                if (canvas) {
+                    setTimeout(() => {
+                        downloadIcon(canvas, iconConfig.name);
+                    }, iconSizes.indexOf(iconConfig) * 200);
+                }
+            });
+        }
+
+        // Initialize
+        const grid = document.getElementById('iconGrid');
+        iconSizes.forEach(config => {
+            grid.appendChild(createIconCard(config));
+        });
+    </script>
+</body>
+</html>

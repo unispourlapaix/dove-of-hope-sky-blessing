@@ -85,10 +85,18 @@ class SpiderBoss {
     if(this.x - this.bodyRadius < 0) {
       this.x = this.bodyRadius;
       this.velocityX *= -1;
+      // Son de déplacement rapide
+      if (typeof playSound === 'function') {
+        playSound('spider_skitter');
+      }
     }
     if(this.x + this.bodyRadius > this.canvasWidth) {
       this.x = this.canvasWidth - this.bodyRadius;
       this.velocityX *= -1;
+      // Son de déplacement rapide
+      if (typeof playSound === 'function') {
+        playSound('spider_skitter');
+      }
     }
 
     // Garder en haut de l'écran
@@ -124,6 +132,11 @@ class SpiderBoss {
   }
 
   shootWebLine() {
+    // Son de lancer de toile
+    if (typeof playSound === 'function') {
+      playSound('spider_web');
+    }
+    
     // Créer une ligne de toile qui descend vers le sol
     const webX = this.x + (Math.random() - 0.5) * 60;
     this.webLines.push({
@@ -166,6 +179,11 @@ class SpiderBoss {
     }
 
     this.health -= damage;
+    
+    // Sifflement agressif si dommages importants ou coup critique
+    if ((damage > 40 || criticalHit) && typeof playSound === 'function') {
+      playSound('spider_hiss');
+    }
 
     if(this.health <= 0) {
       this.health = 0;
@@ -497,6 +515,15 @@ class FlyingSnakeBoss {
 
     // Mouvement ondulant
     this.waveOffset += this.waveSpeed * dtFactor;
+    
+    // Son flip...flip au déplacement (tous les 0.5 secondes environ)
+    if (!this.lastFlipSound) this.lastFlipSound = 0;
+    if (Date.now() - this.lastFlipSound > 500) {
+      if (typeof playSound === 'function') {
+        playSound('snake_flip');
+      }
+      this.lastFlipSound = Date.now();
+    }
 
     // Déplacement horizontal
     this.segments[0].x += this.velocityX * this.direction * dtFactor;
@@ -505,10 +532,18 @@ class FlyingSnakeBoss {
     if(this.segments[0].x < 50) {
       this.segments[0].x = 50;
       this.direction *= -1;
+      // Sifflement horrible (shee sheeeh!)
+      if (typeof playSound === 'function') {
+        playSound('snake_hiss');
+      }
     }
     if(this.segments[0].x > this.canvasWidth - 50) {
       this.segments[0].x = this.canvasWidth - 50;
       this.direction *= -1;
+      // Sifflement horrible (shee sheeeh!)
+      if (typeof playSound === 'function') {
+        playSound('snake_hiss');
+      }
     }
 
     // Mouvement vertical sinusoïdal pour la tête
@@ -543,6 +578,11 @@ class FlyingSnakeBoss {
   }
 
   shootSnaklet() {
+    // Son de crachat
+    if (typeof playSound === 'function') {
+      playSound('snake_spit');
+    }
+    
     // Créer 2-3 petites couleuvres à partir de positions aléatoires du corps
     const count = 2 + Math.floor(Math.random() * 2);
     for(let i = 0; i < count; i++) {
@@ -831,11 +871,14 @@ class CrazyChickenBoss {
     // Animation
     this.wingFlapOffset = 0;
 
-    // Points faibles (yeux)
+    // Points faibles (yeux bigleux - gros et décalés)
     this.weakPoints = [
-      { x: -4, y: -2, radius: 3, hit: false },
-      { x: 4, y: -2, radius: 3, hit: false }
+      { x: -6, y: -2, radius: 6, hit: false }, // Œil gauche plus gros
+      { x: 6, y: -2, radius: 6, hit: false }  // Œil droit plus gros
     ];
+    
+    // Offset pour yeux bigleux qui bougent
+    this.eyeWiggleOffset = 0;
   }
 
   update(dt, playerX, playerY) {
@@ -850,10 +893,18 @@ class CrazyChickenBoss {
     if(this.x - this.bodyRadius < 30) {
       this.x = 30 + this.bodyRadius;
       this.direction *= -1;
+      // Son "plouplou" au changement de direction
+      if (typeof playSound === 'function') {
+        playSound('chicken_walk');
+      }
     }
     if(this.x + this.bodyRadius > this.canvasWidth - 30) {
       this.x = this.canvasWidth - 30 - this.bodyRadius;
       this.direction *= -1;
+      // Son "plouplou" au changement de direction
+      if (typeof playSound === 'function') {
+        playSound('chicken_walk');
+      }
     }
 
     // Mouvement vertical (bobbing)
@@ -862,11 +913,19 @@ class CrazyChickenBoss {
 
     // Animation des ailes
     this.wingFlapOffset += 0.2 * dtFactor;
+    
+    // Animation des yeux bigleux (mouvement aléatoire)
+    this.eyeWiggleOffset += 0.15 * dtFactor;
 
     // Pondre des œufs
     if(Date.now() - this.lastEggDrop > this.eggDropCooldown) {
       this.dropEgg();
       this.lastEggDrop = Date.now();
+      
+      // Son de caquètement de la poule (cotcot kaket)
+      if (typeof playSound === 'function') {
+        playSound('chicken_cluck');
+      }
     }
 
     // Mettre à jour les œufs
@@ -874,6 +933,11 @@ class CrazyChickenBoss {
   }
 
   dropEgg() {
+    // Son d'œuf qui tombe (shouuup!)
+    if (typeof playSound === 'function') {
+      playSound('egg_drop');
+    }
+    
     // Créer un œuf sous la poule
     this.eggs.push({
       x: this.x,
@@ -1044,34 +1108,46 @@ class CrazyChickenBoss {
     ctx.fill();
     ctx.stroke();
 
-    // Yeux (points faibles)
-    this.weakPoints.forEach(wp => {
+    // Yeux (points faibles) - BIGLEUX avec grosses orbites
+    this.weakPoints.forEach((wp, idx) => {
       const wpX = this.x + wp.x;
       const wpY = headY + wp.y;
 
       if(!wp.hit) {
-        // Œil noir avec point blanc (regard fou)
+        // Grande orbite blanche
+        ctx.fillStyle = '#ffffff';
+        ctx.strokeStyle = '#000';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(wpX, wpY, wp.radius + 2, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+        
+        // Pupille bigleuse (décalée différemment pour chaque œil)
+        const wiggleX = idx === 0 ? Math.cos(this.eyeWiggleOffset) * 2 : Math.sin(this.eyeWiggleOffset * 1.3) * 2;
+        const wiggleY = idx === 0 ? Math.sin(this.eyeWiggleOffset * 0.8) * 2 : Math.cos(this.eyeWiggleOffset * 1.1) * 2;
+        
         ctx.fillStyle = '#000';
         ctx.beginPath();
-        ctx.arc(wpX, wpY, wp.radius, 0, Math.PI * 2);
+        ctx.arc(wpX + wiggleX, wpY + wiggleY, wp.radius * 0.6, 0, Math.PI * 2);
         ctx.fill();
 
         // Point blanc (reflet fou)
         ctx.fillStyle = '#fff';
         ctx.beginPath();
-        ctx.arc(wpX + 1, wpY - 1, 1, 0, Math.PI * 2);
+        ctx.arc(wpX + wiggleX + 1.5, wpY + wiggleY - 1.5, 1.5, 0, Math.PI * 2);
         ctx.fill();
       } else {
         // Œil fermé (X)
         ctx.strokeStyle = '#000';
         ctx.lineWidth = 2;
         ctx.beginPath();
-        ctx.moveTo(wpX - 3, wpY - 3);
-        ctx.lineTo(wpX + 3, wpY + 3);
+        ctx.moveTo(wpX - 4, wpY - 4);
+        ctx.lineTo(wpX + 4, wpY + 4);
         ctx.stroke();
         ctx.beginPath();
-        ctx.moveTo(wpX + 3, wpY - 3);
-        ctx.lineTo(wpX - 3, wpY + 3);
+        ctx.moveTo(wpX + 4, wpY - 4);
+        ctx.lineTo(wpX - 4, wpY + 4);
         ctx.stroke();
       }
     });
@@ -1191,10 +1267,18 @@ class GrimReaperBoss {
     if(this.x - this.skullWidth < 50) {
       this.x = 50 + this.skullWidth;
       this.direction *= -1;
+      // Rire sinistre
+      if (typeof playSound === 'function') {
+        playSound('reaper_laugh');
+      }
     }
     if(this.x + this.skullWidth > this.canvasWidth - 50) {
       this.x = this.canvasWidth - 50 - this.skullWidth;
       this.direction *= -1;
+      // Rire sinistre
+      if (typeof playSound === 'function') {
+        playSound('reaper_laugh');
+      }
     }
 
     // Flottement vertical (effet spectral)
@@ -1231,6 +1315,11 @@ class GrimReaperBoss {
   }
 
   dropBones() {
+    // Son d'ossements qui tombent
+    if (typeof playSound === 'function') {
+      playSound('reaper_bone');
+    }
+    
     // Créer 2-4 ossements qui tombent
     const count = this.currentPhase === 3 ? 4 : (this.currentPhase === 2 ? 3 : 2);
     for(let i = 0; i < count; i++) {
@@ -1247,6 +1336,11 @@ class GrimReaperBoss {
   }
 
   dropCoffin() {
+    // Son de cercueil lourd
+    if (typeof playSound === 'function') {
+      playSound('reaper_coffin');
+    }
+    
     // Créer un cercueil qui tombe lentement
     this.coffins.push({
       x: this.x,
@@ -1675,6 +1769,11 @@ class WallBoss {
   }
 
   dropChains() {
+    // Son de chaînes qui tombent
+    if (typeof playSound === 'function') {
+      playSound('wall_chain');
+    }
+    
     // Créer 2-4 chaînes qui tombent depuis le mur
     const count = this.currentPhase === 3 ? 4 : (this.currentPhase === 2 ? 3 : 2);
     for(let i = 0; i < count; i++) {
@@ -1748,11 +1847,22 @@ class WallBoss {
     // Endommager des briques aléatoires
     if(Math.random() < 0.4) {
       const randomBrick = this.bricks[Math.floor(Math.random() * this.bricks.length)];
-      if(randomBrick) randomBrick.damaged = true;
+      if(randomBrick) {
+        randomBrick.damaged = true;
+        // Son de pierre qui se brise
+        if (typeof playSound === 'function') {
+          playSound('wall_break');
+        }
+      }
     }
 
     this.health -= damage;
     this.shakeIntensity = Math.min(8, this.shakeIntensity + 3); // Tremblement
+    
+    // Son de tremblement si dommages importants
+    if (damage > 50 && typeof playSound === 'function') {
+      playSound('wall_rumble');
+    }
 
     if(this.health <= 0) {
       this.health = 0;
@@ -2013,7 +2123,7 @@ class DarkCloudBoss {
     // Pluie de ténèbres (petites gouttes noires)
     this.darkRaindrops = [];
     this.lastRainDrop = 0;
-    this.rainDropCooldown = 300;
+    this.rainDropCooldown = 2000; // OPTIMISATION: 2 secondes entre les vagues (avant: 300ms)
 
     // Phases de combat avec messages philosophiques
     this.currentPhase = 1;
@@ -2107,6 +2217,11 @@ class DarkCloudBoss {
   }
 
   strikeLightning(playerX, playerY) {
+    // Son de tonnerre d'orage
+    if (typeof playSound === 'function') {
+      playSound('thunder');
+    }
+    
     // Créer un éclair qui descend vers le sol
     const targetX = playerX + (Math.random() - 0.5) * 100; // Viser près du joueur
     const branchCount = 1 + Math.floor(Math.random() * 2); // 1-2 éclairs
@@ -2624,6 +2739,15 @@ class BlackRavenBoss {
 
     // Animation des ailes (battement)
     this.wingFlapOffset += this.wingFlapSpeed * dtFactor;
+    
+    // Son de battement d'ailes (toutes les 1 seconde environ)
+    if (!this.lastFlapSound) this.lastFlapSound = 0;
+    if (Date.now() - this.lastFlapSound > 1000) {
+      if (typeof playSound === 'function') {
+        playSound('raven_flap');
+      }
+      this.lastFlapSound = Date.now();
+    }
 
     // Animation du cri
     this.cawOffset += 0.1 * dtFactor;
@@ -2657,6 +2781,11 @@ class BlackRavenBoss {
   }
 
   shootPoisonFeathers() {
+    // Son de plumes lancées
+    if (typeof playSound === 'function') {
+      playSound('raven_feather');
+    }
+    
     // Créer 2-4 plumes empoisonnées
     const count = this.currentPhase === 3 ? 4 : (this.currentPhase === 2 ? 3 : 2);
     this.isAttacking = true;
@@ -2681,6 +2810,11 @@ class BlackRavenBoss {
   }
 
   shoutLie() {
+    // Son de croassement sinistre
+    if (typeof playSound === 'function') {
+      playSound('raven_caw');
+    }
+    
     // Créer un message mensonger qui flotte
     const lie = this.lies[Math.floor(Math.random() * this.lies.length)];
     this.lieMessages.push({
@@ -3077,10 +3211,10 @@ class BossManager {
       case 'spider':
         this.currentBoss = new SpiderBoss(canvasWidth / 2, 80, canvasWidth, canvasHeight);
         break;
-      case 'snake':
+      case 'flying_snake':
         this.currentBoss = new FlyingSnakeBoss(canvasWidth / 2, 80, canvasWidth, canvasHeight);
         break;
-      case 'chicken':
+      case 'crazy_chicken':
         this.currentBoss = new CrazyChickenBoss(canvasWidth / 2, 80, canvasWidth, canvasHeight);
         break;
       case 'grim_reaper':
@@ -3176,8 +3310,8 @@ class BossManager {
 
     // Emoji du boss à gauche du trait (petit)
     const bossEmoji = this.bossType === 'spider' ? '🕷️' :
-                      this.bossType === 'snake' ? '🐍' :
-                      this.bossType === 'chicken' ? '🐔' :
+                      this.bossType === 'flying_snake' ? '🐍' :
+                      this.bossType === 'crazy_chicken' ? '🐔' :
                       this.bossType === 'grim_reaper' ? '💀' :
                       this.bossType === 'wall' ? '🧱' :
                       this.bossType === 'dark_cloud' ? '☁️' :

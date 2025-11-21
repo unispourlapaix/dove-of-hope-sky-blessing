@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kit Réseaux Sociaux - Dove of Hope</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🕊️</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .hero {
+            text-align: center;
+            color: white;
+            padding: 60px 20px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero .dove-icon {
+            font-size: 80px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .hero .tagline {
+            font-size: 24px;
+            font-style: italic;
+            margin-top: 20px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .card-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        .card h2 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        .card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .card-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .card-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .features {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-top: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .features h2 {
+            color: #333;
+            font-size: 32px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .feature-item {
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 15px;
+            transition: transform 0.2s;
+        }
+
+        .feature-item:hover {
+            transform: scale(1.05);
+        }
+
+        .feature-item .emoji {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .feature-item h3 {
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .feature-item p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .languages {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-top: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .languages h2 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .language-flags {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .flag-item {
+            font-size: 36px;
+            padding: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+
+        .flag-item:hover {
+            transform: scale(1.2);
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 60px;
+            padding: 40px 20px;
+            font-size: 18px;
+        }
+
+        .footer .heart {
+            color: #FF6B9D;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .quick-links {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 40px;
+            color: white;
+        }
+
+        .quick-links h3 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .quick-links ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .quick-links li {
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            text-align: center;
+            transition: background 0.2s;
+        }
+
+        .quick-links li:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .quick-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <div class="dove-icon">🕊️</div>
+            <h1>Kit Réseaux Sociaux</h1>
+            <p class="tagline">Dove of Hope: Sky Blessing</p>
+            <p style="margin-top: 20px; font-size: 20px;">
+                Vole petite colombe avec courage<br>
+                Ton cœur est bon, persévère<br>
+                N'abandonne jamais !
+            </p>
+        </div>
+
+        <div class="card-grid">
+            <div class="card" onclick="window.open('logo-animated.html', '_blank')">
+                <div class="card-icon">🎨</div>
+                <h2>Logo Animé</h2>
+                <p>Logo SVG animé avec ailes battantes, traduction en 14 langues et téléchargement instantané</p>
+                <a href="logo-animated.html" class="card-btn">Ouvrir</a>
+            </div>
+
+            <div class="card" onclick="window.open('icon-generator.html', '_blank')">
+                <div class="card-icon">📱</div>
+                <h2>Générateur d'Icônes</h2>
+                <p>Toutes les icônes pour PWA, favicon, Apple, Android et Microsoft en un clic</p>
+                <a href="icon-generator.html" class="card-btn">Ouvrir</a>
+            </div>
+
+            <div class="card" onclick="window.open('social-banners-generator.html', '_blank')">
+                <div class="card-icon">🖼️</div>
+                <h2>Bannières Sociales</h2>
+                <p>Facebook, Instagram, Twitter/X, YouTube, LinkedIn - Toutes les dimensions 2024</p>
+                <a href="social-banners-generator.html" class="card-btn">Ouvrir</a>
+            </div>
+        </div>
+
+        <div class="features">
+            <h2>✨ Fonctionnalités</h2>
+            <div class="feature-list">
+                <div class="feature-item">
+                    <div class="emoji">🌍</div>
+                    <h3>14 Langues</h3>
+                    <p>Traduction complète en français, anglais, espagnol, allemand, italien, portugais, russe, arabe, chinois, japonais, coréen, hindi, néerlandais et turc</p>
+                </div>
+
+                <div class="feature-item">
+                    <div class="emoji">🎯</div>
+                    <h3>Formats Optimisés</h3>
+                    <p>Toutes les dimensions respectent les standards 2024 des réseaux sociaux</p>
+                </div>
+
+                <div class="feature-item">
+                    <div class="emoji">⚡</div>
+                    <h3>Génération Instantanée</h3>
+                    <p>Canvas HTML5 pour générer et télécharger en un clic</p>
+                </div>
+
+                <div class="feature-item">
+                    <div class="emoji">🎨</div>
+                    <h3>Haute Qualité</h3>
+                    <p>PNG haute résolution, SVG vectoriel, dégradés professionnels</p>
+                </div>
+
+                <div class="feature-item">
+                    <div class="emoji">📦</div>
+                    <h3>Kit Complet</h3>
+                    <p>Logo, favicon, icônes web app, bannières sociales, manifest.json</p>
+                </div>
+
+                <div class="feature-item">
+                    <div class="emoji">💫</div>
+                    <h3>Animations</h3>
+                    <p>Logo animé avec ailes battantes, effet flottement et cœur pulsant</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="languages">
+            <h2>🌍 Langues Disponibles</h2>
+            <div class="language-flags">
+                <div class="flag-item" title="Français">🇫🇷</div>
+                <div class="flag-item" title="English">🇬🇧</div>
+                <div class="flag-item" title="Español">🇪🇸</div>
+                <div class="flag-item" title="Deutsch">🇩🇪</div>
+                <div class="flag-item" title="Italiano">🇮🇹</div>
+                <div class="flag-item" title="Português">🇵🇹</div>
+                <div class="flag-item" title="Русский">🇷🇺</div>
+                <div class="flag-item" title="العربية">🇸🇦</div>
+                <div class="flag-item" title="中文">🇨🇳</div>
+                <div class="flag-item" title="日本語">🇯🇵</div>
+                <div class="flag-item" title="한국어">🇰🇷</div>
+                <div class="flag-item" title="हिन्दी">🇮🇳</div>
+                <div class="flag-item" title="Nederlands">🇳🇱</div>
+                <div class="flag-item" title="Türkçe">🇹🇷</div>
+            </div>
+        </div>
+
+        <div class="quick-links">
+            <h3>📚 Liens Rapides</h3>
+            <ul>
+                <li><a href="README.md" target="_blank">📖 Documentation</a></li>
+                <li><a href="manifest.json" target="_blank">📄 Manifest.json</a></li>
+                <li><a href="browserconfig.xml" target="_blank">⚙️ BrowserConfig</a></li>
+                <li><a href="../dove-of-hope-sky-blessing.html" target="_blank">🎮 Jouer au Jeu</a></li>
+                <li><a href="../index.html" target="_blank">🏠 Page d'Accueil</a></li>
+            </ul>
+        </div>
+
+        <div class="footer">
+            <p>Made with <span class="heart">❤️</span> and 🕊️</p>
+            <p style="margin-top: 15px; font-size: 16px; opacity: 0.9;">
+                © 2025 Dove of Hope: Sky Blessing
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Easter egg: clicking on dove makes it fly
+        document.querySelector('.dove-icon').addEventListener('click', function() {
+            this.style.transition = 'all 2s ease-out';
+            this.style.transform = 'translateY(-100vh) rotate(360deg)';
+            setTimeout(() => {
+                this.style.transition = 'none';
+                this.style.transform = 'translateY(0) rotate(0)';
+                setTimeout(() => {
+                    this.style.transition = 'all 1s ease-out';
+                }, 50);
+            }, 2000);
+        });
+
+        // Sparkle effect on cards
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                const sparkle = document.createElement('div');
+                sparkle.textContent = '✨';
+                sparkle.style.position = 'absolute';
+                sparkle.style.fontSize = '24px';
+                sparkle.style.animation = 'sparkleEffect 1s ease-out';
+                sparkle.style.pointerEvents = 'none';
+                this.style.position = 'relative';
+                this.appendChild(sparkle);
+                
+                setTimeout(() => sparkle.remove(), 1000);
+            });
+        });
+
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes sparkleEffect {
+                0% { opacity: 1; transform: translate(50%, 0) scale(0); }
+                50% { opacity: 1; transform: translate(50%, -20px) scale(1.5); }
+                100% { opacity: 0; transform: translate(50%, -40px) scale(0.5); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
