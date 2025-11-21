@@ -3296,6 +3296,12 @@ function startBonusLevel(){
   rain=[];
   bullets=[];
   bonusItems=[];
+  
+  // Réinitialiser le boss pour éviter les conflits
+  bossManager.reset();
+  bossSpawnedThisLevel = false;
+  bossDefeatRewardsGiven = false;
+  
   setSun('happy');
   
   // Messages philosophiques selon le numéro de bonus
@@ -3819,9 +3825,10 @@ for(let bi = bullets.length - 1; bi >= 0; bi--){
       
       // Faire apparaître les boss à la fin de leur niveau respectif (90% de progression)
       // Utilise cloudsInLevel et cloudsToPass pour s'adapter aux différentes difficultés
+      // NE PAS faire apparaître de boss pendant les niveaux bonus
 
       // Boss araignée: apparaît à 90% du niveau 2
-      if(level === 2 && !bossSpawnedThisLevel && !bossManager.isBossActive()) {
+      if(level === 2 && !bossSpawnedThisLevel && !bossManager.isBossActive() && !isBonusLevel) {
         const cloudsToPass = currentLevelConfig.cloudsToPass || 75;
         if(cloudsInLevel >= Math.floor(cloudsToPass * 0.9)) {
           levelBeforeBoss = level; // Sauvegarder le niveau actuel
@@ -3834,7 +3841,7 @@ for(let bi = bullets.length - 1; bi >= 0; bi--){
       }
 
       // Boss Grim Reaper: apparaît à 90% du niveau 4
-      if(level === 4 && !bossSpawnedThisLevel && !bossManager.isBossActive()) {
+      if(level === 4 && !bossSpawnedThisLevel && !bossManager.isBossActive() && !isBonusLevel) {
         const cloudsToPass = currentLevelConfig.cloudsToPass || 100;
         if(cloudsInLevel >= Math.floor(cloudsToPass * 0.9)) {
           levelBeforeBoss = level;
@@ -3847,7 +3854,7 @@ for(let bi = bullets.length - 1; bi >= 0; bi--){
       }
 
       // Boss poule: apparaît à 90% du niveau 6
-      if(level === 6 && !bossSpawnedThisLevel && !bossManager.isBossActive()) {
+      if(level === 6 && !bossSpawnedThisLevel && !bossManager.isBossActive() && !isBonusLevel) {
         const cloudsToPass = currentLevelConfig.cloudsToPass || 175;
         const spawnAt = Math.floor(cloudsToPass * 0.9);
               if(cloudsInLevel >= spawnAt) {
@@ -3861,7 +3868,7 @@ for(let bi = bullets.length - 1; bi >= 0; bi--){
       }
 
       // Boss Wall: apparaît à 90% du niveau 8
-      if(level === 8 && !bossSpawnedThisLevel && !bossManager.isBossActive()) {
+      if(level === 8 && !bossSpawnedThisLevel && !bossManager.isBossActive() && !isBonusLevel) {
         const cloudsToPass = currentLevelConfig.cloudsToPass || 250;
         if(cloudsInLevel >= Math.floor(cloudsToPass * 0.9)) {
           levelBeforeBoss = level;
@@ -3874,7 +3881,7 @@ for(let bi = bullets.length - 1; bi >= 0; bi--){
       }
 
       // Boss Dark Cloud: apparaît à 90% du niveau 10
-      if(level === 10 && !bossSpawnedThisLevel && !bossManager.isBossActive()) {
+      if(level === 10 && !bossSpawnedThisLevel && !bossManager.isBossActive() && !isBonusLevel) {
         const cloudsToPass = currentLevelConfig.cloudsToPass || 350;
         if(cloudsInLevel >= Math.floor(cloudsToPass * 0.9)) {
           levelBeforeBoss = level;
@@ -3897,7 +3904,7 @@ for(let bi = bullets.length - 1; bi >= 0; bi--){
       }
 
       // Boss Black Raven: apparaît à 90% du niveau 12
-      if(level === 12 && !bossSpawnedThisLevel && !bossManager.isBossActive()) {
+      if(level === 12 && !bossSpawnedThisLevel && !bossManager.isBossActive() && !isBonusLevel) {
         const cloudsToPass = currentLevelConfig.cloudsToPass || 500;
         if(cloudsInLevel >= Math.floor(cloudsToPass * 0.9)) {
           levelBeforeBoss = level;
@@ -3910,7 +3917,7 @@ for(let bi = bullets.length - 1; bi >= 0; bi--){
       }
 
       // Boss Serpent Volant FINAL: apparaît à 90% du niveau 14
-      if(level === 14 && !bossSpawnedThisLevel && !bossManager.isBossActive()) {
+      if(level === 14 && !bossSpawnedThisLevel && !bossManager.isBossActive() && !isBonusLevel) {
         const cloudsToPass = currentLevelConfig.cloudsToPass || 999;
         const spawnAt = Math.floor(cloudsToPass * 0.9);
               if(cloudsInLevel >= spawnAt) {
@@ -3963,7 +3970,7 @@ for(let bi = bullets.length - 1; bi >= 0; bi--){
       }
 
       // Vérifier si le boss est vaincu (une seule fois)
-      if(bossManager.isBossDefeated() && !bossDefeatRewardsGiven) {
+      if(bossManager.isBossDefeated() && !bossDefeatRewardsGiven && !isBonusLevel) {
         bossDefeatRewardsGiven = true; // Marquer comme traité
 
         // Déverrouiller la sagesse du boss
