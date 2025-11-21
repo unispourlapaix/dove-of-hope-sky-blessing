@@ -34,6 +34,13 @@ const hi = {
     menu: 'मेनू'
   },
   
+  export: {
+    score_label: 'स्कोर',
+    level_label: 'स्तर',
+    courage_message: 'साहस, वीर योद्धा!',
+    divine_light: 'दिव्य प्रकाश में'
+  },
+  
   buttons: {
     start: 'जलाओ!',
     play: 'खेलें',

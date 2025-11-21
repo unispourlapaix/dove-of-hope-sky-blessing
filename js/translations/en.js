@@ -34,6 +34,13 @@ const en = {
     menu: 'Menu'
   },
   
+  export: {
+    score_label: 'Score',
+    level_label: 'Level',
+    courage_message: 'Courage, valiant hero!',
+    divine_light: 'into divine light'
+  },
+  
   buttons: {
     start: 'Light it!',
     play: 'PLAY',

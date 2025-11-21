@@ -28,6 +28,13 @@ const es = {
     menu: 'Menú'
   },
   
+  export: {
+    score_label: 'Puntos',
+    level_label: 'Nivel',
+    courage_message: '¡Valor, valiente héro !',
+    divine_light: 'en luz divina'
+  },
+  
   buttons: {
     start: '¡Enciende!',
     play: 'JUGAR',

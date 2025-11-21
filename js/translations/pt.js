@@ -28,6 +28,13 @@ const pt = {
     menu: 'Menu'
   },
   
+  export: {
+    score_label: 'Pontos',
+    level_label: 'Nível',
+    courage_message: 'Coragem, herói valente!',
+    divine_light: 'em luz divina'
+  },
+  
   buttons: {
     start: 'Acenda!',
     play: 'JOGAR',

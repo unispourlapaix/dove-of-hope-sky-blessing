@@ -34,6 +34,13 @@ const pl = {
     menu: 'Menu'
   },
   
+  export: {
+    score_label: 'Wynik',
+    level_label: 'Poziom',
+    courage_message: 'Odwagi, dzielny bohaterze!',
+    divine_light: 'w boże światło'
+  },
+  
   buttons: {
     start: 'Zapal!',
     play: 'GRAJ',

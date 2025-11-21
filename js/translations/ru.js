@@ -28,6 +28,13 @@ const ru = {
     menu: 'Меню'
   },
   
+  export: {
+    score_label: 'Счёт',
+    level_label: 'Уровень',
+    courage_message: 'Смелости, доблестный герой!',
+    divine_light: 'в божественный свет'
+  },
+  
   buttons: {
     start: 'Зажги!',
     play: 'ИГРАТЬ',

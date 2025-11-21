@@ -1406,12 +1406,12 @@ function exportGameData() {
   // Score
   ctx.fillStyle = '#f39c12';
   ctx.font = 'bold 80px Arial';
-  ctx.fillText(`Score: ${gameData.highScore.toLocaleString()}`, 540, 540);
+  ctx.fillText(`${t('export.score_label')}: ${gameData.highScore.toLocaleString()}`, 540, 540);
   
   // Niveau
   ctx.fillStyle = '#3498db';
   ctx.font = 'bold 50px Arial';
-  ctx.fillText(`Niveau ${gameData.highestLevelReached}`, 540, 620);
+  ctx.fillText(`${t('export.level_label')} ${gameData.highestLevelReached}`, 540, 620);
   
   // Nuages détruits
   ctx.fillStyle = '#95a5a6';
@@ -1422,14 +1422,13 @@ function exportGameData() {
   ctx.fillStyle = '#e74c3c';
   ctx.font = 'bold italic 45px Arial';
   ctx.textAlign = 'center';
-  const message = 'Courage, vaillant héros !';
-  ctx.fillText(message, 540, 770);
+  ctx.fillText(t('export.courage_message'), 540, 770);
   
   // Phrase inspirante
   ctx.fillStyle = '#2c3e50';
   ctx.font = '32px Arial';
   ctx.fillText(t('transform_clouds'), 540, 830);
-  ctx.fillText('en lumière divine', 540, 870);
+  ctx.fillText(t('export.divine_light'), 540, 870);
   
   // Télécharger l'image en JPG
   canvas.toBlob((blob) => {

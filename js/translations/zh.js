@@ -34,6 +34,13 @@ const zh = {
     menu: '菜单'
   },
   
+  export: {
+    score_label: '分数',
+    level_label: '等级',
+    courage_message: '勇敢的英雄，加油！',
+    divine_light: '化为神圣之光'
+  },
+  
   buttons: {
     start: '点亮！',
     play: '开始',

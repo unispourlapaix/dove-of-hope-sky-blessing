@@ -34,6 +34,13 @@ const ja = {
     menu: 'メニュー'
   },
   
+  export: {
+    score_label: 'スコア',
+    level_label: 'レベル',
+    courage_message: '勇気を、勇敢な英雄よ！',
+    divine_light: '神聖なる光へ'
+  },
+  
   buttons: {
     start: '灯せ！',
     play: 'プレイ',

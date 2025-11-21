@@ -34,6 +34,13 @@ const ar = {
     menu: 'القائمة'
   },
   
+  export: {
+    score_label: 'النقاط',
+    level_label: 'المستوى',
+    courage_message: 'شجاعة، أيها البطل الشجاع!',
+    divine_light: 'إلى نور إلهي'
+  },
+  
   buttons: {
     start: 'أضئ!',
     play: 'العب',

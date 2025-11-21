@@ -34,6 +34,13 @@ const sw = {
     menu: 'Menyu'
   },
   
+  export: {
+    score_label: 'Alama',
+    level_label: 'Ngazi',
+    courage_message: 'Ujasiri, shujaa mwenye ujasiri!',
+    divine_light: 'katika mwanga wa kimungu'
+  },
+  
   buttons: {
     start: 'Washa!',
     play: 'CHEZA',

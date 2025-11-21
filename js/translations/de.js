@@ -28,6 +28,13 @@ const de = {
     menu: 'Menü'
   },
   
+  export: {
+    score_label: 'Punktzahl',
+    level_label: 'Level',
+    courage_message: 'Mut, tapferer Held!',
+    divine_light: 'in göttliches Licht'
+  },
+  
   buttons: {
     start: 'Anzünden!',
     play: 'SPIELEN',

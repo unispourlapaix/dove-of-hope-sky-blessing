@@ -34,6 +34,13 @@ const ko = {
     menu: '메뉴'
   },
   
+  export: {
+    score_label: '점수',
+    level_label: '레벨',
+    courage_message: '용기를 내라, 용감한 영웅이여!',
+    divine_light: '신성한 빛으로'
+  },
+  
   buttons: {
     start: '켜라!',
     play: '플레이',

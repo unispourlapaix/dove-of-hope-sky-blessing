@@ -34,6 +34,13 @@ const nl = {
     menu: 'Menu'
   },
   
+  export: {
+    score_label: 'Score',
+    level_label: 'Niveau',
+    courage_message: 'Moed, dappere held!',
+    divine_light: 'in goddelijk licht'
+  },
+  
   buttons: {
     start: 'Aansteken!',
     play: 'SPELEN',

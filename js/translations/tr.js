@@ -34,6 +34,13 @@ const tr = {
     menu: 'Menü'
   },
   
+  export: {
+    score_label: 'Skor',
+    level_label: 'Seviye',
+    courage_message: 'Cesaret, cesur kahraman!',
+    divine_light: 'ilahi ışığa'
+  },
+  
   buttons: {
     start: 'Yak!',
     play: 'OYNA',
