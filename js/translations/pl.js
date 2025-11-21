@@ -406,8 +406,11 @@ const pl = {
   },
 
   bosses: {
-    victory_title: '🏆 ZWYCIęSTWO 🏆',
+    victory_title: '🏆 ZWYCIĘSTWO 🏆',
     spiritual_victory: '🌟 Duchowe Zwycięstwo 🌟',
+    phase_1: '⚔️ Faza 1',
+    phase_2: '⚔️ Faza 2',
+    phase_3: '⚔️ Faza 3',
     spider: {
       name: '🕷️ Pająk Ciemności',
       intro: 'Gigantyczny pająk tka pajęczynę strachu... Ale "Bóg nie dał nam ducha bojaźni"!',

@@ -423,6 +423,9 @@ const sw = {
   bosses: {
     victory_title: '🏆 USHINDI 🏆',
     spiritual_victory: '🌟 Ushindi wa Kiroho 🌟',
+    phase_1: '⚔️ Awamu 1',
+    phase_2: '⚔️ Awamu 2',
+    phase_3: '⚔️ Awamu 3',
     spider: {
       name: '🕷️ Buibui wa Giza',
       intro: 'Buibui mkubwa anafuma utando wa hofu... Lakini "Mungu hakutupa roho ya hofu"!',

@@ -400,6 +400,9 @@ const it = {
   bosses: {
     victory_title: '🏆 VITTORIA 🏆',
     spiritual_victory: '🌟 Vittoria Spirituale 🌟',
+    phase_1: '⚔️ Fase 1',
+    phase_2: '⚔️ Fase 2',
+    phase_3: '⚔️ Fase 3',
     spider: {
       name: '🕷️ Il Ragno dell\'Oscurità',
       intro: 'Un ragno gigante tesse la sua rete di paura... Ma "Dio non ci ha dato uno spirito di paura"!',

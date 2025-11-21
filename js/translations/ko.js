@@ -423,6 +423,9 @@ const ko = {
   bosses: {
     victory_title: '🏆 승리 🏆',
     spiritual_victory: '🌟 영적 승리 🌟',
+    phase_1: '⚔️ 단계 1',
+    phase_2: '⚔️ 단계 2',
+    phase_3: '⚔️ 단계 3',
     spider: {
       name: '🕷️ 어둠의 거미',
       intro: '거대한 거미가 두려움의 거미줄을 친다... 하지만 "하나님이 우리에게 주신 것은 두려워하는 마음이 아니라"!',

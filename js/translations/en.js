@@ -405,6 +405,9 @@ const en = {
   bosses: {
     victory_title: '🏆 VICTORY 🏆',
     spiritual_victory: '🌟 Spiritual Victory 🌟',
+    phase_1: '⚔️ Phase 1',
+    phase_2: '⚔️ Phase 2',
+    phase_3: '⚔️ Phase 3',
     spider: {
       name: '🕷️ The Spider of Darkness',
       intro: 'A giant spider weaves its web of fear... But "God has not given us a spirit of fear"!',

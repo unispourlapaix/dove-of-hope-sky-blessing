@@ -406,6 +406,9 @@ const fr = {
   bosses: {
     victory_title: '🏆 VICTOIRE 🏆',
     spiritual_victory: '🌟 Victoire Spirituelle 🌟',
+    phase_1: '⚔️ Phase 1',
+    phase_2: '⚔️ Phase 2',
+    phase_3: '⚔️ Phase 3',
     spider: {
       name: '🕷️ L\'Araignée des Ténèbres',
       intro: 'Une araignée géante tisse sa toile de peur... Mais "Dieu ne nous a pas donné un esprit de timidité" !',

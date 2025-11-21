@@ -400,6 +400,9 @@ const es = {
   bosses: {
     victory_title: '🏆 VICTORIA 🏆',
     spiritual_victory: '🌟 Victoria Espiritual 🌟',
+    phase_1: '⚔️ Fase 1',
+    phase_2: '⚔️ Fase 2',
+    phase_3: '⚔️ Fase 3',
     spider: {
       name: '🕷️ La Araña de la Oscuridad',
       intro: 'Una araña gigante teje su red de miedo... ¡Pero "Dios no nos ha dado espíritu de cobardía"!',

@@ -291,6 +291,9 @@ const tr = {
   bosses: {
     victory_title: '🏆 ZAFER 🏆',
     spiritual_victory: '🌟 Ruhani Zafer 🌟',
+    phase_1: '⚔️ Faz 1',
+    phase_2: '⚔️ Faz 2',
+    phase_3: '⚔️ Faz 3',
     spider: {
       name: '🕷️ Karanlığın Örümceği',
       intro: 'Dev bir örümcek korku ağını örüyor...',

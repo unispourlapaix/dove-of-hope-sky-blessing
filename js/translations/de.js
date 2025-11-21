@@ -400,6 +400,9 @@ const de = {
   bosses: {
     victory_title: '🏆 SIEG 🏆',
     spiritual_victory: '🌟 Spiritueller Sieg 🌟',
+    phase_1: '⚔️ Phase 1',
+    phase_2: '⚔️ Phase 2',
+    phase_3: '⚔️ Phase 3',
     spider: {
       name: '🕷️ Die Spinne der Finsternis',
       intro: 'Eine riesige Spinne webt ihr Netz der Angst... Aber "Gott hat uns nicht einen Geist der Furcht gegeben"!',

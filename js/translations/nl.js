@@ -291,6 +291,9 @@ const nl = {
   bosses: {
     victory_title: '🏆 OVERWINNING 🏆',
     spiritual_victory: '🌟 Spirituele Overwinning 🌟',
+    phase_1: '⚔️ Fase 1',
+    phase_2: '⚔️ Fase 2',
+    phase_3: '⚔️ Fase 3',
     spider: {
       name: '🕷️ De Spin van Duisternis',
       intro: 'Een reusachtige spin weeft zijn web van angst...',

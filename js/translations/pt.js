@@ -400,6 +400,9 @@ const pt = {
   bosses: {
     victory_title: '🏆 VITÓRIA 🏆',
     spiritual_victory: '🌟 Vitória Espiritual 🌟',
+    phase_1: '⚔️ Fase 1',
+    phase_2: '⚔️ Fase 2',
+    phase_3: '⚔️ Fase 3',
     spider: {
       name: '🕷️ A Aranha das Trevas',
       intro: 'Uma aranha gigante tece sua teia de medo... Mas "Deus não nos deu espírito de medo"!',

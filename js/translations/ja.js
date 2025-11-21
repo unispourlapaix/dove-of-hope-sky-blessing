@@ -423,6 +423,9 @@ const ja = {
   bosses: {
     victory_title: '🏆 勝利 🏆',
     spiritual_victory: '🌟 精神的勝利 🌟',
+    phase_1: '⚔️ フェーズ1',
+    phase_2: '⚔️ フェーズ2',
+    phase_3: '⚔️ フェーズ3',
     spider: {
       name: '🕷️ 闇の蜘蛛',
       intro: '巨大な蜘蛛が恐怖の網を張る...しかし「神は臆する心ではなく、力と愛と慎みの心を与えてくださった」！',
