@@ -37,8 +37,8 @@ Object.keys(LANGUAGES).forEach(key => {
 });
 
 // Vérification du chargement
-console.log('🌍 Langues chargées:', Object.keys(LANGUAGES).length);
-console.log('📋 Langues disponibles:', Object.keys(LANGUAGES).join(', '));
+// console.log('🌍 Langues chargées:', Object.keys(LANGUAGES).length);
+// console.log('📋 Langues disponibles:', Object.keys(LANGUAGES).join(', '));
 
 // Export pour compatibilité
 if (typeof module !== 'undefined' && module.exports) {

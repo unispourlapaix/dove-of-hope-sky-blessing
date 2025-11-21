@@ -300,8 +300,8 @@ if (typeof module !== 'undefined' && module.exports) {
 }
 
 // Log de chargement
-console.log('📖 Module Versets chargé:', {
-    niveaux: Object.keys(LEVEL_VERSES).length,
-    versetsInfinis: INFINITE_VERSES.length,
-    messagesInfinis: INFINITE_MESSAGES.length
-});
+// console.log('📖 Module Versets chargé:', {
+//     niveaux: Object.keys(LEVEL_VERSES).length,
+//     versetsInfinis: INFINITE_VERSES.length,
+//     messagesInfinis: INFINITE_MESSAGES.length
+// });

@@ -445,10 +445,10 @@ if (typeof module !== 'undefined' && module.exports) {
 }
 
 // Log de chargement
-console.log('🏆 Module Scoring chargé:', {
-    echelons: COURAGE_RANKS.length,
-    blasons: KNOWLEDGE_BADGES.length
-});
+// console.log('🏆 Module Scoring chargé:', {
+//     echelons: COURAGE_RANKS.length,
+//     blasons: KNOWLEDGE_BADGES.length
+// });
 
 // Charger les stats au démarrage
 loadStats();

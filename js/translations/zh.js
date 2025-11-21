@@ -35,6 +35,13 @@ const zh = {
     motivation: '是时候点亮光明了 - 这是实现梦想的美好时刻！',
     welcome: '欢迎，新兵首飞员！'
   },
+
+  profile: {
+    nickname: '你的昵称',
+    email: '邮箱（可选）',
+    enter_nickname: '输入你的昵称...',
+    enter_email: 'your@email.cn'
+  },
   
   gameplay: [
     '行动起来，现在是时候了！',
@@ -127,7 +134,14 @@ const zh = {
     read_testimonies: '阅读见证',
     save_cloud: '保存到云端',
     share_score: '分享我的分数',
-    not_set: '未设置'
+    not_set: '未设置',
+    boss_wisdom_title: '头目智慧',
+    boss_wisdom_subtitle: '击败头目以解锁他们的深刻教导',
+    boss_wisdom_collected: '智慧已解锁',
+    boss_wisdom_locked: '这个智慧仍然被锁定。击败这个头目来解锁它！',
+    boss_wisdom_philosophy: '哲学与教导',
+    boss_wisdom_victory: '胜利信息',
+    boss_wisdom_close: '关闭'
   },
   
   intro: '生活往往是一场漫长的战斗，需要勇气和力量来度过艰难的日子。勇敢的英雄，起来吧，用上帝的爱将灰云变成美好。',

@@ -35,6 +35,13 @@ const ar = {
     motivation: 'حان وقت إضاءة النور - إنه وقت جميل لتحقيق أحلامك!',
     welcome: 'مرحباً، طيّار الرحلة الأولى!'
   },
+
+  profile: {
+    nickname: 'لقبك',
+    email: 'البريد الإلكتروني (اختياري)',
+    enter_nickname: 'أدخل لقبك...',
+    enter_email: 'your@email.com'
+  },
   
   gameplay: [
     'تحرك، حان الوقت!',
@@ -126,8 +133,15 @@ const ar = {
     testimonies_description: 'اكتشف قصص الشجاعة والشفاء',
     read_testimonies: 'قراءة الشهادات',
     save_cloud: 'حفظ في السحابة',
-    share_score: 'مشاركة نتيجتي',
-    not_set: 'غير محدد'
+    share_score: 'شارك نتيجتي',
+    not_set: 'غير محدد',
+    boss_wisdom_title: 'حكمة الزعماء',
+    boss_wisdom_subtitle: 'اهزم الزعماء لفتح تعاليمهم العميقة',
+    boss_wisdom_collected: 'الحكمة مفتوحة',
+    boss_wisdom_locked: 'هذه الحكمة لا تزال مقفلة. اهزم هذا الزعيم لفتحها!',
+    boss_wisdom_philosophy: 'الفلسفة والتعليم',
+    boss_wisdom_victory: 'رسالة النصر',
+    boss_wisdom_close: 'إغلاق'
   },
   
   intro: 'الحياة غالبًا معركة طويلة، تحتاج إلى الشجاعة والقوة للصمود في الأيام الصعبة. أيها البطل الشجاع، انهض، وبمحبة الله حوّل الغيوم الرمادية إلى خير.',

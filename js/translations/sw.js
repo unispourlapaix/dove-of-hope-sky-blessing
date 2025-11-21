@@ -35,6 +35,13 @@ const sw = {
     motivation: '✨ Neema ya Mungu inaangazia njia yako! ✨',
     welcome: 'Karibu, Kadeti wa Ndege ya Kwanza!'
   },
+
+  profile: {
+    nickname: 'Jina lako la utani',
+    email: 'Barua pepe (si lazima)',
+    enter_nickname: 'Ingiza jina lako la utani...',
+    enter_email: 'yako@email.com'
+  },
   
   gameplay: [
     'Sogea, ni wakati!',
@@ -126,8 +133,15 @@ const sw = {
     testimonies_description: 'Gundua hadithi za ujasiri na uponyaji',
     read_testimonies: 'Soma ushuhuda',
     save_cloud: 'Hifadhi kwenye Wingu',
-    share_score: 'Shiriki alama zangu',
-    not_set: 'Haijawekwa'
+    share_score: 'Shiriki alama yangu',
+    not_set: 'Haijawekwa',
+    boss_wisdom_title: 'Hekima ya Boss',
+    boss_wisdom_subtitle: 'Shinda maboss kufungua mafundisho yao ya kina',
+    boss_wisdom_collected: 'hekima imefunguliwa',
+    boss_wisdom_locked: 'Hekima hii bado imefungwa. Shinda boss huyu kuifungua!',
+    boss_wisdom_philosophy: 'Falsafa na Mafundisho',
+    boss_wisdom_victory: 'Ujumbe wa Ushindi',
+    boss_wisdom_close: 'Funga'
   },
   
   intro: 'Maisha mara nyingi ni vita virefu, inahitaji ujasiri na nguvu kushikilia siku mbaya. Shujaa jasiri, inuka, na kwa upendo wa Mungu geuza mawingu ya kijivu kuwa mema.',

@@ -304,4 +304,4 @@ if (typeof module !== 'undefined' && module.exports) {
     };
 }
 
-console.log('🎨 Module Interface de Scoring chargé');
+// console.log('🎨 Module Interface de Scoring chargé');

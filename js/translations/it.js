@@ -35,6 +35,13 @@ const it = {
     motivation: 'È tempo di accendere la luce - È un buon momento per realizzare i tuoi sogni!',
     welcome: 'Benvenuto, Cadetto Primo Volo!'
   },
+
+  profile: {
+    nickname: 'Il tuo soprannome',
+    email: 'Email (facoltativo)',
+    enter_nickname: 'Inserisci il tuo soprannome...',
+    enter_email: 'tua@email.it'
+  },
   
   gameplay: [
     'Muoviti, è il momento!',
@@ -127,7 +134,14 @@ const it = {
     read_testimonies: 'Leggi testimonianze',
     save_cloud: 'Salva nel Cloud',
     share_score: 'Condividi il mio punteggio',
-    not_set: 'Non definito'
+    not_set: 'Non definito',
+    boss_wisdom_title: 'Saggezza dei Boss',
+    boss_wisdom_subtitle: 'Sconfiggi i boss per sbloccare i loro insegnamenti profondi',
+    boss_wisdom_collected: 'saggezza sbloccata',
+    boss_wisdom_locked: 'Questa saggezza è ancora bloccata. Sconfiggi questo boss per sbloccarla!',
+    boss_wisdom_philosophy: 'Filosofia e Insegnamento',
+    boss_wisdom_victory: 'Messaggio di Vittoria',
+    boss_wisdom_close: 'Chiudi'
   },
   
   intro: 'La vita è spesso una lunga battaglia, ci vuole coraggio e forza per resistere nei giorni difficili. Valoroso eroe, alzati, e con l\'amore di Dio trasforma le nuvole grigie in bene.',

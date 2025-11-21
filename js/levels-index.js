@@ -236,9 +236,9 @@ const LevelSystem = {
 // LOG DE CHARGEMENT
 // ============================================================================
 
-console.log(`🎮 Système de niveaux chargé: ${LEVEL_DEFINITIONS.length} niveaux`);
-console.log(`🏆 Seuil de victoire: ${VICTORY_THRESHOLD} nuages`);
-console.log(`♾️ Mode infini: ${INFINITE_MODE_THRESHOLD}+ nuages`);
+// console.log(`🎮 Système de niveaux chargé: ${LEVEL_DEFINITIONS.length} niveaux`);
+// console.log(`🏆 Seuil de victoire: ${VICTORY_THRESHOLD} nuages`);
+// console.log(`♾️ Mode infini: ${INFINITE_MODE_THRESHOLD}+ nuages`);
 
 // Export pour utilisation dans d'autres modules
 if (typeof module !== 'undefined' && module.exports) {

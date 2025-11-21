@@ -236,8 +236,8 @@ function getRandomTestimony(lang = 'fr') {
 }
 
 // Log pour confirmer que le module est chargé
-console.log('✅ Module testimonies.js chargé - Fonctions disponibles:', {
-    getTestimonies: typeof getTestimonies,
-    getTestimonyTitle: typeof getTestimonyTitle,
-    getRandomTestimony: typeof getRandomTestimony
-});
+// console.log('✅ Module testimonies.js chargé - Fonctions disponibles:', {
+//   getTestimonies: typeof getTestimonies,
+//   getTestimonyTitle: typeof getTestimonyTitle,
+//   getRandomTestimony: typeof getRandomTestimony
+// });

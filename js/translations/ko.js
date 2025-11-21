@@ -27,13 +27,20 @@ const ko = {
   },
   
   messages: {
-    start: '날아라, 작은 비둘기! 구름을 흩어라!',
+    start: '날아라, 작은 비둘기! 구름을 흔어라!',
     restart: '비둘기가 다시 태어났다! 다시 시작하자!',
     gameOver: '게임 오버! 하지만 역경 속에서 당신은 더욱 빛난다!',
-    victory: '승리! 시편 99.1 - 삶은 놀라운 모험이다! - 오리게네스가 말했다',
+    victory: '승리! 시펄99.1 - 삶은 놀라운 모험이다! - 오리게네스가 말했다',
     levelUp: '레벨 {level} - 빛이 자란다!',
     motivation: '빛을 밝힐 시간이다 - 꿈을 실현할 아름다운 시간이다!',
     welcome: '환영합니다, 첫 비행 생도!'
+  },
+
+  profile: {
+    nickname: '당신의 닉네임',
+    email: '이메일 (선택사항)',
+    enter_nickname: '닉네임을 입력하세요...',
+    enter_email: 'your@email.kr'
   },
   
   gameplay: [
@@ -127,7 +134,14 @@ const ko = {
     read_testimonies: '증언 읽기',
     save_cloud: '클라우드에 저장',
     share_score: '내 점수 공유',
-    not_set: '설정되지 않음'
+    not_set: '설정되지 않음',
+    boss_wisdom_title: '보스의 지혜',
+    boss_wisdom_subtitle: '보스를 물리쳐 깊은 가르침을 잠금 해제하세요',
+    boss_wisdom_collected: '지혜가 잠금 해제됨',
+    boss_wisdom_locked: '이 지혜는 아직 잠겨 있습니다. 이 보스를 물리쳐 잠금을 해제하세요!',
+    boss_wisdom_philosophy: '철학과 가르침',
+    boss_wisdom_victory: '승리의 메시지',
+    boss_wisdom_close: '닫기'
   },
   
   intro: '삶은 종종 긴 싸움이며, 힘든 날들을 견디기 위해 용기와 힘이 필요합니다. 용감한 영웅이여, 일어나서 하나님의 사랑으로 회색 구름을 아름다움으로 변화시키세요.',
