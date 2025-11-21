@@ -15,12 +15,23 @@ const ja = {
     language: '言語',
     choose_language: '言語を選択',
     language_changed: '言語が変更されました',
+    difficulty: '難易度',
+    easy: '簡単',
+    normal: '普通',
+    hard: '難しい',
+    legendary: '伝説',
+    difficulty_changed: '難易度が変更されました',
     install: 'インストール',
     tap_share: 'タップ',
     add_home: 'ホーム画面に追加',
     confirm: '確認',
     install_app: 'アプリをインストール',
-    install_desktop: 'Chrome/Edgeで開いてインストール'
+    install_desktop: 'Chrome/Edgeで開いてインストール',
+    close: '閉じる',
+    pause: '一時停止',
+    music: '音楽',
+    sfx: '効果音',
+    menu: 'メニュー'
   },
   
   buttons: {

@@ -15,12 +15,23 @@ const ar = {
     language: 'اللغة',
     choose_language: 'اختر اللغة',
     language_changed: 'تم تغيير اللغة',
+    difficulty: 'الصعوبة',
+    easy: 'سهل',
+    normal: 'عادي',
+    hard: 'صعب',
+    legendary: 'أسطوري',
+    difficulty_changed: 'تم تغيير الصعوبة',
     install: 'تثبيت',
     tap_share: 'انقر على',
     add_home: 'إضافة إلى الشاشة الرئيسية',
     confirm: 'تأكيد',
     install_app: 'تثبيت التطبيق',
-    install_desktop: 'افتح في Chrome/Edge للتثبيت'
+    install_desktop: 'افتح في Chrome/Edge للتثبيت',
+    close: 'إغلاق',
+    pause: 'إيقاف مؤقت',
+    music: 'موسيقى',
+    sfx: 'مؤثرات صوتية',
+    menu: 'القائمة'
   },
   
   buttons: {

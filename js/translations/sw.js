@@ -15,12 +15,23 @@ const sw = {
     language: 'Lugha',
     choose_language: 'Chagua lugha',
     language_changed: 'Lugha imebadilishwa',
+    difficulty: 'Ugumu',
+    easy: 'Rahisi',
+    normal: 'Kawaida',
+    hard: 'Ngumu',
+    legendary: 'Wa kihistoria',
+    difficulty_changed: 'Ugumu umebadilishwa',
     install: 'SAKINISHA',
     tap_share: 'Gusa',
     add_home: 'Ongeza kwenye skrini ya nyumbani',
     confirm: 'Thibitisha',
     install_app: 'Sakinisha programu',
-    install_desktop: 'Fungua katika Chrome/Edge ili kusakinisha'
+    install_desktop: 'Fungua katika Chrome/Edge ili kusakinisha',
+    close: 'Funga',
+    pause: 'Sitisha',
+    music: 'Muziki',
+    sfx: 'Sauti',
+    menu: 'Menyu'
   },
   
   buttons: {

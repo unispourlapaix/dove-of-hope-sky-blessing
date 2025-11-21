@@ -15,12 +15,23 @@ const tr = {
     language: 'Dil',
     choose_language: 'Dil seç',
     language_changed: 'Dil değiştirildi',
+    difficulty: 'Zorluk',
+    easy: 'Kolay',
+    normal: 'Normal',
+    hard: 'Zor',
+    legendary: 'Efsanevi',
+    difficulty_changed: 'Zorluk değiştirildi',
     install: 'YÜKLE',
     tap_share: 'Dokun',
     add_home: 'Ana ekrana ekle',
     confirm: 'Onayla',
-    install_app: 'Uygulamayı yükle',
-    install_desktop: 'Yüklemek için Chrome/Edge\'de aç'
+    install_app: 'Uygulama yükle',
+    install_desktop: 'Yüklemek için Chrome/Edge\'de aç',
+    close: 'Kapat',
+    pause: 'Duraklat',
+    music: 'Müzik',
+    sfx: 'Ses efektleri',
+    menu: 'Menü'
   },
   
   buttons: {

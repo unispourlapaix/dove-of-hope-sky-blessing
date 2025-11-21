@@ -15,12 +15,23 @@ const pl = {
     language: 'Język',
     choose_language: 'Wybierz język',
     language_changed: 'Język zmieniony',
+    difficulty: 'Trudność',
+    easy: 'Łatwy',
+    normal: 'Normalny',
+    hard: 'Trudny',
+    legendary: 'Legendarny',
+    difficulty_changed: 'Trudność zmieniona',
     install: 'ZAINSTALUJ',
     tap_share: 'Dotknij',
     add_home: 'Dodaj do ekranu głównego',
     confirm: 'Potwierdź',
     install_app: 'Zainstaluj aplikację',
-    install_desktop: 'Otwórz w Chrome/Edge, aby zainstalować'
+    install_desktop: 'Otwórz w Chrome/Edge, aby zainstalować',
+    close: 'Zamknij',
+    pause: 'Pauza',
+    music: 'Muzyka',
+    sfx: 'Efekty dźwiękowe',
+    menu: 'Menu'
   },
   
   buttons: {

@@ -15,12 +15,23 @@ const nl = {
     language: 'Taal',
     choose_language: 'Kies taal',
     language_changed: 'Taal gewijzigd',
+    difficulty: 'Moeilijkheid',
+    easy: 'Makkelijk',
+    normal: 'Normaal',
+    hard: 'Moeilijk',
+    legendary: 'Legendarisch',
+    difficulty_changed: 'Moeilijkheid gewijzigd',
     install: 'INSTALLEREN',
     tap_share: 'Tik op',
     add_home: 'Toevoegen aan startscherm',
     confirm: 'Bevestigen',
     install_app: 'App installeren',
-    install_desktop: 'Open in Chrome/Edge om te installeren'
+    install_desktop: 'Open in Chrome/Edge om te installeren',
+    close: 'Sluiten',
+    pause: 'Pauze',
+    music: 'Muziek',
+    sfx: 'Geluidseffecten',
+    menu: 'Menu'
   },
   
   buttons: {

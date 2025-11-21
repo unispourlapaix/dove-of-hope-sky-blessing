@@ -15,12 +15,23 @@ const ko = {
     language: '언어',
     choose_language: '언어 선택',
     language_changed: '언어 변경됨',
+    difficulty: '난이도',
+    easy: '쉬움',
+    normal: '보통',
+    hard: '어려움',
+    legendary: '전설',
+    difficulty_changed: '난이도 변경됨',
     install: '설치',
     tap_share: '탭하기',
     add_home: '홈 화면에 추가',
     confirm: '확인',
     install_app: '앱 설치',
-    install_desktop: 'Chrome/Edge에서 열어 설치'
+    install_desktop: 'Chrome/Edge에서 열어 설치',
+    close: '닫기',
+    pause: '일시정지',
+    music: '음악',
+    sfx: '효과음',
+    menu: '메뉴'
   },
   
   buttons: {

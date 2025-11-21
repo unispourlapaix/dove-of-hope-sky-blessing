@@ -15,12 +15,23 @@ const hi = {
     language: 'भाषा',
     choose_language: 'भाषा चुनें',
     language_changed: 'भाषा बदल गई',
+    difficulty: 'कठिनाई',
+    easy: 'आसान',
+    normal: 'सामान्य',
+    hard: 'कठिन',
+    legendary: 'पौराणिक',
+    difficulty_changed: 'कठिनाई बदल दी गई',
     install: 'इंस्टॉल करें',
     tap_share: 'टैप करें',
     add_home: 'होम स्क्रीन पर जोड़ें',
     confirm: 'पुष्टि करें',
     install_app: 'ऐप इंस्टॉल करें',
-    install_desktop: 'इंस्टॉल करने के लिए Chrome/Edge में खोलें'
+    install_desktop: 'इंस्टॉल करने के लिए Chrome/Edge में खोलें',
+    close: 'बंद करें',
+    pause: 'रोकें',
+    music: 'संगीत',
+    sfx: 'ध्वनि प्रभाव',
+    menu: 'मेनू'
   },
   
   buttons: {
