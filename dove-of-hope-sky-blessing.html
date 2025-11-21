@@ -6875,6 +6875,106 @@ function initGame() {
 // Initialiser le drapeau de langue au chargement
 updateLanguageFlag();
 
+// ============================================
+// 📱 PWA INSTALLATION & SERVICE WORKER
+// ============================================
+
+let deferredPrompt;
+let installButton;
+
+// Enregistrer le Service Worker
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/dove-of-hope-sky-blessing/sw.js')
+      .then(registration => {
+        console.log('✅ Service Worker enregistré:', registration.scope);
+      })
+      .catch(error => {
+        console.log('❌ Erreur Service Worker:', error);
+      });
+  });
+}
+
+// Créer le bouton d'installation (icône uniquement)
+function createInstallButton() {
+  installButton = document.createElement('button');
+  installButton.innerHTML = '📲';
+  installButton.title = 'Install app';
+  installButton.style.cssText = `
+    position: fixed;
+    top: 10px;
+    right: 55px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    width: 45px;
+    height: 45px;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 9998;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    transition: all 0.3s ease;
+    display: none;
+    align-items: center;
+    justify-content: center;
+  `;
+  
+  installButton.onmouseover = () => {
+    installButton.style.transform = 'scale(1.1)';
+    installButton.style.boxShadow = '0 6px 20px rgba(102, 126, 234, 0.6)';
+  };
+  
+  installButton.onmouseout = () => {
+    installButton.style.transform = 'scale(1)';
+    installButton.style.boxShadow = '0 4px 15px rgba(102, 126, 234, 0.4)';
+  };
+  
+  installButton.onclick = async () => {
+    if (!deferredPrompt) return;
+    
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    
+    if (outcome === 'accepted') {
+      console.log('✅ App installée');
+    }
+    
+    deferredPrompt = null;
+    installButton.style.display = 'none';
+  };
+  
+  document.body.appendChild(installButton);
+}
+
+// Détecter quand l'installation est possible
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  
+  if (!installButton) {
+    createInstallButton();
+  }
+  installButton.style.display = 'flex';
+});
+
+// Cacher le bouton après installation
+window.addEventListener('appinstalled', () => {
+  console.log('✅ App installée avec succès');
+  deferredPrompt = null;
+  if (installButton) {
+    installButton.style.display = 'none';
+  }
+});
+
+// Support iOS (Add to Home Screen)
+if (navigator.standalone !== undefined) {
+  if (!navigator.standalone && !window.matchMedia('(display-mode: standalone)').matches) {
+    // iOS: l'utilisateur peut ajouter à l'écran d'accueil via le menu Safari
+    console.log('💡 iOS: Utiliser Partager > Ajouter à l\'écran d\'accueil');
+  }
+}
+
 requestAnimationFrame(loop);
 </script>
 </body>
