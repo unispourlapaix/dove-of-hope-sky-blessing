@@ -35,6 +35,13 @@ const pt = {
     motivation: 'É hora de acender a luz - É um bom momento para realizar seus sonhos!',
     welcome: 'Bem-vindo, Cadete Primeiro Voo!'
   },
+
+  profile: {
+    nickname: 'Seu apelido',
+    email: 'Email (opcional)',
+    enter_nickname: 'Digite seu apelido...',
+    enter_email: 'seu@email.com'
+  },
   
   gameplay: [
     'Mexe-te, é a hora!',

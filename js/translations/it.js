@@ -35,6 +35,13 @@ const it = {
     motivation: 'È tempo di accendere la luce - È un buon momento per realizzare i tuoi sogni!',
     welcome: 'Benvenuto, Cadetto Primo Volo!'
   },
+
+  profile: {
+    nickname: 'Il tuo soprannome',
+    email: 'Email (facoltativo)',
+    enter_nickname: 'Inserisci il tuo soprannome...',
+    enter_email: 'tua@email.it'
+  },
   
   gameplay: [
     'Muoviti, è il momento!',

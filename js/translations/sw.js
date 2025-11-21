@@ -35,6 +35,13 @@ const sw = {
     motivation: '✨ Neema ya Mungu inaangazia njia yako! ✨',
     welcome: 'Karibu, Kadeti wa Ndege ya Kwanza!'
   },
+
+  profile: {
+    nickname: 'Jina lako la utani',
+    email: 'Barua pepe (si lazima)',
+    enter_nickname: 'Ingiza jina lako la utani...',
+    enter_email: 'yako@email.com'
+  },
   
   gameplay: [
     'Sogea, ni wakati!',

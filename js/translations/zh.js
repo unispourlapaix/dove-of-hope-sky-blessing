@@ -35,6 +35,13 @@ const zh = {
     motivation: '是时候点亮光明了 - 这是实现梦想的美好时刻！',
     welcome: '欢迎，新兵首飞员！'
   },
+
+  profile: {
+    nickname: '你的昵称',
+    email: '邮箱（可选）',
+    enter_nickname: '输入你的昵称...',
+    enter_email: 'your@email.cn'
+  },
   
   gameplay: [
     '行动起来，现在是时候了！',

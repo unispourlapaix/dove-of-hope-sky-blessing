@@ -35,6 +35,13 @@ const pl = {
     motivation: 'Czas zapalić światło - To dobry czas, aby spełnić swoje marzenia!',
     welcome: 'Witaj, Kadet Pierwszego Lotu!'
   },
+
+  profile: {
+    nickname: 'Twój pseudonim',
+    email: 'Email (opcjonalny)',
+    enter_nickname: 'Wprowadź swój pseudonim...',
+    enter_email: 'twoj@email.pl'
+  },
   
   gameplay: [
     'Ruszaj się, to czas!',

@@ -35,6 +35,13 @@ const de = {
     motivation: 'Es ist Zeit, das Licht einzuschalten - Es ist eine gute Zeit, deine Träume wahr werden zu lassen!',
     welcome: 'Willkommen, Kadett Erstflug!'
   },
+
+  profile: {
+    nickname: 'Dein Spitzname',
+    email: 'E-Mail (optional)',
+    enter_nickname: 'Gib deinen Spitznamen ein...',
+    enter_email: 'deine@email.de'
+  },
   
   gameplay: [
     'Beweg dich, es ist Zeit!',

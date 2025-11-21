@@ -27,13 +27,20 @@ const ko = {
   },
   
   messages: {
-    start: '날아라, 작은 비둘기! 구름을 흩어라!',
+    start: '날아라, 작은 비둘기! 구름을 흔어라!',
     restart: '비둘기가 다시 태어났다! 다시 시작하자!',
     gameOver: '게임 오버! 하지만 역경 속에서 당신은 더욱 빛난다!',
-    victory: '승리! 시편 99.1 - 삶은 놀라운 모험이다! - 오리게네스가 말했다',
+    victory: '승리! 시펄99.1 - 삶은 놀라운 모험이다! - 오리게네스가 말했다',
     levelUp: '레벨 {level} - 빛이 자란다!',
     motivation: '빛을 밝힐 시간이다 - 꿈을 실현할 아름다운 시간이다!',
     welcome: '환영합니다, 첫 비행 생도!'
+  },
+
+  profile: {
+    nickname: '당신의 닉네임',
+    email: '이메일 (선택사항)',
+    enter_nickname: '닉네임을 입력하세요...',
+    enter_email: 'your@email.kr'
   },
   
   gameplay: [

@@ -35,6 +35,13 @@ const ar = {
     motivation: 'حان وقت إضاءة النور - إنه وقت جميل لتحقيق أحلامك!',
     welcome: 'مرحباً، طيّار الرحلة الأولى!'
   },
+
+  profile: {
+    nickname: 'لقبك',
+    email: 'البريد الإلكتروني (اختياري)',
+    enter_nickname: 'أدخل لقبك...',
+    enter_email: 'your@email.com'
+  },
   
   gameplay: [
     'تحرك، حان الوقت!',

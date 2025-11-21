@@ -32,6 +32,13 @@ const ja = {
     motivation: '光を灯す時です - 夢を実現する素晴らしい時です！',
     welcome: 'ようこそ、初飛行士官候補生！'
   },
+
+  profile: {
+    nickname: 'あなたのニックネーム',
+    email: 'メール（任意）',
+    enter_nickname: 'ニックネームを入力...',
+    enter_email: 'your@email.jp'
+  },
   
   gameplay: [
     '動け、今こそ時だ！',

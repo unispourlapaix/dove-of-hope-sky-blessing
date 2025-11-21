@@ -35,6 +35,13 @@ const ru = {
     motivation: 'Пора зажечь свет - Прекрасное время для осуществления мечты!',
     welcome: 'Добро пожаловать, Кадет Первого Полёта!'
   },
+
+  profile: {
+    nickname: 'Ваш ник',
+    email: 'Email (необязательно)',
+    enter_nickname: 'Введите ваш ник...',
+    enter_email: 'your@email.ru'
+  },
   
   gameplay: [
     'Двигайся, пришло время!',
