@@ -3830,7 +3830,40 @@ for(let bi = bullets.length - 1; bi >= 0; bi--){
         setTimeout(() => {
           const previousState = state;
           state = 'paused';
-          showLevelUpMessage(newLevelInfo, previousState);
+          
+          // Préparer la callback pour les niveaux bonus
+          let onLevelUpClose = null;
+          if(level === 3) {
+            bonusLevelNumber = 1;
+            console.log('🎁 Bonus 1 préparé pour niveau 3');
+            onLevelUpClose = () => {
+              console.log('🎁 Déclenchement Bonus 1');
+              startBonusLevel();
+            };
+          } else if(level === 7) {
+            bonusLevelNumber = 2;
+            console.log('🎁 Bonus 2 préparé pour niveau 7');
+            onLevelUpClose = () => {
+              console.log('🎁 Déclenchement Bonus 2');
+              startBonusLevel();
+            };
+          } else if(level === 11) {
+            bonusLevelNumber = 3;
+            console.log('🎁 Bonus 3 préparé pour niveau 11');
+            onLevelUpClose = () => {
+              console.log('🎁 Déclenchement Bonus 3');
+              startBonusLevel();
+            };
+          } else if(level === 13) {
+            bonusLevelNumber = 4;
+            console.log('🎁 Bonus 4 préparé pour niveau 13');
+            onLevelUpClose = () => {
+              console.log('🎁 Déclenchement Bonus 4');
+              startBonusLevel();
+            };
+          }
+          
+          showLevelUpMessage(newLevelInfo, previousState, onLevelUpClose);
         }, 1000);
       }
       
@@ -6611,7 +6644,7 @@ function showBossVictoryScreen(bossType, onClose) {
   }
 }
 
-function showLevelUpMessage(levelInfo, previousState = 'playing') {
+function showLevelUpMessage(levelInfo, previousState = 'playing', onClose = null) {
   
   // Utiliser le verset traduit depuis verses.rank au lieu du verset hardcodé
   const rankVerse = t('verses.rank.' + levelInfo.id);
@@ -6636,7 +6669,7 @@ function showLevelUpMessage(levelInfo, previousState = 'playing') {
     animation: fadeIn 0.5s ease-in;
   `;
   levelUpDiv.innerHTML = `
-    <div onclick="this.parentElement.remove(); state = '${previousState}'; if(state === 'playing') { lastTime = Date.now(); requestAnimationFrame(loop); }" style="
+    <div style="
       width: 320px;
       min-height: 420px;
       background: linear-gradient(145deg, #ffffff 0%, #fafafa 100%);
@@ -6753,6 +6786,25 @@ function showLevelUpMessage(levelInfo, previousState = 'playing') {
     </div>
   `;
   document.getElementById('gameContainer').appendChild(levelUpDiv);
+  
+  // Ajouter l'événement click pour fermer et exécuter la callback
+  const levelUpCard = levelUpDiv.querySelector('div');
+  if (levelUpCard) {
+    levelUpCard.addEventListener('click', function() {
+      console.log('🖱️ Click sur écran de niveau, onClose:', onClose ? 'défini' : 'null');
+      levelUpDiv.remove();
+      state = previousState;
+      if(state === 'playing') {
+        lastTime = Date.now();
+        requestAnimationFrame(loop);
+      }
+      // Exécuter la callback si elle existe (pour les niveaux bonus)
+      if (onClose && typeof onClose === 'function') {
+        console.log('🎁 Exécution callback niveau bonus dans 300ms...');
+        setTimeout(onClose, 300); // Petit délai pour une transition fluide
+      }
+    });
+  }
   
   // Jouer un son de récompense si disponible
   if (typeof playSound === 'function') {
