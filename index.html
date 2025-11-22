@@ -3285,6 +3285,7 @@ function restart(){
 }
 
 function startBonusLevel(){
+  console.log('🎁 startBonusLevel appelée, bonusLevelNumber:', bonusLevelNumber);
   // Supprimer tous les anciens menus de bonus qui pourraient traîner
   const oldMenus = document.querySelectorAll('[data-bonus-menu]');
   oldMenus.forEach(menu => menu.remove());
@@ -3314,66 +3315,68 @@ function startBonusLevel(){
   
   const message = bonusMessages[bonusLevelNumber - 1] || bonusMessages[0];
   
+  // Afficher un message d'introduction qui se ferme automatiquement
   const bonusDiv=document.createElement('div');
-  bonusDiv.setAttribute('data-bonus-menu', 'start');
+  bonusDiv.setAttribute('data-bonus-menu', 'intro');
   bonusDiv.style.cssText=`
     position:absolute;
     top:50%;
     left:50%;
     transform:translate(-50%,-50%);
     width:90%;
-    max-width:500px;
-    background:rgba(255,255,255,0.95);
-    backdrop-filter:blur(20px);
-    color:#1a1a2e;
+    max-width:400px;
+    background:linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color:white;
     padding:30px;
     border-radius:25px;
     text-align:center;
     z-index:450;
-    box-shadow:0 20px 60px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.3) inset;
-    animation:fadeIn 0.5s ease-in;
-    border:2px solid rgba(255,255,255,0.5);
+    box-shadow:0 20px 60px rgba(0,0,0,0.5);
+    animation:fadeIn 0.3s ease-in;
+    cursor:pointer;
   `;
   
   bonusDiv.innerHTML=`
-    <div style="display:inline-block;padding:8px 20px;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);border-radius:20px;margin-bottom:15px;">
-      <h2 style="font-size:22px;margin:0;color:white;font-weight:800;letter-spacing:1px;">🎁 ${t('bonus.level_title')} ${bonusLevelNumber}</h2>
-    </div>
-    <p style="font-size:12px;font-style:italic;margin-bottom:18px;color:#4a4a68;line-height:1.5;padding:0 10px;">
+    <div style="font-size:48px;margin-bottom:15px;">🎁</div>
+    <h2 style="font-size:24px;margin:0 0 15px 0;font-weight:800;letter-spacing:1px;">
+      ${t('bonus.level_title')} ${bonusLevelNumber}
+    </h2>
+    <p style="font-size:13px;font-style:italic;margin-bottom:20px;line-height:1.6;opacity:0.95;">
       "${message}"
     </p>
-    <div style="background:linear-gradient(135deg,#f5f7fa 0%,#c3cfe2 100%);padding:15px;border-radius:15px;margin-bottom:15px;font-size:13px;line-height:1.8;color:#2d3436;">
-      <strong style="display:block;margin-bottom:8px;font-size:14px;color:#1a1a2e;">✨ ${t('bonus.collect_blessings')}</strong>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;text-align:left;">
-        <div>⭐ ${t('bonus.star')} <span style="color:#f39c12;font-weight:bold;">+300</span></div>
-        <div>❤️ ${t('bonus.heart')} <span style="color:#e74c3c;font-weight:bold;">+500</span></div>
-        <div>✝️ ${t('bonus.cross')} <span style="color:#3498db;font-weight:bold;">+1000</span></div>
-        <div>🌈 ${t('bonus.rainbow')} <span style="color:#9b59b6;font-weight:bold;">+1500</span></div>
-      </div>
-      <div style="margin-top:8px;text-align:center;color:#e74c3c;font-weight:bold;background:rgba(231,76,60,0.1);padding:6px;border-radius:8px;">
-        💰 ${t('bonus.coin_trap')}
+    <div style="background:rgba(255,255,255,0.2);padding:15px;border-radius:15px;margin-bottom:15px;">
+      <div style="font-size:14px;margin-bottom:8px;font-weight:600;">✨ Collecte les bénédictions :</div>
+      <div style="font-size:12px;line-height:1.8;">
+        ⭐ +300 | ❤️ +500 | ✝️ +1000 | 🌈 +1500
+        <div style="margin-top:5px;color:#ffcccc;">💰 Piège -200</div>
       </div>
     </div>
-    <p style="font-size:14px;margin-bottom:20px;font-weight:600;color:#2d3436;background:rgba(52,152,219,0.1);padding:10px;border-radius:10px;">
-      🎯 ${t('bonus.objective')} <span style="color:#3498db;font-size:16px;">${bonusItemsTarget}</span> ${t('bonus.objects')}
-    </p>
-    <button onclick="this.parentElement.remove();state='playing';" style="
-      padding:14px 40px;
-      background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
-      color:white;
-      border:none;
-      border-radius:50px;
-      font-size:16px;
-      font-weight:bold;
-      cursor:pointer;
-      box-shadow:0 8px 20px rgba(102,126,234,0.4);
-      transition:all 0.3s;
-      letter-spacing:1px;
-      text-transform:uppercase;
-    " onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 12px 25px rgba(102,126,234,0.5)'" onmouseout="this.style.transform='';this.style.boxShadow='0 8px 20px rgba(102,126,234,0.4)'">✨ ${t('buttons.start_bonus')}</button>
+    <div style="font-size:16px;font-weight:bold;margin-bottom:15px;">
+      🎯 Objectif : ${bonusItemsTarget} objets
+    </div>
+    <p style="font-size:11px;opacity:0.8;margin:0;">Clique pour commencer...</p>
   `;
   
   document.getElementById('gameContainer').appendChild(bonusDiv);
+  
+  // Fermer au clic et démarrer le jeu
+  bonusDiv.addEventListener('click', function() {
+    bonusDiv.remove();
+    state = 'playing';
+    lastTime = Date.now();
+    requestAnimationFrame(loop);
+  });
+  
+  // Fermer automatiquement après 4 secondes
+  setTimeout(() => {
+    if (bonusDiv.parentElement) {
+      bonusDiv.remove();
+      state = 'playing';
+      lastTime = Date.now();
+      requestAnimationFrame(loop);
+    }
+  }, 4000);
+  
   state='paused';
 }
 
