@@ -160,16 +160,16 @@ body{margin:0;padding:0;background:linear-gradient(135deg,#e8eef2 0%,#d4dce3 50%
   <!-- Icônes en colonne compacte -->
   <div style="display:flex;flex-direction:column;gap:4px;">
     <!-- Fermer -->
-    <div onclick="document.getElementById('pauseMenu').style.display='none'; document.getElementById('pauseMenuOverlay').style.display='none'" style="cursor:pointer;font-size:18px;padding:6px;border-radius:8px;transition:all 0.2s;background:rgba(231,76,60,0.1);text-align:center;display:flex;align-items:center;justify-content:center;" onmouseover="this.style.background='rgba(231,76,60,0.3)'" onmouseout="this.style.background='rgba(231,76,60,0.1)'" title="Fermer">✕</div>
+    <div data-action="close" style="cursor:pointer;font-size:18px;padding:6px;border-radius:8px;transition:all 0.2s;background:rgba(231,76,60,0.1);text-align:center;display:flex;align-items:center;justify-content:center;" onmouseover="this.style.background='rgba(231,76,60,0.3)'" onmouseout="this.style.background='rgba(231,76,60,0.1)'" title="Fermer">✕</div>
     
     <!-- Pause -->
-    <div onclick="togglePause(); document.getElementById('pauseMenu').style.display='none'; document.getElementById('pauseMenuOverlay').style.display='none';" style="cursor:pointer;font-size:18px;padding:6px;border-radius:8px;transition:all 0.2s;background:rgba(231,76,60,0.1);text-align:center;display:flex;align-items:center;justify-content:center;" onmouseover="this.style.background='rgba(231,76,60,0.2)'" onmouseout="this.style.background='rgba(231,76,60,0.1)'" title="Pause">⏸</div>
+    <div data-action="pause" style="cursor:pointer;font-size:18px;padding:6px;border-radius:8px;transition:all 0.2s;background:rgba(231,76,60,0.1);text-align:center;display:flex;align-items:center;justify-content:center;" onmouseover="this.style.background='rgba(231,76,60,0.2)'" onmouseout="this.style.background='rgba(231,76,60,0.1)'" title="Pause">⏸</div>
 
     <!-- Musique -->
-    <div class="audio-btn" id="musicBtn" onclick="document.getElementById('pauseMenu').style.display='none'; document.getElementById('pauseMenuOverlay').style.display='none';" style="cursor:pointer;font-size:18px;padding:6px;border-radius:8px;transition:all 0.2s;background:rgba(155,89,182,0.1);text-align:center;display:flex;align-items:center;justify-content:center;" onmouseover="this.style.background='rgba(155,89,182,0.2)'" onmouseout="this.style.background='rgba(155,89,182,0.1)'" title="Musique">🎵</div>
+    <div class="audio-btn" id="musicBtn" style="cursor:pointer;font-size:18px;padding:6px;border-radius:8px;transition:all 0.2s;background:rgba(155,89,182,0.1);text-align:center;display:flex;align-items:center;justify-content:center;" onmouseover="this.style.background='rgba(155,89,182,0.2)'" onmouseout="this.style.background='rgba(155,89,182,0.1)'" title="Musique">🎵</div>
     
     <!-- SFX -->
-    <div class="audio-btn" id="sfxBtn" onclick="document.getElementById('pauseMenu').style.display='none'; document.getElementById('pauseMenuOverlay').style.display='none';" style="cursor:pointer;font-size:18px;padding:6px;border-radius:8px;transition:all 0.2s;background:rgba(155,89,182,0.1);text-align:center;display:flex;align-items:center;justify-content:center;" onmouseover="this.style.background='rgba(155,89,182,0.2)'" onmouseout="this.style.background='rgba(155,89,182,0.1)'" title="Effets">🔊</div>
+    <div class="audio-btn" id="sfxBtn" style="cursor:pointer;font-size:18px;padding:6px;border-radius:8px;transition:all 0.2s;background:rgba(155,89,182,0.1);text-align:center;display:flex;align-items:center;justify-content:center;" onmouseover="this.style.background='rgba(155,89,182,0.2)'" onmouseout="this.style.background='rgba(155,89,182,0.1)'" title="Effets">🔊</div>
 
     <!-- Installer PWA -->
     <div id="installBtnMenu" onclick="triggerPWAInstall()" style="cursor:pointer;font-size:18px;padding:6px;border-radius:8px;transition:all 0.2s;background:rgba(102,126,234,0.15);text-align:center;display:flex;align-items:center;justify-content:center;" onmouseover="this.style.background='rgba(102,126,234,0.3)'" onmouseout="this.style.background='rgba(102,126,234,0.15)'" title="Installer">📲</div>
@@ -4490,6 +4490,22 @@ startBtn.addEventListener('click',()=>{
 
   // Les boss apparaîtront automatiquement à la fin de leur niveau respectif (pas au début)
 });
+
+// OPTIMISATION: Event delegation pour menu O/I
+const pauseMenu = document.getElementById('pauseMenu');
+if(pauseMenu) {
+  pauseMenu.addEventListener('click', (e) => {
+    const action = e.target.closest('[data-action]')?.dataset.action;
+    if(action === 'close') {
+      pauseMenu.style.display = 'none';
+      document.getElementById('pauseMenuOverlay').style.display = 'none';
+    } else if(action === 'pause') {
+      togglePause();
+      pauseMenu.style.display = 'none';
+      document.getElementById('pauseMenuOverlay').style.display = 'none';
+    }
+  });
+}
 
 addEventListener('resize',resizeCanvas);
 
