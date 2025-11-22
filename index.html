@@ -6507,6 +6507,10 @@ function completeLevel() {
 // ============================================
 // Afficher l'écran de victoire du boss avec le message defeated
 function showBossVictoryScreen(bossType, onClose) {
+  // Mettre le jeu en pause
+  const previousState = state;
+  state = 'paused';
+  
   // Convertir camelCase vers snake_case pour compatibilité
   const bossKey = bossType.replace(/([A-Z])/g, '_$1').toLowerCase();
   const bossTranslations = t(`bosses.${bossKey}`) || {};
@@ -6737,6 +6741,12 @@ function showBossVictoryScreen(bossType, onClose) {
   if(continueBtn) {
     continueBtn.onclick = () => {
       victoryDiv.remove();
+      // Reprendre le jeu
+      state = previousState;
+      if(state === 'playing') {
+        lastTime = Date.now();
+        requestAnimationFrame(loop);
+      }
       if(onClose) onClose();
     };
   }
