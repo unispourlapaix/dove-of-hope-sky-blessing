@@ -3639,36 +3639,37 @@ if(isBonusLevel){
   // Mode bonus : objets tombent
   if(Math.random()<0.03)bonusItems.push(bonusItem());
   
-  // Faire tomber les objets bonus
-  bonusItems.forEach((item,i)=>{
-    item.y+=item.s*dtFactor;
-    item.rotation+=item.rotSpeed*dtFactor;
-    if(item.y>c.height){
-      bonusItems.splice(i,1);
-    }else if(hit(item,player)){
-      bonusItems.splice(i,1);
-      score+=item.points;
+  // OPTIMISATION: Faire tomber les objets bonus avec filter
+  bonusItems = bonusItems.filter((item) => {
+    item.y += item.s * dtFactor;
+    item.rotation += item.rotSpeed * dtFactor;
+    
+    if(item.y > c.height) return false;
+    
+    if(hit(item, player)) {
+      score += item.points;
       bonusItemsCollected++;
-      playSound('bonus'); // Son joyeux de collecte
+      playSound('bonus');
       
       // OPTIMISATION: Particules colorées réduites de 10 à 3
-      if(particles.length < 150) { // Limite globale
-        for(let j=0;j<3;j++){
-          const p=particle(item.x+item.w/2,item.y+item.h/2);
-          p.c=item.color;
+      if(particles.length < 150) {
+        for(let j=0; j<3; j++) {
+          const p = particle(item.x + item.w/2, item.y + item.h/2);
+          p.c = item.color;
           particles.push(p);
         }
       }
       
-      // Message de points
       msg(`+${item.points} pts ${item.icon}`);
       
       // Vérifier si objectif atteint
-      if(bonusItemsCollected>=bonusItemsTarget){
-        playSound('levelup'); // Son de victoire du niveau bonus
-        setTimeout(()=>endBonusLevel(),500);
+      if(bonusItemsCollected >= bonusItemsTarget) {
+        playSound('levelup');
+        setTimeout(() => endBonusLevel(), 500);
       }
+      return false; // Supprimer l'item
     }
+    return true; // Garder l'item
   });
 }else{
   // OPTIMISATION: Spawn nuages avec timer au lieu de random chaque frame
@@ -3739,12 +3740,38 @@ clouds = clouds.filter((cl) => {
   return cl.y <= c.height; // Garder si encore visible
 });
 
-rain.forEach((r,i)=>{r.y+=r.s*dtFactor;if(r.y>c.height){rain.splice(i,1);}else if(!umbrella&&hit(r,player)){rain.splice(i,1);lives--;playSound('damage');updateStats('totalLivesLost');updateStats('deathsByRain');const rainMsgs=t('rain');msg(rainMsgs[Math.floor(Math.random()*rainMsgs.length)]);if(lives<=0){state='gameOver';setSun('sad');stopMusic();const survivalTime=Date.now()-gameStartTime;saveGameEnd(score,level,cloudsCleared,survivalTime);
-// Nouveau système de base de données simplifié
-promptPlayerInfo();
-const isNewRecord=updateBestScore(totalScore);
-if(isNewRecord){msg(t('powerups.new_record',{score:totalScore}));showPopup(t('powerups.new_record_popup',{score:totalScore}),'\ud83c\udfc6','success');}
-msg(t('messages.gameOver'));}else{setSun('neutral');setTimeout(()=>{if(state==='playing')setSun('happy');},2000);}}});
+// OPTIMISATION: Utiliser filter pour pluie
+rain = rain.filter((r) => {
+  r.y += r.s * dtFactor;
+  if(r.y > c.height) return false;
+  if(!umbrella && hit(r, player)) {
+    lives--;
+    playSound('damage');
+    updateStats('totalLivesLost');
+    updateStats('deathsByRain');
+    const rainMsgs = t('rain');
+    msg(rainMsgs[Math.floor(Math.random() * rainMsgs.length)]);
+    if(lives <= 0) {
+      state = 'gameOver';
+      setSun('sad');
+      stopMusic();
+      const survivalTime = Date.now() - gameStartTime;
+      saveGameEnd(score, level, cloudsCleared, survivalTime);
+      promptPlayerInfo();
+      const isNewRecord = updateBestScore(totalScore);
+      if(isNewRecord) {
+        msg(t('powerups.new_record', {score: totalScore}));
+        showPopup(t('powerups.new_record_popup', {score: totalScore}), '🏆', 'success');
+      }
+      msg(t('messages.gameOver'));
+    } else {
+      setSun('neutral');
+      setTimeout(() => {if(state === 'playing') setSun('happy');}, 2000);
+    }
+    return false;
+  }
+  return true;
+});
 
 // Gestion de la musique de pluie - DÉSACTIVÉE (réservée au boss Dark Cloud uniquement)
 // La musique de pluie est lancée uniquement lors du spawn du boss Dark Cloud
@@ -3759,7 +3786,33 @@ if (false) {
   }
 }
 
-powerUps.forEach((p,i)=>{p.y+=p.s*dtFactor;if(p.y>c.height){powerUps.splice(i,1);}else if(hit(p,player)){powerUps.splice(i,1);playSound('powerup');updateStats('totalPowerUpsCollected');if(p.type==='umbrella'){umbrella=true;const remaining=umbrella&&umbrellaEndTime>Date.now()?umbrellaEndTime-Date.now():0;umbrellaEndTime=Date.now()+remaining+5000;msg(t('powerups.umbrella'));}else if(p.type==='electric'){electric=true;const remaining=electric&&electricEndTime>Date.now()?electricEndTime-Date.now():0;electricEndTime=Date.now()+remaining+10000;msg(t('powerups.electric'));}else if(p.type==='multishot'){multi=true;const remaining=multi&&multiEndTime>Date.now()?multiEndTime-Date.now():0;multiEndTime=Date.now()+remaining+6000;msg(t('powerups.multishot'));}}});
+// OPTIMISATION: Utiliser filter pour powerUps
+powerUps = powerUps.filter((p) => {
+  p.y += p.s * dtFactor;
+  if(p.y > c.height) return false;
+  if(hit(p, player)) {
+    playSound('powerup');
+    updateStats('totalPowerUpsCollected');
+    if(p.type === 'umbrella') {
+      umbrella = true;
+      const remaining = umbrella && umbrellaEndTime > Date.now() ? umbrellaEndTime - Date.now() : 0;
+      umbrellaEndTime = Date.now() + remaining + 5000;
+      msg(t('powerups.umbrella'));
+    } else if(p.type === 'electric') {
+      electric = true;
+      const remaining = electric && electricEndTime > Date.now() ? electricEndTime - Date.now() : 0;
+      electricEndTime = Date.now() + remaining + 10000;
+      msg(t('powerups.electric'));
+    } else if(p.type === 'multishot') {
+      multi = true;
+      const remaining = multi && multiEndTime > Date.now() ? multiEndTime - Date.now() : 0;
+      multiEndTime = Date.now() + remaining + 6000;
+      msg(t('powerups.multishot'));
+    }
+    return false;
+  }
+  return true;
+});
 
 // OPTIMISATION: Collision balles-nuages avec spatial culling
 for(let bi = bullets.length - 1; bi >= 0; bi--){
