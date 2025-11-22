@@ -233,16 +233,37 @@
             // Fond transparent
             ctx.clearRect(0, 0, size, size);
 
-            const scale = size / 60; // Échelle encore plus grande pour remplir l'icône
+            // Pour petites icônes (16px, 32px), utiliser une échelle plus grande
+            // pour que les triangles soient bien visibles
+            let scale;
+            if (size <= 32) {
+                scale = size / 40; // Échelle augmentée pour 16px et 32px
+            } else if (size <= 48) {
+                scale = size / 50;
+            } else {
+                scale = size / 60;
+            }
             const s = (val) => val * scale;
 
             // Position centrée pour la colombe (maximale)
             const playerX = size/2 - s(20);
             const playerY = size/2 - s(15);
 
-            // Halo doré réduit (exactement comme le jeu mais plus petit)
+            // Halo doré (adapté selon la taille)
             const glow = '#f1c40f';
-            const intensity = s(20);
+            let intensity, haloRadius, auraRadius;
+            
+            if (size <= 32) {
+                // Pour 16px et 32px: halo plus petit mais visible
+                intensity = s(15);
+                haloRadius = s(22);
+                auraRadius = s(30);
+            } else {
+                intensity = s(20);
+                haloRadius = s(25);
+                auraRadius = s(35);
+            }
+            
             const haloColor = 'rgba(241,196,15,0.3)';
             const haloGlow = '#f1c40f';
 
@@ -250,7 +271,7 @@
             ctx.shadowColor = haloGlow;
             ctx.fillStyle = haloColor;
             ctx.beginPath();
-            ctx.arc(playerX + s(20), playerY + s(15), s(25), 0, Math.PI * 2); // 40 -> 25
+            ctx.arc(playerX + s(20), playerY + s(15), haloRadius, 0, Math.PI * 2);
             ctx.fill();
 
             // Colombe du jeu - CODE EXACT
@@ -258,7 +279,13 @@
             ctx.shadowColor = glow;
             ctx.fillStyle = '#ffffff';
             ctx.strokeStyle = '#2c3e50';
-            ctx.lineWidth = s(1);
+            
+            // Ligne plus épaisse pour petites icônes
+            if (size <= 32) {
+                ctx.lineWidth = s(1.5);
+            } else {
+                ctx.lineWidth = s(1);
+            }
 
             const beat = Math.sin(Date.now() * 0.015) * s(2);
 
@@ -303,7 +330,7 @@
             ctx.shadowColor = 'rgba(241,196,15,0.4)';
             ctx.fillStyle = 'rgba(255,255,255,0.1)';
             ctx.beginPath();
-            ctx.arc(playerX + s(20), playerY + s(15), s(35), 0, Math.PI * 2); // 50 -> 35
+            ctx.arc(playerX + s(20), playerY + s(15), auraRadius, 0, Math.PI * 2);
             ctx.fill();
             ctx.shadowBlur = 0;
 
