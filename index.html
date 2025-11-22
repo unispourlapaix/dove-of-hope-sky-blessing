@@ -3362,6 +3362,7 @@ function startBonusLevel(){
     <p style="font-size:11px;opacity:0.8;margin:0;">${t('ui.click_to_continue') || 'Clique pour commencer...'}</p>
   `;
   
+  state = 'paused';
   document.getElementById('gameContainer').appendChild(bonusDiv);
   
   // Fermer au clic et démarrer le jeu
@@ -3371,8 +3372,6 @@ function startBonusLevel(){
     lastTime = Date.now();
     requestAnimationFrame(loop);
   });
-  
-  state='paused';
 }
 
 // 🧪 FONCTION TEST - Lancer un niveau bonus directement
@@ -3462,6 +3461,7 @@ function endBonusLevel(){
     <p style="font-size:11px;opacity:0.8;margin:0;">${t('ui.click_to_continue') || 'Clique pour continuer...'}</p>
   `;
   
+  state = 'paused';
   document.getElementById('gameContainer').appendChild(endDiv);
   
   // Fermer au clic et reprendre le jeu
@@ -3471,8 +3471,6 @@ function endBonusLevel(){
     lastTime = Date.now();
     requestAnimationFrame(loop);
   });
-  
-  state='paused';
 }
 
 function update(dt){
