@@ -31,7 +31,8 @@ const nl = {
     pause: 'Pauze',
     music: 'Muziek',
     sfx: 'Geluidseffecten',
-    menu: 'Menu'
+    menu: 'Menu',
+    click_to_continue: 'Klik om door te gaan...'
   },
   
   export: {

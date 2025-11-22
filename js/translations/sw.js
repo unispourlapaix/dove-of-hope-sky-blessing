@@ -31,7 +31,8 @@ const sw = {
     pause: 'Sitisha',
     music: 'Muziki',
     sfx: 'Sauti',
-    menu: 'Menyu'
+    menu: 'Menyu',
+    click_to_continue: 'Bonyeza kuendelea...'
   },
   
   export: {

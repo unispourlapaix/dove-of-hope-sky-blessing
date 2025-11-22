@@ -25,7 +25,8 @@ const ru = {
     pause: 'Пауза',
     music: 'Музыка',
     sfx: 'Эффекты',
-    menu: 'Меню'
+    menu: 'Меню',
+    click_to_continue: 'Нажмите, чтобы продолжить...'
   },
   
   export: {

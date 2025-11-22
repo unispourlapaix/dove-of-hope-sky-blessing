@@ -25,7 +25,8 @@ const de = {
     pause: 'Pause',
     music: 'Musik',
     sfx: 'Effekte',
-    menu: 'Menü'
+    menu: 'Menü',
+    click_to_continue: 'Klicken zum Fortfahren...'
   },
   
   export: {

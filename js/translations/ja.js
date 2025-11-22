@@ -31,7 +31,8 @@ const ja = {
     pause: '一時停止',
     music: '音楽',
     sfx: '効果音',
-    menu: 'メニュー'
+    menu: 'メニュー',
+    click_to_continue: 'クリックして続ける...'
   },
   
   export: {

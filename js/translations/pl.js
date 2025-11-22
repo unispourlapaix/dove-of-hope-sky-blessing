@@ -31,7 +31,8 @@ const pl = {
     pause: 'Pauza',
     music: 'Muzyka',
     sfx: 'Efekty dźwiękowe',
-    menu: 'Menu'
+    menu: 'Menu',
+    click_to_continue: 'Kliknij, aby kontynuować...'
   },
   
   export: {

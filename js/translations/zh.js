@@ -31,7 +31,8 @@ const zh = {
     pause: '暂停',
     music: '音乐',
     sfx: '音效',
-    menu: '菜单'
+    menu: '菜单',
+    click_to_continue: '点击继续...'
   },
   
   export: {

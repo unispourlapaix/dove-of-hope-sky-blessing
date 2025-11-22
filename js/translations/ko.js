@@ -31,7 +31,8 @@ const ko = {
     pause: '일시정지',
     music: '음악',
     sfx: '효과음',
-    menu: '메뉴'
+    menu: '메뉴',
+    click_to_continue: '계속하려면 클릭하세요...'
   },
   
   export: {

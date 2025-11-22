@@ -31,7 +31,8 @@ const en = {
     pause: 'Pause',
     music: 'Music',
     sfx: 'Sound effects',
-    menu: 'Menu'
+    menu: 'Menu',
+    click_to_continue: 'Click to continue...'
   },
   
   export: {

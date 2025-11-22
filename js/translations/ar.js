@@ -31,7 +31,8 @@ const ar = {
     pause: 'إيقاف مؤقت',
     music: 'موسيقى',
     sfx: 'مؤثرات صوتية',
-    menu: 'القائمة'
+    menu: 'القائمة',
+    click_to_continue: 'انقر للمتابعة...'
   },
   
   export: {

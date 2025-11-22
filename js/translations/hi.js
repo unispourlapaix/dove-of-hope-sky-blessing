@@ -31,7 +31,8 @@ const hi = {
     pause: 'रोकें',
     music: 'संगीत',
     sfx: 'ध्वनि प्रभाव',
-    menu: 'मेनू'
+    menu: 'मेनू',
+    click_to_continue: 'जारी रखने के लिए क्लिक करें...'
   },
   
   export: {

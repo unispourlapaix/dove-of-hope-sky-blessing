@@ -3345,16 +3345,16 @@ function startBonusLevel(){
       "${message}"
     </p>
     <div style="background:rgba(255,255,255,0.2);padding:15px;border-radius:15px;margin-bottom:15px;">
-      <div style="font-size:14px;margin-bottom:8px;font-weight:600;">✨ Collecte les bénédictions :</div>
+      <div style="font-size:14px;margin-bottom:8px;font-weight:600;">✨ ${t('bonus.collect_blessings')}</div>
       <div style="font-size:12px;line-height:1.8;">
         ⭐ +300 | ❤️ +500 | ✝️ +1000 | 🌈 +1500
-        <div style="margin-top:5px;color:#ffcccc;">💰 Piège -200</div>
+        <div style="margin-top:5px;color:#ffcccc;">💰 ${t('bonus.coin_trap')}</div>
       </div>
     </div>
     <div style="font-size:16px;font-weight:bold;margin-bottom:15px;">
-      🎯 Objectif : ${bonusItemsTarget} objets
+      🎯 ${t('bonus.objective')} ${bonusItemsTarget} ${t('bonus.objects')}
     </div>
-    <p style="font-size:11px;opacity:0.8;margin:0;">Clique pour commencer...</p>
+    <p style="font-size:11px;opacity:0.8;margin:0;">${t('ui.click_to_continue') || 'Clique pour commencer...'}</p>
   `;
   
   document.getElementById('gameContainer').appendChild(bonusDiv);
@@ -3452,7 +3452,7 @@ function endBonusLevel(){
       </p>
       <p style="font-size:42px;margin:0;font-weight:800;">+${bonusScore}</p>
     </div>
-    <p style="font-size:11px;opacity:0.8;margin:0;">Clique pour continuer...</p>
+    <p style="font-size:11px;opacity:0.8;margin:0;">${t('ui.click_to_continue') || 'Clique pour continuer...'}</p>
   `;
   
   document.getElementById('gameContainer').appendChild(endDiv);

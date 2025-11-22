@@ -31,7 +31,8 @@ const tr = {
     pause: 'Duraklat',
     music: 'Müzik',
     sfx: 'Ses efektleri',
-    menu: 'Menü'
+    menu: 'Menü',
+    click_to_continue: 'Devam etmek için tıklayın...'
   },
   
   export: {

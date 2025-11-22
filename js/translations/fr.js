@@ -31,7 +31,8 @@ const fr = {
     pause: 'Pause',
     music: 'Musique',
     sfx: 'Effets sonores',
-    menu: 'Menu'
+    menu: 'Menu',
+    click_to_continue: 'Clique pour continuer...'
   },
   
   export: {
