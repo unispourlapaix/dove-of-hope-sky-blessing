@@ -2628,7 +2628,7 @@ let lastSavedCloudsCount=0;
 
 const player={x:c.width/2,y:c.height-120,w:40,h:30,s:5};
 
-let bullets=[],clouds=[],rain=[],particles=[],powerUps=[],hearts=[],touchX=null,touchY=null,shooting=false,lastShot=0,bonusItems=[];
+let bullets=[],clouds=[],rain=[],particles=[],powerUps=[],hearts=[],touchX=null,touchY=null,shooting=false,lastShot=0,bonusItems=[],lastCloudSpawn=0;
 let isBonusLevel=false,bonusItemsCollected=0,bonusItemsTarget=20,bonusLevelNumber=0;
 let cloudKillCount=0,fallingPowerUps=[],collectedStar=false,lastClickTime=0,shockwaves=[];
 let umbrellaEndTime=0,electricEndTime=0,multiEndTime=0,lastElectricShock=0;
@@ -3087,12 +3087,15 @@ function hit(a,b,margin=0){
 }
 
 // Fonction de collision précise pour les nuages (avec marge réduite)
+// OPTIMISATION: Early exit rapide pour hitCloud
 function hitCloud(player,cloud){
-  const margin = 2; // Marge réduite à 2px pour meilleure détection
-  return player.x+margin < cloud.x+cloud.w-margin && 
-         player.x+player.w-margin > cloud.x+margin && 
-         player.y+margin < cloud.y+cloud.h-margin && 
-         player.y+player.h-margin > cloud.y+margin;
+  const margin = 2;
+  // Vérifications rapides en premier (plus susceptibles d'échouer)
+  if(player.x+margin >= cloud.x+cloud.w-margin) return false;
+  if(player.x+player.w-margin <= cloud.x+margin) return false;
+  if(player.y+margin >= cloud.y+cloud.h-margin) return false;
+  if(player.y+player.h-margin <= cloud.y+margin) return false;
+  return true;
 }
 
 function msg(text){messageEl.textContent=text;messageEl.style.opacity='1';const time=Math.max(3000,Math.min(3000+text.length*50,6000));setTimeout(()=>messageEl.style.opacity='0',time);}
@@ -3178,7 +3181,7 @@ function restart(){
   }
 
   // NE PAS réinitialiser starCount pour conserver le stock entre les parties
-  score=0;cloudsCleared=0;lives=3;bullets=[];clouds=[];rain=[];particles=[];powerUps=[];hearts=[];umbrella=false;electric=false;multi=false;totalScore=0;cloudsInLevel=0;bonusItems=[];isBonusLevel=false;bonusItemsCollected=0;bonusLevelNumber=0;fallingPowerUps=[];cloudKillCount=0;collectedStar=false;shockwaves=[];umbrellaEndTime=0;electricEndTime=0;multiEndTime=0;lastElectricShock=0;lastSavedCloudsCount=0;bossSpawnedThisLevel=false;bossDefeatRewardsGiven=false;bossShootCount=0;
+  score=0;cloudsCleared=0;lives=3;bullets=[];clouds=[];rain=[];particles=[];powerUps=[];hearts=[];umbrella=false;electric=false;multi=false;totalScore=0;cloudsInLevel=0;bonusItems=[];isBonusLevel=false;bonusItemsCollected=0;bonusLevelNumber=0;fallingPowerUps=[];cloudKillCount=0;collectedStar=false;shockwaves=[];umbrellaEndTime=0;electricEndTime=0;multiEndTime=0;lastElectricShock=0;lastSavedCloudsCount=0;bossSpawnedThisLevel=false;bossDefeatRewardsGiven=false;bossShootCount=0;lastCloudSpawn=0;
 
   // Réinitialiser le boss
   bossManager.reset();
@@ -3297,6 +3300,7 @@ function startBonusLevel(){
   rain=[];
   bullets=[];
   bonusItems=[];
+  lastCloudSpawn=0;
   
   // Réinitialiser le boss pour éviter les conflits
   bossManager.reset();
@@ -3672,25 +3676,38 @@ if(isBonusLevel){
     }
   });
 }else{
-  // Mode normal : nuages (les power-ups sont gérés par fallingPowerUps tous les 10 nuages)
+  // OPTIMISATION: Spawn nuages avec timer au lieu de random chaque frame
   const adjustedSpawnRate = applyDifficulty('cloudSpawnRate', currentLevelConfig.cloudSpawnRate);
-  if(Math.random()<adjustedSpawnRate)clouds.push(cloud());
+  const now = Date.now();
+  const spawnDelay = 1000 / (adjustedSpawnRate * 60); // Convertir rate en ms
+  
+  if(now - lastCloudSpawn > spawnDelay && clouds.length < 40) {
+    clouds.push(cloud());
+    lastCloudSpawn = now;
+  }
   // Ancien système de power-ups désactivé - utilise maintenant fallingPowerUps
   // if(Math.random()<currentLevelConfig.powerUpRate)powerUps.push(powerUp(Math.random()*(c.width-30),-30));
 }
 
-bullets.forEach((b,i)=>{b.y-=b.s*dtFactor;if(b.y<0)bullets.splice(i,1);});
+// OPTIMISATION: Nettoyer balles hors écran et limiter à 30
+bullets = bullets.filter(b => {
+  b.y -= b.s * dtFactor;
+  return b.y >= -10;
+});
+if(bullets.length > 30) bullets.splice(0, bullets.length - 30);
 
-clouds.forEach((cl,i)=>{
-  cl.y+=cl.s*dtFactor;
+// OPTIMISATION: Utiliser filter pour nettoyer nuages hors écran
+clouds = clouds.filter((cl) => {
+  cl.y += cl.s * dtFactor;
+  
   // OPTIMISATION: Limite de projectiles rain à 100 pour éviter le spam
-  if(cl.shoot&&Date.now()-cl.lastShot>cl.delay&&rain.length<100){
-    rain.push(rainDrop(cl.x+cl.w/2,cl.y+cl.h));
-    cl.lastShot=Date.now();
+  if(cl.shoot && Date.now() - cl.lastShot > cl.delay && rain.length < 100) {
+    rain.push(rainDrop(cl.x + cl.w/2, cl.y + cl.h));
+    cl.lastShot = Date.now();
   }
   
   // Si le bouclier arc-en-ciel est actif et que le nuage touche la colombe
-  if(umbrella && hitCloud(player, cl)){
+  if(umbrella && hitCloud(player, cl)) {
     // Son magique de transformation
     playSound('rainbow');
     
@@ -3719,12 +3736,12 @@ clouds.forEach((cl,i)=>{
         });
       }
     }
-    clouds.splice(i,1);
     score += 50;
     totalScore += 50;
+    return false; // Supprimer le nuage
   }
   
-  if(cl.y>c.height)clouds.splice(i,1);
+  return cl.y <= c.height; // Garder si encore visible
 });
 
 rain.forEach((r,i)=>{r.y+=r.s*dtFactor;if(r.y>c.height){rain.splice(i,1);}else if(!umbrella&&hit(r,player)){rain.splice(i,1);lives--;playSound('damage');updateStats('totalLivesLost');updateStats('deathsByRain');const rainMsgs=t('rain');msg(rainMsgs[Math.floor(Math.random()*rainMsgs.length)]);if(lives<=0){state='gameOver';setSun('sad');stopMusic();const survivalTime=Date.now()-gameStartTime;saveGameEnd(score,level,cloudsCleared,survivalTime);
@@ -3749,12 +3766,22 @@ if (false) {
 
 powerUps.forEach((p,i)=>{p.y+=p.s*dtFactor;if(p.y>c.height){powerUps.splice(i,1);}else if(hit(p,player)){powerUps.splice(i,1);playSound('powerup');updateStats('totalPowerUpsCollected');if(p.type==='umbrella'){umbrella=true;const remaining=umbrella&&umbrellaEndTime>Date.now()?umbrellaEndTime-Date.now():0;umbrellaEndTime=Date.now()+remaining+5000;msg(t('powerups.umbrella'));}else if(p.type==='electric'){electric=true;const remaining=electric&&electricEndTime>Date.now()?electricEndTime-Date.now():0;electricEndTime=Date.now()+remaining+10000;msg(t('powerups.electric'));}else if(p.type==='multishot'){multi=true;const remaining=multi&&multiEndTime>Date.now()?multiEndTime-Date.now():0;multiEndTime=Date.now()+remaining+6000;msg(t('powerups.multishot'));}}});
 
-// Collision balles-nuages (itération inverse pour éviter les problèmes de splice)
+// OPTIMISATION: Collision balles-nuages avec spatial culling
 for(let bi = bullets.length - 1; bi >= 0; bi--){
   const b = bullets[bi];
-  let hit = false;
+  let hitDetected = false;
+  
+  // OPTIMISATION: Ne vérifier que les nuages proches (spatial culling)
   for(let ci = clouds.length - 1; ci >= 0; ci--){
     const cl = clouds[ci];
+    
+    // Vérification rapide : distance Y < 50px
+    if(Math.abs(b.y - cl.y) > 50) continue;
+    
+    // Vérification rapide : distance X < 60px
+    if(Math.abs(b.x - cl.x) > 60) continue;
+    
+    // Collision précise seulement si proche
     if(hitCloud(b,cl)){
       // OPTIMISATION: Réduit de 8→4→2 particules avec limite globale
       if(particles.length < 150) {
@@ -3959,13 +3986,13 @@ for(let bi = bullets.length - 1; bi >= 0; bi--){
       const gameplayMsgs=t('gameplay');
       if(Math.random()<0.1)msg(gameplayMsgs[Math.floor(Math.random()*gameplayMsgs.length)]);
       
-      hit = true;
-      break; // Sortir de la boucle interne après collision
+      hitDetected = true;
+      break; // OPTIMISATION: Sortir immédiatement après collision
     }
   }
 
   // Vérifier collision balle-boss si pas encore touché de nuage
-  if(!hit && bossManager.isBossActive()) {
+  if(!hitDetected && bossManager.isBossActive()) {
     const result = bossManager.checkBulletCollision(b.x, b.y, b.w, b.h, 10);
     if(result.hit) {
       bullets.splice(bi, 1);
