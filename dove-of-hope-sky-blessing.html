@@ -3387,13 +3387,14 @@ console.log('🧪 Tapez testBonus(1) dans la console pour tester un niveau bonus
 // 🧪 FONCTION TEST - Afficher le menu de victoire d'un boss
 window.testBossVictory = function(bossType = 'spider') {
   console.log('🧪 Test: Menu victoire boss', bossType);
-  // Types disponibles: spider, grimReaper, wall, blackRaven, darkCloud
+  // Types disponibles: spider, grim_reaper, wall, black_raven, dark_cloud
   showBossVictoryScreen(bossType, () => {
     console.log('🧪 Test: Menu fermé');
   });
 };
 console.log('🧪 Tapez testBossVictory("spider") dans la console pour tester le menu boss');
-console.log('🧪 Boss disponibles: spider, grimReaper, wall, blackRaven, darkCloud');
+console.log('🧪 Boss disponibles: spider, grim_reaper, wall, black_raven, dark_cloud');
+console.log('🧪 Ou en camelCase: spider, grimReaper, wall, blackRaven, darkCloud');
 
 function endBonusLevel(){
   // Supprimer tous les menus de bonus
@@ -6506,7 +6507,9 @@ function completeLevel() {
 // ============================================
 // Afficher l'écran de victoire du boss avec le message defeated
 function showBossVictoryScreen(bossType, onClose) {
-  const bossTranslations = t(`bosses.${bossType}`);
+  // Convertir camelCase vers snake_case pour compatibilité
+  const bossKey = bossType.replace(/([A-Z])/g, '_$1').toLowerCase();
+  const bossTranslations = t(`bosses.${bossKey}`) || {};
   const phase1 = bossTranslations.phase_1 || '';
   const phase2 = bossTranslations.phase_2 || '';
   const phase3 = bossTranslations.phase_3 || '';
