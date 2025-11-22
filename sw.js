@@ -3,61 +3,61 @@
 // ============================================
 
 const CACHE_NAME = 'dove-hope-v1.5.0';
-const urlsToCache = [
+
+// Mode développement : ne pas mettre en cache pendant le dev
+const isDevelopment = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+
+const urlsToCache = isDevelopment ? [] : [
   '/dove-of-hope-sky-blessing/',
   '/dove-of-hope-sky-blessing/index.html',
-  '/dove-of-hope-sky-blessing/manifest.json',
-  '/dove-of-hope-sky-blessing/bible-verses.js',
-  '/dove-of-hope-sky-blessing/js/testimonies.js',
-  '/dove-of-hope-sky-blessing/js/translations/fr.js',
-  '/dove-of-hope-sky-blessing/js/translations/en.js',
-  '/dove-of-hope-sky-blessing/js/translations/es.js',
-  '/dove-of-hope-sky-blessing/js/translations/de.js',
-  '/dove-of-hope-sky-blessing/js/translations/it.js',
-  '/dove-of-hope-sky-blessing/js/translations/pt.js',
-  '/dove-of-hope-sky-blessing/js/translations/ru.js',
-  '/dove-of-hope-sky-blessing/js/translations/zh.js',
-  '/dove-of-hope-sky-blessing/js/translations/ja.js',
-  '/dove-of-hope-sky-blessing/js/translations/ko.js',
-  '/dove-of-hope-sky-blessing/js/translations/ar.js',
-  '/dove-of-hope-sky-blessing/js/translations/hi.js',
-  '/dove-of-hope-sky-blessing/js/translations/pl.js',
-  '/dove-of-hope-sky-blessing/js/translations/sw.js',
-  '/dove-of-hope-sky-blessing/js/translations/nl.js',
-  '/dove-of-hope-sky-blessing/js/translations/tr.js',
-  '/dove-of-hope-sky-blessing/js/levels/level-definitions.js',
-  '/dove-of-hope-sky-blessing/js/levels/level-messages.js',
-  '/dove-of-hope-sky-blessing/js/levels/bible-verses.js',
-  '/dove-of-hope-sky-blessing/js/levels/progression-system.js',
-  '/dove-of-hope-sky-blessing/js/bosses/boss-system.js'
+  '/dove-of-hope-sky-blessing/manifest.json'
 ];
 
 // Installation
 self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(urlsToCache))
-      .then(() => self.skipWaiting())
-  );
+  console.log('🕊️ Service Worker: Installation...');
+  if (isDevelopment) {
+    console.log('🕊️ Mode développement: pas de mise en cache');
+    self.skipWaiting();
+  } else {
+    event.waitUntil(
+      caches.open(CACHE_NAME)
+        .then(cache => cache.addAll(urlsToCache))
+        .then(() => {
+          console.log('🕊️ Service Worker: Mise en cache réussie');
+          return self.skipWaiting();
+        })
+        .catch(err => console.error('❌ Erreur cache:', err))
+    );
+  }
 });
 
 // Activation
 self.addEventListener('activate', event => {
+  console.log('🕊️ Service Worker: Activation...');
   event.waitUntil(
     caches.keys().then(cacheNames => {
       return Promise.all(
         cacheNames.map(cacheName => {
           if (cacheName !== CACHE_NAME) {
+            console.log('🕊️ Service Worker: Suppression ancien cache:', cacheName);
             return caches.delete(cacheName);
           }
         })
       );
-    }).then(() => self.clients.claim())
+    }).then(() => {
+      console.log('🕊️ Service Worker: Activé');
+      return self.clients.claim();
+    })
   );
 });
 
-// Fetch
+// Fetch - en mode dev, laisser passer toutes les requêtes
 self.addEventListener('fetch', event => {
+  if (isDevelopment) {
+    return; // Pas de cache en dev
+  }
+  
   event.respondWith(
     caches.match(event.request)
       .then(response => {
@@ -73,6 +73,9 @@ self.addEventListener('fetch', event => {
             cache.put(event.request, responseToCache);
           });
           return response;
+        }).catch(err => {
+          console.error('❌ Erreur fetch:', err);
+          return new Response('Offline - Contenu non disponible');
         });
       })
   );
