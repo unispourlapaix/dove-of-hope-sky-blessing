@@ -2926,7 +2926,7 @@ function bullet(x,y,color,width){return{x:x,y:y,w:width||4,h:12,s:8,c:color||'#f
 
 function heart(){return{x:player.x+18+Math.random()*8,y:player.y+10+Math.random()*5,vx:(Math.random()-0.5)*1.5,vy:-2.5-Math.random()*1.2,size:12+Math.random()*6,life:1,decay:0.006,c:'#e74c3c',rot:0,rotS:(Math.random()-0.5)*0.1};}
 
-function particle(x,y){return{x:x,y:y,vx:(Math.random()-0.5)*6,vy:(Math.random()-0.5)*6,life:1,decay:0.02,c:`hsl(${45+Math.random()*30},80%,70%)`};}
+function particle(x,y){return{x:x,y:y,vx:(Math.random()-0.5)*6,vy:(Math.random()-0.5)*6,life:1,decay:0.04,c:`hsl(${45+Math.random()*30},80%,70%)`};}
 
 function drawBonusItem(item){
   ctx.save();
@@ -3073,7 +3073,7 @@ function drawBullet(b){ctx.fillStyle=b.c;ctx.shadowBlur=8;ctx.shadowColor=b.c;ct
 
 function drawHeart(h){ctx.save();ctx.globalAlpha=h.life;ctx.translate(h.x,h.y);ctx.rotate(h.rot);ctx.fillStyle=h.c;ctx.shadowBlur=8;ctx.shadowColor=h.c;const s=h.size;ctx.beginPath();ctx.arc(-s/4,-s/4,s/4,0,Math.PI*2);ctx.arc(s/4,-s/4,s/4,0,Math.PI*2);ctx.moveTo(0,s/4);ctx.lineTo(-s/2,-s/8);ctx.lineTo(s/2,-s/8);ctx.closePath();ctx.fill();ctx.shadowBlur=0;ctx.restore();}
 
-function drawParticle(p){ctx.globalAlpha=p.life;ctx.fillStyle=p.c;ctx.shadowBlur=5;ctx.shadowColor=p.c;ctx.fillRect(p.x,p.y,3,3);ctx.shadowBlur=0;ctx.globalAlpha=1;}
+function drawParticle(p){ctx.globalAlpha=p.life;ctx.fillStyle=p.c;ctx.fillRect(p.x,p.y,3,3);ctx.globalAlpha=1;}
 
 function setSun(mood){sunEl.className=`sun ${mood}`;}
 
@@ -3652,11 +3652,13 @@ if(isBonusLevel){
       bonusItemsCollected++;
       playSound('bonus'); // Son joyeux de collecte
       
-      // Particules colorées
-      for(let j=0;j<10;j++){
-        const p=particle(item.x+item.w/2,item.y+item.h/2);
-        p.c=item.color;
-        particles.push(p);
+      // OPTIMISATION: Particules colorées réduites de 10 à 3
+      if(particles.length < 150) { // Limite globale
+        for(let j=0;j<3;j++){
+          const p=particle(item.x+item.w/2,item.y+item.h/2);
+          p.c=item.color;
+          particles.push(p);
+        }
       }
       
       // Message de points
@@ -3704,16 +3706,18 @@ clouds.forEach((cl,i)=>{
       rot: 0,
       rotSpeed: (Math.random() - 0.5) * 0.2
     });
-    // Particules arc-en-ciel
-    for(let j=0; j<5; j++){
-      particles.push({
-        x: cl.x + cl.w/2,
-        y: cl.y + cl.h/2,
-        vx: (Math.random() - 0.5) * 3,
-        vy: (Math.random() - 0.5) * 3,
-        life: 1,
-        c: ['#ff0000','#ff7f00','#ffff00','#00ff00','#0000ff','#4b0082','#9400d3'][Math.floor(Math.random()*7)]
-      });
+    // OPTIMISATION: Particules arc-en-ciel réduites de 5 à 2
+    if(particles.length < 150) {
+      for(let j=0; j<2; j++){
+        particles.push({
+          x: cl.x + cl.w/2,
+          y: cl.y + cl.h/2,
+          vx: (Math.random() - 0.5) * 3,
+          vy: (Math.random() - 0.5) * 3,
+          life: 1,
+          c: ['#ff0000','#ff7f00','#ffff00','#00ff00','#0000ff','#4b0082','#9400d3'][Math.floor(Math.random()*7)]
+        });
+      }
     }
     clouds.splice(i,1);
     score += 50;
@@ -3752,8 +3756,10 @@ for(let bi = bullets.length - 1; bi >= 0; bi--){
   for(let ci = clouds.length - 1; ci >= 0; ci--){
     const cl = clouds[ci];
     if(hitCloud(b,cl)){
-      // Effets visuels - OPTIMISATION: Réduit de 8 à 4 particules
-      for(let i=0;i<4;i++)particles.push(particle(cl.x+cl.w/2,cl.y+cl.h/2));
+      // OPTIMISATION: Réduit de 8→4→2 particules avec limite globale
+      if(particles.length < 150) {
+        for(let i=0;i<2;i++)particles.push(particle(cl.x+cl.w/2,cl.y+cl.h/2));
+      }
       
       // Suppression sécurisée
       bullets.splice(bi,1);
@@ -4135,21 +4141,34 @@ shockwaves.forEach((wave,i)=>{
   wave.radius += wave.speed*dtFactor;
   wave.opacity = 1 - (wave.radius / wave.maxRadius);
 
+  // OPTIMISATION: Limiter les vérifications aux nuages proches
+  const checkRadius = wave.radius + 30; // Rayon de vérification étendu
+  const prevRadius = wave.radius - wave.speed * dtFactor; // Rayon précédent
+  
   // Détruire les nuages touchés par l'onde de choc
-  for(let ci = clouds.length - 1; ci >= 0; ci--) {
-    const cl = clouds[ci];
-    // Calculer la distance entre le centre de l'onde et le centre du nuage
+  // OPTIMISATION: Utiliser forEach au lieu de for et filtrer ensuite
+  let cloudsDestroyed = 0;
+  clouds = clouds.filter(cl => {
+    // OPTIMISATION: Vérifier d'abord avec un carré (plus rapide que cercle)
     const dx = (cl.x + cl.w/2) - wave.x;
     const dy = (cl.y + cl.h/2) - wave.y;
-    const distance = Math.sqrt(dx * dx + dy * dy);
-
-    // Si le nuage est dans le rayon de l'onde (avec une marge de 20px)
-    if(distance <= wave.radius + 20 && distance >= wave.radius - 20) {
-      // Créer des particules - OPTIMISATION: Réduit de 8 à 3 particules
-      for(let pi = 0; pi < 3; pi++) particles.push(particle(cl.x + cl.w/2, cl.y + cl.h/2));
-
-      // Supprimer le nuage
-      clouds.splice(ci, 1);
+    
+    // Vérification rapide avec carré
+    if(Math.abs(dx) > checkRadius || Math.abs(dy) > checkRadius) return true;
+    
+    // Calcul précis de distance seulement si dans le carré
+    const distanceSq = dx * dx + dy * dy; // Distance au carré (évite sqrt)
+    const radiusSq = wave.radius * wave.radius;
+    const innerRadiusSq = prevRadius * prevRadius;
+    
+    // Si le nuage est dans l'anneau de l'onde (entre rayon précédent et actuel)
+    if(distanceSq <= radiusSq + 800 && distanceSq >= innerRadiusSq) { // 800 = (20+20)²
+      cloudsDestroyed++;
+      
+      // OPTIMISATION: Créer UNE SEULE particule au lieu de 3
+      if(particles.length < 100) { // Limite globale de particules
+        particles.push(particle(cl.x + cl.w/2, cl.y + cl.h/2));
+      }
 
       // Ajouter les points
       score += 100;
@@ -4158,29 +4177,36 @@ shockwaves.forEach((wave,i)=>{
       cloudsInLevel++;
       cloudKillCount++;
 
-      // Son
-      playSound('hit');
+      return false; // Supprimer le nuage
     }
+    return true; // Garder le nuage
+  });
+  
+  // Son seulement si des nuages détruits (éviter spam)
+  if(cloudsDestroyed > 0) {
+    playSound('hit');
   }
 
   // Infliger des dégâts au boss si actif (x5 dégâts)
   if(bossManager.isBossActive() && !wave.hitBoss) {
-    // Obtenir la position du boss pour calculer la distance
     const boss = bossManager.currentBoss;
     if(boss) {
       const dx = boss.x - wave.x;
       const dy = boss.y - wave.y;
-      const distance = Math.sqrt(dx * dx + dy * dy);
+      const distanceSq = dx * dx + dy * dy;
+      const radiusSq = wave.radius * wave.radius;
+      const innerRadiusSq = prevRadius * prevRadius;
 
-      // Si le boss est dans le rayon de l'onde (avec une marge de 30px pour le corps du boss)
-      if(distance <= wave.radius + 30 && distance >= wave.radius - 30) {
-        // Infliger 50 dégâts (10 x 5) - coordonnées du boss pour détection coup critique
+      // Si le boss est dans l'anneau de l'onde
+      if(distanceSq <= radiusSq + 1800 && distanceSq >= innerRadiusSq) { // 1800 = (30+30)²
         const isCritical = boss.takeDamage(50, boss.x, boss.y);
-        wave.hitBoss = true; // Marquer pour ne frapper qu'une fois
+        wave.hitBoss = true;
 
-        // Créer des particules dorées au point d'impact
-        for(let pi = 0; pi < 12; pi++) {
-          particles.push(particle(boss.x, boss.y));
+        // OPTIMISATION: Réduire particules de 12 à 5
+        if(particles.length < 100) {
+          for(let pi = 0; pi < 5; pi++) {
+            particles.push(particle(boss.x, boss.y));
+          }
         }
 
         if(isCritical) {
@@ -4223,7 +4249,11 @@ if(state==='playing' || state==='levelComplete' || state==='paused'){
     rain.forEach(drawRain);
     powerUps.forEach(drawPowerUp);
     bullets.forEach(drawBullet);
+    // OPTIMISATION: Glow activé une seule fois pour toutes les particules
+    ctx.shadowBlur=5;
+    ctx.shadowColor='rgba(255,215,0,0.5)';
     particles.forEach(drawParticle);
+    ctx.shadowBlur=0;
     hearts.forEach(drawHeart);
 
     // Dessiner les power-ups qui tombent
