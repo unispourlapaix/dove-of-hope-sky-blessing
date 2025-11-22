@@ -4076,9 +4076,38 @@ for(let bi = bullets.length - 1; bi >= 0; bi--){
 
         // 🏆 Afficher l'écran de victoire avec le message defeated
         const currentBossType = bossManager.bossType;
+        
+        // Vérifier si un bonus doit être lancé après ce boss
+        let shouldLaunchBonus = false;
+        if(level === 3) {
+          bonusLevelNumber = 1;
+          shouldLaunchBonus = true;
+          console.log('🎁 Bonus 1 sera lancé après victoire Spider (niveau 3)');
+        } else if(level === 5) {
+          bonusLevelNumber = 2;
+          shouldLaunchBonus = true;
+          console.log('🎁 Bonus 2 sera lancé après victoire Grim Reaper (niveau 5)');
+        } else if(level === 9) {
+          bonusLevelNumber = 3;
+          shouldLaunchBonus = true;
+          console.log('🎁 Bonus 3 sera lancé après victoire Wall (niveau 9)');
+        } else if(level === 13) {
+          bonusLevelNumber = 4;
+          shouldLaunchBonus = true;
+          console.log('🎁 Bonus 4 sera lancé après victoire Black Raven (niveau 13)');
+        }
+        
         showBossVictoryScreen(currentBossType, () => {
           // Après fermeture de l'écran de victoire, afficher le message de points
           msg(t('powerups.boss_defeated', {score: rewards.score}));
+          
+          // Lancer le bonus si nécessaire (après un court délai)
+          if(shouldLaunchBonus) {
+            setTimeout(() => {
+              console.log('🎁 Lancement du bonus niveau', bonusLevelNumber);
+              startBonusLevel();
+            }, 500);
+          }
         });
 
         // Distribuer les power-ups
@@ -4132,39 +4161,7 @@ for(let bi = bullets.length - 1; bi >= 0; bi--){
               const previousState = 'playing'; // Toujours revenir en mode playing après le boss
               state = 'paused';
               
-              // Préparer la callback pour les niveaux bonus après victoire boss
-              let onLevelUpClose = null;
-              if(level === 3) {
-                bonusLevelNumber = 1;
-                console.log('🎁 Bonus 1 préparé pour niveau 3 (après Spider)');
-                onLevelUpClose = () => {
-                  console.log('🎁 Déclenchement Bonus 1');
-                  startBonusLevel();
-                };
-              } else if(level === 5) {
-                bonusLevelNumber = 2;
-                console.log('🎁 Bonus 2 préparé pour niveau 5 (après Grim Reaper)');
-                onLevelUpClose = () => {
-                  console.log('🎁 Déclenchement Bonus 2');
-                  startBonusLevel();
-                };
-              } else if(level === 9) {
-                bonusLevelNumber = 3;
-                console.log('🎁 Bonus 3 préparé pour niveau 9 (après Wall)');
-                onLevelUpClose = () => {
-                  console.log('🎁 Déclenchement Bonus 3');
-                  startBonusLevel();
-                };
-              } else if(level === 13) {
-                bonusLevelNumber = 4;
-                console.log('🎁 Bonus 4 préparé pour niveau 13 (après Black Raven)');
-                onLevelUpClose = () => {
-                  console.log('🎁 Déclenchement Bonus 4');
-                  startBonusLevel();
-                };
-              }
-              
-              showLevelUpMessage(newLevelInfo, previousState, onLevelUpClose);
+              showLevelUpMessage(newLevelInfo, previousState);
             }, 1000);
           }
         }, 7000); // Attendre 7 secondes pour laisser le temps de récupérer les power-ups
