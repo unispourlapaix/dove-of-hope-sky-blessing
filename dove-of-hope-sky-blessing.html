@@ -3065,7 +3065,8 @@ if(starCount > 0){
 
 function drawCloud(cl){ctx.fillStyle=cl.c;ctx.shadowBlur=3;ctx.shadowColor=cl.c;ctx.beginPath();ctx.arc(cl.x+10,cl.y+15,10,0,Math.PI*2);ctx.arc(cl.x+25,cl.y+10,12,0,Math.PI*2);ctx.arc(cl.x+40,cl.y+15,10,0,Math.PI*2);ctx.arc(cl.x+20,cl.y+20,8,0,Math.PI*2);ctx.fill();if(cl.shoot){ctx.fillStyle='#34495e';ctx.beginPath();ctx.arc(cl.x+25,cl.y+12,3,0,Math.PI*2);ctx.fill();}ctx.shadowBlur=0;}
 
-function drawRain(r){ctx.fillStyle=r.c;ctx.shadowBlur=2;ctx.shadowColor=r.c;ctx.beginPath();ctx.ellipse(r.x,r.y,2,4,0,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;}
+// OPTIMISATION: shadowBlur appliqué en batch dans render()
+function drawRain(r){ctx.fillStyle=r.c;ctx.beginPath();ctx.ellipse(r.x,r.y,2,4,0,0,Math.PI*2);ctx.fill();}
 
 function drawPowerUp(p){ctx.strokeStyle=p.c;ctx.fillStyle=p.c;ctx.lineWidth=2;if(p.type==='umbrella'){ctx.beginPath();ctx.arc(p.x+12,p.y+8,12,0,Math.PI,true);ctx.stroke();ctx.beginPath();ctx.moveTo(p.x+12,p.y+8);ctx.lineTo(p.x+12,p.y+20);ctx.stroke();}else if(p.type==='speed'){ctx.beginPath();ctx.moveTo(p.x+8,p.y+2);ctx.lineTo(p.x+12,p.y+2);ctx.lineTo(p.x+6,p.y+12);ctx.lineTo(p.x+10,p.y+12);ctx.lineTo(p.x+4,p.y+22);ctx.lineTo(p.x+16,p.y+10);ctx.lineTo(p.x+12,p.y+10);ctx.lineTo(p.x+18,p.y+2);ctx.closePath();ctx.fill();}else{for(let i=0;i<3;i++){const o=i*6;ctx.beginPath();ctx.arc(p.x+6+o,p.y+12,4,0,Math.PI*2);ctx.fill();}}}
 
@@ -3540,9 +3541,8 @@ decorativeRain.forEach((drop, i) => {
   }
 });
 
-// Mettre à jour les power-ups qui tombent
-for(let i = fallingPowerUps.length - 1; i >= 0; i--) {
-  const pu = fallingPowerUps[i];
+// OPTIMISATION: Utiliser filter pour fallingPowerUps avec limite 10
+fallingPowerUps = fallingPowerUps.filter((pu) => {
   pu.y += pu.speed * dtFactor;
   pu.angle += 0.05 * dtFactor;
   
@@ -3553,10 +3553,8 @@ for(let i = fallingPowerUps.length - 1; i >= 0; i--) {
       lives = Math.min(5, lives + 1);
       playSound('powerup');
       msg(t('powerups.heart'));
-      fallingPowerUps.splice(i, 1);
     } else if(pu.type === 'rainbow') {
       umbrella = true;
-      // Additionner le temps si déjà actif, sinon nouveau timer
       const remainingUmbrella = umbrella && umbrellaEndTime > Date.now() ? umbrellaEndTime - Date.now() : 0;
       umbrellaEndTime = Date.now() + remainingUmbrella + 8000;
       
@@ -3566,28 +3564,25 @@ for(let i = fallingPowerUps.length - 1; i >= 0; i--) {
       
       playSound('powerup');
       msg(t('powerups.rainbow'));
-      fallingPowerUps.splice(i, 1);
     } else if(pu.type === 'star') {
-      // Ajouter une étoile au compteur
       starCount++;
-      lastStarChangeTime = Date.now(); // Marquer le moment du changement
+      lastStarChangeTime = Date.now();
       playSound('powerup');
       msg(t('powerups.star_collected', {count: starCount}));
-      fallingPowerUps.splice(i, 1);
     } else if(pu.type === 'electric') {
       electric = true;
-      // Additionner le temps si déjà actif, sinon nouveau timer
       const remainingElectric = electric && electricEndTime > Date.now() ? electricEndTime - Date.now() : 0;
-      electricEndTime = Date.now() + remainingElectric + 10000; // 10 secondes
-      lastElectricShock = Date.now(); // Réinitialiser le timer des chocs
+      electricEndTime = Date.now() + remainingElectric + 10000;
+      lastElectricShock = Date.now();
       playSound('powerup');
       msg('⚡ Recharge Électrique ! Les nuages explosent autour de toi !');
-      fallingPowerUps.splice(i, 1);
     }
-  } else if(pu.y > c.height) {
-    fallingPowerUps.splice(i, 1);
+    return false; // Supprimer power-up
   }
-}
+  
+  return pu.y <= c.height; // Garder si visible
+});
+if(fallingPowerUps.length > 10) fallingPowerUps.splice(0, fallingPowerUps.length - 10);
 
 if(touchX!==null&&touchY!==null){const currentSpeed=player.s;const targetX=Math.max(20,Math.min(c.width-60,touchX-20));const targetY=Math.max(30,Math.min(c.height-50,touchY-80));player.x+=(targetX-player.x)*0.12*currentSpeed*dtFactor;player.y+=(targetY-player.y)*0.12*currentSpeed*dtFactor;}
 
@@ -3701,7 +3696,7 @@ clouds = clouds.filter((cl) => {
   cl.y += cl.s * dtFactor;
   
   // OPTIMISATION: Limite de projectiles rain à 100 pour éviter le spam
-  if(cl.shoot && Date.now() - cl.lastShot > cl.delay && rain.length < 100) {
+  if(cl.shoot && Date.now() - cl.lastShot > cl.delay && rain.length < 80) {
     rain.push(rainDrop(cl.x + cl.w/2, cl.y + cl.h));
     cl.lastShot = Date.now();
   }
@@ -4135,14 +4130,16 @@ for(let bi = bullets.length - 1; bi >= 0; bi--){
   }
 }
 
-hearts.forEach((h,i)=>{
-  h.x+=h.vx*dtFactor;
-  h.y+=h.vy*dtFactor;
-  h.life-=(h.decay || 0.01)*dtFactor;
-  h.rot+=(h.rotSpeed || h.rotS || 0)*dtFactor;
-  h.vy+=0.015*dtFactor;
-  if(h.life<=0)hearts.splice(i,1);
+// OPTIMISATION: Utiliser filter pour hearts et limiter à 20
+hearts = hearts.filter((h) => {
+  h.x += h.vx * dtFactor;
+  h.y += h.vy * dtFactor;
+  h.life -= (h.decay || 0.01) * dtFactor;
+  h.rot += (h.rotSpeed || h.rotS || 0) * dtFactor;
+  h.vy += 0.015 * dtFactor;
+  return h.life > 0;
 });
+if(hearts.length > 20) hearts.splice(0, hearts.length - 20);
 
 // OPTIMISATION: Limiter le nombre de particules pour éviter les ralentissements
 const MAX_PARTICLES = 150; // Limite maximale de particules à l'écran
@@ -4273,7 +4270,11 @@ if(state==='playing' || state==='levelComplete' || state==='paused'){
 
     // Dessine ensuite tout l'arrière-plan du jeu
     clouds.forEach(drawCloud);
+    // OPTIMISATION: Batch shadowBlur pour pluie
+    ctx.shadowBlur=2;
+    ctx.shadowColor='rgba(231,76,60,0.6)';
     rain.forEach(drawRain);
+    ctx.shadowBlur=0;
     powerUps.forEach(drawPowerUp);
     bullets.forEach(drawBullet);
     // OPTIMISATION: Glow activé une seule fois pour toutes les particules
