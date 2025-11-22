@@ -2932,13 +2932,15 @@ function drawBonusItem(item){
   ctx.save();
   ctx.translate(item.x+item.w/2,item.y+item.h/2);
   ctx.rotate(item.rotation);
-  ctx.shadowBlur=15;
-  ctx.shadowColor=item.color;
+  // Glow léger sans shadow pour meilleures performances
   ctx.font='30px Arial';
   ctx.textAlign='center';
   ctx.textBaseline='middle';
+  ctx.fillStyle=item.color;
+  ctx.globalAlpha=0.3;
   ctx.fillText(item.icon,0,0);
-  ctx.shadowBlur=0;
+  ctx.globalAlpha=1;
+  ctx.fillText(item.icon,0,0);
   ctx.restore();
 }
 
@@ -3626,8 +3628,8 @@ if(state === 'playing') {
 
 // Spawn selon le mode
 if(isBonusLevel){
-  // Mode bonus : objets tombent
-  if(Math.random()<0.03)bonusItems.push(bonusItem());
+  // Mode bonus : objets tombent (spawn réduit pour éviter surcharge)
+  if(Math.random()<0.015 && bonusItems.length < 25) bonusItems.push(bonusItem());
   
   // OPTIMISATION: Faire tomber les objets bonus avec filter
   bonusItems = bonusItems.filter((item) => {
@@ -4079,22 +4081,22 @@ for(let bi = bullets.length - 1; bi >= 0; bi--){
         
         // Vérifier si un bonus doit être lancé après ce boss
         let shouldLaunchBonus = false;
-        if(level === 3) {
+        if(level === 2) {
           bonusLevelNumber = 1;
           shouldLaunchBonus = true;
-          console.log('🎁 Bonus 1 sera lancé après victoire Spider (niveau 3)');
-        } else if(level === 5) {
+          console.log('🎁 Bonus 1 sera lancé après victoire Spider (niveau 2)');
+        } else if(level === 4) {
           bonusLevelNumber = 2;
           shouldLaunchBonus = true;
-          console.log('🎁 Bonus 2 sera lancé après victoire Grim Reaper (niveau 5)');
-        } else if(level === 9) {
+          console.log('🎁 Bonus 2 sera lancé après victoire Grim Reaper (niveau 4)');
+        } else if(level === 6) {
           bonusLevelNumber = 3;
           shouldLaunchBonus = true;
-          console.log('🎁 Bonus 3 sera lancé après victoire Wall (niveau 9)');
-        } else if(level === 13) {
+          console.log('🎁 Bonus 3 sera lancé après victoire Wall (niveau 6)');
+        } else if(level === 8) {
           bonusLevelNumber = 4;
           shouldLaunchBonus = true;
-          console.log('🎁 Bonus 4 sera lancé après victoire Black Raven (niveau 13)');
+          console.log('🎁 Bonus 4 sera lancé après victoire Black Raven (niveau 8)');
         }
         
         showBossVictoryScreen(currentBossType, () => {

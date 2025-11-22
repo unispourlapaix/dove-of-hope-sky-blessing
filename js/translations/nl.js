@@ -316,7 +316,7 @@ const nl = {
       phase_1: '🕸️ Angst voor pijn...',
       phase_2: '✨ Irrationele angsten...',
       phase_3: '🛡️ Angst moet je niet domineren!',
-      defeated: '🦋 OVERWINNING OP ANGST!',
+      defeated: '🦋 OVERWINNING OP ANGST!\n\n"Want God heeft ons niet gegeven een geest van vrees, maar van kracht, liefde en bezonnenheid." (2 Timotheüs 1:7)\n\nJe hebt verlammende angst overwonnen! In Christus wandel je in kracht en moed.',
       wisdom: 'De spin symboliseert al onze angsten...'
     }
   }

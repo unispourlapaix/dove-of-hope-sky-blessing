@@ -20,10 +20,10 @@ echo [2/3] Démarrage du serveur HTTP sur http://localhost:8000
 echo.
 echo [3/3] Ouvrez votre navigateur à l'adresse :
 echo.
-echo     VERSION MODULAIRE (recommandée) :
+echo     VERSION page (github) :
 echo     http://localhost:8000/index.html
 echo.
-echo     VERSION MONOLITHIQUE (legacy) :
+echo     VERSION local (copy to index.htlm) :
 echo     http://localhost:8000/dove-of-hope-sky-blessing.html
 echo.
 echo Appuyez sur Ctrl+C pour arrêter le serveur

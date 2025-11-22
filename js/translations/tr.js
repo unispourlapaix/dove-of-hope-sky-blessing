@@ -316,7 +316,7 @@ const tr = {
       phase_1: '🕸️ Acı korkusu...',
       phase_2: '✨ İrrasyonel korkular...',
       phase_3: '🛡️ Korku seni domine etmemeli!',
-      defeated: '🦋 KORKU ÜZERİNDE ZAFER!',
+      defeated: '🦋 KORKU ÜZERİNDE ZAFER!\n\n"Çünkü Tanrı bize korkaklık ruhu değil, güç, sevgi ve özdenetim ruhu vermiştir." (2. Timoteos 1:7)\n\nFelç edici korkuyu yendin! Mesih'te güç ve cesaretle yürüyorsun.',
       wisdom: 'Örümcek tüm korkularımızı simgeler...'
     }
   }

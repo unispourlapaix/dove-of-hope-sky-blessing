@@ -436,7 +436,7 @@ const sw = {
       phase_1: '🕸️ "Kwa maana Mungu hakutupa roho ya hofu, bali ya nguvu, na ya upendo, na ya kiasi." (2 Timotheo 1:7)\n\nHOFU YA MAUMIVU, HOFU YA KUUMWA... Hofu hizi zinakufanya usiende mbele!',
       phase_2: '✨ "Usiogope, kwa kuwa mimi niko pamoja nawe; usitetemeke, kwa kuwa mimi ndimi Mungu wako." (Isaya 41:10)\n\nHOFU ZISIZO NA MANTIKI na PHOBIA hazina nguvu juu ya wanaotembea kwa imani!',
       phase_3: '🛡️ "Hata nikienda katika bonde la uvuli wa mauti, sitaogopa mabaya, kwa kuwa wewe u pamoja nami." (Zaburi 23:4)\n\nHofu ni ULINZI, lakini haipaswi KUKUTAWALA!',
-      defeated: '🦋 USHINDI JUU YA HOFU!\n\n"Katika upendo hakuna hofu, lakini upendo kamilifu hufukuza hofu nje." (1 Yohana 4:18)\n\nUmeshinda hofu inayofanya usiende mbele! Imani hubadilisha hofu kuwa ujasiri.',
+      defeated: '🦋 USHINDI JUU YA HOFU!\n\n"Kwa maana Mungu hakutupa roho ya hofu, bali roho ya nguvu, upendo, na kiasi." (2 Timotheo 1:7)\n\nUmeshinda hofu inayofanya usiende mbele! Katika Kristo, unatembea kwa nguvu na ujasiri.',
       wisdom: 'Buibui anaashiria hofu zetu zote: hofu ya maumivu, ya kuumwa, phobia zisizo na mantiki. Hofu hizi mara nyingi ni ulinzi wa kawaida unaotulinda na hatari. Lakini zinapokuwa nyingi sana, zinatufanya tusiende mbele. Biblia inasema: "Mungu hakutupa roho ya hofu, bali ya nguvu, upendo, na kiasi." Imani haikanushi hatari, lakini inatupa ujasiri wa kuikabili. Katika Kristo, tunajifunza kutofautisha uangalifu mzuri na hofu inayofanya tusiende mbele. Upendo kamilifu wa Mungu hufukuza hofu!'
     },
     flying_snake: {

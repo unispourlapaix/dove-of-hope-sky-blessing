@@ -421,7 +421,7 @@ const pl = {
       phase_1: '🕸️ "Albowiem nie dał nam Bóg ducha bojaźni, ale mocy i miłości, i trzeźwego myślenia." (2 Tymoteusza 1:7)\n\nSTRACH PRZED BÓLEM, STRACH PRZED UKĄSZENIEM... Te strachy cię paraliżują!',
       phase_2: '✨ "Nie bój się, bo Ja jestem z tobą; nie lękaj się, bo Ja jestem twoim Bogiem." (Izajasza 41:10)\n\nNIELOGICZNE LĘKI i FOBIE nie mają mocy nad kroczącymi w wierze!',
       phase_3: '🛡️ "Choćbym chodził ciemną doliną, zła się nie ulęknę, bo Ty jesteś ze mną." (Psalm 23:4)\n\nStrach to MECHANIZM OBRONNY, ale nie powinien tobą WŁADAĆ!',
-      defeated: '🦋 ZWYCIĘSTWO NAD STRACHEM!\n\n"W miłości nie ma bojaźni, lecz doskonała miłość usuwa bojaźń." (1 Jana 4:18)\n\nPokonałeś paraliżujący strach! Wiara zamienia strach w odwagę.',
+      defeated: '🦋 ZWYCIĘSTWO NAD STRACHEM!\n\n"Bóg nie dał nam ducha bojaźni, ale mocy, miłości i trzeźwego myślenia." (2 Tymoteusza 1:7)\n\nPokonałeś paraliżujący strach! W Chrystusie kroczysz w sile i odwadze.',
       wisdom: 'Pająk symbolizuje wszystkie nasze lęki: strach przed bólem, przed ukąszeniem, nielogiczne fobie. Te lęki są często normalnymi mechanizmami obronnymi, które chronią nas przed niebezpieczeństwem. Ale gdy stają się nadmierne, nas paraliżują. Biblia mówi: "Bóg nie dał nam ducha bojaźni, ale mocy, miłości i trzeźwego myślenia." Wiara nie przeczy niebezpieczeństwu, ale daje nam odwagę, by mu stawić czoła. W Chrystusie uczymy się odróżniać zdrową ostrożność od paraliżującego strachu. Doskonała miłość Boga usuwa bojaźń!'
     },
     flying_snake: {
