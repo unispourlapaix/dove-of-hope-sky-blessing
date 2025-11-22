@@ -3384,6 +3384,17 @@ window.testBonus = function(num = 1) {
 };
 console.log('🧪 Tapez testBonus(1) dans la console pour tester un niveau bonus');
 
+// 🧪 FONCTION TEST - Afficher le menu de victoire d'un boss
+window.testBossVictory = function(bossType = 'spider') {
+  console.log('🧪 Test: Menu victoire boss', bossType);
+  // Types disponibles: spider, grimReaper, wall, blackRaven, darkCloud
+  showBossVictoryScreen(bossType, () => {
+    console.log('🧪 Test: Menu fermé');
+  });
+};
+console.log('🧪 Tapez testBossVictory("spider") dans la console pour tester le menu boss');
+console.log('🧪 Boss disponibles: spider, grimReaper, wall, blackRaven, darkCloud');
+
 function endBonusLevel(){
   // Supprimer tous les menus de bonus
   const oldMenus = document.querySelectorAll('[data-bonus-menu]');
