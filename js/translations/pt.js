@@ -413,7 +413,7 @@ const pt = {
       phase_1: '🕸️ "Porque Deus não nos deu espírito de covardia, mas de poder, de amor e de moderação." (2 Timóteo 1:7)\n\nO MEDO DA DOR, o MEDO DE SER PICADO... Esses medos te paralisam!',
       phase_2: '✨ "Não temas, porque eu sou contigo; não te assombres, porque eu sou o teu Deus." (Isaías 41:10)\n\nMEDOS ILÓGICOS e FOBIAS não têm poder sobre aqueles que caminham na fé!',
       phase_3: '🛡️ "Ainda que eu ande pelo vale da sombra da morte, não temerei mal nenhum, porque tu estás comigo." (Salmo 23:4)\n\nO medo é um MECANISMO PROTETOR, mas não deve te DOMINAR!',
-      defeated: '🦋 VITÓRIA SOBRE O MEDO!\n\n"O perfeito amor lança fora o medo." (1 João 4:18)\n\nVocê conquistou o medo paralisante! A fé transforma o medo em coragem.',
+      defeated: '🦋 VITÓRIA SOBRE O MEDO!\n\n"Porque Deus não nos deu espírito de covardia, mas de poder, de amor e de moderação." (2 Timóteo 1:7)\n\nVocê conquistou o medo paralisante! Em Cristo, você caminha em força e coragem.',
       wisdom: 'A aranha simboliza todos os nossos medos: o medo da dor, de ser picado, fobias ilógicas. Esses medos são frequentemente mecanismos protetores normais que nos mantêm a salvo do perigo. Mas quando se tornam excessivos, nos paralisam. A Bíblia diz: "Deus não nos deu espírito de covardia, mas de poder, amor e moderação." A fé não nega o perigo, mas nos dá a coragem para enfrentá-lo. Em Cristo, aprendemos a distinguir entre cautela saudável e medo paralisante. O perfeito amor de Deus lança fora o medo!'
     },
     flying_snake: {

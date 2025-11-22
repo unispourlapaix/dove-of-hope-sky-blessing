@@ -413,7 +413,7 @@ const es = {
       phase_1: '🕸️ "Porque no nos ha dado Dios espíritu de cobardía, sino de poder, de amor y de dominio propio." (2 Timoteo 1:7)\n\n¡El MIEDO AL DOLOR, el MIEDO A SER PICADO... Estos miedos te paralizan!',
       phase_2: '✨ "No temas, porque yo estoy contigo; no desmayes, porque yo soy tu Dios." (Isaías 41:10)\n\n¡Los MIEDOS ILÓGICOS y las FOBIAS no tienen poder sobre quienes caminan en fe!',
       phase_3: '🛡️ "Aunque ande en valle de sombra de muerte, no temeré mal alguno, porque tú estarás conmigo." (Salmo 23:4)\n\n¡El miedo es un MECANISMO PROTECTOR, pero no debe DOMINARTE!',
-      defeated: '🦋 ¡VICTORIA SOBRE EL MIEDO!\n\n"El perfecto amor echa fuera el temor." (1 Juan 4:18)\n\n¡Has conquistado el miedo paralizante! La fe transforma el miedo en coraje.',
+      defeated: '🦋 ¡VICTORIA SOBRE EL MIEDO!\n\n"Porque no nos ha dado Dios espíritu de cobardía, sino de poder, de amor y de dominio propio." (2 Timoteo 1:7)\n\n¡Has conquistado el miedo paralizante! En Cristo, caminas en fuerza y valentía.',
       wisdom: 'La araña simboliza todos nuestros miedos: el miedo al dolor, a ser picados, las fobias ilógicas. Estos miedos son a menudo mecanismos protectores normales que nos mantienen a salvo del peligro. Pero cuando se vuelven excesivos, nos paralizan. La Biblia dice: "Dios no nos ha dado espíritu de cobardía, sino de poder, amor y dominio propio." La fe no niega el peligro, pero nos da el coraje para enfrentarlo. En Cristo, aprendemos a distinguir entre la precaución saludable y el miedo paralizante. ¡El perfecto amor de Dios echa fuera el temor!'
     },
     flying_snake: {
