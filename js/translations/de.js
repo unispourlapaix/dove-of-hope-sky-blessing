@@ -413,7 +413,7 @@ const de = {
       phase_1: '🕸️ "Denn Gott hat uns nicht gegeben den Geist der Furcht, sondern der Kraft und der Liebe und der Besonnenheit." (2. Timotheus 1:7)\n\nDie ANGST VOR SCHMERZ, die ANGST GEBISSEN ZU WERDEN... Diese Ängste lähmen dich!',
       phase_2: '✨ "Fürchte dich nicht, ich bin mit dir; weiche nicht, denn ich bin dein Gott." (Jesaja 41:10)\n\nILLOGISCHE ÄNGSTE und PHOBIEN haben keine Macht über die, die im Glauben wandeln!',
       phase_3: '🛡️ "Und ob ich schon wanderte im finstern Tal, fürchte ich kein Unglück; denn du bist bei mir." (Psalm 23:4)\n\nAngst ist ein SCHUTZMECHANISMUS, aber sie darf dich nicht BEHERRSCHEN!',
-      defeated: '🦋 SIEG ÜBER DIE ANGST!\n\n"Die vollkommene Liebe treibt die Furcht aus." (1. Johannes 4:18)\n\nDu hast die lähmende Angst besiegt! Der Glaube verwandelt Angst in Mut.',
+      defeated: '🦋 SIEG ÜBER DIE ANGST!\n\n"Denn Gott hat uns nicht einen Geist der Furcht gegeben, sondern der Kraft, der Liebe und der Besonnenheit." (2. Timotheus 1:7)\n\nDu hast die lähmende Angst besiegt! In Christus gehst du in Stärke und Mut.',
       wisdom: 'Die Spinne symbolisiert all unsere Ängste: die Angst vor Schmerz, gebissen zu werden, unlogische Phobien. Diese Ängste sind oft normale Schutzmechanismen, die uns vor Gefahr bewahren. Aber wenn sie übermäßig werden, lähmen sie uns. Die Bibel sagt: "Gott hat uns nicht einen Geist der Furcht gegeben, sondern der Kraft, der Liebe und der Besonnenheit." Der Glaube leugnet die Gefahr nicht, aber er gibt uns den Mut, ihr zu begegnen. In Christus lernen wir, zwischen gesunder Vorsicht und lähmender Angst zu unterscheiden. Gottes vollkommene Liebe vertreibt die Furcht!'
     },
     flying_snake: {

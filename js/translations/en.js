@@ -418,7 +418,7 @@ const en = {
       phase_1: '🕸️ "For God has not given us a spirit of fear, but of power and of love and of a sound mind." (2 Timothy 1:7)\n\nThe FEAR OF PAIN, the FEAR OF BEING BITTEN... These fears paralyze you!',
       phase_2: '✨ "Fear not, for I am with you; be not dismayed, for I am your God." (Isaiah 41:10)\n\nILLOGICAL FEARS and PHOBIAS have no power over those who walk in faith!',
       phase_3: '🛡️ "Even though I walk through the valley of the shadow of death, I will fear no evil, for you are with me." (Psalm 23:4)\n\nFear is a PROTECTIVE MECHANISM, but it must not DOMINATE you!',
-      defeated: '🦋 VICTORY OVER FEAR!\n\n"Perfect love casts out fear." (1 John 4:18)\n\nYou have conquered paralyzing fear! Faith transforms fear into courage.',
+      defeated: '🦋 VICTORY OVER FEAR!\n\n"For God has not given us a spirit of fear, but of power, love, and a sound mind." (2 Timothy 1:7)\n\nYou have conquered paralyzing fear! In Christ, you walk in strength and courage.',
       wisdom: 'The spider symbolizes all our fears: the fear of pain, of being bitten, illogical phobias. These fears are often normal protective mechanisms that keep us safe from danger. But when they become excessive, they paralyze us. The Bible says: "God has not given us a spirit of fear, but of power, love, and a sound mind." Faith doesn\'t deny danger, but it gives us the courage to face it. In Christ, we learn to distinguish between healthy caution and paralyzing fear. God\'s perfect love casts out fear!'
     },
     flying_snake: {

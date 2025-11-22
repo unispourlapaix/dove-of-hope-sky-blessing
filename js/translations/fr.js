@@ -419,7 +419,7 @@ const fr = {
       phase_1: '🕸️ "Car Dieu ne nous a pas donné un esprit de timidité, mais un esprit de force, d\'amour et de sagesse." (2 Timothée 1:7)\n\nLa PEUR D\'AVOIR MAL, la PEUR DE SE FAIRE MORDRE... Ces peurs te paralysent !',
       phase_2: '✨ "Ne crains rien, car je suis avec toi ; ne promène pas des regards inquiets, car je suis ton Dieu." (Ésaïe 41:10)\n\nLes PEURS ILLOGIQUES et les PHOBIES n\'ont pas de pouvoir sur ceux qui marchent dans la foi !',
       phase_3: '🛡️ "Même quand je marche dans la vallée de l\'ombre de la mort, je ne crains aucun mal, car tu es avec moi." (Psaume 23:4)\n\nLa peur est un MÉCANISME DE PROTECTION, mais elle ne doit pas te DOMINER !',
-      defeated: '🦋 VICTOIRE SUR LA PEUR !\n\n"L\'amour parfait bannit la crainte." (1 Jean 4:18)\n\nTu as vaincu la peur paralysante ! La foi transforme la peur en courage.',
+      defeated: '🦋 VICTOIRE SUR LA PEUR !\n\n"Car Dieu ne nous a pas donné un esprit de timidité, mais un esprit de force, d\'amour et de sagesse." (2 Timothée 1:7)\n\nTu as vaincu la peur paralysante ! En Christ, tu marches dans la force et le courage.',
       wisdom: 'L\'araignée symbolise toutes nos peurs : la peur d\'avoir mal, de se faire mordre, les phobies illogiques. Ces peurs sont souvent des mécanismes de protection normaux qui nous sauvegardent du danger. Mais quand elles deviennent excessives, elles nous paralysent. La Bible dit : "Dieu ne nous a pas donné un esprit de timidité, mais de force, d\'amour et de sagesse." La foi ne nie pas le danger, mais elle nous donne le courage de l\'affronter. En Christ, nous apprenons à distinguer entre la prudence saine et la peur paralysante. L\'amour parfait de Dieu bannit la crainte !'
     },
     flying_snake: {

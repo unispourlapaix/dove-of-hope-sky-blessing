@@ -413,7 +413,7 @@ const it = {
       phase_1: '🕸️ "Dio infatti non ci ha dato uno spirito di timidezza, ma di forza, d\'amore e di autocontrollo." (2 Timoteo 1:7)\n\nLa PAURA DEL DOLORE, la PAURA DI ESSERE MORSI... Queste paure ti paralizzano!',
       phase_2: '✨ "Non temere, perché io sono con te; non smarrirti, perché io sono il tuo Dio." (Isaia 41:10)\n\nLe PAURE ILLOGICHE e le FOBIE non hanno potere su coloro che camminano nella fede!',
       phase_3: '🛡️ "Quand\'anche camminassi nella valle dell\'ombra della morte, non temerei alcun male, perché tu sei con me." (Salmo 23:4)\n\nLa paura è un MECCANISMO PROTETTIVO, ma non deve DOMINARTI!',
-      defeated: '🦋 VITTORIA SULLA PAURA!\n\n"L\'amore perfetto caccia via la paura." (1 Giovanni 4:18)\n\nHai conquistato la paura paralizzante! La fede trasforma la paura in coraggio.',
+      defeated: '🦋 VITTORIA SULLA PAURA!\n\n"Dio infatti non ci ha dato uno spirito di timidezza, ma di forza, di amore e di saggezza." (2 Timoteo 1:7)\n\nHai vinto la paura paralizzante! In Cristo, cammini nella forza e nel coraggio.',
       wisdom: 'Il ragno simboleggia tutte le nostre paure: la paura del dolore, di essere morsi, fobie illogiche. Queste paure sono spesso normali meccanismi protettivi che ci tengono al sicuro dal pericolo. Ma quando diventano eccessive, ci paralizzano. La Bibbia dice: "Dio non ci ha dato uno spirito di timidezza, ma di forza, amore e autocontrollo." La fede non nega il pericolo, ma ci dà il coraggio di affrontarlo. In Cristo, impariamo a distinguere tra prudenza sana e paura paralizzante. L\'amore perfetto di Dio caccia via la paura!'
     },
     flying_snake: {
