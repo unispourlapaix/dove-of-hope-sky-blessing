@@ -3377,6 +3377,15 @@ function startBonusLevel(){
   state='levelComplete';
 }
 
+// 🧪 FONCTION TEST - Lancer un niveau bonus directement
+window.testBonus = function(num = 1) {
+  console.log('🧪 Test: Lancement niveau bonus', num);
+  bonusLevelNumber = num;
+  state = 'paused';
+  startBonusLevel();
+};
+console.log('🧪 Tapez testBonus(1) dans la console pour tester un niveau bonus');
+
 function endBonusLevel(){
   // Supprimer tous les menus de bonus
   const oldMenus = document.querySelectorAll('[data-bonus-menu]');
