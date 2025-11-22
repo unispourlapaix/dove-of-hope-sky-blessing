@@ -39,13 +39,7 @@ const zh = {
     score_label: '分数',
     level_label: '等级',
     courage_message: '勇敢的英雄，加油！',
-    divine_light: '化为神圣之光'
-  },
-  
-  bonus: {
-    completed_title: '🎉 奖励完成',
-    items_collected: '收集物品',
-    bonus_score: '奖励分数'
+    divine_light: '转化为神圣之光'
   },
   
   buttons: {
@@ -113,14 +107,17 @@ const zh = {
   },
   
   bonus: {
+    completed_title: '🎉 奖励完成',
+    items_collected: '收集的物品',
+    bonus_score: '奖励分数',
     collect_blessings: '收集祝福：',
     star: '星星',
     heart: '心',
     cross: '十字架',
     rainbow: '彩虹',
-    coin_trap: '硬币 = -200分（陷阱！）',
+    coin_trap: '硬币 = -200 分 (陷阱！)',
     objective: '目标：',
-    objects: '个物品',
+    objects: '物品',
     level_title: '奖励关卡'
   },
   

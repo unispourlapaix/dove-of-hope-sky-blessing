@@ -42,12 +42,6 @@ const en = {
     divine_light: 'into divine light'
   },
   
-  bonus: {
-    completed_title: '🎉 BONUS COMPLETED',
-    items_collected: 'Items collected',
-    bonus_score: 'BONUS SCORE'
-  },
-  
   buttons: {
     start: 'Light it!',
     play: 'PLAY',
@@ -112,6 +106,9 @@ const en = {
   },
   
   bonus: {
+    completed_title: '🎉 BONUS COMPLETED',
+    items_collected: 'Items collected',
+    bonus_score: 'BONUS SCORE',
     collect_blessings: 'Collect the blessings:',
     star: 'Star',
     heart: 'Heart',

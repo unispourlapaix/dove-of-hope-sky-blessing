@@ -42,12 +42,6 @@ const tr = {
     divine_light: 'ilahi ışığa'
   },
   
-  bonus: {
-    completed_title: '🎉 BONUS TAMAMLANDI',
-    items_collected: 'Toplanan öğeler',
-    bonus_score: 'BONUS PUAN'
-  },
-  
   buttons: {
     start: 'Yak!',
     play: 'OYNA',

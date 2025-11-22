@@ -39,13 +39,7 @@ const sw = {
     score_label: 'Alama',
     level_label: 'Ngazi',
     courage_message: 'Ujasiri, shujaa mwenye ujasiri!',
-    divine_light: 'katika mwanga wa kimungu'
-  },
-  
-  bonus: {
-    completed_title: '🎉 BONUS IMEKAMILIKA',
-    items_collected: 'Vitu vilivyokusanywa',
-    bonus_score: 'ALAMA ZA BONUS'
+    divine_light: 'katika nuru ya kimungu'
   },
   
   buttons: {
@@ -113,15 +107,18 @@ const sw = {
   },
   
   bonus: {
+    completed_title: '🎉 BONUS IMEKAMILIKA',
+    items_collected: 'Vitu vilivyokusanywa',
+    bonus_score: 'ALAMA ZA BONUS',
     collect_blessings: 'Kusanya baraka:',
     star: 'Nyota',
     heart: 'Moyo',
     cross: 'Msalaba',
-    rainbow: 'Upinde wa Mvua',
+    rainbow: 'Upinde wa mvua',
     coin_trap: 'Sarafu = -200 pts (MTEGO!)',
     objective: 'Lengo:',
     objects: 'vitu',
-    level_title: 'KIWANGO CHA ZIADA'
+    level_title: 'NGAZI YA BONUS'
   },
   
   treasure: {

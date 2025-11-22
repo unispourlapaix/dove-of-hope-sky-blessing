@@ -42,12 +42,6 @@ const ar = {
     divine_light: 'إلى نور إلهي'
   },
   
-  bonus: {
-    completed_title: '🎉 اكتملت المكافأة',
-    items_collected: 'العناصر المجمعة',
-    bonus_score: 'نقاط المكافأة'
-  },
-  
   buttons: {
     start: 'أضئ!',
     play: 'العب',
@@ -113,6 +107,9 @@ const ar = {
   },
   
   bonus: {
+    completed_title: '🎉 اكتملت المكافأة',
+    items_collected: 'العناصر المجمعة',
+    bonus_score: 'نقاط المكافأة',
     collect_blessings: 'اجمع البركات:',
     star: 'نجمة',
     heart: 'قلب',
@@ -121,7 +118,7 @@ const ar = {
     coin_trap: 'عملة = -200 نقطة (فخ!)',
     objective: 'الهدف:',
     objects: 'عناصر',
-    level_title: 'المستوى الإضافي'
+    level_title: 'مستوى المكافأة'
   },
   
   treasure: {

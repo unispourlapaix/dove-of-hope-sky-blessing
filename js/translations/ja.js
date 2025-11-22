@@ -39,13 +39,7 @@ const ja = {
     score_label: 'スコア',
     level_label: 'レベル',
     courage_message: '勇気を、勇敢な英雄よ！',
-    divine_light: '神聖なる光へ'
-  },
-  
-  bonus: {
-    completed_title: '🎉 ボーナス完了',
-    items_collected: '収集したアイテム',
-    bonus_score: 'ボーナススコア'
+    divine_light: '神聖な光へ'
   },
   
   buttons: {
@@ -113,12 +107,15 @@ const ja = {
   },
   
   bonus: {
+    completed_title: '🎉 ボーナス完了',
+    items_collected: '集めたアイテム',
+    bonus_score: 'ボーナススコア',
     collect_blessings: '祝福を集めよう：',
     star: '星',
     heart: 'ハート',
-    cross: '十字架',
+    cross: 'クロス',
     rainbow: '虹',
-    coin_trap: 'コイン = -200点（罠！）',
+    coin_trap: 'コイン = -200 pts (罠！)',
     objective: '目標：',
     objects: 'アイテム',
     level_title: 'ボーナスレベル'

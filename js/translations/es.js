@@ -36,12 +36,6 @@ const es = {
     divine_light: 'en luz divina'
   },
   
-  bonus: {
-    completed_title: '🎉 BONUS COMPLETADO',
-    items_collected: 'Objetos recogidos',
-    bonus_score: 'PUNTOS BONUS'
-  },
-  
   buttons: {
     start: '¡Enciende!',
     play: 'JUGAR',
@@ -107,6 +101,9 @@ const es = {
   },
   
   bonus: {
+    completed_title: '🎉 BONUS COMPLETADO',
+    items_collected: 'Objetos recogidos',
+    bonus_score: 'PUNTOS BONUS',
     collect_blessings: 'Recoge las bendiciones:',
     star: 'Estrella',
     heart: 'Corazón',

@@ -42,12 +42,6 @@ const nl = {
     divine_light: 'in goddelijk licht'
   },
   
-  bonus: {
-    completed_title: '🎉 BONUS VOLTOOID',
-    items_collected: 'Verzamelde items',
-    bonus_score: 'BONUSSCORE'
-  },
-  
   buttons: {
     start: 'Aansteken!',
     play: 'SPELEN',

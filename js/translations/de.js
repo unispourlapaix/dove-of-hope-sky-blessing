@@ -33,13 +33,7 @@ const de = {
     score_label: 'Punktzahl',
     level_label: 'Level',
     courage_message: 'Mut, tapferer Held!',
-    divine_light: 'in göttliches Licht'
-  },
-  
-  bonus: {
-    completed_title: '🎉 BONUS ABGESCHLOSSEN',
-    items_collected: 'Gesammelte Objekte',
-    bonus_score: 'BONUSPUNKTE'
+    divine_light: 'ins göttliche Licht'
   },
   
   buttons: {
@@ -107,15 +101,18 @@ const de = {
   },
   
   bonus: {
+    completed_title: '🎉 BONUS ABGESCHLOSSEN',
+    items_collected: 'Gesammelte Objekte',
+    bonus_score: 'BONUS-PUNKTE',
     collect_blessings: 'Sammle die Segnungen:',
     star: 'Stern',
     heart: 'Herz',
     cross: 'Kreuz',
     rainbow: 'Regenbogen',
-    coin_trap: 'Münze = -200 Pkte (FALLE!)',
+    coin_trap: 'Münze = -200 Pkt (FALLE!)',
     objective: 'Ziel:',
     objects: 'Objekte',
-    level_title: 'BONUSLEVEL'
+    level_title: 'BONUS-LEVEL'
   },
   
   treasure: {

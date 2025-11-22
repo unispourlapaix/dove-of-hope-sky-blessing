@@ -36,12 +36,6 @@ const it = {
     divine_light: 'in luce divina'
   },
   
-  bonus: {
-    completed_title: '🎉 BONUS COMPLETATO',
-    items_collected: 'Oggetti raccolti',
-    bonus_score: 'PUNTEGGIO BONUS'
-  },
-  
   buttons: {
     start: 'Accendilo!',
     play: 'GIOCA',
@@ -107,12 +101,15 @@ const it = {
   },
   
   bonus: {
+    completed_title: '🎉 BONUS COMPLETATO',
+    items_collected: 'Oggetti raccolti',
+    bonus_score: 'PUNTEGGIO BONUS',
     collect_blessings: 'Raccogli le benedizioni:',
     star: 'Stella',
     heart: 'Cuore',
     cross: 'Croce',
     rainbow: 'Arcobaleno',
-    coin_trap: 'Moneta = -200 pti (TRAPPOLA!)',
+    coin_trap: 'Moneta = -200 pt (TRAPPOLA!)',
     objective: 'Obiettivo:',
     objects: 'oggetti',
     level_title: 'LIVELLO BONUS'

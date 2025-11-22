@@ -36,12 +36,6 @@ const pt = {
     divine_light: 'em luz divina'
   },
   
-  bonus: {
-    completed_title: '🎉 BÔNUS COMPLETO',
-    items_collected: 'Itens coletados',
-    bonus_score: 'PONTOS BÔNUS'
-  },
-  
   buttons: {
     start: 'Acenda!',
     play: 'JOGAR',
@@ -107,6 +101,9 @@ const pt = {
   },
   
   bonus: {
+    completed_title: '🎉 BÔNUS CONCLUÍDO',
+    items_collected: 'Objetos coletados',
+    bonus_score: 'PONTOS BÔNUS',
     collect_blessings: 'Colete as bênçãos:',
     star: 'Estrela',
     heart: 'Coração',

@@ -39,13 +39,7 @@ const pl = {
     score_label: 'Wynik',
     level_label: 'Poziom',
     courage_message: 'Odwagi, dzielny bohaterze!',
-    divine_light: 'w boże światło'
-  },
-  
-  bonus: {
-    completed_title: '🎉 BONUS UKOŃCZONY',
-    items_collected: 'Zebrane przedmioty',
-    bonus_score: 'PUNKTY BONUSOWE'
+    divine_light: 'w boskie światło'
   },
   
   buttons: {
@@ -113,6 +107,9 @@ const pl = {
   },
   
   bonus: {
+    completed_title: '🎉 BONUS UKOŃCZONY',
+    items_collected: 'Zebrane przedmioty',
+    bonus_score: 'WYNIK BONUSOWY',
     collect_blessings: 'Zbieraj błogosławieństwa:',
     star: 'Gwiazda',
     heart: 'Serce',

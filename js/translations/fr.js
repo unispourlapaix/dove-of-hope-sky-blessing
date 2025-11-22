@@ -42,12 +42,6 @@ const fr = {
     divine_light: 'en lumière divine'
   },
   
-  bonus: {
-    completed_title: '🎉 BONUS TERMINÉ',
-    items_collected: 'Objets collectés',
-    bonus_score: 'SCORE BONUS'
-  },
-  
   buttons: {
     start: 'Rallume !',
     play: 'JOUER',
@@ -113,6 +107,9 @@ const fr = {
   },
   
   bonus: {
+    completed_title: '🎉 BONUS TERMINÉ',
+    items_collected: 'Objets collectés',
+    bonus_score: 'SCORE BONUS',
     collect_blessings: 'Collecte les bénédictions :',
     star: 'Étoile',
     heart: 'Cœur',

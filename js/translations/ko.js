@@ -42,12 +42,6 @@ const ko = {
     divine_light: '신성한 빛으로'
   },
   
-  bonus: {
-    completed_title: '🎉 보너스 완료',
-    items_collected: '수집한 아이템',
-    bonus_score: '보너스 점수'
-  },
-  
   buttons: {
     start: '켜라!',
     play: '플레이',
@@ -113,14 +107,17 @@ const ko = {
   },
   
   bonus: {
+    completed_title: '🎉 보너스 완료',
+    items_collected: '수집한 아이템',
+    bonus_score: '보너스 점수',
     collect_blessings: '축복을 모으세요:',
     star: '별',
     heart: '하트',
     cross: '십자가',
     rainbow: '무지개',
-    coin_trap: '동전 = -200점 (함정!)',
+    coin_trap: '동전 = -200 pts (함정!)',
     objective: '목표:',
-    objects: '물건',
+    objects: '아이템',
     level_title: '보너스 레벨'
   },
   
