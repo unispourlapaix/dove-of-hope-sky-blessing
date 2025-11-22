@@ -3372,16 +3372,6 @@ function startBonusLevel(){
     requestAnimationFrame(loop);
   });
   
-  // Fermer automatiquement après 4 secondes
-  setTimeout(() => {
-    if (bonusDiv.parentElement) {
-      bonusDiv.remove();
-      state = 'playing';
-      lastTime = Date.now();
-      requestAnimationFrame(loop);
-    }
-  }, 4000);
-  
   state='paused';
 }
 
@@ -3469,16 +3459,6 @@ function endBonusLevel(){
     lastTime = Date.now();
     requestAnimationFrame(loop);
   });
-  
-  // Fermer automatiquement après 5 secondes
-  setTimeout(() => {
-    if (endDiv.parentElement) {
-      endDiv.remove();
-      state = 'playing';
-      lastTime = Date.now();
-      requestAnimationFrame(loop);
-    }
-  }, 5000);
   
   state='paused';
 }
