@@ -117,7 +117,13 @@ const en = {
     coin_trap: 'Coin = -200 pts (TRAP!)',
     objective: 'Objective:',
     objects: 'objects',
-    level_title: 'BONUS LEVEL'
+    level_title: 'BONUS LEVEL',
+    messages: [
+      "The love of money creates many evils, but used with wisdom and love it is a great source of blessing.",
+      "Learn to love what you already have and don't sigh jealously over what is not yours.",
+      "True wealth is in the heart, your strength is that you are unique, more precious than gold and silver.",
+      "Free yourself from material slavery, be truly free, be a wise and good steward."
+    ]
   },
   
   treasure: {

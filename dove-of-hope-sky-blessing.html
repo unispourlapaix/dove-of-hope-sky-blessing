@@ -3310,8 +3310,8 @@ function startBonusLevel(){
   
   setSun('happy');
   
-  // Messages philosophiques selon le numéro de bonus
-  const bonusMessages = [
+  // Messages philosophiques depuis les traductions
+  const bonusMessages = t('bonus.messages') || [
     "L'amour de l'argent crée bien des maux, mais utilisé avec sagesse et amour il est une grande source de bénédiction.",
     "Apprends à aimer ce que tu as déjà et ne soupire pas jalousement sur ce qui n'est pas à toi.",
     "La vraie richesse est dans le cœur, ta force est que tu es unique, plus précieux que l'or et l'argent.",

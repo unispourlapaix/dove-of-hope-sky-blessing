@@ -118,7 +118,13 @@ const pl = {
     coin_trap: 'Moneta = -200 pkt (PUŁAPKA!)',
     objective: 'Cel:',
     objects: 'przedmioty',
-    level_title: 'POZIOM BONUSOWY'
+    level_title: 'POZIOM BONUSOWY',
+    messages: [
+      "Miłość do pieniędzy tworzy wiele zła, ale używana mądrze i z miłością jest wielkim źródłem błogosławieństwa.",
+      "Naucz się kochać to, co już masz i nie wzdychaj zazdrośnie do tego, co nie jest twoje.",
+      "Prawdziwe bogactwo jest w sercu, twoją siłą jest to, że jesteś wyjątkowy, cenniejszy niż złoto i srebro.",
+      "Uwolnij się od materialnej niewoli, bądź naprawdę wolny, bądź mądrym i dobrym zarządcą."
+    ]
   },
   
   treasure: {

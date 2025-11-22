@@ -112,7 +112,13 @@ const it = {
     coin_trap: 'Moneta = -200 pt (TRAPPOLA!)',
     objective: 'Obiettivo:',
     objects: 'oggetti',
-    level_title: 'LIVELLO BONUS'
+    level_title: 'LIVELLO BONUS',
+    messages: [
+      "L'amore per il denaro crea molti mali, ma usato con saggezza e amore è una grande fonte di benedizione.",
+      "Impara ad amare ciò che hai già e non sospirare gelosamente per ciò che non è tuo.",
+      "La vera ricchezza è nel cuore, la tua forza è che sei unico, più prezioso dell'oro e dell'argento.",
+      "Liberati dalla schiavitù materiale, sii veramente libero, sii un buon amministratore saggio."
+    ]
   },
   
   treasure: {

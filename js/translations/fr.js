@@ -118,7 +118,13 @@ const fr = {
     coin_trap: 'Pièce = -200 pts (PIÈGE !)',
     objective: 'Objectif :',
     objects: 'objets',
-    level_title: 'NIVEAU BONUS'
+    level_title: 'NIVEAU BONUS',
+    messages: [
+      "L'amour de l'argent crée bien des maux, mais utilisé avec sagesse et amour il est une grande source de bénédiction.",
+      "Apprends à aimer ce que tu as déjà et ne soupire pas jalousement sur ce qui n'est pas à toi.",
+      "La vraie richesse est dans le cœur, ta force est que tu es unique, plus précieux que l'or et l'argent.",
+      "Libère-toi de l'esclavage matériel, sois vraiment libre, sois un bon gestionnaire sage."
+    ]
   },
   
   treasure: {

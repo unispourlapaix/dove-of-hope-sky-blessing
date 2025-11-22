@@ -97,6 +97,27 @@ const nl = {
     save_system: '✨ Opslagsysteem'
   },
   
+  bonus: {
+    completed_title: '🎉 BONUS VOLTOOID',
+    items_collected: 'Verzamelde voorwerpen',
+    bonus_score: 'BONUS SCORE',
+    collect_blessings: 'Verzamel de zegeningen:',
+    star: 'Ster',
+    heart: 'Hart',
+    cross: 'Kruis',
+    rainbow: 'Regenboog',
+    coin_trap: 'Munt = -200 pts (VAL!)',
+    objective: 'Doel:',
+    objects: 'voorwerpen',
+    level_title: 'BONUS NIVEAU',
+    messages: [
+      "De liefde voor geld creëert veel kwaad, maar met wijsheid en liefde gebruikt is het een grote bron van zegen.",
+      "Leer te houden van wat je al hebt en zucht niet jaloers naar wat niet van jou is.",
+      "Echte rijkdom zit in het hart, je kracht is dat je uniek bent, kostbaarder dan goud en zilver.",
+      "Bevrijd jezelf van materiële slavernij, wees werkelijk vrij, wees een wijze en goede rentmeester."
+    ]
+  },
+  
   treasure: {
     title: '💎 Schatmenu',
     my_records: '🏆 Mijn Records',

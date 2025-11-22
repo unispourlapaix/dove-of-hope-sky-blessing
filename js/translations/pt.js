@@ -112,7 +112,13 @@ const pt = {
     coin_trap: 'Moeda = -200 pts (ARMADILHA!)',
     objective: 'Objetivo:',
     objects: 'objetos',
-    level_title: 'NÍVEL BÔNUS'
+    level_title: 'NÍVEL BÔNUS',
+    messages: [
+      "O amor ao dinheiro cria muitos males, mas usado com sabedoria e amor é uma grande fonte de bênção.",
+      "Aprenda a amar o que você já tem e não suspire com inveja pelo que não é seu.",
+      "A verdadeira riqueza está no coração, sua força é que você é único, mais precioso que ouro e prata.",
+      "Liberte-se da escravidão material, seja verdadeiramente livre, seja um bom administrador sábio."
+    ]
   },
   
   treasure: {

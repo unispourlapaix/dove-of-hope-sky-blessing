@@ -112,7 +112,13 @@ const de = {
     coin_trap: 'Münze = -200 Pkt (FALLE!)',
     objective: 'Ziel:',
     objects: 'Objekte',
-    level_title: 'BONUS-LEVEL'
+    level_title: 'BONUS-LEVEL',
+    messages: [
+      "Die Liebe zum Geld schafft viele Übel, aber mit Weisheit und Liebe genutzt, ist es eine große Quelle des Segens.",
+      "Lerne zu lieben, was du bereits hast, und seufze nicht neidisch über das, was dir nicht gehört.",
+      "Wahrer Reichtum liegt im Herzen, deine Stärke ist, dass du einzigartig bist, wertvoller als Gold und Silber.",
+      "Befreie dich von materieller Sklaverei, sei wirklich frei, sei ein weiser und guter Verwalter."
+    ]
   },
   
   treasure: {

@@ -112,7 +112,13 @@ const es = {
     coin_trap: 'Moneda = -200 pts (¡TRAMPA!)',
     objective: 'Objetivo:',
     objects: 'objetos',
-    level_title: 'NIVEL BONUS'
+    level_title: 'NIVEL BONUS',
+    messages: [
+      "El amor al dinero crea muchos males, pero usado con sabiduría y amor es una gran fuente de bendición.",
+      "Aprende a amar lo que ya tienes y no suspires celosamente por lo que no es tuyo.",
+      "La verdadera riqueza está en el corazón, tu fuerza es que eres único, más precioso que el oro y la plata.",
+      "Libérate de la esclavitud material, sé verdaderamente libre, sé un buen administrador sabio."
+    ]
   },
   
   treasure: {

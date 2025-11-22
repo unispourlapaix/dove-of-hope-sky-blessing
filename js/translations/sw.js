@@ -118,7 +118,13 @@ const sw = {
     coin_trap: 'Sarafu = -200 pts (MTEGO!)',
     objective: 'Lengo:',
     objects: 'vitu',
-    level_title: 'NGAZI YA BONUS'
+    level_title: 'NGAZI YA BONUS',
+    messages: [
+      "Upendo wa pesa huunda maovu mengi, lakini ukitumika kwa hekima na upendo ni chanzo kikubwa cha baraka.",
+      "Jifunze kupenda unachokwisha kuwa nacho na usilie kwa wivu kwa kile ambacho sio chako.",
+      "Utajiri wa kweli uko moyoni, nguvu yako ni kwamba wewe ni wa kipekee, wa thamani zaidi ya dhahabu na fedha.",
+      "Jiweke huru kutoka utumwa wa kimwili, kuwa huru kweli kweli, kuwa msimamizi mwenye hekima na mzuri."
+    ]
   },
   
   treasure: {

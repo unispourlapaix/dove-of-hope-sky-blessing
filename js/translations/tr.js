@@ -97,6 +97,27 @@ const tr = {
     save_system: '✨ Kaydetme Sistemi'
   },
   
+  bonus: {
+    completed_title: '🎉 BONUS TAMAMLANDI',
+    items_collected: 'Toplanan nesneler',
+    bonus_score: 'BONUS PUAN',
+    collect_blessings: 'Nimetleri topla:',
+    star: 'Yıldız',
+    heart: 'Kalp',
+    cross: 'Haç',
+    rainbow: 'Gökkuşağı',
+    coin_trap: 'Para = -200 puan (TUZAK!)',
+    objective: 'Hedef:',
+    objects: 'nesne',
+    level_title: 'BONUS SEVİYE',
+    messages: [
+      "Paraya duyulan sevgi birçok kötülük yaratır, ancak bilgelik ve sevgiyle kullanıldığında büyük bir nimet kaynağıdır.",
+      "Zaten sahip olduğun şeyi sevmeyi öğren ve senin olmayan şeye kıskançlıkla ah etme.",
+      "Gerçek zenginlik kalptedir, gücünüz benzersiz olmanızdır, altın ve gümüşten daha kıymetlisiniz.",
+      "Maddi kölelikten kurtul, gerçekten özgür ol, bilge ve iyi bir yönetici ol."
+    ]
+  },
+  
   treasure: {
     title: '💎 Hazine Menüsü',
     my_records: '🏆 Rekorlarım',
