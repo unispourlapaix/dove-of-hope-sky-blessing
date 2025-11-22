@@ -3291,7 +3291,7 @@ function restart(){
 }
 
 function startBonusLevel(){
-  console.log('🎁 startBonusLevel appelée, bonusLevelNumber:', bonusLevelNumber);
+  // console.log('🎁 startBonusLevel appelée, bonusLevelNumber:', bonusLevelNumber);
   // Supprimer tous les anciens menus de bonus qui pourraient traîner
   const oldMenus = document.querySelectorAll('[data-bonus-menu]');
   oldMenus.forEach(menu => menu.remove());
@@ -3378,24 +3378,24 @@ function startBonusLevel(){
 
 // 🧪 FONCTION TEST - Lancer un niveau bonus directement
 window.testBonus = function(num = 1) {
-  console.log('🧪 Test: Lancement niveau bonus', num);
+  // console.log('🧪 Test: Lancement niveau bonus', num);
   bonusLevelNumber = num;
   state = 'paused';
   startBonusLevel();
 };
-console.log('🧪 Tapez testBonus(1) dans la console pour tester un niveau bonus');
+// console.log('🧪 Tapez testBonus(1) dans la console pour tester un niveau bonus');
 
 // 🧪 FONCTION TEST - Afficher le menu de victoire d'un boss
 window.testBossVictory = function(bossType = 'spider') {
-  console.log('🧪 Test: Menu victoire boss', bossType);
+  // console.log('🧪 Test: Menu victoire boss', bossType);
   // Types disponibles: spider, grim_reaper, wall, black_raven, dark_cloud
   showBossVictoryScreen(bossType, () => {
-    console.log('🧪 Test: Menu fermé');
+    // console.log('🧪 Test: Menu fermé');
   });
 };
-console.log('🧪 Tapez testBossVictory("spider") dans la console pour tester le menu boss');
-console.log('🧪 Boss disponibles: spider, grim_reaper, wall, black_raven, dark_cloud');
-console.log('🧪 Ou en camelCase: spider, grimReaper, wall, blackRaven, darkCloud');
+// console.log('🧪 Tapez testBossVictory("spider") dans la console pour tester le menu boss');
+// console.log('🧪 Boss disponibles: spider, grim_reaper, wall, black_raven, dark_cloud');
+// console.log('🧪 Ou en camelCase: spider, grimReaper, wall, blackRaven, darkCloud');
 
 function endBonusLevel(){
   // Supprimer tous les menus de bonus
@@ -4084,19 +4084,19 @@ for(let bi = bullets.length - 1; bi >= 0; bi--){
         if(level === 2) {
           bonusLevelNumber = 1;
           shouldLaunchBonus = true;
-          console.log('🎁 Bonus 1 sera lancé après victoire Spider (niveau 2)');
+          // console.log('🎁 Bonus 1 sera lancé après victoire Spider (niveau 2)');
         } else if(level === 4) {
           bonusLevelNumber = 2;
           shouldLaunchBonus = true;
-          console.log('🎁 Bonus 2 sera lancé après victoire Grim Reaper (niveau 4)');
+          // console.log('🎁 Bonus 2 sera lancé après victoire Grim Reaper (niveau 4)');
         } else if(level === 6) {
           bonusLevelNumber = 3;
           shouldLaunchBonus = true;
-          console.log('🎁 Bonus 3 sera lancé après victoire Wall (niveau 6)');
+          // console.log('🎁 Bonus 3 sera lancé après victoire Wall (niveau 6)');
         } else if(level === 8) {
           bonusLevelNumber = 4;
           shouldLaunchBonus = true;
-          console.log('🎁 Bonus 4 sera lancé après victoire Black Raven (niveau 8)');
+          // console.log('🎁 Bonus 4 sera lancé après victoire Black Raven (niveau 8)');
         }
         
         showBossVictoryScreen(currentBossType, () => {
@@ -4106,7 +4106,7 @@ for(let bi = bullets.length - 1; bi >= 0; bi--){
           // Lancer le bonus si nécessaire (après un court délai)
           if(shouldLaunchBonus) {
             setTimeout(() => {
-              console.log('🎁 Lancement du bonus niveau', bonusLevelNumber);
+              // console.log('🎁 Lancement du bonus niveau', bonusLevelNumber);
               startBonusLevel();
             }, 500);
           }
@@ -6923,7 +6923,7 @@ function showLevelUpMessage(levelInfo, previousState = 'playing', onClose = null
   const levelUpCard = levelUpDiv.querySelector('div');
   if (levelUpCard) {
     levelUpCard.addEventListener('click', function() {
-      console.log('🖱️ Click sur écran de niveau, onClose:', onClose ? 'défini' : 'null');
+      // console.log('🖱️ Click sur écran de niveau, onClose:', onClose ? 'défini' : 'null');
       levelUpDiv.remove();
       state = previousState;
       if(state === 'playing') {
@@ -6932,7 +6932,7 @@ function showLevelUpMessage(levelInfo, previousState = 'playing', onClose = null
       }
       // Exécuter la callback si elle existe (pour les niveaux bonus)
       if (onClose && typeof onClose === 'function') {
-        console.log('🎁 Exécution callback niveau bonus dans 300ms...');
+        // console.log('🎁 Exécution callback niveau bonus dans 300ms...');
         setTimeout(onClose, 300); // Petit délai pour une transition fluide
       }
     });
