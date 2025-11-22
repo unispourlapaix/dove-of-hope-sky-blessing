@@ -3409,6 +3409,10 @@ function endBonusLevel(){
     saveGameData();
   }
   
+  // Ajouter le score bonus au score total
+  score += bonusScore;
+  saveProgress(level, score, cloudsCleared);
+  
   const endDiv=document.createElement('div');
   endDiv.setAttribute('data-bonus-menu', 'end');
   endDiv.style.cssText=`
@@ -3417,66 +3421,61 @@ function endBonusLevel(){
     left:50%;
     transform:translate(-50%,-50%);
     width:90%;
-    max-width:500px;
-    background:rgba(255,255,255,0.95);
-    backdrop-filter:blur(20px);
-    color:#1a1a2e;
-    padding:30px 25px;
+    max-width:400px;
+    background:linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    color:white;
+    padding:30px;
     border-radius:25px;
     text-align:center;
     z-index:450;
-    box-shadow:0 20px 60px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.3) inset;
-    border:2px solid rgba(255,255,255,0.5);
+    box-shadow:0 20px 60px rgba(0,0,0,0.5);
+    animation:fadeIn 0.3s ease-in;
+    cursor:pointer;
   `;
   
   endDiv.innerHTML=`
-    <div style="display:inline-block;padding:10px 25px;background:linear-gradient(135deg,#11998e 0%,#38ef7d 100%);border-radius:20px;margin-bottom:15px;">
-      <h2 style="font-size:20px;margin:0;color:white;font-weight:800;letter-spacing:1px;">${t('bonus.completed_title')}</h2>
-    </div>
-    <p style="font-size:48px;margin:15px 0;filter:drop-shadow(0 4px 8px rgba(0,0,0,0.2));">🏆</p>
-    <div style="background:linear-gradient(135deg,#f5f7fa 0%,#c3cfe2 100%);padding:15px;border-radius:15px;margin-bottom:15px;">
-      <p style="font-size:15px;margin:0 0 10px 0;line-height:1.4;color:#2d3436;">
-        <strong style="font-size:16px;">${t('bonus.items_collected')}</strong><br>
-        <span style="font-size:28px;color:#3498db;font-weight:800;">${bonusItemsCollected}</span>
-        <span style="font-size:20px;color:#95a5a6;"> / ${bonusItemsTarget}</span>
+    <div style="font-size:64px;margin-bottom:10px;">🏆</div>
+    <h2 style="font-size:24px;margin:0 0 15px 0;font-weight:800;letter-spacing:1px;">
+      ${t('bonus.completed_title')}
+    </h2>
+    <div style="background:rgba(255,255,255,0.2);padding:15px;border-radius:15px;margin-bottom:15px;">
+      <p style="font-size:14px;margin:0 0 5px 0;opacity:0.9;">
+        ${t('bonus.items_collected')}
+      </p>
+      <p style="font-size:36px;margin:0;font-weight:800;">
+        ${bonusItemsCollected} / ${bonusItemsTarget}
       </p>
     </div>
-    <div style="background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);padding:15px;border-radius:15px;margin-bottom:20px;">
-      <p style="font-size:14px;margin:0 0 5px 0;color:rgba(255,255,255,0.9);letter-spacing:1px;">${t('bonus.bonus_score')}</p>
-      <p style="font-size:32px;margin:0;color:white;font-weight:800;">+${bonusScore}</p>
+    <div style="background:rgba(255,255,255,0.3);padding:15px;border-radius:15px;margin-bottom:15px;">
+      <p style="font-size:14px;margin:0 0 5px 0;letter-spacing:1px;">
+        ${t('bonus.bonus_score')}
+      </p>
+      <p style="font-size:42px;margin:0;font-weight:800;">+${bonusScore}</p>
     </div>
-    <button onclick="this.parentElement.remove();state='playing';" style="
-      padding:14px 40px;
-      background:linear-gradient(135deg,#11998e 0%,#38ef7d 100%);
-      color:white;
-      border:none;
-      border-radius:50px;
-      font-size:16px;
-      font-weight:bold;
-      cursor:pointer;
-      box-shadow:0 8px 20px rgba(17,153,142,0.4);
-      transition:all 0.3s;
-      letter-spacing:1px;
-      text-transform:uppercase;
-    " onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 12px 25px rgba(17,153,142,0.5)'" onmouseout="this.style.transform='';this.style.boxShadow='0 8px 20px rgba(17,153,142,0.4)'">${t('powerups.continue')}</button>
+    <p style="font-size:11px;opacity:0.8;margin:0;">Clique pour continuer...</p>
   `;
   
   document.getElementById('gameContainer').appendChild(endDiv);
-  state='levelComplete';
   
-  score+=bonusScore;
-  saveProgress(level,score,cloudsCleared);
+  // Fermer au clic et reprendre le jeu
+  endDiv.addEventListener('click', function() {
+    endDiv.remove();
+    state = 'playing';
+    lastTime = Date.now();
+    requestAnimationFrame(loop);
+  });
   
-  // Reprendre le jeu normal après le bonus
+  // Fermer automatiquement après 5 secondes
   setTimeout(() => {
-    const continueBtn = endDiv.querySelector('button');
-    if(continueBtn) {
-      continueBtn.onclick = () => {
-        endDiv.remove();
-        completeLevel();
-      };
+    if (endDiv.parentElement) {
+      endDiv.remove();
+      state = 'playing';
+      lastTime = Date.now();
+      requestAnimationFrame(loop);
     }
-  }, 100);
+  }, 5000);
+  
+  state='paused';
 }
 
 function update(dt){
