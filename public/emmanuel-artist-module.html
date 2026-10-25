@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title id="page-title">Emmanuel Payet - Artiste Chrétien</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+    <style>400;600;700&display=swap');
         
         * {
             margin: 0; padding: 0; box-sizing: border-box;
@@ -778,6 +777,7 @@
             }
         }
     </style>
+<link rel="stylesheet" href="../css/artist-score.css">
 </head>
 <body>
     <div class="module-container">
@@ -809,50 +809,20 @@
             </div>
             <h1 class="main-title pulse" id="main-title">Emmanuel Payet</h1>
             <p class="subtitle" id="subtitle">Artiste Chrétien • Créateur • Inspirateur</p>
+            <p class="peace-slogan" id="peace-slogan">33 millions de raisons d’aimer et de partager la paix</p>
         </div>
 
-        <!-- Section Top 10000 -->
-        <div class="leaderboard-section">
-            <div class="leaderboard-header">
-                <h2 class="leaderboard-title">🏆 Top 33 Millions Mondial</h2>
-                <p class="leaderboard-subtitle">Classement des meilleurs joueurs de Petit Bateau Rouge</p>
-            </div>
-
-            <!-- 🕊️ Section Score Dove of Hope -->
-            <div id="doveScoreSection" style="background:linear-gradient(135deg, #667eea 0%, #764ba2 100%);border-radius:15px;padding:20px;margin-bottom:25px;color:white;text-align:center;">
-                <h3 id="dove-game-title" style="margin:0 0 15px 0;font-size:1.4em;">🕊️ Dove of Hope : Sky Blessing</h3>
-                <div id="doveScoreContent" style="font-size:1.1em;">
-                    <p style="margin:0;opacity:0.9;">Chargement...</p>
-                </div>
-            </div>
-
-            <div class="leaderboard-stats">
-                <div class="stat-box">
-                    <span class="stat-label" title="Joueurs">👥</span>
-                    <span class="stat-value" id="totalPlayers">-</span>
-                    <div class="stat-divider"></div>
-                    <span class="stat-label" title="Meilleur Score">🏆</span>
-                    <span class="stat-value" id="topScore">-</span>
-                </div>
-            </div>
-
-            <input type="text" id="searchInput" class="search-box" placeholder="🔍 Rechercher un joueur...">
-
-            <div class="leaderboard-table">
-                <div class="table-header">
-                    <div>Rang</div>
-                    <div>Avatar</div>
-                    <div>Joueur</div>
-                    <div>Score</div>
-                </div>
-                <div id="leaderboardContent">
-                    <div class="loading" id="loadingMessage">⏳ Chargement des scores...</div>
-                </div>
-            </div>
-
-            <div id="loadMoreContainer" style="margin: 20px 0;"></div>
-            <div class="pagination" id="pagination"></div>
-        </div>
+        <section class="score-share-section" aria-labelledby="score-share-title">
+          <div class="score-share-copy">
+            <p class="score-eyebrow">DOVE OF HOPE · SKY BLESSING</p>
+            <h2 id="score-share-title"></h2>
+            <p id="score-invitation"></p>
+            <dl class="local-score-stats"><div><dt id="local-score-label"></dt><dd id="local-score">0</dd></div><div><dt id="local-level-label"></dt><dd id="local-level">1</dd></div></dl>
+            <div class="score-actions"><button id="share-score" type="button"></button><button id="save-score-image" type="button"></button><button id="copy-score" type="button"></button><button id="new-score-cat" type="button"></button></div>
+            <p id="score-share-status" role="status" aria-live="polite"></p>
+          </div>
+          <canvas id="brave-score-card" width="600" height="740" role="img" aria-label="Dove of Hope"></canvas>
+        </section>
 
         <div class="platforms-grid">
             <div class="platform-card">
@@ -874,6 +844,7 @@
                 <h3 class="platform-title" id="music-title">Gospel Gratuit</h3>
                 <p class="platform-description" id="music-desc">Écoute mes compositions gospel sur AudioMack, des mélodies qui louent Dieu et inspirent l'unité dans la diversité.</p>
                 <a href="https://audiomack.com/emmanuelpayet888" class="platform-url" target="_blank">AudioMack - emmanuelpayet888</a>
+                <a href="https://suno.com/@emmanuelpayet" class="platform-url suno-link" target="_blank" rel="noopener noreferrer">Suno · @emmanuelpayet</a>
             </div>
 
             <div class="platform-card">
@@ -893,543 +864,10 @@
         </div>
     </div>
 
-    <script type="module">
-        // Configuration Supabase - UTILISER LE MÊME QUE LE JEU
-        const SUPABASE_URL = 'https://dmszyxowetilvsanqsxm.supabase.co';
-        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRtc3p5eG93ZXRpbHZzYW5xc3htIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk3NzM0NDUsImV4cCI6MjA3NTM0OTQ0NX0.EukDYFVt0sCrDb0_V4ZPMv5B4gkD43V8Cw7CEuvl0C8';
-        
-        // Import Supabase (optionnel - fallback sur scores locaux si échec)
-        let supabase = null;
-        
-        try {
-            const { createClient } = await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm');
-            supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
-            console.log('✅ Supabase chargé avec succès');
-        } catch (error) {
-            console.warn('⚠️ Supabase non disponible, utilisation scores locaux uniquement:', error);
-            supabase = null;
-        }
 
-        let currentPage = 1;
-        const perPage = 100;
-        let totalScores = 0;
-        let allScores = [];
-        let loadedCount = 0;
-        const initialLoad = 100;
-        const loadMoreIncrement = 200;
-        
-        // ⚡ Déclarer currentLang AVANT les fonctions (sera mis à jour après)
-        let currentLang = 'fr'; // Valeur par défaut temporaire
-
-        // Niveaux de sagesse
-        const niveauxSagesse = [
-            { min: 0, max: 99, key: 'beginner', icone: '🌱' },
-            { min: 100, max: 299, key: 'apprentice', icone: '🌿' },
-            { min: 300, max: 599, key: 'adept', icone: '🍀' },
-            { min: 600, max: 999, key: 'sage', icone: '✨' },
-            { min: 1000, max: 1499, key: 'master', icone: '🌟' },
-            { min: 1500, max: 2099, key: 'enlightened', icone: '💫' },
-            { min: 2100, max: 9999, key: 'illuminated', icone: '🔮' }
-        ];
-
-        function getNiveauSagesse(sagesse) {
-            const niveau = niveauxSagesse.find(n => sagesse >= n.min && sagesse <= n.max) || niveauxSagesse[0];
-            // Retourner juste la clé et l'icône, pas le titre traduit
-            return niveau;
-        }
-
-        function getBadges(donnees, isFirst, enigmes) {
-            const badges = [];
-            if (isFirst) badges.push('👑');
-            if (enigmes >= 18) badges.push('🎓');
-            if (donnees.niveau_atteint >= 23) badges.push('🏁');
-            return badges;
-        }
-
-        async function loadScores() {
-            try {
-                const t = translations[currentLang] || translations['fr'];
-                document.getElementById('leaderboardContent').innerHTML = `<div class="loading">${t.loading}</div>`;
-
-                allScores = [];
-
-                // 1️⃣ CHARGER LE MEILLEUR SCORE EN LIGNE (SUPABASE)
-                if (supabase) {
-                    try {
-                        const { data, error } = await supabase
-                            .from('scores')
-                            .select(`
-                                score,
-                                niveau_atteint,
-                                temps_jeu,
-                                created_at,
-                                donnees_extra,
-                                game_id,
-                                users (pseudo, avatar, pays)
-                            `)
-                            .order('score', { ascending: false })
-                            .limit(1);
-
-                        if (!error && data && data.length > 0) {
-                            console.log('🌐 Meilleur score en ligne trouvé:', data[0].score);
-                            allScores.push(data[0]);
-                        }
-                    } catch (err) {
-                        console.warn('⚠️ Erreur chargement score en ligne:', err);
-                    }
-                }
-
-                // 2️⃣ CHARGER LE MEILLEUR SCORE LOCAL
-                const localScores = getLocalScores();
-                console.log('💾 Meilleur score local trouvé:', localScores.length);
-                allScores = [...allScores, ...localScores];
-
-                // 3️⃣ Trier par score décroissant
-                allScores.sort((a, b) => b.score - a.score);
-
-                loadedCount = allScores.length;
-                totalScores = allScores.length;
-
-                // Si pas de scores, afficher un message
-                if (allScores.length === 0) {
-                    document.getElementById('leaderboardContent').innerHTML = `<div class="loading">${t.noResults || 'Aucun score enregistré'}</div>`;
-                    return;
-                }
-
-                console.log('✅ Scores chargés:', allScores.length, '(en ligne + local)');
-
-                updateStats();
-                renderPage();
-            } catch (error) {
-                console.error('❌ Erreur chargement score:', error);
-                document.getElementById('leaderboardContent').innerHTML = `<div class="loading">Erreur de chargement</div>`;
-            }
-        }
-
-        // 💾 Récupérer les scores localStorage (meilleur score uniquement)
-        function getLocalScores() {
-            try {
-                const t = translations[currentLang] || translations['fr'];
-                const data = localStorage.getItem('petit_bateau_local_scores');
-                if (!data) return [];
-
-                const scores = JSON.parse(data);
-                if (!scores || scores.length === 0) return [];
-
-                // Trouver le meilleur score (score le plus élevé)
-                const bestScore = scores.reduce((best, current) => {
-                    return (current.score > best.score) ? current : best;
-                }, scores[0]);
-
-                // Retourner uniquement le meilleur score
-                return [{
-                    score: bestScore.score,
-                    niveau_atteint: bestScore.niveau_atteint,
-                    temps_jeu: bestScore.temps_jeu,
-                    created_at: bestScore.created_at,
-                    donnees_extra: bestScore.donnees_extra,
-                    game_id: bestScore.game_id,
-                    users: {
-                        pseudo: bestScore.user?.pseudo || t.anonymous,
-                        avatar: bestScore.user?.avatar || '👤',
-                        pays: bestScore.user?.pays || null
-                    },
-                    _isLocal: true
-                }];
-            } catch (e) {
-                console.error('❌ Erreur lecture localStorage:', e);
-                return [];
-            }
-        }
-
-        function createTestScores() {
-            const pseudos = ['Alice', 'Bob', 'Charlie', 'Diana', 'Emma', 'Frank', 'Grace', 'Henry', 'Iris', 'Jack'];
-            const avatars = ['👨‍🎨', '👩‍🎨', '🧙', '🎭', '🎪', '🎨', '🎬', '🎸', '🎹', '🎺'];
-            const niveaux = [2100, 1800, 1500, 1200, 900, 600, 300, 100, 50, 25];
-            
-            // 🎯 IMPORTANT: Scores de test PLUS BAS que Marie (~160000)
-            // Commencer à 150000 et descendre progressivement
-            const maxTestScore = 150000;
-            
-            const testScores = [];
-            for (let i = 0; i < 50; i++) {
-                const pseudoIdx = i % pseudos.length;
-                // Score décroissant: 150000, 149500, 149000, etc.
-                const score = maxTestScore - (i * 500);
-                
-                testScores.push({
-                    id: `test-${i}`,
-                    score: score,
-                    donnees_extra: {
-                        pseudo: pseudos[pseudoIdx] + (i > 9 ? ` #${Math.floor(i / 10)}` : ''),
-                        avatar: avatars[pseudoIdx],
-                        sagesse: niveaux[pseudoIdx % niveaux.length],
-                        enigmes: Math.floor(Math.random() * 18),
-                        niveau_atteint: Math.floor(Math.random() * 23)
-                    },
-                    users: {
-                        pseudo: pseudos[pseudoIdx] + (i > 9 ? ` #${Math.floor(i / 10)}` : ''),
-                        avatar: avatars[pseudoIdx]
-                    },
-                    created_at: new Date(Date.now() - i * 86400000).toISOString()
-                });
-            }
-            console.log('🧪 Données de test créées:', testScores.length, 'scores (max:', maxTestScore, ')');
-            console.log('📝 Les scores de test sont en secours si Supabase est vide');
-            return testScores;
-        }
-
-        async function loadMoreScores() {
-            try {
-                const t = translations[currentLang] || translations['fr'];
-                const loadMoreBtn = document.getElementById('loadMoreBtn');
-                if (loadMoreBtn) {
-                    loadMoreBtn.disabled = true;
-                    loadMoreBtn.innerHTML = t.loading;
-                }
-
-                const start = loadedCount;
-                const end = Math.min(loadedCount + loadMoreIncrement - 1, totalScores - 1);
-
-                const { data, error } = await supabase
-                    .from('scores')
-                    .select(`
-                        score,
-                        niveau_atteint,
-                        temps_jeu,
-                        created_at,
-                        donnees_extra,
-                        game_id,
-                        users (pseudo, avatar, pays)
-                    `)
-                    .order('score', { ascending: false })
-                    .range(start, end);
-
-                if (error) throw error;
-
-                const newData = Array.isArray(data) ? data : [];
-                allScores = [...allScores, ...newData];
-                loadedCount = allScores.length;
-
-                console.log('✅ Chargement progressif:', loadedCount, 'scores');
-                renderPage();
-            } catch (error) {
-                console.error('Erreur chargement supplémentaire:', error);
-                const t = translations[currentLang] || translations['fr'];
-                alert(`❌ ${t.errorLoading}: ${error.message}`);
-                const loadMoreBtn = document.getElementById('loadMoreBtn');
-                if (loadMoreBtn) {
-                    loadMoreBtn.disabled = false;
-                    loadMoreBtn.innerHTML = `📥 ${t.loadMore}`;
-                }
-            }
-        }
-
-        function updateStats() {
-            document.getElementById('totalPlayers').textContent = totalScores.toLocaleString();
-            
-            if (allScores.length > 0) {
-                const topScore = allScores[0].score;
-                
-                document.getElementById('topScore').textContent = topScore.toLocaleString();
-            }
-        }
-
-        function renderPage() {
-            console.log('📄 renderPage() appelé - currentLang:', currentLang, '- allScores:', allScores?.length);
-            const start = (currentPage - 1) * perPage;
-            const end = start + perPage;
-            
-            const t = translations[currentLang] || translations['fr'];
-            
-            if (!Array.isArray(allScores)) {
-                document.getElementById('leaderboardContent').innerHTML = `<div class="loading" style="color: #e74c3c;">❌ ${t.errorCorrupted}</div>`;
-                return;
-            }
-            
-            const pageScores = allScores.slice(start, end);
-
-            let html = '';
-            pageScores.forEach((entry, index) => {
-                const globalRank = start + index + 1;
-                const donnees = entry.donnees_extra || {};
-                const pseudo = entry.users?.pseudo || donnees.pseudo || t.anonymous;
-                const avatar = entry.users?.avatar || donnees.avatar || '👤';
-                
-                let medal = `${globalRank}.`;
-                let rankClass = '';
-                
-                if (globalRank === 1) {
-                    medal = '🥇';
-                    rankClass = 'medal';
-                } else if (globalRank === 2) {
-                    medal = '🥈';
-                    rankClass = 'medal';
-                } else if (globalRank === 3) {
-                    medal = '🥉';
-                    rankClass = 'medal';
-                }
-
-                const rowClass = globalRank <= 3 ? 'table-row top-3' : 'table-row';
-
-                let levelInfo = '';
-                if (donnees.sagesse) {
-                    const niveau = getNiveauSagesse(donnees.sagesse);
-                    // ✨ Utiliser la fonction de traduction
-                    const titreNiveau = translateWisdomLevel(niveau.key);
-                    const enigmesInfo = donnees.enigmes ? ` • ${donnees.enigmes}/18🧩` : '';
-                    levelInfo = `
-                        <div class="player-name">${pseudo}</div>
-                        <div class="player-level">${niveau.icone} ${titreNiveau}${enigmesInfo}</div>
-                    `;
-                } else {
-                    levelInfo = `<div class="player-name">${pseudo}</div>`;
-                }
-
-                const badges = getBadges(donnees, globalRank === 1, donnees.enigmes);
-                const badgesHtml = badges.join(' ');
-
-                html += `
-                    <div class="${rowClass}">
-                        <div class="rank ${rankClass}">${medal}</div>
-                        <div class="avatar">${avatar}</div>
-                        <div>${levelInfo}</div>
-                        <div class="score-value">${entry.score.toLocaleString()}</div>
-                    </div>
-                `;
-            });
-
-            document.getElementById('leaderboardContent').innerHTML = html || `<div class="loading">${t.noResults}</div>`;
-            
-            // Afficher le bouton "Voir plus" si nécessaire
-            renderLoadMoreButton();
-            renderPagination();
-        }
-
-        function renderLoadMoreButton() {
-            const loadMoreContainer = document.getElementById('loadMoreContainer');
-            if (!loadMoreContainer) return;
-
-            if (loadedCount < totalScores) {
-                const remaining = totalScores - loadedCount;
-                const nextLoad = Math.min(loadMoreIncrement, remaining);
-                const t = translations[currentLang] || translations['fr'];
-                loadMoreContainer.innerHTML = `
-                    <button id="loadMoreBtn" class="load-more-btn" onclick="window.loadMoreScores()">
-                        ${t.loadMoreScores} ${nextLoad} ${t.moreScores} (${loadedCount.toLocaleString()} / ${totalScores.toLocaleString()})
-                    </button>
-                `;
-            } else {
-                // Tous les scores chargés - ne rien afficher
-                loadMoreContainer.innerHTML = '';
-            }
-        }
-
-        function renderPagination() {
-            const maxPossiblePages = Math.ceil(loadedCount / perPage);
-            const totalPages = maxPossiblePages;
-            let html = '';
-
-            html += `<button class="page-btn" ${currentPage === 1 ? 'disabled' : ''} onclick="window.goToPage(1)">«</button>`;
-            html += `<button class="page-btn" ${currentPage === 1 ? 'disabled' : ''} onclick="window.goToPage(${currentPage - 1})">‹</button>`;
-
-            const range = 3;
-            let start = Math.max(1, currentPage - range);
-            let end = Math.min(totalPages, currentPage + range);
-
-            if (start > 1) {
-                html += `<button class="page-btn" onclick="window.goToPage(1)">1</button>`;
-                if (start > 2) html += `<span class="page-btn" disabled>...</span>`;
-            }
-
-            for (let i = start; i <= end; i++) {
-                html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="window.goToPage(${i})">${i}</button>`;
-            }
-
-            if (end < totalPages) {
-                if (end < totalPages - 1) html += `<span class="page-btn" disabled>...</span>`;
-                html += `<button class="page-btn" onclick="window.goToPage(${totalPages})">${totalPages}</button>`;
-            }
-
-            html += `<button class="page-btn" ${currentPage === totalPages ? 'disabled' : ''} onclick="window.goToPage(${currentPage + 1})">›</button>`;
-            html += `<button class="page-btn" ${currentPage === totalPages ? 'disabled' : ''} onclick="window.goToPage(${totalPages})">»</button>`;
-
-            document.getElementById('pagination').innerHTML = html;
-        }
-
-        window.goToPage = function(page) {
-            const maxPossiblePages = Math.ceil(loadedCount / perPage);
-            if (page < 1 || page > maxPossiblePages) return;
-            
-            // Si on essaie d'aller sur une page non chargée, proposer de charger plus
-            const neededScores = page * perPage;
-            if (neededScores > loadedCount && loadedCount < totalScores) {
-                const t = translations[currentLang] || translations['fr'];
-                if (confirm(`${t.confirmLoadMore} ${loadMoreIncrement} ${t.moreScoresQuestion}`)) {
-                    loadMoreScores().then(() => {
-                        if (page <= Math.ceil(loadedCount / perPage)) {
-                            currentPage = page;
-                            renderPage();
-                            document.querySelector('.leaderboard-section').scrollIntoView({ behavior: 'smooth' });
-                        }
-                    });
-                }
-                return;
-            }
-            
-            currentPage = page;
-            renderPage();
-            document.querySelector('.leaderboard-section').scrollIntoView({ behavior: 'smooth' });
-        };
-
-        window.loadMoreScores = loadMoreScores;
-
-        // Recherche
-        document.getElementById('searchInput').addEventListener('input', (e) => {
-            const search = e.target.value.toLowerCase();
-            if (search && Array.isArray(allScores)) {
-                const filtered = allScores.filter(entry => {
-                    const pseudo = entry.users?.pseudo || entry.donnees_extra?.pseudo || '';
-                    return pseudo.toLowerCase().includes(search);
-                });
-                
-                let html = '';
-                filtered.slice(0, 100).forEach((entry, index) => {
-                    // Trouver le rang réel dans allScores
-                    const globalRank = allScores.findIndex(s => s.id === entry.id) + 1;
-                    const donnees = entry.donnees_extra || {};
-                    const pseudo = entry.users?.pseudo || donnees.pseudo || 'Anonyme';
-                    const avatar = entry.users?.avatar || donnees.avatar || '👤';
-                    
-                    let levelInfo = '';
-                    if (donnees.sagesse) {
-                        const niveau = getNiveauSagesse(donnees.sagesse);
-                        // ✨ Utiliser la fonction de traduction
-                        const titreNiveau = translateWisdomLevel(niveau.key);
-                        const enigmesInfo = donnees.enigmes ? ` • ${donnees.enigmes}/18🧩` : '';
-                        levelInfo = `
-                            <div class="player-name">${pseudo}</div>
-                            <div class="player-level">${niveau.icone} ${titreNiveau}${enigmesInfo}</div>
-                        `;
-                    } else {
-                        levelInfo = `<div class="player-name">${pseudo}</div>`;
-                    }
-
-                    const badges = getBadges(donnees, globalRank === 1, donnees.enigmes);
-                    const badgesHtml = badges.join(' ');
-
-                    html += `
-                        <div class="table-row">
-                            <div class="rank">${globalRank}.</div>
-                            <div class="avatar">${avatar}</div>
-                            <div>${levelInfo}</div>
-                            <div class="score-value">${entry.score.toLocaleString()}</div>
-                        </div>
-                    `;
-                });
-                
-                const t = translations[currentLang] || translations['fr'];
-                document.getElementById('leaderboardContent').innerHTML = html || `<div class="loading">${t.noResults}</div>`;
-                document.getElementById('pagination').innerHTML = '';
-            } else {
-                renderPage();
-            }
-        });
-
-        // Chargement initial des scores
-        loadScores();
-
-        // 🕊️ Charger et afficher les 30 meilleurs scores de Dove of Hope
-        async function loadDoveScore() {
-            try {
-                const doveContent = document.getElementById('doveScoreContent');
-                const t = translations[currentLang] || translations['fr'];
-
-                // Afficher un état de chargement
-                doveContent.innerHTML = `<p style="margin:0;opacity:0.6;">⏳ ${t.loading || 'Chargement...'}</p>`;
-
-                let leaderboard = [];
-
-                // 1️⃣ Essayer de charger depuis Supabase en premier
-                if (supabase) {
-                    try {
-                        const { data: leaderboardData, error } = await supabase
-                            .from('dove_leaderboard')
-                            .select('high_score, highest_level_reached, total_clouds_destroyed, star_stock, nickname')
-                            .order('high_score', { ascending: false })
-                            .limit(30);
-
-                        if (!error && leaderboardData && leaderboardData.length > 0) {
-                            console.log(`✅ ${leaderboardData.length} scores Dove chargés depuis Supabase`);
-                            leaderboard = leaderboardData.map(entry => ({
-                                highScore: entry.high_score,
-                                highestLevelReached: entry.highest_level_reached,
-                                totalCloudsDestroyed: entry.total_clouds_destroyed,
-                                starStock: entry.star_stock,
-                                nickname: entry.nickname || 'Anonyme'
-                            }));
-                        } else if (error) {
-                            console.warn('⚠️ Erreur Supabase dove_leaderboard:', error.message);
-                        }
-                    } catch (err) {
-                        console.warn('⚠️ Erreur connexion Supabase Dove:', err);
-                    }
-                }
-
-                // 2️⃣ Fallback sur localStorage si Supabase échoue ou pas de données
-                if (leaderboard.length === 0) {
-                    const doveData = localStorage.getItem('doveGameData');
-                    if (doveData) {
-                        const localData = JSON.parse(doveData);
-                        console.log('📦 Données Dove chargées depuis localStorage:', localData);
-                        leaderboard = [{
-                            highScore: localData.highScore || 0,
-                            highestLevelReached: localData.highestLevelReached || 0,
-                            totalCloudsDestroyed: localData.totalCloudsDestroyed || 0,
-                            starStock: localData.starStock || 0,
-                            nickname: localData.nickname || 'Joueur Local'
-                        }];
-                    }
-                }
-
-                // 3️⃣ Afficher le classement
-                if (leaderboard.length > 0) {
-                    const leaderboardHTML = leaderboard.map((entry, index) => {
-                        const rank = index + 1;
-                        const medal = rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : `${rank}.`;
-                        return `
-                            <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 15px;background:rgba(255,255,255,0.05);border-radius:8px;margin-bottom:5px;">
-                                <div style="display:flex;align-items:center;gap:10px;flex:1;">
-                                    <span style="min-width:35px;font-weight:bold;">${medal}</span>
-                                    <span style="opacity:0.9;">👤 ${entry.nickname}</span>
-                                </div>
-                                <div style="display:flex;gap:20px;align-items:center;">
-                                    <span style="font-weight:bold;">🏆 ${entry.highScore?.toLocaleString() || 0}</span>
-                                    <span style="opacity:0.7;font-size:0.9em;">📖 ${entry.highestLevelReached || 0}</span>
-                                </div>
-                            </div>
-                        `;
-                    }).join('');
-
-                    doveContent.innerHTML = `
-                        <div style="max-height:500px;overflow-y:auto;padding:10px;">
-                            ${leaderboardHTML}
-                        </div>
-                    `;
-                } else {
-                    doveContent.innerHTML = `<p style="margin:0;opacity:0.8;">${t.doveNoGame} • <a href="../dove-of-hope-sky-blessing.html" style="color:white;text-decoration:underline;">${t.dovePlayNow}</a></p>`;
-                }
-            } catch (error) {
-                console.error('❌ Erreur chargement score Dove:', error);
-                document.getElementById('doveScoreContent').innerHTML = `<p style="margin:0;opacity:0.8;">Erreur de chargement</p>`;
-            }
-        }
-        
-        // Charger le score Dove uniquement au démarrage
-        loadDoveScore();
-    </script>
 
     <script>
+        let currentLang='fr';
         // Traductions multilingues
         const translations = {
             fr: {
@@ -2114,7 +1552,7 @@
         // ⚡ Fonction de détection de langue (APRÈS translations pour pouvoir l'utiliser)
         function detectInitialLanguage() {
             // 1. PRIORITÉ 1: localStorage (choix manuel de l'utilisateur)
-            let lang = localStorage.getItem('selectedLanguage');
+            let lang = new URLSearchParams(window.location.search).get('lang') || localStorage.getItem('doveGameLang') || localStorage.getItem('selectedLanguage');
             if (lang && translations[lang]) {
                 console.log('🌍 Langue récupérée depuis localStorage (choix utilisateur):', lang);
                 return lang;
@@ -2172,6 +1610,7 @@
             // Traduire les textes statiques
             document.getElementById('page-title').textContent = t.pageTitle;
             document.title = t.pageTitle;
+            window.renderArtistScore?.(lang);
             document.getElementById('subtitle').textContent = t.subtitle;
             document.getElementById('games-title').textContent = t.gamesTitle;
             document.getElementById('games-desc').textContent = t.gamesDesc;
@@ -2333,5 +1772,6 @@
             });
         }); // ⚡ FIN DU DOMCONTENTLOADED
     </script>
+<script src="../js/artist-score.js"></script>
 </body>
 </html>

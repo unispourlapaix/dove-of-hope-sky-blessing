@@ -147,10 +147,18 @@ body{margin:0;padding:0;background:linear-gradient(135deg,#e8eef2 0%,#d4dce3 50%
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase-config-dove.js"></script>
 
+<link rel="stylesheet" href="css/refresh.css">
+<link rel="stylesheet" href="css/pixel-theme.css">
 </head>
 <body>
 <div id="gameContainer">
 <canvas id="gameCanvas"></canvas>
+<header class="welcome-brand" aria-label="Dove of Hope, Sky Blessing">
+  <div class="brand-eyebrow">UNE ENVOLÉE VERS LA LUMIÈRE</div>
+  <div class="brand-dove" aria-hidden="true">🕊️</div>
+  <h1>Dove of <em>Hope</em></h1>
+  <p class="brand-subtitle">S K Y &nbsp; B L E S S I N G</p>
+</header>
 <div class="landscape"></div>
 <div class="sun neutral" id="sun"></div>
 
@@ -192,7 +200,7 @@ body{margin:0;padding:0;background:linear-gradient(135deg,#e8eef2 0%,#d4dce3 50%
 <div id="pauseMenuOverlay" onclick="document.getElementById('pauseMenu').style.display='none'; this.style.display='none'" style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:9999;display:none;"></div>
 
 <!-- Bouton pour ouvrir le menu -->
-<button onclick="document.getElementById('pauseMenu').style.display='block'; document.getElementById('pauseMenuOverlay').style.display='block'" style="position:absolute;top:70px;left:10px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.95);border:2px solid rgba(0,0,0,0.1);font-size:11px;font-weight:bold;cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,0.2);z-index:140;transition:all 0.3s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'" title="Menu">O/I</button>
+<button id="menuButton" aria-label="Ouvrir les réglages" onclick="document.getElementById('pauseMenu').style.display='block'; document.getElementById('pauseMenuOverlay').style.display='block'" style="position:absolute;top:70px;left:10px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.95);border:2px solid rgba(0,0,0,0.1);font-size:11px;font-weight:bold;cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,0.2);z-index:140;transition:all 0.3s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'" title="Menu">☰</button>
 
 <div id="ui" style="position:absolute;top:10px;left:20px;right:20px;display:flex;justify-content:center;align-items:center;background:rgba(255,255,255,0.7);padding:6px 20px;border-radius:8px;box-shadow:0 4px 15px rgba(0,0,0,0.1);backdrop-filter:blur(10px);transition:opacity 0.3s, transform 0.3s;z-index:100;">
 <div style="display:flex;gap:15px;align-items:center;flex:1;justify-content:center;">
@@ -206,7 +214,8 @@ body{margin:0;padding:0;background:linear-gradient(135deg,#e8eef2 0%,#d4dce3 50%
 <div id="langFlag" onclick="showLanguageSelector();" style="cursor:pointer;font-size:20px;padding:4px 8px;border-radius:8px;transition:all 0.2s;background:rgba(243,156,18,0.15);" onmouseover="this.style.background='rgba(243,156,18,0.3)'" onmouseout="this.style.background='rgba(243,156,18,0.15)'" title="Changer de langue">🇫🇷</div>
 </div>
 <div id="message"></div>
-<button id="startButton"></button>
+<button id="startButton" aria-label="Prendre mon envol"><span>Prendre mon envol</span><span aria-hidden="true">↗</span></button>
+<p class="welcome-help">Déplacez la colombe · Maintenez pour tirer</p>
 <div class="motivation" id="motivationText"></div>
 </div>
 
@@ -610,7 +619,7 @@ function showTestimonies() {
     </div>
   `;
   
-  document.body.appendChild(testimonyDiv);
+  document.getElementById('gameContainer').appendChild(testimonyDiv);
 }
 
 // Fonction pour afficher le sélecteur de langue
@@ -632,7 +641,9 @@ function showLanguageSelector() {
     { code: 'pl', name: 'Polski', flag: '🇵🇱' }
   ];
   
+  if(document.getElementById('languageSelector'))return;
   const langDiv = document.createElement('div');
+  langDiv.id='languageSelector';
   langDiv.style.cssText = `
     position: fixed;
     top: 50%;
@@ -650,7 +661,7 @@ function showLanguageSelector() {
   
   langDiv.innerHTML = `
     <button onclick="this.parentElement.remove()" style="position:absolute;top:10px;right:10px;background:rgba(0,0,0,0.3);color:white;border:none;border-radius:50%;width:35px;height:35px;font-size:20px;cursor:pointer;font-weight:bold;line-height:1;">✕</button>
-    <h2 style="text-align:center;margin-bottom:20px;color:white;font-size:22px;">🌍 ${t('ui.choose_language')}</h2>
+    <h2 id="chooseLanguageTitle" style="text-align:center;margin-bottom:20px;color:white;font-size:22px;">🌍 ${t('ui.choose_language')}</h2>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
       ${languages.map(lang => `
         <button onclick="selectLanguage('${lang.code}')" style="
@@ -675,7 +686,7 @@ function showLanguageSelector() {
     </div>
   `;
   
-  document.body.appendChild(langDiv);
+  document.getElementById('gameContainer').appendChild(langDiv);
 }
 
 // Fonction pour sélectionner une langue
@@ -689,10 +700,7 @@ function selectLanguage(langCode) {
   };
   
   // Fermer le sélecteur
-  const selector = document.querySelector('div[style*="grid-template-columns"]');
-  if (selector && selector.parentElement) {
-    selector.parentElement.remove();
-  }
+  document.getElementById('languageSelector')?.remove();
   
   // Changer la langue
   setLanguage(langCode);
@@ -851,173 +859,15 @@ function updateHighestLevel(newLevel) {
 
 // Popup élégant pour le Game Over
 function showGameOverPopup() {
-  // Créer le popup
-  const popup = document.createElement('div');
-  popup.id = 'gameOverPopup';
-  popup.style.cssText = `
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.8);
-    background: linear-gradient(145deg, #ffffff 0%, #f5f7fa 100%);
-    color: #2c3e50;
-    padding: 50px 40px;
-    border-radius: 30px;
-    box-shadow: 
-      0 25px 70px rgba(0,0,0,0.15),
-      inset 0 1px 0 rgba(255,255,255,0.9),
-      0 0 0 1px rgba(192,192,192,0.2);
-    z-index: 10000;
-    text-align: center;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    max-width: 420px;
-    min-width: 340px;
-    border: 2px solid rgba(192,192,192,0.3);
-    animation: popupEnter 0.4s ease-out forwards;
-    position: relative;
-  `;
-
-  const needsInfo = !playerProfile.nickname;
-
-  popup.innerHTML = `
-    <!-- Bordures argentées fines style bouclier -->
-    <div style="
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      border-radius: 30px;
-      pointer-events: none;
-      background: 
-        linear-gradient(to right, rgba(192,192,192,0.4) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(192,192,192,0.4) 1px, transparent 1px);
-      background-size: 20px 20px;
-    "></div>
-    
-    <!-- Coins décoration argentée -->
-    <div style="position: absolute; top: 15px; left: 15px; width: 30px; height: 30px; border-top: 2px solid #c0c0c0; border-left: 2px solid #c0c0c0; border-radius: 8px 0 0 0;"></div>
-    <div style="position: absolute; top: 15px; right: 15px; width: 30px; height: 30px; border-top: 2px solid #c0c0c0; border-right: 2px solid #c0c0c0; border-radius: 0 8px 0 0;"></div>
-    <div style="position: absolute; bottom: 15px; left: 15px; width: 30px; height: 30px; border-bottom: 2px solid #c0c0c0; border-left: 2px solid #c0c0c0; border-radius: 0 0 0 8px;"></div>
-    <div style="position: absolute; bottom: 15px; right: 15px; width: 30px; height: 30px; border-bottom: 2px solid #c0c0c0; border-right: 2px solid #c0c0c0; border-radius: 0 0 8px 0;"></div>
-
-    <div style="font-size: 70px; margin-bottom: 15px; animation: shake 0.5s; position: relative; z-index: 1;">💔</div>
-
-    <div style="
-      background: linear-gradient(145deg, rgba(192,192,192,0.08), rgba(169,169,169,0.05));
-      padding: 25px;
-      border-radius: 20px;
-      margin-bottom: 25px;
-      border: 1px solid rgba(192,192,192,0.2);
-      position: relative;
-      z-index: 1;
-    ">
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 15px;">
-        <div style="
-          background: rgba(255,255,255,0.5);
-          padding: 15px;
-          border-radius: 12px;
-          border: 1px solid rgba(192,192,192,0.2);
-        ">
-          <div style="font-size: 28px; font-weight: bold;">🏆</div>
-          <div style="font-size: 24px; font-weight: 700; margin-top: 8px; color: #667eea;">${totalScore}</div>
-        </div>
-        <div style="
-          background: rgba(255,255,255,0.5);
-          padding: 15px;
-          border-radius: 12px;
-          border: 1px solid rgba(192,192,192,0.2);
-        ">
-          <div style="font-size: 28px; font-weight: bold;">📊</div>
-          <div style="font-size: 24px; font-weight: 700; margin-top: 8px; color: #667eea;">${level}</div>
-        </div>
-      </div>
-      <div style="
-        background: rgba(255,255,255,0.5);
-        padding: 15px;
-        border-radius: 12px;
-        border: 1px solid rgba(192,192,192,0.2);
-      ">
-        <div style="font-size: 28px; font-weight: bold;">☁️</div>
-        <div style="font-size: 24px; font-weight: 700; margin-top: 8px; color: #667eea;">${gameData.totalCloudsDestroyed}</div>
-      </div>
-    </div>
-
-    ${needsInfo ? `
-      <div style="margin-bottom: 20px; text-align: center; position: relative; z-index: 1;">
-        <div style="position: relative; margin-bottom: 15px;">
-          <span style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 20px;">🎮</span>
-          <input id="nicknameInput" type="text" placeholder="${t('profile.enter_nickname') || 'Enter your nickname...'}"
-            style="width: 100%; padding: 12px 12px 12px 45px; border: 1px solid rgba(192,192,192,0.3); border-radius: 10px; font-size: 16px;
-                   background: rgba(255,255,255,0.9); color: #2c3e50; box-sizing: border-box;" />
-        </div>
-
-        <div style="position: relative;">
-          <span style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 20px;">📧</span>
-          <input id="emailInput" type="email" placeholder="${t('profile.enter_email') || 'your@email.com'}"
-            style="width: 100%; padding: 12px 12px 12px 45px; border: 1px solid rgba(192,192,192,0.3); border-radius: 10px; font-size: 16px;
-                   background: rgba(255,255,255,0.7); color: #2c3e50; box-sizing: border-box;" />
-        </div>
-      </div>
-    ` : ''}
-
-    <button id="restartBtn" style="
-      width: 100%;
-      padding: 20px;
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      border: 1px solid rgba(192,192,192,0.3);
-      border-radius: 15px;
-      color: white;
-      font-size: 40px;
-      cursor: pointer;
-      transition: all 0.3s;
-      box-shadow: 0 4px 15px rgba(102,126,234,0.3);
-      position: relative;
-      z-index: 1;
-    " onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 6px 20px rgba(102,126,234,0.4)'"
-       onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(102,126,234,0.3)'">
-      🔄
-    </button>
-  `;
-
-  // Ajouter l'animation shake
-  if (!document.getElementById('shakeAnimation')) {
-    const style = document.createElement('style');
-    style.id = 'shakeAnimation';
-    style.textContent = `
-      @keyframes shake {
-        0%, 100% { transform: rotate(0deg); }
-        25% { transform: rotate(-10deg); }
-        75% { transform: rotate(10deg); }
-      }
-    `;
-    document.head.appendChild(style);
-  }
-
-  document.getElementById('gameContainer').appendChild(popup);
-
-  // Gestion du bouton restart
-  document.getElementById('restartBtn').addEventListener('click', () => {
-    if (needsInfo) {
-      const nickname = document.getElementById('nicknameInput').value.trim() || 'Anonyme';
-      const email = document.getElementById('emailInput').value.trim() || '';
-
-      playerProfile.nickname = nickname;
-      playerProfile.email = email;
-      savePlayerProfile();
-    }
-
-    popup.remove();
-    restart();
-  });
-
-  // Focus sur le champ pseudo si nécessaire
-  if (needsInfo) {
-    setTimeout(() => {
-      const input = document.getElementById('nicknameInput');
-      if (input) input.focus();
-    }, 100);
-  }
+  if(document.getElementById('gameOverPopup')) return;
+  const popup=document.createElement('div');popup.id='gameOverPopup';popup.className='pixel-level-screen end-screen';
+  popup.setAttribute('role','dialog');popup.setAttribute('aria-modal','true');popup.setAttribute('aria-label',t('messages.gameOver'));
+  const card=document.createElement('section');card.className='pixel-level-card end-card';
+  const title=document.createElement('h2');title.textContent=t('messages.gameOver');card.append(title);
+  const message=document.createElement('p');message.textContent=t('powerups.try_again');card.append(message);
+  const share=document.createElement('button');share.type='button';share.className='end-action';share.textContent=window.getShareLabel();share.addEventListener('click',()=>window.showShareCats());card.append(share);
+  const replay=document.createElement('button');replay.type='button';replay.id='restartBtn';replay.className='end-action';replay.textContent=t('buttons.restart');replay.addEventListener('click',()=>{popup.remove();restart();});card.append(replay);
+  popup.append(card);document.getElementById('gameContainer').append(popup);replay.focus();
 }
 
 // Demander les informations du joueur au Game Over (DÉPRÉCIÉ - utilise showGameOverPopup)
@@ -2319,41 +2169,44 @@ function playSound(type) {
       }
       break;
       
-    case 'raven_caw': // Croassement sinistre du corbeau
+    case 'raven_caw': // Two low, ragged calls followed by a fading echo.
       {
-        const duration = 0.5;
-        const bufferSize = audioContext.sampleRate * duration;
-        const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
-        const data = buffer.getChannelData(0);
-        
-        for (let i = 0; i < bufferSize; i++) {
-          const t = i / audioContext.sampleRate;
-          // Croassement rauque "CRAW"
-          const freq = 400 + Math.sin(t * 30) * 150; // Modulation irrégulière
-          const caw = Math.sin(t * Math.PI * 2 * freq);
-          // Texture rauque avec bruit
-          const noise = (Math.random() * 2 - 1) * 0.4;
-          // Harmoniques sombres
-          const dark = Math.sin(t * Math.PI * 2 * freq * 0.5) * 0.3;
-          const envelope = Math.exp(-t * 5) * (1 + Math.sin(t * 20) * 0.2);
-          data[i] = (caw * 0.5 + noise + dark) * envelope;
+        const duration=1.65, rate=audioContext.sampleRate;
+        const buffer=audioContext.createBuffer(1,Math.ceil(rate*duration),rate);
+        const data=buffer.getChannelData(0);
+        let phase=0;
+        for(let i=0;i<data.length;i++){
+          const time=i/rate;
+          const local=time<0.5?time:time-0.66;
+          let sample=0;
+          if(local>=0 && local<0.5 && (time<0.5 || time>=0.66)){
+            const frequency=225-100*local+22*Math.sin(local*63)+9*Math.sin(local*137);
+            phase+=2*Math.PI*frequency/rate;
+            const throat=Math.sin(phase)+.38*Math.sin(2*phase)+.2*Math.sin(3.02*phase);
+            const rasp=(Math.random()*2-1)*.38;
+            const attack=Math.min(1,local/.018);
+            const release=Math.min(1,(.5-local)/.09);
+            const pulse=.76+.24*Math.sin(local*48);
+            sample=Math.tanh((throat*.6+rasp)*1.8)*attack*release*pulse*(time<.5?1:.82);
+          }
+          data[i]=sample*.65;
         }
-        
-        const source = audioContext.createBufferSource();
-        source.buffer = buffer;
-        const filter = audioContext.createBiquadFilter();
-        filter.type = 'bandpass';
-        filter.frequency.value = 600;
-        filter.Q.value = 2;
-        const gain = audioContext.createGain();
-        gain.gain.value = 0.32;
-        source.connect(filter);
-        filter.connect(gain);
-        gain.connect(audioContext.destination);
+        // Bake in quiet echoes, avoiding a persistent feedback audio graph.
+        const dry=new Float32Array(data);
+        const delay=Math.round(rate*.21);
+        for(let i=delay;i<data.length;i++){
+          data[i]+=dry[i-delay]*.2;
+          if(i>=delay*2)data[i]+=dry[i-delay*2]*.08;
+        }
+        const source=audioContext.createBufferSource();source.buffer=buffer;
+        const filter=audioContext.createBiquadFilter();filter.type='lowpass';filter.frequency.value=1800;filter.Q.value=.65;
+        const gain=audioContext.createGain();gain.gain.value=.3;
+        source.connect(filter);filter.connect(gain);gain.connect(audioContext.destination);
+        source.onended=()=>{source.disconnect();filter.disconnect();gain.disconnect();};
         source.start(now);
       }
       break;
-      
+
     case 'raven_flap': // Battement d'ailes puissant
       {
         const duration = 0.25;
@@ -2509,9 +2362,23 @@ function playSound(type) {
       }
       break;
       
+    case 'snake_rattle':
+      {
+        const duration=1,rate=audioContext.sampleRate;
+        const buffer=audioContext.createBuffer(1,rate,rate),data=buffer.getChannelData(0);
+        for(let i=0;i<data.length;i++){const t=i/rate;const pulse=Math.pow(Math.max(0,Math.sin(t*Math.PI*2*32)),3);data[i]=(Math.random()*2-1)*pulse*Math.min(1,t/.025)*Math.min(1,(duration-t)/.08)*.65;}
+        const source=audioContext.createBufferSource();source.buffer=buffer;
+        const filter=audioContext.createBiquadFilter();filter.type='bandpass';filter.frequency.value=2800;filter.Q.value=.8;
+        const gain=audioContext.createGain();gain.gain.value=.28;
+        source.connect(filter);filter.connect(gain);gain.connect(audioContext.destination);
+        source.onended=()=>{source.disconnect();filter.disconnect();gain.disconnect();};source.start(now);
+      }
+      break;
+
+    case 'reaper_charge_laugh':
     case 'reaper_laugh': // Rire sinistre de la Faucheuse
       {
-        const duration = 0.8;
+        const duration = type === 'reaper_charge_laugh' ? 2 : 0.8;
         const bufferSize = audioContext.sampleRate * duration;
         const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
         const data = buffer.getChannelData(0);
@@ -2525,7 +2392,8 @@ function playSound(type) {
           const spectral = Math.sin(t * Math.PI * 2 * laughFreq * 3) * 0.3;
           // Bruit d'outre-tombe
           const darkness = (Math.random() * 2 - 1) * 0.2;
-          const envelope = Math.sin(t / duration * Math.PI) * 0.9;
+          const syllable = (t % (1/3)) / (1/3);
+          const envelope = type === 'reaper_charge_laugh' ? Math.pow(Math.sin(Math.PI * Math.min(1,syllable/.8)),2) * (1-t/duration*.25) * .8 : Math.sin(t / duration * Math.PI) * 0.9;
           data[i] = (laugh * 0.6 + spectral + darkness) * envelope;
         }
         
@@ -2540,6 +2408,7 @@ function playSound(type) {
         source.connect(filter);
         filter.connect(gain);
         gain.connect(audioContext.destination);
+        source.onended=()=>{source.disconnect();filter.disconnect();gain.disconnect();};
         source.start(now);
       }
       break;
@@ -2706,6 +2575,17 @@ function drawPowerUp(powerup) {
   ctx.restore();
 }
 
+function activateStarShockwave() {
+  if(state !== 'playing' || starCount <= 0) return false;
+  starCount--;
+  lastStarChangeTime = Date.now();
+  starStockEl.textContent = starCount;
+  shockwaves.push(createShockwave(player.x + player.w/2, player.y + player.h/2));
+  playSound('shockwave');
+  msg(t('powerups.star') + ` (${starCount} restantes)`);
+  return true;
+}
+
 // Fonction pour créer une onde de choc
 function createShockwave(x, y) {
   return {
@@ -2744,75 +2624,12 @@ function drawShockwave(wave) {
 
 // Fonction pour adapter le canvas au format portrait mobile
 function resizeCanvas() {
-  const container = document.getElementById('gameContainer');
-  const containerWidth = container.clientWidth;
-  const containerHeight = container.clientHeight;
-  
-  // Détecter les appareils mobiles
-  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-  
-  // Résolution minimale garantie pour faibles mobiles
-  const MIN_WIDTH = 320;  // iPhone SE et anciens Android
-  const MIN_HEIGHT = 480;
-  const MAX_WIDTH = 480;  // Limite haute pour performances
-  
-  // Ratio aspect idéal (9:16 portrait)
-  const ASPECT_RATIO = 9 / 16;
-  
-  if(isMobile || containerWidth < containerHeight) {
-    // Mode portrait mobile : adapter à la résolution de l'écran
-    const screenWidth = window.innerWidth || screen.width;
-    const screenHeight = window.innerHeight || screen.height;
-    
-    // Calculer les dimensions optimales
-    let targetWidth = Math.max(MIN_WIDTH, Math.min(screenWidth, containerWidth, MAX_WIDTH));
-    let targetHeight = Math.max(MIN_HEIGHT, Math.min(screenHeight, containerHeight));
-    
-    // Pour très petits écrans, réduire la résolution interne pour performances
-    if (screenWidth < 375 || screenHeight < 667) {
-      // Appareils comme iPhone SE, anciens Android
-      targetWidth = Math.min(targetWidth, 360);
-      targetHeight = Math.min(targetHeight, 640);
-      
-      // Activer le mode performance sur très faibles appareils
-      if (screenWidth < 340) {
-        targetWidth = MIN_WIDTH;
-        targetHeight = MIN_HEIGHT;
-      }
-    }
-    
-    c.width = targetWidth;
-    c.height = targetHeight;
-    
-    // Ajuster la taille d'affichage via CSS pour remplir le conteneur
-    c.style.width = '100%';
-    c.style.height = '100%';
-    c.style.imageRendering = screenWidth < 375 ? 'pixelated' : 'auto';
-  } else {
-    // Mode desktop : maintenir le ratio aspect pour éviter l'étirement
-    const containerRatio = containerWidth / containerHeight;
-    
-    let targetWidth, targetHeight;
-    
-    if (containerRatio > ASPECT_RATIO) {
-      // Container plus large : limiter par la hauteur
-      targetHeight = Math.min(containerHeight, 800);
-      targetWidth = Math.round(targetHeight * ASPECT_RATIO);
-    } else {
-      // Container plus haut : limiter par la largeur
-      targetWidth = Math.min(containerWidth, MAX_WIDTH);
-      targetHeight = Math.round(targetWidth / ASPECT_RATIO);
-    }
-    
-    c.width = targetWidth;
-    c.height = targetHeight;
-    
-    // Centrer le canvas sans étirement
-    c.style.width = targetWidth + 'px';
-    c.style.height = targetHeight + 'px';
-    c.style.imageRendering = 'auto';
-  }
-  
+  // Keep one logical portrait stage; viewport fitting scales the whole UI uniformly.
+  c.width = 480;
+  c.height = 724;
+  c.style.width = '480px';
+  c.style.height = '724px';
+  c.style.imageRendering = 'pixelated';
   player.x = c.width / 2;
   player.y = c.height - 120;
   
@@ -2878,7 +2695,7 @@ function cloud(){
     c:shoot?'#7f8c8d':'#95a5a6',
     shoot:shoot,
     lastShot:Date.now(),
-    delay:3000+Math.random()*3000 // OPTIMISATION: Délai augmenté pour réduire spam
+    delay:1600+Math.random()*1600 // OPTIMISATION: Délai augmenté pour réduire spam
   };
 }
 
@@ -2923,6 +2740,16 @@ function rainDrop(x,y){
 function powerUp(x,y){const types=['umbrella','electric','multishot'],type=types[Math.floor(Math.random()*types.length)],colors={umbrella:'#e74c3c',electric:'#9b59b6',multishot:'#f39c12'};return{x:x,y:y,w:25,h:25,s:2,type:type,c:colors[type]};}
 
 function bullet(x,y,color,width){return{x:x,y:y,w:width||4,h:12,s:8,c:color||'#f1c40f'};}
+
+function tripleShot(x,y){
+  return [-0.36,0,0.36].map((angle,index)=>{
+    const shot=bullet(x-4,y,['#df75a7','#4baecb','#d7a936'][index],8);
+    shot.vx=Math.sin(angle)*shot.s;
+    shot.vy=Math.cos(angle)*shot.s;
+    shot.fan=true;
+    return shot;
+  });
+}
 
 function heart(){return{x:player.x+18+Math.random()*8,y:player.y+10+Math.random()*5,vx:(Math.random()-0.5)*1.5,vy:-2.5-Math.random()*1.2,size:12+Math.random()*6,life:1,decay:0.006,c:'#e74c3c',rot:0,rotS:(Math.random()-0.5)*0.1};}
 
@@ -3115,6 +2942,7 @@ function showPopup(message, icon = '✨', type = 'info') {
   const color = colors[type] || colors.info;
   
   const popup = document.createElement('div');
+  popup.dataset.pixelWindow='notification';
   popup.style.cssText = `
     position: fixed;
     top: 50%;
@@ -3258,7 +3086,8 @@ function restart(){
         x: Math.random() * c.width,
         y: -Math.random() * c.height,
         l: 15 + Math.random() * 15,
-        s: (currentLevelConfig.rainSpeed || 1.0) * 2 * (1 + Math.random() * 0.5)
+        stormRain: true,
+        s: (currentLevelConfig.rainSpeed.max || 1.0) * 2 * (1 + Math.random() * 0.5)
       });
     }
     // Musique de pluie lancée uniquement au spawn initial
@@ -3454,12 +3283,7 @@ function endBonusLevel(){
         ${bonusItemsCollected} / ${bonusItemsTarget}
       </p>
     </div>
-    <div style="background:rgba(255,255,255,0.3);padding:15px;border-radius:15px;margin-bottom:15px;">
-      <p style="font-size:14px;margin:0 0 5px 0;letter-spacing:1px;">
-        ${t('bonus.bonus_score')}
-      </p>
-      <p style="font-size:42px;margin:0;font-weight:800;">+${bonusScore}</p>
-    </div>
+    <button class="end-action" onclick="event.stopPropagation(); window.showShareCats()">${window.getShareLabel()}</button>
     <p style="font-size:11px;opacity:0.8;margin:0;">${t('ui.click_to_continue') || 'Clique pour continuer...'}</p>
   `;
   
@@ -3496,7 +3320,8 @@ if(bossManager.isBossActive()) {
         x: Math.random() * c.width,
         y: -20 - Math.random() * 50,
         l: 15 + Math.random() * 15,
-        s: (currentLevelConfig.rainSpeed || 1.0) * 2 * (1 + Math.random() * 0.5)
+        stormRain: true,
+        s: (currentLevelConfig.rainSpeed.max || 1.0) * 2 * (1 + Math.random() * 0.5)
       });
     }
   }
@@ -3576,7 +3401,7 @@ fallingPowerUps = fallingPowerUps.filter((pu) => {
 });
 if(fallingPowerUps.length > 10) fallingPowerUps.splice(0, fallingPowerUps.length - 10);
 
-if(touchX!==null&&touchY!==null){const currentSpeed=player.s;const targetX=Math.max(20,Math.min(c.width-60,touchX-20));const targetY=Math.max(30,Math.min(c.height-50,touchY-80));player.x+=(targetX-player.x)*0.12*currentSpeed*dtFactor;player.y+=(targetY-player.y)*0.12*currentSpeed*dtFactor;}
+if(touchX!==null&&touchY!==null&&!(bossManager.bossType==='flying_snake'&&bossManager.currentBoss?.rattlePullFrameMs>0)){const currentSpeed=player.s;const targetX=Math.max(20,Math.min(c.width-60,touchX-20));const targetY=Math.max(30,Math.min(c.height-50,touchY-80));player.x+=(targetX-player.x)*0.12*currentSpeed*dtFactor;player.y+=(targetY-player.y)*0.12*currentSpeed*dtFactor;}
 
 // Forcer le joueur à rester dans les limites du canvas
 player.x = Math.max(0, Math.min(c.width - player.w, player.x));
@@ -3593,10 +3418,7 @@ if(electric && Date.now() - lastElectricShock > 2000) {
 // Mode bonus : pas de tir
 if(!isBonusLevel&&shooting&&Date.now()-lastShot>(multi?150:200)){
   if(multi){
-    // Triple laser : trois larges faisceaux colorés
-    bullets.push(bullet(player.x+2,player.y,'#e74c3c',12));  // Rouge gauche
-    bullets.push(bullet(player.x+15,player.y,'#3498db',12)); // Bleu centre
-    bullets.push(bullet(player.x+28,player.y,'#f1c40f',12)); // Jaune droite
+    bullets.push(...tripleShot(player.x+20,player.y));
   }else{
     const bulletColor='#3498db'; // Bleu quand on tire
     bullets.push(bullet(player.x+18,player.y,bulletColor));
@@ -3679,8 +3501,9 @@ if(isBonusLevel){
 
 // OPTIMISATION: Nettoyer balles hors écran et limiter à 30
 bullets = bullets.filter(b => {
-  b.y -= b.s * dtFactor;
-  return b.y >= -10;
+  b.x += (b.vx || 0) * dtFactor;
+  b.y -= (b.vy === undefined ? b.s : b.vy) * dtFactor;
+  return b.y >= -16 && b.x+b.w >= 0 && b.x <= c.width;
 });
 if(bullets.length > 30) bullets.splice(0, bullets.length - 30);
 
@@ -3981,7 +3804,8 @@ for(let bi = bullets.length - 1; bi >= 0; bi--){
               x: Math.random() * c.width,
               y: -Math.random() * c.height,
               l: 15 + Math.random() * 15,
-              s: (currentLevelConfig.rainSpeed || 1.0) * 2 * (1 + Math.random() * 0.5)
+        stormRain: true,
+              s: (currentLevelConfig.rainSpeed.max || 1.0) * 2 * (1 + Math.random() * 0.5)
             });
           }
         }
@@ -4401,28 +4225,8 @@ c.addEventListener('touchstart',(e)=>{
   } else {
     const now = Date.now();
     // Détecter le double-clic (moins de 300ms entre deux clics)
-    if(starCount > 0 && now - lastClickTime < 300) {
-      // Consommer une étoile
-      starCount--;
-      lastStarChangeTime = Date.now(); // Marquer le moment du changement
-      
-      // Créer l'onde de choc depuis la colombe
-      shockwaves.push(createShockwave(player.x + player.w/2, player.y + player.h/2));
-      playSound('shockwave');
-      
-      // Activer l'onde de choc
-      const numClouds = clouds.length;
-      for(let j = 0; j < numClouds; j++) {
-        const cl = clouds[j];
-        // OPTIMISATION: Réduit de 8 à 3 particules par nuage pour performances
-        for(let k = 0; k < 3; k++) particles.push(particle(cl.x + cl.w/2, cl.y + cl.h/2));
-        score += 100;
-        totalScore += 100;
-        cloudsCleared++;
-        cloudsInLevel++;
-      }
-      clouds = [];
-      msg(t('powerups.star') + ` (${starCount} restantes)`);
+    if(state === 'playing' && starCount > 0 && now - lastClickTime < 400) {
+      activateStarShockwave();
       lastClickTime = 0;
     } else {
       lastClickTime = now;
@@ -4464,28 +4268,8 @@ c.addEventListener('mousedown',(e)=>{
   } else {
     const now = Date.now();
     // Détecter le double-clic (moins de 300ms entre deux clics)
-    if(starCount > 0 && now - lastClickTime < 300) {
-      // Consommer une étoile
-      starCount--;
-      lastStarChangeTime = Date.now(); // Marquer le moment du changement
-      
-      // Créer l'onde de choc depuis la colombe
-      shockwaves.push(createShockwave(player.x + player.w/2, player.y + player.h/2));
-      playSound('shockwave');
-      
-      // Activer l'onde de choc
-      const numClouds = clouds.length;
-      for(let j = 0; j < numClouds; j++) {
-        const cl = clouds[j];
-        // OPTIMISATION: Réduit de 8 à 3 particules par nuage pour performances
-        for(let k = 0; k < 3; k++) particles.push(particle(cl.x + cl.w/2, cl.y + cl.h/2));
-        score += 100;
-        totalScore += 100;
-        cloudsCleared++;
-        cloudsInLevel++;
-      }
-      clouds = [];
-      msg(t('powerups.star') + ` (${starCount} restantes)`);
+    if(state === 'playing' && starCount > 0 && now - lastClickTime < 400) {
+      activateStarShockwave();
       lastClickTime = 0;
     } else {
       lastClickTime = now;
@@ -4935,32 +4719,14 @@ function showStats() {
     " onmouseover="this.style.background='rgba(231, 76, 60, 1)'; this.style.transform='scale(1.1)'" onmouseout="this.style.background='rgba(231, 76, 60, 0.9)'; this.style.transform='scale(1)'">✕</button>
     <h2 style="text-align:center;margin-bottom:20px;font-size:24px;clear:both;">${t('treasure.title')}</h2>
     
-    <div style="background:linear-gradient(135deg, rgba(231,76,60,0.2), rgba(241,196,15,0.2));padding:15px;border-radius:10px;margin-bottom:15px;border:2px solid rgba(231,76,60,0.3);">
-      <h3 style="margin-top:0;text-align:center;">👤 ${t('treasure.my_profile')}</h3>
-      <p style="margin:8px 0;text-align:center;"><strong>🎮 ${t('treasure.nickname')}:</strong> ${localStorage.getItem('dovePlayerNickname') || playerProfile.nickname || t('treasure.not_set')}</p>
-      <p style="margin:8px 0;text-align:center;"><strong>📧 ${t('treasure.email')}:</strong> ${localStorage.getItem('dovePlayerEmail') || playerProfile.email || t('treasure.not_set')}</p>
-      <p style="margin:8px 0;text-align:center;"><strong>☁️ ${t('treasure.cloud_status')}:</strong> ${localStorage.getItem('dovePlayerNickname') && localStorage.getItem('dovePlayerEmail') ? '✅ ' + t('treasure.connected') : '🔒 ' + t('treasure.disconnected')}</p>
-      <p style="margin:8px 0;text-align:center;"><strong>🏆 ${t('treasure.best_score')}:</strong> ${playerProfile.bestScore.toLocaleString()}</p>
-      <p style="margin:8px 0;text-align:center;"><strong>🎯 ${t('treasure.max_level')}:</strong> ${playerProfile.highestLevel}</p>
-      ${playerProfile.lastPlayed ? `<p style="margin:8px 0;text-align:center;font-size:12px;opacity:0.8;">${t('treasure.last_game')}: ${new Date(playerProfile.lastPlayed).toLocaleDateString(currentLang === 'en' ? 'en-US' : 'fr-FR')}</p>` : ''}
-      <div style="text-align:center;margin-top:12px;">
-        <button onclick="document.getElementById('statsDisplay').remove(); showSupabaseSave();" style="
-          padding:10px 20px;
-          background:linear-gradient(135deg, #667eea, #764ba2);
-          color:white;
-          border:none;
-          border-radius:8px;
-          font-size:13px;
-          font-weight:bold;
-          cursor:pointer;
-          box-shadow:0 4px 6px rgba(0,0,0,0.2);
-          transition:transform 0.2s;
-        " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-          ${localStorage.getItem('dovePlayerNickname') && localStorage.getItem('dovePlayerEmail') ? t('treasure.cloud_manage') : t('treasure.cloud_connect')}
-        </button>
-      </div>
-    </div>
-    
+    <section class="treasure-score-share">
+      <div class="brave-cat-preview">${window.getBraveCatMarkup()}</div>
+      <h3>${t('treasure.share_score')}</h3>
+      <p>${t('export.courage_message')}</p>
+      <p><strong>${t('treasure.best_score')} : ${Math.max(gameData.highScore||0,playerProfile.bestScore||0,score||0).toLocaleString(currentLang)}</strong></p>
+      <button class="end-action" onclick="window.showShareScore()">↗ ${t('treasure.share_score')}</button>
+    </section>
+
     <!-- Onglets de Conseils de Vie -->
     <div style="margin-bottom:20px;">
       <div style="display:flex;gap:8px;margin-bottom:15px;flex-wrap:wrap;justify-content:center;">
@@ -5043,30 +4809,8 @@ function showStats() {
       </p>
     ` : ''}
     
-    <div style="background:linear-gradient(135deg, rgba(52,152,219,0.2), rgba(155,89,182,0.2));padding:15px;border-radius:10px;margin-bottom:20px;border:2px solid rgba(52,152,219,0.3);">
-      <h3 style="margin-top:0;text-align:center;">${t('treasure.creator')}</h3>
-      <p style="margin:8px 0;text-align:center;"><strong>${t('treasure.creator_name')}</strong></p>
-      <p style="margin:8px 0;text-align:center;font-size:13px;opacity:0.9;">${t('treasure.creator_bio')}</p>
-      <p style="margin:8px 0;text-align:center;font-size:12px;opacity:0.8;">${t('treasure.audiomack')}: <strong>emmanuelpayet888</strong></p>
-      <p style="margin:6px 0;text-align:center;font-size:11px;opacity:0.7;">${t('treasure.creator_message')}</p>
-      <div style="text-align:center;margin-top:12px;">
-        <a href="./public/emmanuel-artist-module.html" target="_blank" style="
-          display:inline-block;
-          padding:10px 20px;
-          background:linear-gradient(135deg, #3498db, #9b59b6);
-          color:white;
-          text-decoration:none;
-          border-radius:8px;
-          font-size:13px;
-          font-weight:bold;
-          box-shadow:0 4px 6px rgba(0,0,0,0.2);
-          transition:transform 0.2s;
-        " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-          ${t('treasure.discover_artist')}
-        </a>
-      </div>
-    </div>
-    
+    ${window.renderCreatorCard()}
+
     <div style="background:linear-gradient(135deg, rgba(231,76,60,0.15), rgba(241,196,15,0.15));padding:18px;border-radius:10px;margin-bottom:20px;border:2px solid rgba(231,76,60,0.3);text-align:center;">
       <h3 style="margin-top:0;color:#e74c3c;">💬 ${t('treasure.testimonies_title')}</h3>
       <p style="margin:10px 0;font-size:13px;opacity:0.9;">${t('treasure.testimonies_description')}</p>
@@ -5098,18 +4842,7 @@ function showStats() {
         cursor:pointer;
       ">✅ ${t('buttons.close')}</button>
       
-      <button onclick="manualCloudSave()" style="
-        padding:12px 24px;
-        background:#3498db;
-        color:white;
-        border:none;
-        border-radius:10px;
-        font-size:16px;
-        font-weight:bold;
-        cursor:pointer;
-      ">☁️ ${t('treasure.save_cloud')}</button>
-      
-      <button onclick="exportGameData()" style="
+<button onclick="window.showShareScore()" style="
         padding:12px 24px;
         background:#e74c3c;
         color:white;
@@ -5211,6 +4944,7 @@ function showSupabaseSave() {
   const isConnected = nickname && email;
   
   const statusDiv = document.createElement('div');
+  statusDiv.id='cloudSaveDisplay';
   statusDiv.style.cssText = `
     position: fixed;
     top: 0;
@@ -5749,9 +5483,9 @@ const LEVELS_CONFIG = [
     icon: "🎯",
     threshold: 0,
     cloudsToPass: 75,
-    cloudSpeed: { min: 0.4, max: 1.0 },
-    cloudSpawnRate: 0.004,
-    shootingClouds: 0.25,
+    cloudSpeed: { min: 0.85, max: 1.65 },
+    cloudSpawnRate: 0.012,
+    shootingClouds: 0.40,
     rainSpeed: { min: 3, max: 4.5 },
     powerUpRate: 0.0036,
     background: { top: '#87ceeb', bottom: '#b8d8f8' },
@@ -5764,9 +5498,9 @@ const LEVELS_CONFIG = [
     icon: "🛩️",
     threshold: 76,
     cloudsToPass: 75,
-    cloudSpeed: { min: 0.4, max: 1.03 },
-    cloudSpawnRate: 0.005,
-    shootingClouds: 0.35,
+    cloudSpeed: { min: 0.9, max: 1.75 },
+    cloudSpawnRate: 0.014,
+    shootingClouds: 0.46,
     rainSpeed: { min: 3.2, max: 4.8 },
     powerUpRate: 0.0039,
     background: { top: '#7fc8e8', bottom: '#afd8f8' },
@@ -5779,8 +5513,8 @@ const LEVELS_CONFIG = [
     icon: "✈️",
     threshold: 151,
     cloudsToPass: 100,
-    cloudSpeed: { min: 0.4, max: 1.05 },
-    cloudSpawnRate: 0.006,
+    cloudSpeed: { min: 0.95, max: 1.85 },
+    cloudSpawnRate: 0.016,
     shootingClouds: 0.45,
     rainSpeed: { min: 3.5, max: 5 },
     powerUpRate: 0.0042,
@@ -5794,8 +5528,8 @@ const LEVELS_CONFIG = [
     icon: "🧭",
     threshold: 251,
     cloudsToPass: 125,
-    cloudSpeed: { min: 0.4, max: 1.08 },
-    cloudSpawnRate: 0.007,
+    cloudSpeed: { min: 1.01, max: 1.95 },
+    cloudSpawnRate: 0.018,
     shootingClouds: 0.55,
     rainSpeed: { min: 3.8, max: 5.3 },
     powerUpRate: 0.0045,
@@ -5809,8 +5543,8 @@ const LEVELS_CONFIG = [
     icon: "🦅",
     threshold: 376,
     cloudsToPass: 150,
-    cloudSpeed: { min: 0.4, max: 1.10 },
-    cloudSpawnRate: 0.008,
+    cloudSpeed: { min: 1.07, max: 2.05 },
+    cloudSpawnRate: 0.02,
     shootingClouds: 0.62,
     rainSpeed: { min: 4, max: 5.5 },
     powerUpRate: 0.0048,
@@ -5824,8 +5558,8 @@ const LEVELS_CONFIG = [
     icon: "⚡",
     threshold: 526,
     cloudsToPass: 175,
-    cloudSpeed: { min: 0.4, max: 1.13 },
-    cloudSpawnRate: 0.009,
+    cloudSpeed: { min: 1.13, max: 2.15 },
+    cloudSpawnRate: 0.022,
     shootingClouds: 0.68,
     rainSpeed: { min: 4.2, max: 5.8 },
     powerUpRate: 0.0048,
@@ -5839,8 +5573,8 @@ const LEVELS_CONFIG = [
     icon: "⭐",
     threshold: 701,
     cloudsToPass: 200,
-    cloudSpeed: { min: 0.4, max: 1.14 },
-    cloudSpawnRate: 0.010,
+    cloudSpeed: { min: 1.19, max: 2.25 },
+    cloudSpawnRate: 0.024,
     shootingClouds: 0.73,
     rainSpeed: { min: 4.5, max: 6 },
     powerUpRate: 0.0051,
@@ -5854,8 +5588,8 @@ const LEVELS_CONFIG = [
     icon: "🎲",
     threshold: 901,
     cloudsToPass: 225,
-    cloudSpeed: { min: 0.4, max: 1.16 },
-    cloudSpawnRate: 0.011,
+    cloudSpeed: { min: 1.25, max: 2.35 },
+    cloudSpawnRate: 0.026,
     shootingClouds: 0.77,
     rainSpeed: { min: 4.8, max: 6.3 },
     powerUpRate: 0.0051,
@@ -5869,8 +5603,8 @@ const LEVELS_CONFIG = [
     icon: "🎖️",
     threshold: 1126,
     cloudsToPass: 250,
-    cloudSpeed: { min: 0.4, max: 1.19 },
-    cloudSpawnRate: 0.012,
+    cloudSpeed: { min: 1.31, max: 2.45 },
+    cloudSpawnRate: 0.028,
     shootingClouds: 0.80,
     rainSpeed: { min: 5, max: 6.5 },
     powerUpRate: 0.0054,
@@ -5884,8 +5618,8 @@ const LEVELS_CONFIG = [
     icon: "🌟",
     threshold: 1376,
     cloudsToPass: 275,
-    cloudSpeed: { min: 0.4, max: 1.21 },
-    cloudSpawnRate: 0.013,
+    cloudSpeed: { min: 1.37, max: 2.55 },
+    cloudSpawnRate: 0.03,
     shootingClouds: 0.83,
     rainSpeed: { min: 5.2, max: 6.8 },
     powerUpRate: 0.0054,
@@ -5899,8 +5633,8 @@ const LEVELS_CONFIG = [
     icon: "🏆",
     threshold: 1651,
     cloudsToPass: 325,
-    cloudSpeed: { min: 0.4, max: 1.24 },
-    cloudSpawnRate: 0.014,
+    cloudSpeed: { min: 1.43, max: 2.65 },
+    cloudSpawnRate: 0.032,
     shootingClouds: 0.86,
     rainSpeed: { min: 5.5, max: 7 },
     powerUpRate: 0.0057,
@@ -5914,8 +5648,8 @@ const LEVELS_CONFIG = [
     icon: "💫",
     threshold: 1976,
     cloudsToPass: 375,
-    cloudSpeed: { min: 0.4, max: 1.26 },
-    cloudSpawnRate: 0.015,
+    cloudSpeed: { min: 1.49, max: 2.75 },
+    cloudSpawnRate: 0.034,
     shootingClouds: 0.88,
     rainSpeed: { min: 5.8, max: 7.3 },
     powerUpRate: 0.0057,
@@ -5929,8 +5663,8 @@ const LEVELS_CONFIG = [
     icon: "👑",
     threshold: 2351,
     cloudsToPass: 450,
-    cloudSpeed: { min: 0.4, max: 1.28 },
-    cloudSpawnRate: 0.016,
+    cloudSpeed: { min: 1.55, max: 2.85 },
+    cloudSpawnRate: 0.036,
     shootingClouds: 0.91,
     rainSpeed: { min: 6, max: 7.5 },
     powerUpRate: 0.0060,
@@ -5944,8 +5678,8 @@ const LEVELS_CONFIG = [
     icon: "🕊️",
     threshold: 2801,
     cloudsToPass: 999,
-    cloudSpeed: { min: 0.4, max: 1.30 },
-    cloudSpawnRate: 0.018,
+    cloudSpeed: { min: 1.61, max: 2.95 },
+    cloudSpawnRate: 0.038,
     shootingClouds: 0.95,
     rainSpeed: { min: 6.5, max: 8 },
     powerUpRate: 0.0063,
@@ -6367,17 +6101,9 @@ function completeLevel() {
             <p style="color: #2c3e50; font-size: 14px; line-height: 1.8; margin: 0 0 20px 0; font-weight: 500;">
               ${t('messages.victory')}
             </p>
-            <div style="display: flex; justify-content: space-around; gap: 15px;">
-              <div style="flex: 1; background: rgba(255,255,255,0.7); padding: 15px; border-radius: 15px;">
-                <div style="font-size: 28px; color: #667eea; font-weight: bold;">${score}</div>
-                <div style="font-size: 12px; color: #6c757d; margin-top: 5px;">🎯 Score final</div>
-              </div>
-              <div style="flex: 1; background: rgba(255,255,255,0.7); padding: 15px; border-radius: 15px;">
-                <div style="font-size: 28px; color: #667eea; font-weight: bold;">${cloudsCleared}</div>
-                <div style="font-size: 12px; color: #6c757d; margin-top: 5px;">☁️ Nuages</div>
-              </div>
-            </div>
+            <button class="end-action" onclick="window.showShareCats()">${window.getShareLabel()}</button>
           </div>
+
           <button id="victoryBtn" style="
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border: none;
@@ -6519,11 +6245,11 @@ function showBossVictoryScreen(bossType, onClose) {
   const victoryDiv = document.createElement('div');
   victoryDiv.id = 'bossVictoryScreen';
   victoryDiv.style.cssText = `
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     background: rgba(0, 0, 0, 0.85);
     display: flex;
     justify-content: center;
@@ -6536,7 +6262,7 @@ function showBossVictoryScreen(bossType, onClose) {
     <div style="
       width: 90%;
       max-width: 420px;
-      max-height: 85vh;
+      max-height: 740px;
       background: linear-gradient(to bottom, #ffffff 0%, #f8f9fa 100%);
       border-radius: 16px;
       box-shadow: 
@@ -6731,7 +6457,7 @@ function showBossVictoryScreen(bossType, onClose) {
     </div>
   `;
   
-  document.body.appendChild(victoryDiv);
+  document.getElementById('gameContainer').appendChild(victoryDiv);
   
   // Gérer le clic sur le bouton
   const continueBtn = document.getElementById('bossVictoryContinue');
@@ -7187,6 +6913,7 @@ function showInstallInstructions() {
   }
   
   const popup = document.createElement('div');
+  popup.id='installInstructions';
   popup.style.cssText = `
     position: fixed;
     top: 50%;
@@ -7218,7 +6945,7 @@ function showInstallInstructions() {
     ${instructions}
   `;
   
-  document.body.appendChild(popup);
+  document.getElementById('gameContainer').appendChild(popup);
 }
 
 // Détecter quand l'installation native est possible
@@ -7238,7 +6965,27 @@ window.addEventListener('appinstalled', () => {
 
 requestAnimationFrame(loop);
 </script>
+<script src="js/refresh-ui.js"></script>
+<script src="js/pixel-theme.js"></script>
+<script src="js/pixel-world.js"></script>
+<script src="js/boss-traps.js"></script>
+<script src="js/raven-pixel.js"></script>
+<script src="js/chicken-pixel.js"></script>
+<script src="js/reaper-pixel.js"></script>
+<script src="js/spider-pixel.js"></script>
+<script src="js/wall-pixel.js"></script>
+<script src="js/storm-pixel.js"></script>
+<script src="js/snake-rattle.js"></script>
+<script src="js/viewport-fit.js"></script>
+<script src="js/menu-controls.js"></script>
+<script src="js/share-cats.js"></script>
+<script src="js/creator-card.js"></script>
+<script src="js/boss-test-controls.js"></script>
+<script src="js/panel-polish.js"></script>
 </body>
 </html>
+
+
+
 
 

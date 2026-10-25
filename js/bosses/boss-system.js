@@ -24,7 +24,7 @@ class SpiderBoss {
     this.isDead = false;
 
     // Dimensions - Version HORREUR (corps plus fin)
-    this.bodyRadius = 18;
+    this.bodyRadius = 34;
     this.headRadius = 12;
 
     // Pattes (8 pattes longues et crépues avec 5 segments - style horreur)
@@ -82,16 +82,16 @@ class SpiderBoss {
     this.y += Math.sin(this.moveTimer / 500) * 0.5 * dtFactor;
 
     // Rebond sur les bords avec contrainte de position
-    if(this.x - this.bodyRadius < 0) {
-      this.x = this.bodyRadius;
+    if(this.x < 140) {
+      this.x = 140;
       this.velocityX *= -1;
       // Son de déplacement rapide
       if (typeof playSound === 'function') {
         playSound('spider_skitter');
       }
     }
-    if(this.x + this.bodyRadius > this.canvasWidth) {
-      this.x = this.canvasWidth - this.bodyRadius;
+    if(this.x > this.canvasWidth - 140) {
+      this.x = this.canvasWidth - 140;
       this.velocityX *= -1;
       // Son de déplacement rapide
       if (typeof playSound === 'function') {
@@ -100,8 +100,8 @@ class SpiderBoss {
     }
 
     // Garder en haut de l'écran
-    if(this.y < 50) this.y = 50;
-    if(this.y > 150) this.y = 150;
+    if(this.y < 140) this.y = 140;
+    if(this.y > 180) this.y = 180;
 
     // Animation des pattes - RAPIDE et SACCADÉE (horreur)
     this.legAnimationOffset += 0.12 * dtFactor;
@@ -500,7 +500,7 @@ class FlyingSnakeBoss {
   initSegments(x, y) {
     for(let i = 0; i < this.segmentCount; i++) {
       this.segments.push({
-        x: x - i * (this.segmentRadius * 1.5),
+        x: Math.max(20, x - i * 14),
         y: y,
         targetX: 0,
         targetY: 0
@@ -808,32 +808,32 @@ class FlyingSnakeBoss {
   drawSnaklets(ctx) {
     this.snaklets.forEach(snaklet => {
       if(!snaklet.active) return;
-
-      // Dessiner chaque segment de la petite couleuvre
-      snaklet.segments.forEach((segment, i) => {
-        ctx.fillStyle = i === 0 ? '#2a2a2a' : '#1a1a1a';
-        ctx.strokeStyle = '#0a0a0a';
-        ctx.lineWidth = 1;
-
-        const radius = i === 0 ? 5 : 4; // Tête un peu plus grosse
-
-        ctx.beginPath();
-        ctx.arc(segment.x, segment.y, radius, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.stroke();
-      });
-
-      // Petits yeux verts sur la tête
-      const head = snaklet.segments[0];
-      ctx.fillStyle = '#00ff00';
+      const head=snaklet.segments[0];
+      const neck=snaklet.segments[1];
+      const tail=snaklet.segments[2];
+      // Extend the motion trail into a tapered ribbon behind the head.
+      let dx=tail.x-head.x,dy=tail.y-head.y;
+      const distance=Math.hypot(dx,dy);
+      if(distance<1){dx=-snaklet.velocityX;dy=-snaklet.velocityY;}
+      const length=Math.hypot(dx,dy)||1;
+      const tipX=head.x+dx/length*30,tipY=head.y+dy/length*30;
+      const normalX=-dy/length,normalY=dx/length;
+      ctx.save();ctx.shadowBlur=0;
+      ctx.fillStyle='#16191f';ctx.strokeStyle='#454952';ctx.lineWidth=1;
       ctx.beginPath();
-      ctx.arc(head.x - 2, head.y - 1, 1, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(head.x + 2, head.y - 1, 1, 0, Math.PI * 2);
-      ctx.fill();
+      ctx.moveTo(head.x+normalX*4,head.y+normalY*4);
+      ctx.quadraticCurveTo(neck.x+normalX*3,neck.y+normalY*3,tipX,tipY);
+      ctx.quadraticCurveTo(neck.x-normalX*3,neck.y-normalY*3,head.x-normalX*4,head.y-normalY*4);
+      ctx.closePath();ctx.fill();ctx.stroke();
+      ctx.fillStyle='#2a2a2a';ctx.strokeStyle='#0a0a0a';
+      ctx.beginPath();ctx.arc(head.x,head.y,5,0,Math.PI*2);ctx.fill();ctx.stroke();
+      ctx.fillStyle='#00ff00';
+      ctx.beginPath();ctx.arc(head.x-2,head.y-1,1,0,Math.PI*2);ctx.fill();
+      ctx.beginPath();ctx.arc(head.x+2,head.y-1,1,0,Math.PI*2);ctx.fill();
+      ctx.restore();
     });
   }
+
 }
 
 /**
@@ -978,7 +978,7 @@ class CrazyChickenBoss {
     this.weakPoints.forEach(wp => {
       if(!wp.hit) {
         const wpX = this.x + wp.x;
-        const wpY = this.y - this.headRadius + wp.y;
+        const wpY = this.y - this.bodyRadius - this.headRadius + 5 + wp.y;
         const dist = Math.sqrt((hitX - wpX) ** 2 + (hitY - wpY) ** 2);
 
         if(dist < wp.radius + 5) {
@@ -2722,7 +2722,7 @@ class BlackRavenBoss {
     // Mouvement erratique (vol de corbeau)
     if(Math.random() < 0.02) {
       this.targetX = 100 + Math.random() * (this.canvasWidth - 200);
-      this.targetY = 60 + Math.random() * 80;
+      this.targetY = 110 + Math.random() * 90;
     }
 
     // Se déplacer vers la cible
@@ -2734,8 +2734,8 @@ class BlackRavenBoss {
     // Garder dans les limites
     if(this.x < 50) this.x = 50;
     if(this.x > this.canvasWidth - 50) this.x = this.canvasWidth - 50;
-    if(this.y < 50) this.y = 50;
-    if(this.y > 150) this.y = 150;
+    if(this.y < 110) this.y = 110;
+    if(this.y > 220) this.y = 220;
 
     // Animation des ailes (battement)
     this.wingFlapOffset += this.wingFlapSpeed * dtFactor;
@@ -3209,25 +3209,25 @@ class BossManager {
   spawnBoss(bossType, canvasWidth, canvasHeight) {
     switch(bossType) {
       case 'spider':
-        this.currentBoss = new SpiderBoss(canvasWidth / 2, 80, canvasWidth, canvasHeight);
+        this.currentBoss = new SpiderBoss(canvasWidth / 2, 140, canvasWidth, canvasHeight);
         break;
       case 'flying_snake':
-        this.currentBoss = new FlyingSnakeBoss(canvasWidth / 2, 80, canvasWidth, canvasHeight);
+        this.currentBoss = new FlyingSnakeBoss(canvasWidth / 2, 140, canvasWidth, canvasHeight);
         break;
       case 'crazy_chicken':
-        this.currentBoss = new CrazyChickenBoss(canvasWidth / 2, 80, canvasWidth, canvasHeight);
+        this.currentBoss = new CrazyChickenBoss(canvasWidth / 2, 145, canvasWidth, canvasHeight);
         break;
       case 'grim_reaper':
-        this.currentBoss = new GrimReaperBoss(canvasWidth / 2, 80, canvasWidth, canvasHeight);
+        this.currentBoss = new GrimReaperBoss(canvasWidth / 2, 155, canvasWidth, canvasHeight);
         break;
       case 'wall':
         this.currentBoss = new WallBoss(canvasWidth / 2, 80, canvasWidth, canvasHeight);
         break;
       case 'dark_cloud':
-        this.currentBoss = new DarkCloudBoss(canvasWidth / 2, 80, canvasWidth, canvasHeight);
+        this.currentBoss = new DarkCloudBoss(canvasWidth / 2, 140, canvasWidth, canvasHeight);
         break;
       case 'black_raven':
-        this.currentBoss = new BlackRavenBoss(canvasWidth / 2, 80, canvasWidth, canvasHeight);
+        this.currentBoss = new BlackRavenBoss(canvasWidth / 2, 150, canvasWidth, canvasHeight);
         break;
       default:
         console.warn('Boss type inconnu:', bossType);
@@ -3353,16 +3353,14 @@ class BossManager {
                                 (bulletY - (this.currentBoss.y - this.currentBoss.headRadius)) ** 2) < this.currentBoss.headRadius;
 
       hit = hitBody || hitHead;
-    } else if(this.bossType === 'snake') {
-      // Vérifier collision avec n'importe quel segment du serpent
-      for(let segment of this.currentBoss.segments) {
-        const radius = segment === this.currentBoss.segments[0] ? this.currentBoss.headRadius : this.currentBoss.segmentRadius;
-        const dist = Math.sqrt((bulletX - segment.x) ** 2 + (bulletY - segment.y) ** 2);
-
-        if(dist < radius) {
-          hit = true;
-          break;
-        }
+    } else if(this.bossType === 'flying_snake') {
+      // Use the projectile rectangle against the head and the tapered body.
+      for(let i=0;i<this.currentBoss.segments.length;i++){
+        const segment=this.currentBoss.segments[i];
+        const radius=i===0?this.currentBoss.headRadius:this.currentBoss.getBodyRadius(i);
+        const closestX=Math.max(bulletX,Math.min(segment.x,bulletX+bulletW));
+        const closestY=Math.max(bulletY,Math.min(segment.y,bulletY+bulletH));
+        if(Math.hypot(closestX-segment.x,closestY-segment.y)<radius){hit=true;break;}
       }
     } else if(this.bossType === 'chicken') {
       // Vérifier collision avec le corps de la poule
@@ -3413,7 +3411,7 @@ class BossManager {
     if(this.bossType === 'spider') {
       // Vérifier collision avec les lignes de toile
       return this.currentBoss.checkWebCollision(playerX, playerY, playerW, playerH);
-    } else if(this.bossType === 'snake') {
+    } else if(this.bossType === 'flying_snake') {
       // Vérifier collision avec les petites couleuvres
       return this.currentBoss.checkSnakletCollision(playerX, playerY, playerW, playerH);
     } else if(this.bossType === 'chicken') {
